@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/selectAll.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-
+    <div class="on">
+        <img src="/img/Back.png">
+        <div class="top">회원 리스트</div>
+        <form>
+            <input type="text" class="search" placeholder="검색 내용">
+            <select class="option">
+                <option value="카테고리">카테고리</option>
+                <option value="이름">이름</option>
+                <option value="아이디">아이디</option>
+            </select>
+            <button class="searchButton">검색</button>
+        </form>
+    </div>
+    <hr class="hr1">
+    <div class="title">
+        <p class="titleText">이름</p>
+        <p class="titleText">아이디</p>
+        <p class="titleText">성별</p>
+        <p class="titleText">전화번호</p>
+        <p class="titleText">담당강사</p>
+        <p class="titleText">관리</p>
+    </div>
+    <hr class="hr2">
+    <div>
+        <div class="userList" th:each="user : ${ userList }">
+            <p class="userName" th:text="${ user.name }"></p>
+            <p class="userId" th:text="${ user.id }"></p>
+            <p class="userGender" th:text="${ user.gender }"></p>
+            <p class="userPhone" th:text="${ user.phone }"></p>
+            <p class="userStaff" th:text="${ user.staff }"></p>
+            <button class="detailButton">상세</button>
+            <button class="deleteButton">삭제</button>
+        </div>
+    </div>
 </body>
 </html>

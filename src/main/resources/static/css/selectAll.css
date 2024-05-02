@@ -1,0 +1,171 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 auto;
+}
+
+
+.on {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 1530px;
+}
+
+.top {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search {
+    width: 200px;
+    height: 46px;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-left: 859px;
+    border: 1px solid #ABABAB;
+    font-weight: bold;
+    color: #ABABAB;
+    font-size: 16px;
+}
+
+.hr1 {
+    width: 1460px;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin-top: 14px;
+    border: 1px solid #D9D9D9;
+}
+
+.option {
+    width: 100px;
+    height: 50px;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    color: #ABABAB;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.searchButton {
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    margin-left: 10px;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.title {
+    width: 1460px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 25px;
+}
+
+.titleText {
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.hr2 {
+    width: 1460px;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin-top: 25px;
+    border: 1px solid #000000;
+}
+
+.userList {
+    width: 1460px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.userName {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userId {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userGender {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userPhone {
+    width: 120px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userStaff {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.detailButton {
+    width: 60px;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    border-radius: 5px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.deleteButton{
+    width: 60px;
+    height: 30px;
+    color: #656565;
+    border: 1px solid #656565;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.hr3 {
+
+}
