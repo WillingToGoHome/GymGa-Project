@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.emp.model.dao.EmpMapper">
+    <resultMap id="empResultMap" type="com.willingtogohome.gymga.emp.model.dto.EmpDTO">
+        <id property="code" column="USER_CODE"/>
+        <result property="id" column="USER_ID"/>
+        <result property="pwd" column="USER_PWD"/>
+        <result property="name" column="USER_NAME"/>
+        <result property="phone" column="USER_PHONE"/>
+        <result property="role" column="USER_ROLE"/>
+        <result property="pic" column="USER_PIC"/>
+        <result property="gender" column="USER_GENDER"/>
+        <result property="birth" column="USER_BIRTH"/>
+        <result property="address" column="USER_ADDRESS"/>
+        <result property="etc" column="USER_ETC"/>
+    </resultMap>
+
+    <resultMap id="empTotResultMap" type="com.willingtogohome.gymga.emp.model.dto.EmpTotDTO">
+        <id property="code" column="USER_CODE"/>
+        <result property="id" column="USER_ID"/>
+        <result property="pwd" column="USER_PWD"/>
+        <result property="name" column="USER_NAME"/>
+        <result property="phone" column="USER_PHONE"/>
+        <result property="role" column="USER_ROLE"/>
+        <result property="pic" column="USER_PIC"/>
+        <result property="gender" column="USER_GENDER"/>
+        <result property="birth" column="USER_BIRTH"/>
+        <result property="address" column="USER_ADDRESS"/>
+        <result property="etc" column="USER_ETC"/>
+        <association property="physicalDTO" javaType="com.willingtogohome.gymga.emp.model.dto.PhysicalDTO">
+            <id property="code" column="USER_CODE"/>
+            <result property="height" column="PHY_HEIGHT"/>
+            <result property="weight" column="PHY_WEIGHT"/>
+            <result property="bmi" column="PHY_BMI"/>
+        </association>
+        <association property="employeeDTO" javaType="com.willingtogohome.gymga.emp.model.dto.EmployeeDTO">
+            <id property="code" column="USER_CODE"/>
+            <result property="location" column="EMP_LOCATION"/>
+            <result property="year" column="EMP_YEAR"/>
+            <result property="month" column="EMP_MONTH"/>
+            <result property="totalYear" column="EMP_TOT_YEAR"/>
+            <result property="totalMonth" column="EMP_TOT_MONTH"/>
+            <result property="qual" column="EMP_QUAL"/>
+            <result property="salary" column="EMP_SALARY"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllEmp" resultMap="empResultMap">
+        SELECT
+            USER_CODE
+            , USER_ID
+            , USER_PWD
+            , USER_NAME
+            , USER_PHONE
+            , USER_ROLE
+            , USER_PIC
+            , USER_GENDER
+            , USER_BIRTH
+            , USER_ADDRESS
+            , USER_ETC
+        FROM USERDB
+        WHERE USER_ROLE = '직원'
+    </select>
+
+    <select id="findLastCode">
+        SELECT
+            MAX(USER_CODE)
+        FROM USERDB
+    </select>
+
+    <insert id="registEmpDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.EmpDTO">
+        INSERT INTO USERDB(
+            USER_CODE
+            , USER_ID
+            , USER_PWD
+            , USER_NAME
+            , USER_PHONE
+            , USER_ROLE
+            , USER_GENDER
+            , USER_BIRTH
+            , USER_ADDRESS
+            , USER_ETC
+        )
+        VALUES(
+            #{ code }
+            , #{ id }
+            , #{ pwd }
+            , #{ name }
+            , #{ phone }
+            , #{ role }
+            , #{ gender }
+            , #{ birth }
+            , #{ address }
+            , #{ etc }
+        )
+    </insert>
+
+    <insert id="registPhysicalDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.PhysicalDTO">
+        INSERT INTO PHYSICALDB(
+            USER_CODE
+            , PHY_HEIGHT
+            , PHY_WEIGHT
+            , PHY_BMI
+        )
+        VALUES(
+            #{ code }
+            , #{ height }
+            , #{ weight }
+            , #{ bmi }
+        )
+    </insert>
+
+    <insert id="registEmeployeeDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.EmployeeDTO">
+        INSERT INTO EMPLOYEEDB(
+            USER_CODE
+            , EMP_LOCATION
+            , EMP_QUAL
+            , EMP_SALARY
+            , EMP_YEAR
+            , EMP_TOT_YEAR
+            , EMP_MONTH
+            , EMP_TOT_MONTH
+        )
+        VALUES(
+            #{ code }
+            , #{ location }
+            , #{ qual }
+            , #{ salary }
+            , #{ year }
+            , #{ totalYear }
+            , #{ month }
+            , #{ totalMonth }
+        )
+    </insert>
+
+    <select id="searchBy" resultMap="empTotResultMap">
+        SELECT
+        A.USER_CODE
+        , A.USER_ID
+        , A.USER_PWD
+        , A.USER_NAME
+        , A.USER_PHONE
+        , A.USER_ROLE
+        , A.USER_PIC
+        , A.USER_GENDER
+        , A.USER_BIRTH
+        , A.USER_ADDRESS
+        , A.USER_ETC
+        , B.PHY_HEIGHT
+        , B.PHY_WEIGHT
+        , B.PHY_BMI
+        , C.EMP_LOCATION
+        , C.EMP_YEAR
+        , C.EMP_MONTH
+        , C.EMP_TOT_YEAR
+        , C.EMP_TOT_MONTH
+        , C.EMP_QUAL
+        , C.EMP_SALARY
+        FROM USERDB A
+        JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        JOIN EMPLOYEEDB C ON A.USER_CODE = C.USER_CODE
+        <if test="condition == 'name'">
+            WHERE A.USER_NAME = #{ text }
+        </if>
+    </select>
+
+    <delete id="removeEmp" parameterType="_int">
+        DELETE FROM USERDB
+        WHERE USER_CODE = #{ code }
+    </delete>
+
+    <delete id="removePhysical" parameterType="_int">
+        DELETE FROM PHYSICALDB
+        WHERE USER_CODE = #{ code }
+    </delete>
+
+    <delete id="removeEmployee" parameterType="_int">
+        DELETE FROM EMPLOYEEDB
+        WHERE USER_CODE = #{ code }
+    </delete>
+</mapper>

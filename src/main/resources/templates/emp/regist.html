@@ -5,6 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div onClick="location.href='/emp/'">0</div>
+    <h1>신규 직원 등록</h1>
+    <hr>
+    <form action="/emp/regist" method="post">
+        아이디 : <input type="text" name="id"><br>
+        비밀번호 : <input type="password" name="pwd"><br>
+        이름 : <input type="text" name="name"><br>
+        생년월일 : <input type="text" name="birth" placeholder="2000-00-00"><br>
+        성별 : <input type="text" name="gender" placeholder="'남' 또는 '여'"><br>
+        전화번호 : <input type="text" name="phone" placeholder="010-0000-0000"><br>
+        주소 : <input type="text" name="address"><br>
+        신체조건 <br>
+        키 : <input type="text" name="height"><br>
+        체중 : <input type="text" name="weight"><br>
+        bmi : <input type="text" name="bmi"><br>
+        자격 사항 <br>
+        <input type="checkbox" name="qual" value="생활체육지도자">생활체육지도자 <br>
+        <input type="checkbox" name="qual" value="건강운동관리사">건강운동관리사 <br>
+        <input type="checkbox" name="qual" value="운동사">운동사 <br>
+        경력 사항 <br>
+        근무지 : <input type="text" name="location"><br>
+        기간 : <input type="number" name="year">년 <input type="number" name="month">개월 <br>
+        전체 경력 : <input type="number" name="totalYear">년 <input type="number" name="totalMonth">개월 <br>
+        기타 : <input type="text" name="etc"> <br>
+        기본급 : <input type="number" name="salary"> <br>
+        <input type="submit">
+    </form>
 </body>
 </html>
