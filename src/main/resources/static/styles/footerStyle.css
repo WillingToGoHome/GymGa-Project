@@ -1,0 +1,60 @@
+
+
+.background {
+    width: 91.9vw;
+    height: 8.8vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.footerBar {
+    width: 91.9vw;
+    height: 6.9vh;
+    background: #4B82D8;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    align-items: center;
+
+}
+
+p {
+    font-size: 0.8vw;
+    color: #FFFFFF;
+}
+
+.About {
+    font-size: 1.2vw;
+    font-weight: bold;
+    margin-left: 2.5vw;
+}
+
+.Email, .Tel{
+    font-size: 1.2vw;
+    font-weight: bold;
+    margin-left: 3.3vw;
+}
+
+.Wt {
+    font-size: 0.8vw;
+    margin-left: 12.2vw;
+}
+
+.cut {
+    margin-left: 1.9vw;
+    margin-right: 1.9vw;
+    font-size: 0.8vw;
+}
+
+.c {
+    font-size: 1.2vw;
+    margin-left: 13.9vw;
+}
+
+.copy {
+    font-size: 1vw;
+    margin-left: 0.9vw;
+}
+
+

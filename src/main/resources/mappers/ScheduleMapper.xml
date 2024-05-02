@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.schedule.model.dao.ScheduleMapper">
+
+    <resultMap id="scheduleResultMap" type="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        <id property="scheCode" column="sche_code"/>
+        <result property="classCode" column="class_code"/>
+        <result property="scheRegDate" column="sche_reg_date"/>
+        <result property="scheRunDate" column="sche_run_date"/>
+        <result property="scheStartTime" column="sche_start_time"/>
+        <result property="scheEndTime" column="sche_end_time"/>
+        <result property="scheParticipate" column="sche_participate"/>
+        <result property="scheAtten" column="sche_atten"/>
+        <result property="empCode" column="emp_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="passCode" column="pass_code"/>
+    </resultMap>
+
+    <resultMap id="classResultMap" type="com.willingtogohome.gymga.schedule.model.dto.ClassDTO">
+        <id property="classCode" column="class_code"/>
+        <result property="className" column="class_name"/>
+    </resultMap>
+
+    <select id="findAllSchedule" resultMap="scheduleResultMap">
+        SELECT
+               sche_code,
+               class_code,
+               sche_reg_date,
+               sche_run_date,
+               sche_start_time,
+               sche_end_time,
+               sche_participate,
+               sche_atten,
+               emp_code,
+               member_code,
+               pass_code
+          FROM scheduledb
+        ORDER BY sche_code
+    </select>
+
+</mapper>

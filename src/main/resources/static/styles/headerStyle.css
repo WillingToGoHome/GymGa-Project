@@ -1,0 +1,61 @@
+
+
+.header {
+    width: 91.9vw;
+    height: 7.8vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+
+
+
+}
+
+.gym {
+    margin-left: 2.2vw;
+    font-size: 2.1vw;
+    font-weight: bold;
+    color: #4B82D8;
+}
+
+.family {
+    width: 5.4vw;
+    height: 5.4vh;
+    border-radius: 50%;
+    margin-left: 0.5vw;
+    margin-right: 31.3vw;
+
+    font-size: 2vw;
+    font-weight: bold;
+    background-color: #4B82D8;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile {
+    width: 2.1vw;
+    height: 3.7vh;
+}
+
+.welcome {
+
+    width: 15.2vw;
+    margin-left: 1.4vw;
+    margin-right: 25.7vw;
+    font-size: 1.3vw;
+    font-weight: bold;
+    color: #656565;
+}
+
+.icon {
+    width: 1.9vw;
+    height: 3.2vh;
+    margin-right: 1.6vw;
+}
+
+.icon2 {
+    width: 1.9vw;
+    height: 3.2vh;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScheduleMain</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+
+<div class="middleTap1">
+    <div class="middleTap2">
+        <div class="category">
+            <img src="/images/매출조회.png">
+            <p>매출 조회</p>
+            <img src="/images/회원조회.png">
+            <p>회원 조회</p>
+            <img src="/images/직원조회.png">
+            <p>직원 조회</p>
+            <img src="/images/이용권관리.png">
+            <p>이용권 관리</p>
+            <img src="/images/일정관리.png">
+            <p>일정 조회</p>
+            <img src="/images/시설관리.png">
+            <p>시설 관리</p>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>일정 번호</th>
+                    <th>강의 코드</th>
+                    <th>등록 일자</th>
+                    <th>강의 일자</th>
+                    <th>시작 시간</th>
+                    <th>종료 시간</th>
+                    <th>인원</th>
+                    <th>강사 번호</th>
+                    <th>회원 번호</th>
+                    <th>이용권 번호</th>
+                </tr>
+                <tr th:each="schedule : ${scheduleList}">
+                    <td th:text="${sch}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+    <div th:replace="common/footer"></div>
+</body>
+</html>
