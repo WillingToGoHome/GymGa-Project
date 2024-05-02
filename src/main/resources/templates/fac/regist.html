@@ -5,6 +5,54 @@
     <title>Title</title>
 </head>
 <body>
+<h3>회원 사물함 등록</h3>
+<form action="/fac/regist" method="post">
+    <label>회원 코드: </label><input type="number" name="userCode"><br>
+    <label>사물함 번호: </label>
+    <select name="facCode" id="facCode"></select><br>
+    <label>사용 가능 상태: </label>
+    <select name="facStatus" id="facStatus">
+        <option value="Y">사용 가능</option>
+        <option value="N">사용 중</option>
+        <option value="D">만료</option>
+    </select><br>
+    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
+    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
+    <input type="submit" value="전송">
+</form>
 
+<script>
+    fetch("/fac/fac")
+        .then(res=>res.json())
+        .then(data=> {
+            const $userCode=document.getElementById("userCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].userCode;
+
+
+
+                $userCode.appendChild($option);
+            }
+        })
+</script>
+
+<script>
+    fetch("/fac/fac")
+        .then(res=>res.json())
+        .then(data=> {
+            const $facCode=document.getElementById("facCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].facCode;
+
+
+
+                $facCode.appendChild($option);
+            }
+        })
+</script>
 </body>
 </html>

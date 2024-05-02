@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+<table align="center" border="1">
+    <tr>
+        <th>사물함 번호</th>
+        <th>사물함 상태</th>
+        <th>시작 기간</th>
+        <th>회원 번호</th>
+        <th>만료 기간</th>
+    </tr>
+    <tr th:each="facility: ${facList}">
+        <td th:text="${facility.facCode}"></td>
+        <td th:text="${facility.facStatus}"></td>
+        <td th:text="${facility.facStart}"></td>
+        <td th:text="${facility.userCode}"></td>
+        <td th:text="${facility.facEnd}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

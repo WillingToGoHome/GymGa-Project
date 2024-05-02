@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.fac.model.dao.FacMapper">
+    <resultMap id="facResultMap" type="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        <id property="facCode" column="fac_code"/>
+        <result property="facStatus" column="fac_status"/>
+        <result property="facStart" column="fac_start"/>
+        <result property="userCode" column="user_code"/>
+        <result property="facEnd" column="fac_end"/>
+    </resultMap>
+    <select id="findAllFac" resultMap="facResultMap">
+        SELECT
+                FAC_CODE
+                , FAC_STATUS
+                , FAC_START
+                , USER_CODE
+                , FAC_END
+            FROM FACILITYDB
+            ORDER BY FAC_CODE
+    </select>
+
+    <resultMap id="facAndUserResultMap" type="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">
+        <id property="facCode" column="fac_code"/>
+        <result property="facStatus" column="fac_status"/>
+        <result property="facStart" column="fac_start"/>
+        <result property="facEnd" column="fac_end"/>
+        <association property="user" javaType="com.willingtogohome.gymga.fac.model.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPwd" column="user_pwd"/>
+            <result property="userName" column="user_name"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRole" column="user_role"/>
+            <result property="userPic" column="user_pic"/>
+            <result property="userGender" column="user_gender"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userEtc" column="user_etc"/>
+            <result property="userStaff" column="user_staff"/>
+        </association>
+    </resultMap>
+
+    <select id="findAllUser" resultMap="facAndUserResultMap">
+        SELECT
+        USER_CODE
+        , USER_ID
+        , USER_PWD
+        , USER_NAME
+        , USER_PHONE
+        , USER-ROLE
+        , USER_PIC
+        , USER_GENDER
+        , USER_BIRTH
+        , USER_ADDRESS
+        , USER_ETC
+        , USER_STAFF
+        FROM USERDB
+    </select>
+
+    <insert id=" registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">
+        INSERT INTO FACILITYDB
+
+        (
+                FAC_CODE
+                , FAC_STATUS
+                , FAC_START
+                , USER_CODE
+                , FAC_END
+        )
+        VALUES
+        (
+        #{facCode}
+        , #{facStatus}
+        , #{facStart}
+        , #{userCode}
+        , #{facEnd}
+        )
+
+    </insert>
+</mapper>
