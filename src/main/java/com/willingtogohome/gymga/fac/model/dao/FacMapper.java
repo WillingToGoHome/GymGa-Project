@@ -1,6 +1,5 @@
 package com.willingtogohome.gymga.fac.model.dao;
 
-import com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO;
 import com.willingtogohome.gymga.fac.model.dto.FacDTO;
 import com.willingtogohome.gymga.fac.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +12,11 @@ public interface FacMapper {
 
     List<UserDTO> findAllUser();
 
+
     void registNewFac(FacDTO newFac);
+
+    void deleteFac(FacDTO deleteFac);
+
+    void updateRenewFac(FacDTO renewFac);
 }
+

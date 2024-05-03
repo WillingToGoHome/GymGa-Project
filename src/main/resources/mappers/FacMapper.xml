@@ -10,6 +10,21 @@
         <result property="userCode" column="user_code"/>
         <result property="facEnd" column="fac_end"/>
     </resultMap>
+
+    <resultMap id="userResultMap" type="com.willingtogohome.gymga.fac.model.dto.UserDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userPic" column="user_pic"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEtc" column="user_etc"/>
+        <result property="userStaff" column="user_staff"/>
+    </resultMap>
     <select id="findAllFac" resultMap="facResultMap">
         SELECT
                 FAC_CODE
@@ -21,62 +36,92 @@
             ORDER BY FAC_CODE
     </select>
 
-    <resultMap id="facAndUserResultMap" type="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">
-        <id property="facCode" column="fac_code"/>
-        <result property="facStatus" column="fac_status"/>
-        <result property="facStart" column="fac_start"/>
-        <result property="facEnd" column="fac_end"/>
-        <association property="user" javaType="com.willingtogohome.gymga.fac.model.dto.UserDTO">
-            <id property="userCode" column="user_code"/>
-            <result property="userId" column="user_id"/>
-            <result property="userPwd" column="user_pwd"/>
-            <result property="userName" column="user_name"/>
-            <result property="userPhone" column="user_phone"/>
-            <result property="userRole" column="user_role"/>
-            <result property="userPic" column="user_pic"/>
-            <result property="userGender" column="user_gender"/>
-            <result property="userBirth" column="user_birth"/>
-            <result property="userAddress" column="user_address"/>
-            <result property="userEtc" column="user_etc"/>
-            <result property="userStaff" column="user_staff"/>
-        </association>
-    </resultMap>
-
-    <select id="findAllUser" resultMap="facAndUserResultMap">
+    <select id="findAllUser" resultMap="userResultMap">
         SELECT
-        USER_CODE
-        , USER_ID
-        , USER_PWD
-        , USER_NAME
-        , USER_PHONE
-        , USER-ROLE
-        , USER_PIC
-        , USER_GENDER
-        , USER_BIRTH
-        , USER_ADDRESS
-        , USER_ETC
-        , USER_STAFF
-        FROM USERDB
+                USER_CODE
+            FROM USERDB
     </select>
 
-    <insert id=" registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">
-        INSERT INTO FACILITYDB
 
-        (
-                FAC_CODE
-                , FAC_STATUS
-                , FAC_START
-                , USER_CODE
-                , FAC_END
-        )
-        VALUES
-        (
-        #{facCode}
-        , #{facStatus}
-        , #{facStart}
-        , #{userCode}
-        , #{facEnd}
-        )
+<!--    <resultMap id="facAndUserResultMap" type="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">-->
+<!--        <id property="facCode" column="fac_code"/>-->
+<!--        <result property="facStatus" column="fac_status"/>-->
+<!--        <result property="facStart" column="fac_start"/>-->
+<!--        <result property="facEnd" column="fac_end"/>-->
+<!--        <association property="user" javaType="com.willingtogohome.gymga.fac.model.dto.UserDTO">-->
+<!--            <id property="userCode" column="user_code"/>-->
+<!--            <result property="userId" column="user_id"/>-->
+<!--            <result property="userPwd" column="user_pwd"/>-->
+<!--            <result property="userName" column="user_name"/>-->
+<!--            <result property="userPhone" column="user_phone"/>-->
+<!--            <result property="userRole" column="user_role"/>-->
+<!--            <result property="userPic" column="user_pic"/>-->
+<!--            <result property="userGender" column="user_gender"/>-->
+<!--            <result property="userBirth" column="user_birth"/>-->
+<!--            <result property="userAddress" column="user_address"/>-->
+<!--            <result property="userEtc" column="user_etc"/>-->
+<!--            <result property="userStaff" column="user_staff"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
 
-    </insert>
+    <update id="registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        UPDATE
+            FACILITYDB
+
+        SET
+        FAC_STATUS=#{facStatus}
+        , FAC_START=#{facStart}
+        , USER_CODE=#{userCode}
+        , FAC_END=#{facEnd}
+        WHERE FAC_CODE=#{facCode}
+
+    </update>
+
+<!--    <update id="updateReNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->
+<!--        MERGE INTO FACILITYDB AS target-->
+<!--        USING (VALUES (-->
+<!--        #{facCode},-->
+<!--        #{facStatus},-->
+<!--        #{facStart},-->
+<!--        #{facEnd},-->
+<!--        #{userCode}-->
+<!--        )) AS source (FAC_CODE, FAC_STATUS, FAC_START, FAC_END, USER_CODE)-->
+<!--        ON target.FAC_CODE = source.FAC_CODE-->
+<!--        WHEN MATCHED THEN-->
+<!--        UPDATE SET-->
+<!--        FAC_STATUS = source.FAC_STATUS,-->
+<!--        FAC_START = source.FAC_START,-->
+<!--        FAC_END = source.FAC_END,-->
+<!--        USER_CODE = source.USER_CODE-->
+<!--        WHEN NOT MATCHED THEN-->
+<!--        INSERT (FAC_CODE, FAC_STATUS, FAC_START, FAC_END, USER_CODE)-->
+<!--        VALUES (source.FAC_CODE, source.FAC_STATUS, source.FAC_START, source.FAC_END, source.USER_CODE);-->
+<!--    </update>-->
+
+    <delete id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        DELETE
+        FROM FACILITYDB
+        WHERE FAC_CODE=#{facCode}
+    </delete>
+
+<!--    <update id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->
+<!--        UPDATE-->
+<!--        FACILITYDB-->
+
+<!--        SET-->
+<!--        FAC_STATUS=#{facStatus}-->
+<!--        , FAC_START=#{facStart}-->
+<!--        , FAC_END=#{facEnd}-->
+<!--        , USER_CODE=#{userCode}-->
+<!--        WHERE FAC_CODE=#{facCode}-->
+<!--    </update>-->
+
+    <delete id="deleteFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        DELETE
+            FROM FACILITYDB
+                    WHERE USER_CODE=#{userCode}
+
+
+
+    </delete>
 </mapper>

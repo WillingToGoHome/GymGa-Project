@@ -1,15 +1,11 @@
 package com.willingtogohome.gymga.fac.controller;
 
-import com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO;
 import com.willingtogohome.gymga.fac.model.dto.FacDTO;
 import com.willingtogohome.gymga.fac.model.dto.UserDTO;
 import com.willingtogohome.gymga.fac.model.service.FacService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -53,12 +49,40 @@ public class FacController {
 
     @PostMapping("/regist")
     public String registFac(FacDTO newFac, RedirectAttributes rttr) {
+
+
         facService.registNewFac(newFac);
 
         rttr.addFlashAttribute("successMessage","사물함 등록 성공");
 
         return "redirect:/fac/select";
     }
+
+    @GetMapping("/update")
+    public void updatePage() {}
+
+    @PostMapping("/update")
+    public String updateFac(FacDTO renewFac, RedirectAttributes rttr) {
+        facService.updateRenewFac(renewFac);
+
+        rttr.addFlashAttribute("successMessage", "메뉴 수정에 성공!");
+
+        return "redirect:/fac/select";
+    }
+
+    @GetMapping("/delete")
+    public void deletePage() {}
+
+    @PostMapping("/delete")
+    public String deleteFac(FacDTO deleteFac, RedirectAttributes rttr) {
+        facService.deleteFac(deleteFac);
+
+        rttr.addFlashAttribute("successMessage", "메뉴 삭제 성공");
+
+        return "redirect:/fac/select";
+    }
+
+
 
 
 }
