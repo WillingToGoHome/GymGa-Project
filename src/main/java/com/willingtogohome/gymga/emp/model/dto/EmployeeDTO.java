@@ -4,16 +4,16 @@ public class EmployeeDTO {
 
     private int code;
     private String location;
-    private int year;
-    private int month;
-    private int totalYear;
-    private int totalMonth;
+    private String year;
+    private String month;
+    private String totalYear;
+    private String totalMonth;
     private String qual;
-    private int salary;
+    private String salary;
 
     public EmployeeDTO() {}
 
-    public EmployeeDTO(int code, String location, int year, int month, int totalYear, int totalMonth, String qual, int salary) {
+    public EmployeeDTO(int code, String location, String year, String month, String totalYear, String totalMonth, String qual, String salary) {
         this.code = code;
         this.location = location;
         this.year = year;
@@ -40,35 +40,35 @@ public class EmployeeDTO {
         this.location = location;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public int getTotalYear() {
+    public String getTotalYear() {
         return totalYear;
     }
 
-    public void setTotalYear(int totalYear) {
+    public void setTotalYear(String totalYear) {
         this.totalYear = totalYear;
     }
 
-    public int getTotalMonth() {
+    public String getTotalMonth() {
         return totalMonth;
     }
 
-    public void setTotalMonth(int totalMonth) {
+    public void setTotalMonth(String totalMonth) {
         this.totalMonth = totalMonth;
     }
 
@@ -80,11 +80,11 @@ public class EmployeeDTO {
         this.qual = qual;
     }
 
-    public int getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 

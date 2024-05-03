@@ -57,4 +57,12 @@ public class EmpService {
         empMapper.removeEmployee(code);
         empMapper.removeEmp(code);
     }
+
+    @Transactional
+    public void updateEmp(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO) {
+
+        empMapper.updateEmp(empDTO);
+        empMapper.updatePhysical(physicalDTO);
+        empMapper.updateEmployee(employeeDTO);
+    }
 }

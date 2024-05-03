@@ -36,6 +36,7 @@
         <p th:text="|자격 사항 : *{ employeeDTO.qual }|"></p>
         <p th:text="|급여 : *{ employeeDTO.salary }|"></p>
     </div>
+    <button onClick="location.href='/emp/update'">수정</button>
     <form action="/emp/remove" method="post">
         <input type="submit" value="삭제">
     </form>

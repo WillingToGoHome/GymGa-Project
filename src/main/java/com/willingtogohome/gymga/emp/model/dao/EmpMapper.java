@@ -26,4 +26,10 @@ public interface EmpMapper {
     void removePhysical(int code);
 
     void removeEmployee(int code);
+
+    void updateEmp(EmpDTO empDTO);
+
+    void updatePhysical(PhysicalDTO physicalDTO);
+
+    void updateEmployee(EmployeeDTO employeeDTO);
 }

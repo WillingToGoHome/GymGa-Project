@@ -12,13 +12,13 @@ public class EmpDTO {
     private String role;
     private String pic;
     private String gender;
-    private Date birth;
+    private String birth;
     private String address;
     private String etc;
 
     public EmpDTO() {}
 
-    public EmpDTO(int code, String id, String pwd, String name, String phone, String role, String pic, String gender, Date birth, String address, String etc) {
+    public EmpDTO(int code, String id, String pwd, String name, String phone, String role, String pic, String gender, String birth, String address, String etc) {
         this.code = code;
         this.id = id;
         this.pwd = pwd;
@@ -96,11 +96,11 @@ public class EmpDTO {
         this.gender = gender;
     }
 
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

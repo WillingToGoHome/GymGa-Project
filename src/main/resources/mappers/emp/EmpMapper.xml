@@ -78,6 +78,7 @@
             , USER_NAME
             , USER_PHONE
             , USER_ROLE
+<!--            , USER_PIC-->
             , USER_GENDER
             , USER_BIRTH
             , USER_ADDRESS
@@ -90,6 +91,7 @@
             , #{ name }
             , #{ phone }
             , #{ role }
+<!--            , #{ pic }-->
             , #{ gender }
             , #{ birth }
             , #{ address }
@@ -164,7 +166,86 @@
         <if test="condition == 'name'">
             WHERE A.USER_NAME = #{ text }
         </if>
+        <if test="condition == 'code'">
+            WHERE A.USER_CODE = #{ text }
+        </if>
     </select>
+
+    <update id="updateEmp">
+        UPDATE USERDB
+        <set>
+            USER_CODE = #{ code }
+            <if test="id != ''">
+                , USER_ID = #{ id }
+            </if>
+            <if test="pwd != ''">
+                , USER_PWD = #{ pwd }
+            </if>
+            <if test="name != ''">
+                , USER_NAME = #{ name }
+            </if>
+            <if test="phone != ''">
+                , USER_PHONE = #{ phone }
+            </if>
+            <if test="birth != ''">
+                , USER_BIRTH = #{ birth }
+            </if>
+            <if test="address != null">
+                , USER_ADDRESS = #{ address }
+            </if>
+            <if test="etc != ''">
+                , USER_ETC = #{ etc }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ code }
+    </update>
+
+    <update id="updatePhysical">
+        UPDATE PHYSICALDB
+        <set>
+            USER_CODE = #{ code }
+            <if test="height != ''">
+                , PHY_HEIGHT = #{ height }
+            </if>
+            <if test="weight != ''">
+                , PHY_WEIGHT = #{ weight }
+            </if>
+            <if test="bmi != ''">
+                , PHY_BMI = #{ bmi }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ code }
+    </update>
+
+    <update id="updateEmployee">
+        UPDATE EMPLOYEEDB
+        <set>
+            USER_CODE = #{ code }
+            <if test="location != ''">
+                , EMP_LOCATION = #{ location }
+            </if>
+            <if test="month != ''">
+                , EMP_MONTH = #{ month }
+            </if>
+            <if test="totalMonth != ''">
+                , EMP_TOT_MONTH = #{ totalMonth }
+            </if>
+            <if test="year != ''">
+                , EMP_YEAR = #{ year }
+            </if>
+            <if test="totalYear != ''">
+                , EMP_TOT_YEAR = #{ totalYear }
+            </if>
+            <if test="qual != null">
+                , EMP_QUAL = #{ qual }
+            </if>
+            <if test="salary != ''">
+                , EMP_SALARY = #{ salary }
+            </if>
+
+        </set>
+        WHERE USER_CODE = #{ code }
+    </update>
 
     <delete id="removeEmp" parameterType="_int">
         DELETE FROM USERDB
