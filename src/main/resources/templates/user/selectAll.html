@@ -34,12 +34,51 @@
         <div class="userList" th:each="user : ${ userList }">
             <p class="userName" th:text="${ user.name }"></p>
             <p class="userId" th:text="${ user.id }"></p>
-            <p class="userGender" th:text="${ user.gender }"></p>
+            <p th:if="${ user.gender == '남'}" class="userGender" th:text="${ user.gender }"></p>
+            <p th:if="${ user.gender == '여'}" class="userGender2" th:text="${ user.gender }"></p>
             <p class="userPhone" th:text="${ user.phone }"></p>
             <p class="userStaff" th:text="${ user.staff }"></p>
-            <button class="detailButton">상세</button>
-            <button class="deleteButton">삭제</button>
+            <div class="buttonBox">
+                <button class="detailButton">상세</button>
+                <button id="deleteButton" class="deleteButton">삭제</button>
+                <div id="modalContainer">
+                    <div id="modalContent">
+                        <p class="modalText"><span th:text="${ user.name }"></span>님이 선택되었습니다
+                        <br>정말 삭제하시겠습니까?</p>
+                        <button id="closeModal" class="cancelButton">취소</button>
+                        <button id="" class="checkButton">확인</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <script src="modalscript.js"></script>
+        <script>
+            const btn = document.getElementById("deleteButton");
+            const modal = document.getElementById("modalContainer");
+            const closeModal = document.getElementById("closeModal");
+
+            btn.onclick = function () {
+                modal.style.display = "block";
+            };
+
+            closeModal.onclick = function () {
+                modal.style.display = "none";
+            };
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var userListSize = $(".userList").length;
+                for (var i = 0; i < userListSize -1; i++) {
+                    var userList = $(".userList:eq(" + i + ")");
+                    userList.after("<div>");
+                    var hrDiv = userList.next();
+                    hrDiv.append("<div th:each='user : ${userList}'><hr class='hr3'></div>");
+                }
+            });
+        </script>
     </div>
 </body>
 </html>
