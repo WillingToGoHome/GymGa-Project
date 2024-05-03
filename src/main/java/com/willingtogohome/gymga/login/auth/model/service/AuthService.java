@@ -19,10 +19,10 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-
+        System.out.println(userId);
         LoginDTO login = userService.findByUserId(userId);
 
-        if (Objects.isNull(login)){
+        if (Objects.isNull(login)) {
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
         }
         return new AuthDetails(login);

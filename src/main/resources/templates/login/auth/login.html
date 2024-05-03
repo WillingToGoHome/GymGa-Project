@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
     <h1>Log In</h1>
-    <form th:action="@{/admin/admin}" th:method="post">
+    <form action="/auth/login" method="post">
         UserID : <input type="text" name="userId"><br>
         UserPassword : <input type="password" name="userPwd"><br>
         <button>Sign In</button>

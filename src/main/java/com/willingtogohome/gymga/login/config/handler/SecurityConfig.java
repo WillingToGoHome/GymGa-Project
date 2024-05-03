@@ -1,4 +1,4 @@
-package com.willingtogohome.gymga.login.config;
+package com.willingtogohome.gymga.login.config.handler;
 
 import com.willingtogohome.gymga.login.common.UserRole;
 import com.willingtogohome.gymga.login.config.handler.AuthFailHandler;
@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Autowired
     private AuthFailHandler authFailHandler;
 
-    /* 비밀번호 암호화에 사용할 객체 BCryptPasswordEncoder bean 등록 */
+    /* 비밀번호 암호화 */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,8 +38,8 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/auth/login", "/admin/regist", "/auth/fail", "/", "/main").permitAll();
-            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/login", "/admin/regist", "/auth/fail", "/", "/main").permitAll();
+            auth.requestMatchers("/admin/*").permitAll()/*hasAnyAuthority(UserRole.ADMIN.getRole())*/;
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().permitAll();
 

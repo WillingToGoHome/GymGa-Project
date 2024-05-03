@@ -3,29 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script>
-        const message =`[[${ message }]]`;
-        if (message) {
-            alert(message);
-        }
-    </script>
+    <!-- 부트스트랩 CSS 파일 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>회원가입</h1>
-    <form th:action="@{/admin/regist}" th:method="post">
-        ID : <input type="text" name="userId"><br>
-        PWD : <input type="password" name="userPwd"><br>
-        이름 : <input type="text" name="userName"><br>
-        전화번호 : <input type="number" name="userPhone"><br>
-        생년월일 : <input type="date" name="userBirth"><br>
-        주소 : <input type="text" name="userAddress"><br>
-        사업자등록증 : <input type="file" name="userEtc"><br>
-        권한 :
-        <select name="userRole">
-            <option value="직원">직원</option>
-            <option value="대표">대표</option>
-        </select><br>
-        <button>회원가입</button>
-    </form>
+<!--    <h1>회원가입</h1>-->
+<!--    <form  id="registForm" method="post" action="/admin/regist">-->
+<!--        ID : <input type="text" name="userId" required><br>-->
+<!--        PWD : <input type="password" name="userPwd" required><br>-->
+<!--        이름 : <input type="text" name="userName" required><br>-->
+<!--        전화번호 : <input type="number" name="userPhone" required><br>-->
+<!--        생년월일 : <input type="date" name="userBirth" required><br>-->
+<!--        주소 : <input type="text" name="userAddress" required><br>-->
+<!--        사업자등록증 : <input type="file" name="userEtc"><br>-->
+<!--        권한 :-->
+<!--        <select name="userRole" required>-->
+<!--            <option value="직원">직원</option>-->
+<!--            <option value="대표">대표</option>-->
+<!--        </select><br>-->
+<!--        <button type="submit" id="registerButton">회원가입</button>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; 모달 창 &ndash;&gt;-->
+<!--    <div class="modal" id="registerModal" tabindex="-1" role="dialog">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">회원가입 결과</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p id="modalMessage">회원가입이 완료되었습니다.</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
+<!--                    <a href="/login" class="btn btn-primary">로그인 화면으로 돌아가기</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; jQuery 및 부트스트랩 JS 파일 &ndash;&gt;-->
+<!--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+
+<!--    <script>-->
+<!--        function validateForm() {-->
+<!--            var form = document.getElementById("registrationForm");-->
+<!--            if (!form.checkValidity()) {-->
+<!--                // 폼이 유효하지 않은 경우 모달 창 표시-->
+<!--                $('#modalMessage').text("입력하지 않은 항목이 있습니다.")-->
+<!--                $('#modalMessage').text("확인해주세요.")-->
+<!--                $('#registerModal').modal('show');-->
+<!--                return false;-->
+<!--            }-->
+<!--            return true;-->
+<!--        }-->
+<!--        // 회원가입 버튼 클릭 시 모달 창 표시-->
+<!--        document.getElementById("registerButton").addEventListener("click", function() {-->
+<!--            $('#registerModal').modal('show');-->
+<!--        });-->
+<!--    </script>-->
 </body>
 </html>

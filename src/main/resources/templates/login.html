@@ -1,60 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Welcome to GymGa</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div sec:authorize="hasAnyAuthority('ADMIN')">
-        <h1>=== 관리자 페이지 ===</h1>
-    </div>
-    <div sec:authorize="hasAnyAuthority('USER')">
-        <h1>=== 회원 페이지 ===</h1>
-    </div>
-    <div class="wrapbox1">
-        <div class="leftbody1">
-            <p class="logo1">Gym</p>
-            <p class="logo2">家</p>
-        </div>
-        <div class="leftbody2">
-<!--            <img src="/images/loginImage1.png" alt="로그인이미지" sizes="10px">-->
-        </div>
-        <div class="leftbody3">
-            <p class="des1">Welcome!</p>
-            <p class="des2">Helps you operate your gym easily and conveniently</p>
-            <p class="des3">by recommending the optimal marketing solution.</p>
-        </div>
+    <div>
+        <h1>Log In</h1>
+        <button type="button">관리자</button>
+        <button type="button">직원</button>
+        <form action="auth/login" method="post">
+            <input type="text" value="UserId" name="UserId"><br>
+            <input type="password" value="UserPwd" name="UserPwd"><br>
+            <button>Sign in</button>
+        </form>
+        <button data-toggle="modal" data-target="#registerModal">회원가입</button>
+        <a href="auth/find">아이디/비밀번호 찾기</a>
     </div>
 
-    <div class="wrapbox2">
+    <hr>
+    <a href="admin/page">관리자 페이지</a>
+    <br>
+    <a href="user/page">사용자 페이지</a>
 
-        <div class="loginBox">
-            <h1>LogIn</h1><br>
-            <button type="button" >관리자</button>
-            <button type="button">직원</button><br>
-            <form th:action="@{/admin/admin}" th:method="post">
-                ID : <input type="text" name="userId"><br>
-                PASSWORD : <input type="password" name="userPwd"><br>
-                <button>Sign In</button>
-            </form>
-                <a href="auth/find">아이디/비밀번호 찾기</a>
-                <p class="des4">회원이 아니신가요?</p>
-                <a href="admin/regist">계정만들기</a>
-                <hr>
-                <a href="admin/page">대표자 페이지</a>
-                <br>
-                <a href="user/page">직원 페이지</a>
+    <!-- 모달 창 -->
+    <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">약관동의(Gym家 홈페이지)</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- 이용약관 폼 -->
+                    <form method="post" action="/admin/regist">
+                        전체 약관 동의 <br>
+                        (필수) 이용 약관 <br>
+                        (필수) 개인정보 수집 이용 동의 <br>
+                        (선택) 맞춤 마케팅을 위한 개인정보 수집 이용 동의 <br>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            닫기
+                        </button>
+                        <button type="button" class="btn btn-primary" data-target="#registerModal2" data-toggle="modal" data-dismiss="modal">다음</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="connect">
-            <form>
-            <p class="des6">Connect to</p>
-            <p class="des7">02) 000 - 0000</p><br>
-            <p class="des8">gymga@gmail.com</p>
-            </form>
-        </div>
-
     </div>
+    <!-- 모달 창2 -->
+    <div class="modal" id="registerModal2" tabindex="-1" role="dialog" aria-labelledby="registerModal2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModal2Label">회원정보</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- 회원가입 폼 -->
+                    <form id="registForm" method="post" action="/admin/regist">
+                        ID : <input type="text" name="userId" required><br>
+                        Password : <input type="password" name="userPwd" required><br>
+                        <!--Password 확인 : <input type="password" name="userPwd" required><br>-->
+                        이름 : <input type="text" name="userName" required><br>
+                        전화번호 : <input type="number" name="userPhone" required><br>
+                        생년월일 : <input type="date" name="userBirth" required><br>
+                        주소 : <input type="text" name="userAddress" required><br>
+                        사업자등록증 : <input type="file" name="userEtc"><br>
+                        권한 :
+                        <select name="userRole" required>
+                            <option value="대표">대표</option>
+                            <option value="직원">직원</option>
+                        </select><br>
+                        <button type="button" class="btn btn-secondary" data-target="#registerModal" data-toggle="modal" data-dismiss="modal">
+                            이전으로
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-target="#registerModal3" data-toggle="modal">회원가입</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 모달 창3 -->
+    <div class="modal" id="registerModal3" tabindex="-1" role="dialog" aria-labelledby="registerModal3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModal3Label">회원 가입 신청이 완료되었습니다.</h5>
+                </div>
+                <div class="modal-body">
+                   <p id="modalMessage">
+                        Gym家에서 검토 / 승인 후 <br>
+                        로그인 가능합니다.
+                   </p>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery 및 부트스트랩 JS 파일 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

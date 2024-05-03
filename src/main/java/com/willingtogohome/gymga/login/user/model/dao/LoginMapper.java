@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface LoginMapper {
 
     int regist(RegistDTO registDTO);
+
     LoginDTO findByUserId(String userId);
 }

@@ -28,7 +28,7 @@ public class AuthDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        loginDTO.getRole().forEach(role -> authorities.add(() -> role));
+        loginDTO.getRole().forEach(role ->authorities.add(() -> role));
         return authorities;
     }
 
