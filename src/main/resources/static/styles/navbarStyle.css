@@ -1,0 +1,47 @@
+.category-container {
+    width: 174px;
+    max-width: 100%;
+    aspect-ratio: 23.26/100;
+    background-color: pink;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    white-space: nowrap;
+}
+
+
+.category {
+    background-color: #FFFFFF;
+    width: 7.5vw;
+    height: 62.7vh;
+    margin-left: 1.3vw;
+    margin-top: 2.2vh;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.category img {
+    width: 3.1vw;
+    height: 5.6vh;
+    padding: 0;
+    margin: 0;
+}
+
+.category:first-child {
+    padding-top: 1.5vh;
+}
+
+.category:last-child {
+    padding-bottom: 1.5vh;
+}
+
+.category p {
+    color: #656565;
+    font-size: 1.3vw;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

@@ -1,61 +1,70 @@
-
-
 .header {
-    width: 91.9vw;
-    height: 7.8vh;
+    width: 1506px;
+    max-width: 100%;
+    aspect-ratio: 100/3.85;
     background-color: white;
     display: flex;
     align-items: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
-
-
+.empty0 {
+    width: 2.32vw;
 }
 
 .gym {
-    margin-left: 2.2vw;
-    font-size: 2.1vw;
+    font-size: 2vw;
     font-weight: bold;
     color: #4B82D8;
 }
 
-.family {
-    width: 5.4vw;
-    height: 5.4vh;
-    border-radius: 50%;
-    margin-left: 0.5vw;
-    margin-right: 31.3vw;
+.empty1 {
+    width: 0.66vw;
+}
 
-    font-size: 2vw;
-    font-weight: bold;
+.family {
+    width: 3.18vw;
+    aspect-ratio: 100/3.85;
+    border-radius: 50%;
     background-color: #4B82D8;
-    color: #FFFFFF;
+    font-size: 2.01vw;
+    font-weight: bold;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.empty2 {
+    width: 30.87vw;
 }
 
 .profile {
-    width: 2.1vw;
-    height: 3.7vh;
+    width: 2.78vw;
+    aspect-ratio: 1/1;
+}
+
+.empty3 {
+    width: 1.32vw;
 }
 
 .welcome {
-
-    width: 15.2vw;
-    margin-left: 1.4vw;
-    margin-right: 25.7vw;
-    font-size: 1.3vw;
+    width: 22.7vw;
+    font-size: 1.27vw;
     font-weight: bold;
     color: #656565;
 }
 
-.icon {
-    width: 1.9vw;
-    height: 3.2vh;
-    margin-right: 1.6vw;
+.empty4 {
+    width: 24.76vw;
 }
 
-.icon2 {
-    width: 1.9vw;
-    height: 3.2vh;
+.icon {
+    width: 1.92vw;
+}
+
+.empty5 {
+    width: 1.59vw;
 }
