@@ -8,8 +8,8 @@
     <title>saleMain</title>
 </head>
 <body style="height: 100%; margin: 0">
-<div id="container" style="height: 500px; width: 500px; margin: 0 auto;"></div>
-<div id="container2" style="height: 500px; width: 500px; margin: 0 auto;"></div>
+<div id="pie" style="height: 270px; width: 490px;"></div>
+<div id="bar" style="height: 300px; width: 490px;"></div>
 
 
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
@@ -34,7 +34,7 @@
     <div style="background-color: palegreen">
 
         <script type="text/javascript">
-            var dom = document.getElementById('container2');
+            var dom = document.getElementById('pie');
             var myChart = echarts.init(dom, null, {
                 renderer: 'canvas',
                 useDirtyRect: false
@@ -42,45 +42,60 @@
             var app = {};
 
             var option;
+            var PT=25; <!-- DB 연결해서 값 입력 해야함 -->
+            var GX=65;
+            var 일반=42;
+            var SUM = (PT+GX+일반);
+            var result = PT/SUM*100;
+            var result2 = GX/SUM*100;
+            var result3 = 일반/SUM*100;
+
 
             option = {
                 tooltip: {
                     trigger: 'item'
                 },
                 legend: {
-                    top: '5%',
-                    left: 'center'
+                    top: '92%',
+                    left: 'center',
                 },
                 series: [
                     {
-                        name: 'Access From',
+                        name: '이용권',
                         type: 'pie',
                         radius: ['40%', '70%'],
                         avoidLabelOverlap: false,
+                        seriesLayoutBy: 'row',
+
                         itemStyle: {
                             borderRadius: 10,
                             borderColor: '#fff',
                             borderWidth: 2
                         },
                         label: {
-                            show: false,
-                            position: 'center'
+                            show: true,
+                            position: 'middle',
+                            formatter: '{d}%',
+                            // position: 'center'
                         },
                         emphasis: {
                             label: {
                                 show: true,
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: 'bold'
                             }
                         },
                         labelLine: {
-                            show: false
+                            show: true,
                         },
                         data: [
-                            { value: 1048, name: '일반 이용권' },
-                            { value: 735, name: 'PT 이용권' },
-                            { value: 580, name: 'GX 이용권' },
-                            { value: 484, name: '비회원' },
+                            // { value: 일반, name: '일반' },
+                            // { value: PT, name: 'PT' },
+                            // { value: GX, name: 'GX' },
+                            { value: result.toFixed(2), name: 'PT' },
+                            { value: result2.toFixed(2), name: 'GX' },
+                            { value: result3.toFixed(2), name: '일반' },
+                            // { value: 484, name: '비회원' },
                             // { value: 300, name: '' }
                         ]
                     }
@@ -97,7 +112,7 @@
 
     <div>
         <script type="text/javascript">
-            var dom = document.getElementById('container');
+            var dom = document.getElementById('bar');
             var myChart = echarts.init(dom, null, {
                 renderer: 'canvas',
                 useDirtyRect: false
@@ -107,25 +122,31 @@
             var option;
 
             option = {
+                tooltip: {
+                    trigger: 'item'
+                },
                 dataset: [
                     {
                         dimensions: ['name', 'age', 'profession', 'score', 'date'],
                         source: [
-                            ['Hannah Krause', 41, 'Engineer', 314, '2011-02-12'],
-                            ['Zhao Qian', 20, 'Teacher', 351, '2011-03-01'],
-                            ['Jasmin Krause ', 52, 'Musician', 287, '2011-02-14'],
-                            ['Li Lei', 37, 'Teacher', 219, '2011-02-18'],
-                            ['Karle Neumann', 25, 'Engineer', 253, '2011-04-02'],
-                            ['Adrian Groß', 19, 'Teacher', '-', '2011-01-16'],
-                            ['Mia Neumann', 71, 'Engineer', 165, '2011-03-19'],
-                            ['Böhm Fuchs', 36, 'Musician', 318, '2011-02-24'],
-                            ['Han Meimei', 67, 'Engineer', 366, '2011-03-12']
+                            ['01월 ', 41, 'Engineer', 3140000, '2011-02-12'],
+                            ['02월', 20, 'Teacher', 5050000, '2011-03-01'],
+                            ['03월', 52, 'Musician', 5000000, '2011-02-14'],
+                            ['04월', 37, 'Teacher', 5000000, '2011-02-18'],
+                            ['05월', 25, 'Engineer', 2550003, '2011-04-02'],
+                            ['06월', 19, 'Teacher', 8000000, '2011-01-16'],
+                            ['07월', 71, 'Engineer', 1000006, '2011-03-19'],
+                            ['08월', 36, 'Musician', 3100000, '2011-02-24'],
+                            ['09월', 67, 'Engineer', 3600006, '2011-03-12'],
+                            ['10월', 67, 'Engineer', 3600006, '2011-03-12'],
+                            ['11월', 67, 'Engineer', 3600006, '2011-03-12'],
+                            ['12월', 67, 'Engineer', 3600006, '2011-03-12'],
                         ]
                     },
                     {
                         transform: {
                             type: 'sort',
-                            config: { dimension: 'score', order: 'desc' }
+                            config: { dimension: 'name', order: 'asc' }
                         }
                     }
                 ],
@@ -134,11 +155,31 @@
                     axisLabel: { interval: 0, rotate: 30 }
                 },
                 yAxis: {},
-                series: {
+                series: [
+                    {
+                    name: '매출',
                     type: 'bar',
                     encode: { x: 'name', y: 'score' },
                     datasetIndex: 1
-                }
+                    },
+                ],
+                // label: {
+                //     show: false,
+                //     position: 'center',
+                //     formatter: '{b}원',
+                //     // position: 'center'
+                // },
+                // emphasis: {
+                //     label: {
+                //         show: true,
+                //         position:'center',
+                //         fontSize: 16,
+                //         // fontWeight: 'bold'
+                //     }
+                // },
+                // labelLine: {
+                //     show: true,
+                // },
             };
 
             if (option && typeof option === 'object') {
