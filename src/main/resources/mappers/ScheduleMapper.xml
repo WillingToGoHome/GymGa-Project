@@ -40,4 +40,21 @@
         ORDER BY sche_code
     </select>
 
+<!--    <insert id="insertSchedule" parameterType="ScheduleDTO">-->
+<!--        INSERT-->
+<!--          INTO scheduledb-->
+<!--               (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code, member_code, pass_code)-->
+<!--        VALUES (-->
+<!--                #{ classCode },-->
+<!--                SYSDATE(),-->
+<!--                #{ scheRunDate },-->
+<!--                #{ scheStartTime },-->
+<!--                #{ scheEndTime },-->
+<!--                #{ scheParticipate },-->
+<!--                '예약대기',-->
+<!--                null,-->
+<!--                null,-->
+<!--                null)-->
+<!--    </insert>-->
+
 </mapper>

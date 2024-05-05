@@ -56,3 +56,17 @@
 .footer-empty5 {
     width: 4.58vw;
 }
+
+@media screen and (min-width: 1200px) {
+    .big-font, .c {
+        font-size: 19.2px;
+    }
+
+    .small-font {
+        font-size: 12.8px;
+    }
+
+    .copy {
+        font-size: 16px;
+    }
+}

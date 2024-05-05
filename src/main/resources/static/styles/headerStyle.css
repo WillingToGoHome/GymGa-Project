@@ -18,6 +18,7 @@
     font-size: 2vw;
     font-weight: bold;
     color: #4B82D8;
+    cursor: pointer;
 }
 
 .empty1 {
@@ -35,6 +36,8 @@
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
+    cursor: pointer;
+
 }
 
 .empty2 {
@@ -67,4 +70,18 @@
 
 .empty5 {
     width: 1.59vw;
+}
+
+@media screen and (min-width: 1200px) {
+    .gym {
+        font-size: 30.4px;
+    }
+
+    .family {
+        font-size: 30.4px;
+    }
+
+    .welcome {
+        font-size: 19.2px;
+    }
 }
