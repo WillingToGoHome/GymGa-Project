@@ -26,6 +26,7 @@
             생년월일 : <input th:type="date" th:name="birth" th:placeHolder="*{ birth }"><br>
             성별 : <input th:type="text" th:name="gender" th:placeholder="*{ gender }"><br>
             전화번호 : <input th:type="text" th:name="phone" th:placeholder="*{ phone }"><br>
+            <p th:text="|현재 주소 : *{ address }|"></p>
             주소 : <input type="text" id="sample4_postcode" placeholder="우편번호">
             <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
             <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1">
@@ -35,7 +36,7 @@
             키 : <input th:type="text" th:name="height" th:placeHolder="*{ physicalDTO.height }"><br>
             체중 : <input th:type="text" th:name="weight" th:placeHolder="*{ physicalDTO.weight }"><br>
             bmi : <input th:type="text" th:name="bmi" th:placeHolder="*{ physicalDTO.bmi }"><br>
-            <p th:value="|자격 사항 : *{ employeeDTO.qual }|"></p>
+            <p th:text="|자격 사항 : *{ employeeDTO.qual }|"></p>
             경력 사항 <br>
             근무지 : <input th:type="text" th:name="location" th:placeHolder="*{ employeeDTO.location }"><br>
             기간 : <input th:type="text" name="year" th:placeHolder="*{ employeeDTO.year }">년 <input th:type="text" th:name="month" th:placeHolder="*{ employeeDTO.month }">개월 <br>
