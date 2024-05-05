@@ -19,6 +19,16 @@
         <result property="staff" column="user_staff"/>
     </resultMap>
 
+    <resultMap id="painResultMap" type="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
+        <id property="pain_code" column="user_code"/>
+        <result property="pos" column="pain_pos"/>
+        <result property="type" column="pain_type"/>
+        <result property="dur" column="pain_dur"/>
+        <result property="cause" column="pain_cause"/>
+        <result property="str" column="pain_str"/>
+        <result property="etc" column="pain_etc"/>
+    </resultMap>
+
     <select id="AllUser" resultMap="userResultMap">
         SELECT
                USER_NAME
@@ -28,6 +38,24 @@
             ,  USER_STAFF
          FROM USERDB
         WHERE USER_ROLE = '회원'
+        ORDER BY USER_CODE
+    </select>
+
+    <delete id="deleteUser" parameterType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        DELETE FROM USERDB u
+        JOIN PAINDB p ON u.user_code = p.user_code
+        WHERE p.USER_CODE = #{code}
+    </delete>
+
+    <select id="searchUser" resultMap="userResultMap">
+        SELECT
+        USER_NAME
+        ,  USER_ID
+        ,  USER_GENDER
+        ,  USER_PHONE
+        ,  USER_STAFF
+        FROM USERDB
+        WHERE USER_NAME LIKE CONCAT('%', #{name}, '%')
         ORDER BY USER_CODE
     </select>
 </mapper>

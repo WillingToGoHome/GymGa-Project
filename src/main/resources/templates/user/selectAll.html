@@ -10,14 +10,14 @@
 <div class="on">
     <img src="/img/Back.png">
     <div class="top">회원 리스트</div>
-    <form>
-        <input type="text" class="search" placeholder="검색 내용">
-        <select class="option">
-            <option value="카테고리">카테고리</option>
-            <option value="이름">이름</option>
-            <option value="아이디">아이디</option>
+    <form action="/user/search" method="get">
+        <input type="search" class="search" placeholder="검색 내용">
+        <select name="category" class="option">
+            <option value="category">카테고리</option>
+            <option value="name">이름</option>
+            <option value="id">아이디</option>
         </select>
-        <button class="searchButton">검색</button>
+        <button type="submit" class="searchButton">검색</button>
     </form>
 </div>
 <hr class="hr1">
@@ -49,7 +49,10 @@
                     </div>
                     <div class="modalButtonBox">
                         <button class="cancelButton">취소</button>
-                        <button class="checkButton">확인</button>
+                        <form action="/user/delete" method="post">
+                            <input type="hidden" name="code" th:value="${ user.code }">
+                            <button class="checkButton">확인</button>
+                        </form>
                     </div>
                 </div>
             </div>

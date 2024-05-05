@@ -7,4 +7,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     List<UserDTO> AllUser();
+
+    void deleteUser(UserDTO deleteUser);
+
+    List<UserDTO> searchUser();
 }
