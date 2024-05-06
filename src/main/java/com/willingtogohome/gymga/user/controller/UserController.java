@@ -2,12 +2,15 @@ package com.willingtogohome.gymga.user.controller;
 
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import com.willingtogohome.gymga.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -18,6 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -36,12 +40,11 @@ public class UserController {
         return "user/selectAll";
     }
 
-    @GetMapping("/delete")
-    public void delete() {}
     @PostMapping("/delete")
-    public String deleteUser(UserDTO deleteUser) {
+    public String deleteUser(@RequestParam("code") String userCode) {
 
-        userService.deleteUser(deleteUser);
+        int code = Integer.parseInt(userCode);
+        userService.deleteUser(code);
 
         return "redirect:/user/selectAll";
     }

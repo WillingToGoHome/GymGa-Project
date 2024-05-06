@@ -50,8 +50,8 @@
                     <div class="modalButtonBox">
                         <button class="cancelButton">취소</button>
                         <form action="/user/delete" method="post">
-                            <input type="hidden" name="code" th:value="${ user.code }">
-                            <button class="checkButton">확인</button>
+                            <input type="hidden" name="code" th:value="${user.code}">
+                            <input class="checkButton" type="submit" value="확인">
                         </form>
                     </div>
                 </div>

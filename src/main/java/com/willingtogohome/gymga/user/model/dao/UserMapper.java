@@ -8,7 +8,17 @@ import java.util.List;
 public interface UserMapper {
     List<UserDTO> AllUser();
 
-    void deleteUser(UserDTO deleteUser);
-
     List<UserDTO> searchUser();
+
+    void userPain(int code);
+
+    void facilityUser(int code);
+
+    void physicalUser(int code);
+
+    void scheduleUser(int code);
+
+    void validateUser(int code);
+
+    void deleteUser(int code);
 }
