@@ -9,7 +9,7 @@
 <form action="/fac/regist" method="post">
     <label>회원 코드: </label>
     <select name="userCode" id="userCode"></select><br>
-    <label>바꿀 사물함 번호: </label>
+    <label>사물함 번호: </label>
     <select name="facCode" id="facCode"></select><br>
     <label>사용 가능 상태: </label>
     <select name="facStatus" id="facStatus">
@@ -17,6 +17,8 @@
         <option value="사용중">사용 중</option>
         <option value="만료">만료</option>
     </select><br>
+    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
+    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
     <input type="submit" value="전송">
 </form>
 

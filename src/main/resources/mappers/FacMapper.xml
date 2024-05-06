@@ -36,6 +36,24 @@
             ORDER BY FAC_CODE
     </select>
 
+    <select id="findAllExp" resultMap="facResultMap">
+        SELECT
+        FAC_CODE
+        , FAC_STATUS
+        , FAC_START
+        , USER_CODE
+        , FAC_END
+        FROM FACILITYDB
+        WHERE FAC_STATUS="만료"
+        ORDER BY FAC_CODE
+    </select>
+
+    <select id="findAllPer" resultType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        SELECT FAC_CODE, FAC_STATUS, FAC_START, USER_CODE, FAC_END
+        FROM FACILITYDB
+        WHERE FAC_CODE = #{facCode}
+    </select>
+
     <select id="findAllUser" resultMap="userResultMap">
         SELECT
                 USER_CODE
@@ -63,6 +81,27 @@
 <!--            <result property="userStaff" column="user_staff"/>-->
 <!--        </association>-->
 <!--    </resultMap>-->
+
+<!--    <insert id="registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->
+<!--        INSERT INTO FACILITYDB-->
+<!--        (-->
+<!--            FAC_CODE-->
+<!--            , FAC_STATUS-->
+<!--            , FAC_START-->
+<!--            , USER_CODE-->
+<!--            , FAC_END-->
+<!--        )-->
+<!--        VALUES-->
+<!--        (-->
+<!--            #{facCode}-->
+<!--            , #{facStatus}-->
+<!--            , #{facStart}-->
+<!--            , #{userCode}-->
+<!--            , #{facEnd}-->
+<!--        )-->
+
+<!--    </insert>-->
+
 
     <update id="registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
         UPDATE
@@ -98,28 +137,28 @@
 <!--        VALUES (source.FAC_CODE, source.FAC_STATUS, source.FAC_START, source.FAC_END, source.USER_CODE);-->
 <!--    </update>-->
 
-    <delete id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
-        DELETE
-        FROM FACILITYDB
+<!--    <delete id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->
+<!--        DELETE-->
+<!--        FROM FACILITYDB-->
+<!--        WHERE USER_CODE=#{userCode}-->
+<!--    </delete>-->
+
+    <update id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        UPDATE
+        FACILITYDB
+
+        SET
+        FAC_STATUS=#{facStatus}
+        , FAC_START=#{facStart}
+        , FAC_END=#{facEnd}
+        , USER_CODE=#{userCode}
         WHERE FAC_CODE=#{facCode}
-    </delete>
-
-<!--    <update id="updateRenewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->
-<!--        UPDATE-->
-<!--        FACILITYDB-->
-
-<!--        SET-->
-<!--        FAC_STATUS=#{facStatus}-->
-<!--        , FAC_START=#{facStart}-->
-<!--        , FAC_END=#{facEnd}-->
-<!--        , USER_CODE=#{userCode}-->
-<!--        WHERE FAC_CODE=#{facCode}-->
-<!--    </update>-->
+    </update>
 
     <delete id="deleteFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
         DELETE
             FROM FACILITYDB
-                    WHERE USER_CODE=#{userCode}
+                    WHERE FAC_CODE=#{facCode}
 
 
 

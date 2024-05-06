@@ -32,6 +32,31 @@ public class FacController {
         return "fac/select";
     }
 
+    @GetMapping("/select/expired")
+    public String findExpList(Model model) {
+        List<FacDTO> facList=facService.findAllExp();
+
+        for(FacDTO facs:facList) {
+            System.out.println("facs = " + facs);
+        }
+        model.addAttribute("facList",facList);
+
+        return "fac/select";
+    }
+
+    @GetMapping("/select/personal")
+    public String findPerList(@RequestParam int facCode, Model model) {
+        FacDTO perFac=facService.findAllPer(facCode);
+
+        model.addAttribute("perFac", perFac);
+
+        return "fac/select";
+    }
+
+    
+
+
+
     @GetMapping("/regist")
     public void registPage() {}
 

@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.fac.model.dao;
 import com.willingtogohome.gymga.fac.model.dto.FacDTO;
 import com.willingtogohome.gymga.fac.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface FacMapper {
     void deleteFac(FacDTO deleteFac);
 
     void updateRenewFac(FacDTO renewFac);
+
+    List<FacDTO> findAllExp();
+
+    FacDTO findAllPer(int faCode);
 }
 
