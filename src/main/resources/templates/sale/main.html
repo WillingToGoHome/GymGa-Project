@@ -31,7 +31,7 @@
 <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/bmap.min.js"></script>
 -->
-    <div style="background-color: palegreen" th:each="papq:${PAPQList}">
+    <div>
 
         <script type="text/javascript">
             var dom = document.getElementById('pie');
@@ -43,8 +43,8 @@
 
             var option;
             var PT=25; <!-- DB 연결해서 값 입력 해야함 -->
-            var GX=65;
-            var 일반=42;
+            var GX=42;
+            var 일반=57;
             var SUM = (PT+GX+일반);
             var result = PT/SUM*100;
             var result2 = GX/SUM*100;

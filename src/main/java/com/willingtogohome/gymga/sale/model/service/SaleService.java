@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SaleService {
+public class SaleService implements SaleMapper {
+
     private final SaleMapper saleMapper;
 
-    public SaleService(SaleMapper saleMapper){
+    public SaleService(SaleMapper saleMapper) {
         this.saleMapper = saleMapper;
     }
+
     public List<SaleDTO> findAllList() {
         return saleMapper.findAllList();
     }

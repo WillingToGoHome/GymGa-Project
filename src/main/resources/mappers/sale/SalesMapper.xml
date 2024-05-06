@@ -25,7 +25,6 @@
         <result property="pqName" column="pq_name"/>
         <result property="pqPrice" column="pq_price"/>
     </association>
-
 </resultMap>
 
     <select id="findAllList" resultMap="salesMap">
@@ -46,12 +45,25 @@
         A.pass_end,
         A.pass_total,
         A.pass_use,
-        A.user_code
-
+        A.user_code,
+        B.pq_price
         FROM passdb A
         JOIN passqualdb B ON A.pq_code = B.pq_code
         order by A.pass_code;
     </select>
 
+    <select id="" resultType="">
+        SELECT
+        <if test="PT_Count != 0">
+            SUM(CASE WHEN A.pq_code LIKE 'PT%' THEN 1 ELSE 0 END) AS PT_Count,
+        </if>
+        <if test="GX_Count != 0">
+            SUM(CASE WHEN A.pq_code LIKE 'GX%' THEN 1 ELSE 0 END) AS GX_Count,
+        </if>
+        <if test="GP_Count != 0">
+            SUM(CASE WHEN A.pq_code LIKE 'GP%' THEN 1 ELSE 0 END) AS GP_Count
+        </if>
+        FROM passdb A
+    </select>
 
 </mapper>

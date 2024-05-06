@@ -11,4 +11,5 @@ public interface SaleMapper {
     List<SaleDTO> findAllList();
 
     List<PassAndPassQualDTO> findPassAndPassQualList();
+
 }

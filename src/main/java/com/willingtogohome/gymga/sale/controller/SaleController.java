@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.sale.controller;
 
+import com.willingtogohome.gymga.pass.model.dto.PassData;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.service.SaleService;
 import org.springframework.stereotype.Controller;
@@ -29,21 +30,13 @@ public class SaleController {
         }
         model.addAttribute("PAPQList",PAPQList);
 
-
         List<SaleDTO> saleList = saleService.findAllList();
 
-        for (SaleDTO sales : saleList){
-            System.out.println("sales = " + sales);
-        }
-
+//        for (SaleDTO sales : saleList){
+//            System.out.println("sales = " + sales);
+//        }
         model.addAttribute("saleList", saleList);
 
         return "sale/main";
-
 }
-
-
-
-
-
 }
