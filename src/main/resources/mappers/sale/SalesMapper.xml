@@ -27,43 +27,43 @@
     </association>
 </resultMap>
 
+    <resultMap id="passDataResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassData">
+        <id property="ptCount" column="PT_Count"/>
+        <result property="gxCount" column="GX_Count"/>
+        <result property="gpCount" column="GP_Count"/>
+    </resultMap>
+
     <select id="findAllList" resultMap="salesMap">
         SELECT
-            pass_code,
-            sales_method,
-            sales_date
-        FROM salesdb
+                pass_code,
+                sales_method,
+                sales_date
+            FROM salesdb
     </select>
 
     <select id="findPassAndPassQualList" resultMap="passResultMap">
         SELECT
-        A.pass_code,
-        A.pq_code,
-        B.pq_name,
-        A.pass_status,
-        A.pass_start,
-        A.pass_end,
-        A.pass_total,
-        A.pass_use,
-        A.user_code,
-        B.pq_price
-        FROM passdb A
-        JOIN passqualdb B ON A.pq_code = B.pq_code
+                A.pass_code,
+                A.pq_code,
+                B.pq_name,
+                A.pass_status,
+                A.pass_start,
+                A.pass_end,
+                A.pass_total,
+                A.pass_use,
+                A.user_code,
+                B.pq_price
+            FROM passdb A
+            JOIN passqualdb B ON A.pq_code = B.pq_code
         order by A.pass_code;
     </select>
 
-    <select id="" resultType="">
+    <select id="sumPassData" resultMap="passDataResultMap">
         SELECT
-        <if test="PT_Count != 0">
-            SUM(CASE WHEN A.pq_code LIKE 'PT%' THEN 1 ELSE 0 END) AS PT_Count,
-        </if>
-        <if test="GX_Count != 0">
-            SUM(CASE WHEN A.pq_code LIKE 'GX%' THEN 1 ELSE 0 END) AS GX_Count,
-        </if>
-        <if test="GP_Count != 0">
-            SUM(CASE WHEN A.pq_code LIKE 'GP%' THEN 1 ELSE 0 END) AS GP_Count
-        </if>
-        FROM passdb A
+        SUM(PT_Count) AS PT_Count,
+        SUM(GX_Count) AS GX_Count,
+        SUM(GP_Count) AS GP_Count
+        FROM passdata
     </select>
 
 </mapper>

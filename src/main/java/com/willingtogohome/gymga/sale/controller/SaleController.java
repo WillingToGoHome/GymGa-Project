@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class SaleController {
     private final SaleService saleService;
+
     public SaleController(SaleService saleService){
         this.saleService = saleService;
     }
@@ -37,6 +37,11 @@ public class SaleController {
 //        }
         model.addAttribute("saleList", saleList);
 
+        List<PassData> passData = saleService.sumPassData();
+        model.addAttribute("passData", passData);
+
+
+
         return "sale/main";
-}
+    }
 }
