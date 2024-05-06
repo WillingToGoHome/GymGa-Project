@@ -1,12 +1,9 @@
-/*.contents {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: 30%;*/
-/*}*/
+.contents {
+    margin-top: auto;
+}
 
 .calendar {
-    width: 600px;
+    width: 800px;
     margin: 50px;
     color: black;
 }
@@ -62,7 +59,7 @@
 }
 
 .date {
-    width: calc(100% / 11);
+    width: calc(100% / 9.65);
     padding: 15px;
     text-align: right;
     border-bottom: 1px solid #333333;
@@ -101,4 +98,9 @@
     background: #FF0000;
     border-radius: 50%;
     content: '';
+}
+
+.calendar-today {
+    height: 90%;
+    background: #D13E3E;
 }
