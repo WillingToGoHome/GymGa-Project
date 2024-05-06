@@ -31,7 +31,7 @@
 <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/bmap.min.js"></script>
 -->
-    <div style="background-color: palegreen">
+    <div style="background-color: palegreen" th:each="papq:${PAPQList}">
 
         <script type="text/javascript">
             var dom = document.getElementById('pie');
@@ -109,6 +109,8 @@
             window.addEventListener('resize', myChart.resize);
         </script>
     </div>
+
+
 
     <div>
         <script type="text/javascript">

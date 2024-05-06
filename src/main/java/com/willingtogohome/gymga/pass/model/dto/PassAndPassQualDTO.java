@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.pass.model.dto;
 
+
 import lombok.*;
 
 import java.util.Date;
@@ -9,14 +10,16 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-public class PassDTO {
+public class PassAndPassQualDTO {
 
     private Integer passCode;
-    private String pqCode;
     private String passStatus;
     private Date passStart;
     private Date passEnd;
     private Integer passTotal;
     private Integer passUse;
     private Integer userCode;
+    private String pqCode;
+
+    private PassQualDTO passQualDTO;
 }
