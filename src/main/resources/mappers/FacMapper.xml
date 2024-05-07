@@ -13,17 +13,7 @@
 
     <resultMap id="userResultMap" type="com.willingtogohome.gymga.fac.model.dto.UserDTO">
         <id property="userCode" column="user_code"/>
-        <result property="userId" column="user_id"/>
-        <result property="userPwd" column="user_pwd"/>
         <result property="userName" column="user_name"/>
-        <result property="userPhone" column="user_phone"/>
-        <result property="userRole" column="user_role"/>
-        <result property="userPic" column="user_pic"/>
-        <result property="userGender" column="user_gender"/>
-        <result property="userBirth" column="user_birth"/>
-        <result property="userAddress" column="user_address"/>
-        <result property="userEtc" column="user_etc"/>
-        <result property="userStaff" column="user_staff"/>
     </resultMap>
     <select id="findAllFac" resultMap="facResultMap">
         SELECT
@@ -48,10 +38,10 @@
         ORDER BY FAC_CODE
     </select>
 
-    <select id="findAllPer" resultType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+    <select id="findAllPer" parameterType="_int" resultMap="facResultMap">
         SELECT FAC_CODE, FAC_STATUS, FAC_START, USER_CODE, FAC_END
         FROM FACILITYDB
-        WHERE FAC_CODE = #{facCode}
+            WHERE FAC_CODE = #{facCode}
     </select>
 
     <select id="findAllUser" resultMap="userResultMap">
@@ -60,26 +50,15 @@
             FROM USERDB
     </select>
 
-
 <!--    <resultMap id="facAndUserResultMap" type="com.willingtogohome.gymga.fac.model.dto.FacAndUserDTO">-->
-<!--        <id property="facCode" column="fac_code"/>-->
-<!--        <result property="facStatus" column="fac_status"/>-->
-<!--        <result property="facStart" column="fac_start"/>-->
-<!--        <result property="facEnd" column="fac_end"/>-->
-<!--        <association property="user" javaType="com.willingtogohome.gymga.fac.model.dto.UserDTO">-->
-<!--            <id property="userCode" column="user_code"/>-->
-<!--            <result property="userId" column="user_id"/>-->
-<!--            <result property="userPwd" column="user_pwd"/>-->
-<!--            <result property="userName" column="user_name"/>-->
-<!--            <result property="userPhone" column="user_phone"/>-->
-<!--            <result property="userRole" column="user_role"/>-->
-<!--            <result property="userPic" column="user_pic"/>-->
-<!--            <result property="userGender" column="user_gender"/>-->
-<!--            <result property="userBirth" column="user_birth"/>-->
-<!--            <result property="userAddress" column="user_address"/>-->
-<!--            <result property="userEtc" column="user_etc"/>-->
-<!--            <result property="userStaff" column="user_staff"/>-->
-<!--        </association>-->
+<!--      <id property="facCode" column="fac_code"/>-->
+<!--       <result property="facStatus" column="fac_status"/>-->
+<!--       <result property="facStart" column="fac_start"/>-->
+<!--      <result property="facEnd" column="fac_end"/>-->
+<!--       <association property="user" javaType="com.willingtogohome.gymga.fac.model.dto.UserDTO">-->
+<!--           <id property="userCode" column="user_code"/>-->
+<!--           <result property="userName" column="user_name"/>-->
+<!--       </association>-->
 <!--    </resultMap>-->
 
 <!--    <insert id="registNewFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">-->

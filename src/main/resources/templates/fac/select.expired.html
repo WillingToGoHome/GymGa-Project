@@ -1,27 +1,11 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash;<table align="center" border="1">&ndash;&gt;-->
-
-<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
-<!--&lt;!&ndash;        <th>사물함 번호</th>&ndash;&gt;-->
-<!--&lt;!&ndash;        <th>사물함 상태</th>&ndash;&gt;-->
-<!--&lt;!&ndash;        <th>시작 기간</th>&ndash;&gt;-->
-<!--&lt;!&ndash;        <th>회원 번호</th>&ndash;&gt;-->
-<!--&lt;!&ndash;        <th>만료 기간</th>&ndash;&gt;-->
-<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;    <tr th:each="facs: ${facList}">&ndash;&gt;-->
-<!--&lt;!&ndash;        <td th:text="${facs.facCode}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;        <td th:text="${facs.facStatus}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;        <td th:text="${facs.facStart}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;        <td th:text="${facs.userCode}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;        <td th:text="${facs.facEnd}"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;    </table>&ndash;&gt;-->
-
-<!--</body>-->
-<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>개별 조회</h1>
+<div th:replace="select :: select"></div>
+</body>
+</html>

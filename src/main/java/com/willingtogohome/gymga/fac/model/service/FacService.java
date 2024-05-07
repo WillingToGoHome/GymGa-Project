@@ -48,7 +48,7 @@ public class FacService {
         return facMapper.findAllExp();
     }
 
-    @Transactional
+
     public FacDTO findAllPer(int facCode) {
         return facMapper.findAllPer(facCode);
     }

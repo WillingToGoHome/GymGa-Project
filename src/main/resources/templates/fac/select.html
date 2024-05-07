@@ -157,38 +157,62 @@
             </div>
             <div class="modal-body">
                 <label>사물함 번호: </label>
-                <select name="facCode" id="facCode"></select>
+                <select name="facCode" id="facCode"></select><br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button onclick=window.location.href="/fac/select/personal" class="btn btn-primary" data-dismiss="modal">확인</button>
+                <button onclick="sendRequest()" class="btn btn-primary" data-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function sendRequest() {
+        // 선택된 회원 코드 가져오기
+        const selectedFacCode = document.getElementById("facCode").value;
+        // userCode 파라미터를 포함하여 URL로 이동
+        window.location.href = "/fac/select/personal?facCode=" + selectedFacCode;
+    }
+</script>
+
+<script>
+    fetch("/fac/fac")
+        .then(res=>res.json())
+        .then(data=> {
+            const $facCode=document.getElementById("facCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].facCode;
+                $option.value=data[index].facCode;
+                $facCode.appendChild($option);
+            }
+        })
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:fragment="select">
+    <table align="center" border="1">
+        <tr>
+            <th>사물함 번호</th>
+            <th>사물함 상태</th>
+            <th>시작 기간</th>
+            <th>회원 번호</th>
+            <th>만료 기간</th>
 
-<table align="center" border="1">
-
-    <tr>
-        <th>사물함 번호</th>
-        <th>사물함 상태</th>
-        <th>시작 기간</th>
-        <th>회원 번호</th>
-        <th>만료 기간</th>
-
-    </tr>
-    <tr th:each="facs: ${facList}">
-        <td><a href="#" data-toggle="modal" data-target="#facActionModal">[[${facs.facCode}]]</a></td>
-        <td th:text="${facs.facStatus}"></td>
-        <td th:text="${facs.facStart}"></td>
-        <td th:text="${facs.userCode}"></td>
-        <td th:text="${facs.facEnd}"></td>
-    </tr>
-</table>
+        </tr>
+        <tr th:each="facs: ${facList}">
+            <td><a href="#" data-toggle="modal" data-target="#facActionModal">[[${facs.facCode}]]</a></td>
+            <td th:text="${facs.facStatus}"></td>
+            <td th:text="${facs.facStart}"></td>
+            <td th:text="${facs.userCode}"></td>
+            <td th:text="${facs.facEnd}"></td>
+        </tr>
+    </table>
+</div>
 
 
 
@@ -204,9 +228,13 @@
             </div>
             <div class="modal-body">
                 <!-- 등록, 수정, 삭제 버튼 -->
-                <a class="btn btn-secondary" href="/fac/regist">등록</a>
-                <a class="btn btn-secondary" href="/fac/update">수정</a>
-                <a class="btn btn-secondary" href="/fac/delete">삭제</a>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal2">등록</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal2">수정</button>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal2">삭제</button>
+
+
+<!--                <a class="btn btn-secondary" href="/fac/update">수정</a>-->
+<!--                <a class="btn btn-secondary" href="/fac/delete">삭제</a>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -214,5 +242,77 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="facActionModal2" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="facActionModalLabel2">사물함 등록</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/fac/regist" method="post">
+                    <label>사물함 번호: </label>
+                    <select name="facCode" id="facActionModalFacCode"></select><br>
+                    <label>회원 코드: </label>
+                    <select name="userCode" id="userCode"></select><br>
+                    <label>사용 가능 상태: </label>
+                    <select name="facStatus" id="facStatus">
+                        <option value=""></option>
+                        <option value="사용중">사용 중</option>
+                        <option value="만료">만료</option>
+                    </select><br>
+                    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
+                    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button onclick="sendRequest2()" class="btn btn-primary" data-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function sendRequest2() {
+        // 선택된 회원 코드 가져오기
+        const selectedFacCode = document.getElementById("facCode").value;
+        // userCode 파라미터를 포함하여 URL로 이동
+        window.location.href = "/fac/select?facCode=" + selectedFacCode;
+    }
+</script>
+
+<script>
+    fetch("/fac/user")
+        .then(res=>res.json())
+        .then(data=> {
+            const $userCode=document.getElementById("userCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].userCode;
+                $userCode.appendChild($option);
+            }
+        })
+</script>
+
+<script>
+    fetch("/fac/fac")
+        .then(res=>res.json())
+        .then(data=> {
+            const $facCode=document.getElementById("facActionModalFacCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].facCode;
+                $option.value=data[index].facCode;
+                $facCode.appendChild($option);
+            }
+        })
+</script>
 </body>
 </html>

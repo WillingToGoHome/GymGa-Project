@@ -22,6 +22,6 @@ public interface FacMapper {
 
     List<FacDTO> findAllExp();
 
-    FacDTO findAllPer(int faCode);
+    FacDTO findAllPer(int facCode);
 }
 

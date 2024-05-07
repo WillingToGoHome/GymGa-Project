@@ -12,10 +12,12 @@ import java.util.Date;
 @ToString
 public class UserDTO {
     private int userCode;
+    private String userName;
 
     public UserDTO() {}
 
-    public UserDTO(int userCode) {
+    public UserDTO(int userCode, String userName) {
         this.userCode = userCode;
+        this.userName = userName;
     }
 }

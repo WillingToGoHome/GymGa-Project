@@ -46,9 +46,12 @@ public class FacController {
 
     @GetMapping("/select/personal")
     public String findPerList(@RequestParam int facCode, Model model) {
-        FacDTO perFac=facService.findAllPer(facCode);
+        FacDTO facList=facService.findAllPer(facCode);
 
-        model.addAttribute("perFac", perFac);
+
+        model.addAttribute("facList", facList);
+        System.out.println("facList = " + facList);
+
 
         return "fac/select";
     }
