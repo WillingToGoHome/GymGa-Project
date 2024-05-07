@@ -1,0 +1,90 @@
+.outerDiv {
+    background: rgba(240, 240, 240, 1);
+    width: 1560px;
+    height: 850px;
+}
+
+.mainBox {
+    float: left;
+}
+
+.empList {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 1020px;
+    height: 500px;
+    margin: 15px;
+}
+
+.topic {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
+    /*padding-top: 30px;*/
+}
+
+.line1 {
+    width: 950px;
+    align-content: center;
+    color: rgba(217, 217, 217, 1);
+}
+
+.empBlock {
+    background: aliceblue;
+    width: 400px;
+    height: 70px;
+    float: left;
+    margin-left: 55px;
+    margin-right: 55px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.empBlockLeft {
+    background: coral;
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+
+.empImg {
+    width: 70px;
+    height: 70px;
+}
+
+.empBlockRight {
+    width: 330px;
+    height: 70px;
+    float: left;
+}
+
+.empName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.empRole {
+    font-size: 14px;
+    color: rgba(171, 171, 171, 1);
+}
+
+.bigButton {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 495px;
+    height: 320px;
+    margin: 15px;
+    float: left;
+}
+
+.scheduleBox {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 480px;
+    height: 850px;
+    margin: 15px;
+    float: left;
+}

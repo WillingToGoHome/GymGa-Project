@@ -2,31 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>직원 조회</title>
+    <link rel="stylesheet" href="/emp/styles/mainStyle.css">
 </head>
 <body>
-    <h1>직원 목록</h1>
-    <hr>
-    <div>
-        <h3>직원 리스트</h3>
-        <div th:each="emp : ${ empList }">
-            <p th:text="${ emp.name }"></p>
-            <p th:text="${ emp.role }"></p>
-            <hr>
+    <div class="outerDiv">
+        <div class="mainBox">
+            <div class="empList">
+                <p class="topic">직원 목록</p>
+                <hr class="line1">
+                <div class="empBlock" th:each="emp : ${ empList }">
+                    <div class="empBlockLeft">
+                        <img class="empImg" th:src="${ emp.pic }"/>
+                    </div>
+                    <div class="empBlockRight">
+                        <span class="empName" th:text="${ emp.name }"></span><br>
+                        <span class="empRole" th:text="${ emp.role }"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="bigButton" onClick="location.href='/emp/regist'">신규 직원 등록</div>
+                <div class="bigButton" onClick="location.href='/emp/search'">직원 조회</div>
+            </div>
         </div>
-    </div>
-    <div onClick="location.href='/emp/regist'">신규 직원 등록</div>
-    <div onClick="location.href='/emp/search'">직원 조회</div>
-    <div>직원 정보 변경</div>
-    <div>
-        <h3>직원 일정</h3>
-        <a href="/sche/">더보기</a>
-        <div th:each="sche : ${ scheList }">
-            <p th:text="${ sche.empDTO.name }"></p>
-            <p th:text="${ sche.classDTO.name }"></p>
-            <p th:text="${ sche.start }"></p>
-            <p th:text="${ sche.date }"></p>
-            <hr>
+        <div class="scheduleBox">
+            <h3>직원 일정</h3>
+            <a href="/sche/">더보기</a>
+            <div th:each="sche : ${ scheList }">
+                <p th:text="${ sche.empDTO.name }"></p>
+                <p th:text="${ sche.classDTO.name }"></p>
+                <p th:text="${ sche.start }"></p>
+                <p th:text="${ sche.date }"></p>
+                <hr>
+            </div>
         </div>
     </div>
 </body>
