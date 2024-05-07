@@ -22,9 +22,29 @@
                     <div class="calendar">
                         <div class="calendar-header">
                             <div class="year-month"></div>
+
                             <div>
-                                <button>일정추가</button>
+                                <button id="modal_open_btn" onclick="location.href='scheduleregist'">일정추가</button>
                             </div>
+
+<!--                            <div id="modal">-->
+<!--                                <div class="modal_content">-->
+<!--                                    <h2>모달 테스트</h2>-->
+<!--                                    <p>모달 창 테스트입니다.</p>-->
+<!--                                    <button id="modal_close_btn">닫기</button>-->
+<!--                                </div>-->
+<!--                                <div class="modal_layer"></div>-->
+<!--                            </div>-->
+<!--                            <script>-->
+<!--                                document.getElementById("modal_open_btn").onclick = function() {-->
+<!--                                    document.getElementById("modal").style.display="block";-->
+<!--                                }-->
+<!--                                document.getElementById("modal_close_btn").onclick = function () {-->
+<!--                                    document.getElementById("modal").style.display="none";-->
+<!--                                }-->
+<!--                            </script>-->
+
+
                             <div class="nav">
                                 <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
                                 <button class="nav-btn go-today" onclick="goToday()">Today</button>

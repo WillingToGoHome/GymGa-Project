@@ -23,6 +23,21 @@
         <result property="className" column="class_name"/>
     </resultMap>
 
+    <resultMap id="userResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        <id property="code" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="name" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userPic" column="user_pic"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEtc" column="user_etc"/>
+        <result property="userStaff" column="user_staff"/>
+    </resultMap>
+
     <select id="findAllSchedule" resultMap="scheduleResultMap">
         SELECT
                sche_code,
@@ -40,21 +55,41 @@
         ORDER BY sche_code
     </select>
 
-<!--    <insert id="insertSchedule" parameterType="ScheduleDTO">-->
-<!--        INSERT-->
-<!--          INTO scheduledb-->
-<!--               (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code, member_code, pass_code)-->
-<!--        VALUES (-->
-<!--                #{ classCode },-->
-<!--                SYSDATE(),-->
-<!--                #{ scheRunDate },-->
-<!--                #{ scheStartTime },-->
-<!--                #{ scheEndTime },-->
-<!--                #{ scheParticipate },-->
-<!--                '예약대기',-->
-<!--                null,-->
-<!--                null,-->
-<!--                null)-->
-<!--    </insert>-->
+
+    <select id="findAllTeacher" resultMap="userResultMap">
+        SELECT
+               user_code,
+               user_id,
+               user_pwd,
+               user_name,
+               user_phone,
+               user_role,
+               user_pic,
+               user_gender,
+               user_birth,
+               user_address,
+               user_etc,
+               user_staff
+          FROM userdb
+         WHERE user_role = '직원'
+        ORDER BY user_code
+    </select>
+
+    <insert id="registNewSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        INSERT
+          INTO scheduledb
+               (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code, member_code, pass_code)
+        VALUES (
+                'PT01',
+                SYSDATE(),
+                #{ scheRunDate },
+                #{ scheStartTime },
+                #{ scheEndTime },
+                #{ scheParticipate },
+                '예약대기',
+                #{ empCode },
+                null,
+                null)
+    </insert>
 
 </mapper>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>모달로 사용할 페이지 테스트</h2>
+    <form action="/schedule/scheduleregist" method="post">
+        <label>담당 강사 선택</label><br>
+        <select name="empCode" id="empCode"></select><br>
+        <label>일자 선택</label><br>
+        <input type="date" name="scheRunDate"/><br>
+        <label>시간 선택</label><br>
+        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+
+        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
+        <button type="submit">확인</button>
+    </form>
+
+    <script>
+        fetch("/schedule/teacher")
+            .then(res =>res.json())
+            .then(data => {
+                const $userCode = document.getElementById("empCode");
+
+                for(let index in data) {
+                    const $option = document.createElement('option');
+                    $option.value = data[index].code;
+                    $option.text = data[index].name;
+
+                    $userCode.appendChild($option);
+                }
+            })
+    </script>
+
+</body>
+</html>
+
+<!--<script>-->
+<!--    function submitForm() {-->
+<!--        // 필요한 데이터가 입력되었는지 확인-->
+<!--        var empCode = document.getElementById("empCode").value;-->
+<!--        var scheRunDate = document.getElementById("scheRunDate").value;-->
+<!--        var scheStartTime = document.getElementById("scheStartTime").value;-->
+<!--        var scheEndTime = document.getElementById("scheEndTime").value;-->
+
+<!--        // 필요한 데이터가 입력되었는지 확인-->
+<!--        if (empCode && scheRunDate && scheStartTime && scheEndTime) {-->
+<!--            // 모든 데이터가 입력되었으면 폼 제출-->
+<!--            document.getElementById("scheduleForm").submit();-->
+<!--        } else {-->
+<!--            // 필요한 데이터가 입력되지 않았을 경우 경고 메시지 출력-->
+<!--            alert("모든 필드를 입력해주세요.");-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+<!--<form id="scheduleForm" action="/schedule/scheduleregist" method="post">-->
+<!--    <label>담당 강사 선택</label><br>-->
+<!--    <select name="empCode" id="empCode"></select><br>-->
+<!--    <label>일자 선택</label><br>-->
+<!--    <input type="date" name="scheRunDate" id="scheRunDate"/><br>-->
+<!--    <label>시간 선택</label><br>-->
+<!--    <input type="time" name="scheStartTime" id="scheStartTime"> ~ <input type="time" name="scheEndTime" id="scheEndTime"><br>-->
+
+<!--    <button type="button" onclick="history.back()">취소</button>-->
+<!--    <button type="button" onclick="submitForm()">확인</button>-->
+<!--</form>-->

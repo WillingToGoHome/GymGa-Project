@@ -2,6 +2,7 @@ package com.willingtogohome.gymga.schedule.model.service;
 
 import com.willingtogohome.gymga.schedule.model.dao.ScheduleMapper;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
+import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ScheduleService {
         this.scheduleMapper = scheduleMapper;
     }
 
-    // 일정 추가하기
+
 
 
     // 일정 목록보기
@@ -25,8 +26,21 @@ public class ScheduleService {
     // 일정의 개수 조회하기
     // 달력에 존재하는 일정 조회
 
+    // 모든 일정 보기
     public List<ScheduleDTO> findAllSchedule() {
 
         return scheduleMapper.findAllSchedule();
     }
+
+    // 강사 목록 선택
+    public List<UserDTO> findAllTeacher() {
+
+        return scheduleMapper.findAllTeacher();
+    }
+
+    // 일정 추가하기
+    public void registNewSchedule(ScheduleDTO newSchedule) {
+        scheduleMapper.registNewSchedule(newSchedule);
+    }
+
 }
