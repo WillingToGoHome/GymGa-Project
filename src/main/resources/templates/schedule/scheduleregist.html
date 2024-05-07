@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/styles/schedule/registScheduleStyle.css">
 </head>
 <body>
-    <h2>모달로 사용할 페이지 테스트</h2>
-    <form action="/schedule/scheduleregist" method="post">
-        <label>담당 강사 선택</label><br>
-        <select name="empCode" id="empCode"></select><br>
-        <label>일자 선택</label><br>
-        <input type="date" name="scheRunDate"/><br>
-        <label>시간 선택</label><br>
-        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+    <div class="modal-full">
+        <div class="modal-body">
+            <div class="modal-header">
+               <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>
+                <div>일정 생성</div>
+            </div>
+            <br>
+               <hr>
+        <form action="/schedule/scheduleregist" method="post">
+            <label>담당 강사 선택</label><br>
+            <select name="empCode" id="empCode"></select><br>
+            <label>일자 선택</label><br>
+            <input type="date" name="scheRunDate"/><br>
+            <label>시간 선택</label><br>
+            <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
 
-        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
-        <button type="submit">확인</button>
-    </form>
-
+            <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
+            <button type="submit">확인</button>
+        </form>
+        </div>
+    </div>
     <script>
         fetch("/schedule/teacher")
             .then(res =>res.json())
