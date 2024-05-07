@@ -5,9 +5,7 @@ import com.willingtogohome.gymga.schedule.model.service.ScheduleService;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
@@ -63,6 +61,8 @@ public class ScheduleController {
 
         return "redirect:/schedule/schedulemain";
     }
+
+
 
 
 

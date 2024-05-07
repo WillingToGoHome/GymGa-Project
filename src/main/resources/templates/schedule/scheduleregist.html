@@ -27,6 +27,15 @@
         </form>
         </div>
     </div>
+    <button class="btn-open-modal">Modal</button>
+    <script>
+        const modal = document.querySelector('.modal');
+        const btnOpenModal = document.querySelector('.btn-open-modal');
+
+        btnOpenModal.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+    </script>
     <script>
         fetch("/schedule/teacher")
             .then(res =>res.json())

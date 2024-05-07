@@ -5,6 +5,7 @@
     <title>MainPage</title>
     <link rel="stylesheet" href="/styles/mainStyle.css">
     <link rel="stylesheet" href="/styles/carendarStyle.css">
+    <link rel="stylesheet" href="/styles/schedule/registScheduleStyle.css">
 
 </head>
 
@@ -24,12 +25,119 @@
                             <div class="year-month"></div>
 
                             <div>
-                                <button id="modal_open_btn" onclick="location.href='scheduleregist'">일정추가</button>
+                                <button class="btn-open-modal1">+ 일정생성</button>
+                            </div>
+                            <!--선택창 모달-->
+                            <div class="choice-modal-full">
+                                <div class="choice-modal-body">
+                                    <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>
+                                    <h1>일정 생성</h1>
+                                    <h2>일정을 생성해 주세요.</h2>
+                                    <div class="choice-btn-box">
+                                        <button class="choice-btn" onclick="">
+                                            <h4>개인 수업</h4>
+                                            <h5>일정을 생성해 주세요.</h5>
+                                            <img src="/images/개인수업버튼.png">
+                                        </button>
+                                        <button class="choice-btn">
+                                            <h4>그룹 수업</h4>
+                                            <h5>일정을 생성해 주세요.</h5>
+                                            <img src="/images/그룹수업버튼.png">
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- 모달 테스트 -->
-                            <!-- 모달 호출 버튼 -->
+                            <!--개인수업 일정추가 모달 시작-->
+                            <div class="modal-full">
+                                <div class="modal-body">
+                                    <div class="modal-header">
+                                        <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>
+                                        <div>일정 생성</div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <form action="/schedule/scheduleregist" method="post">
+                                        <h1>개인수업</h1>
+                                        <label>담당 강사 선택</label><br>
+                                        <select name="empCode" id="empCode"></select><br>
+                                        <label>일자 선택</label><br>
+                                        <input type="date" name="scheRunDate"/><br>
+                                        <label>시간 선택</label><br>
+                                        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
 
+                                        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
+                                        <button type="submit">확인</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--개인수업 일정추가 모달 끝-->
+                            <!--그룹수업 일정추가 모달 시작-->
+                            <div class="modal-full">
+                                <div class="modal-body">
+                                    <div class="modal-header">
+                                        <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>
+                                        <div>일정 생성</div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <form action="/schedule/scheduleregist" method="post">
+                                        <h1>개인수업</h1>
+                                        <label>담당 강사 선택</label><br>
+                                        <select name="empCode" id="empCode"></select><br>
+                                        <label>일자 선택</label><br>
+                                        <input type="date" name="scheRunDate"/><br>
+                                        <label>시간 선택</label><br>
+                                        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+
+                                        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
+                                        <button type="submit">확인</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--그룹수업 일정추가 모달 끝-->
+                            <!-- 기존스크립트 -->
+<!--                            <script>-->
+<!--                                const modal = document.querySelector('.modal-full');-->
+<!--                                const btnOpenModal = document.querySelector('.btn-open-modal');-->
+
+<!--                                btnOpenModal.addEventListener("click", () => {-->
+<!--                                    modal.style.display = "flex";-->
+<!--                                });-->
+<!--                            </script>-->
+                            <!-- 변경스크립트 -->
+                            <script>
+                                const modal = document.querySelector('.choice-modal-full');
+                                const registPT = document.querySelector('.modal-full');
+                                const btnOpenModal = document.querySelector('.btn-open-modal1');
+                                const btnPTModal = document.querySelector('.choice-btn');
+
+
+                                btnOpenModal.addEventListener("click", () => {
+                                    modal.style.display = "flex";
+                                });
+
+                                btnPTModal.addEventListener("click", () => {
+                                    modal.style.display = "none";
+                                    registPT.style.display = "flex";
+                                })
+                            </script>
+                            <script>
+                                fetch("/schedule/teacher")
+                                    .then(res =>res.json())
+                                    .then(data => {
+                                        const $userCode = document.getElementById("empCode");
+
+                                        for(let index in data) {
+                                            const $option = document.createElement('option');
+                                            $option.value = data[index].code;
+                                            $option.text = data[index].name;
+
+                                            $userCode.appendChild($option);
+                                        }
+                                    })
+                            </script>
+                            <!--모달 내용 끝-->
 
                             <div class="nav">
                                 <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
@@ -51,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="calendar-today">
+                    <div class="calendar-today">
                     <h1>Today 스케쥴</h1>
                 </div>
                 <!--내용 작성하는 div-->
@@ -140,11 +248,6 @@
     }
 </script>
 
-<!-- 모달 호출하는 스크립트-->
-<script>
-    function openRegistScheduleModal(){
-        $()
-    }
-</script>
+
 
 </html>
