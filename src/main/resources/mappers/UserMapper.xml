@@ -42,6 +42,12 @@
         ORDER BY USER_CODE
     </select>
 
+    <select id="findLastCode">
+        SELECT
+                MAX(USER_CODE)
+        FROM USERDB
+    </select>
+
     <delete id="userPain" parameterType="int">
         DELETE FROM PAINDB
         WHERE USER_CODE = #{code}
@@ -73,15 +79,68 @@
     </delete>
 
 
-    <select id="searchUser" resultMap="userResultMap">
+    <select id="searchedUser" resultMap="userResultMap">
         SELECT
-        USER_NAME
-        ,  USER_ID
-        ,  USER_GENDER
-        ,  USER_PHONE
-        ,  USER_STAFF
+                USER_NAME
+             ,  USER_ID
+             ,  USER_GENDER
+             ,  USER_PHONE
+             ,  USER_STAFF
         FROM USERDB
-        WHERE USER_NAME LIKE CONCAT('%', #{name}, '%')
+        <where>
+            <if test="condition == 'name'">
+                AND USER_NAME Like CONCAT('%', #{ text }, '%')
+            </if>
+            <if test="condition == 'id'">
+                AND USER_ID Like CONCAT('%', #{ text }, '%')
+            </if>
+            AND USER_ROLE = '회원'
+        </where>
         ORDER BY USER_CODE
     </select>
+
+    <insert id="registUser" parameterType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        INSERT INTO USERDB(
+                USER_CODE
+             ,  USER_ROLE
+             ,  USER_NAME
+             ,  USER_ID
+             ,  USER_PWD
+             ,  USER_BIRTH
+             ,  USER_GENDER
+             ,  USER_PHONE
+             ,  USER_ADDRESS
+             ,  USER_ETC
+        )
+        VALUES(
+                #{ code }
+              , #{ role }
+              , #{ name }
+              , #{ id }
+              , #{ pwd }
+              , #{ birth }
+              , #{ gender }
+              , #{ phone }
+              , #{ address }
+              , #{ etc }
+        )
+    </insert>
+
+    <insert id="registUserPhysical" parameterType="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
+        INSERT INTO PHYSICALDB(
+                USER_CODE
+                ,  PHY_HEIGHT
+                ,  PHY_WEIGHT
+                ,  PHY_BMI
+
+        )
+        VALUES(
+                #{ code }
+                , #{ height }
+                , #{ weight }
+                , #{ bmi }
+        )
+    </insert>
+
+
 </mapper>

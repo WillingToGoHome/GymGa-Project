@@ -1,9 +1,10 @@
 package com.willingtogohome.gymga.user.controller;
 
+import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
+import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -50,12 +50,41 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String userSearch(Model model) {
+    public void searchPage() {
+    }
 
-        List<UserDTO> userList = userService.searchUser();
+    @PostMapping("/search")
+    public String userSearch(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<UserDTO> userList = userService.searchedUser(criteria);
+
+        session.setAttribute("searchedUser", userList);
 
         model.addAttribute("userList", userList);
 
-        return "redirect:/user/selectAll";
+        return "user/search";
+    }
+
+    @GetMapping("/regist")
+    public void registPage() {}
+
+    @PostMapping("/regist")
+    public String registUser(UserDTO newUser, PhysicalDTO physical,
+                             @RequestParam String address1, @RequestParam String address2) {
+
+        int code = userService.findLastCode();
+
+        newUser.setCode(code + 1);
+        newUser.setRole("회원");
+        newUser.setAddress(address1 + " " + address2);
+        physical.setCode(code + 1);
+
+        userService.registUser(newUser, physical);
+
+     return "redirect:/user/selectAll";
     }
 }

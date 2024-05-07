@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/selectAll.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-
+<div class="on">
+    <img src="/img/Back.png">
+    <div class="top">신규회원 등록</div>
+    <form action="/user/regist" method="post">
+        <img src="/img/User.png"><br>
+        이름 <input type="text" name="name"><br>
+        아이디 <input type="text" name="id"><br>
+        비밀번호 <input type="text" name="pwd"><br>
+        생년월일 <input type="text" name="birth"><br>
+        성별 <input type="text" name="gender"><br>
+        연락처 <input type="text" name="phone"><br>
+        주소 <input type="text" name="address1"><br>
+            <input type="text" name="address2"><br>
+        기타 <input type="text" name="etc"><br>
+        키 <input type="text" name="height"><br>
+        체중 <input type="text" name="weight"><br>
+        BMI <input type="text" name="bmi"><br>
+        담당강사 <select name="category" class="option">
+                <option value="구예성">구예성</option>
+                <option value="윤수빈">윤수빈</option>
+                <option value="김만호">김만호</option>
+                <option value="이민국">이민국</option>
+               </select><br>
+        약관 동의서<br>
+        <p>
+            1. 담장자는 회원 개인정보를 지킬 의무를 가지며  회원의 개인정보 보호에 최선을 다해야할것.<br>
+            2. 회원의 개인정보를 합당하지 못한곳에 사용하거나 하지 않을것.<br>
+            3. 나쁜짓하면 아니아니 아니되오~~
+        </p>
+        <input type="checkbox" name="agree">
+        <input type="submit" value="등록">
+    </form>
 </body>
 </html>
