@@ -35,7 +35,7 @@
                 <h1 class="login">Log In</h1>
                 <button type="button">관리자</button>
                 <button type="button">직원</button>
-                <form th:action="@{auth/login}" method="post">
+                <form action="/login" method="post">
                     <input type="text" value="userId" name="userId" placeholder="아이디를 입력해주세요"><br>
                     <input type="password" value="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요"><br>
                     <button type="submit">Sign in</button>
@@ -93,8 +93,8 @@
                                 </ul>
                             </li>
                         </ul>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            닫기
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close" style="float: left">
+                            취소
                         </button>
                         <button type="button" class="btn btn-primary" data-target="#registerModal2" data-toggle="modal" data-dismiss="modal">다음</button>
                     </form>
@@ -111,11 +111,14 @@
                 </div>
                 <div class="modal-body">
                     <!-- 회원가입 폼 -->
-                    <form id="registForm" method="post" action="/admin/regist">
-                        ID : <input type="text" name="userId" required><br>
-                        Password : <input type="password" name="userPwd" required><br>
+                    <form id="registForm" method="post" action="/login/admin/regist">
+                        <label th:for="userId" class="form-label">ID</label>
+                        <input type="text" name="userId" required><br>
+                        <label th:for="userPwd" class="form-label">Password</label>
+                        <input type="password" name="userPwd" required><br>
                         <!--Password 확인 : <input type="password" name="userPwd" required><br>-->
-                        이름 : <input type="text" name="userName" required><br>
+                        <label th:for="userName" class="form-label">이름</label>
+                        <input type="text" name="userName" required><br>
                         전화번호 : <input type="number" name="userPhone" required><br>
                         생년월일 : <input type="date" name="userBirth" required><br>
                         주소 : <input type="text" name="userAddress" required><br>

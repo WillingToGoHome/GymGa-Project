@@ -7,7 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginMapper {
 
+    /* 회원가입 */
     int regist(RegistDTO registDTO);
 
+    /* 아이디 찾아서 로그인 */
     LoginDTO findByUserId(String userId);
+
+    /* 아이디 중복체크 */
+
+
 }

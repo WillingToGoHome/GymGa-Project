@@ -1,7 +1,6 @@
 package com.willingtogohome.gymga.login.config.handler;
 
 import com.willingtogohome.gymga.login.common.UserRole;
-import com.willingtogohome.gymga.login.config.handler.AuthFailHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -38,17 +37,20 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/login", "/admin/regist", "/auth/fail", "/", "/main").permitAll();
-            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/login", "/login/admin/regist", "/", "/main", "/login/auth/login").permitAll();
+            auth.requestMatchers("/login/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().permitAll();
 
         }).formLogin( login -> {
             login.loginPage("/login");
+            login.loginProcessingUrl("/login");
             login.usernameParameter("userId");
             login.passwordParameter("userPwd");
-            login.defaultSuccessUrl("/", true);
+            /*login.successForwardUrl("/login_success");*/
+            login.defaultSuccessUrl("/");
             login.failureHandler(authFailHandler);
+            login.permitAll();
 
         }).logout( logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));

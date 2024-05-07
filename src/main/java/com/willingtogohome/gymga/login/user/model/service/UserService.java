@@ -33,11 +33,13 @@ public class UserService {
 
     public LoginDTO findByUserId(String userId) {
         LoginDTO login = loginMapper.findByUserId(userId);
-
+        System.out.println(userId);
         if (!Objects.isNull(login)) {
             return login;
         } else {
             return null;
         }
     }
+
+
 }

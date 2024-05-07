@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginDTO {
-    private Integer userCode;
+    private int userCode;
     private String userId;
     private String userPwd;
     private String userName;
@@ -15,7 +15,7 @@ public class LoginDTO {
 
     public LoginDTO(){}
 
-    public LoginDTO(Integer userCode, String userId, String userPwd, String userName, UserRole userRole) {
+    public LoginDTO(int userCode, String userId, String userPwd, String userName, UserRole userRole) {
         this.userCode = userCode;
         this.userId = userId;
         this.userPwd = userPwd;
@@ -30,11 +30,11 @@ public class LoginDTO {
         return new ArrayList<>();
     }
 
-    public Integer getUserCode() {
+    public int getUserCode() {
         return userCode;
     }
 
-    public void setUserCode(Integer userCode) {
+    public void setUserCode(int userCode) {
         this.userCode = userCode;
     }
 

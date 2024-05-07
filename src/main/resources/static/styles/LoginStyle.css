@@ -95,6 +95,7 @@ body {
 
 .joinBox {
     text-align: left;
+    padding: 0;
 }
 
 .clearfix {
@@ -104,3 +105,4 @@ body {
 .checkBox1, .checkBox2, .checkBox3, .checkBox4 {
     list-style: none;
 }
+

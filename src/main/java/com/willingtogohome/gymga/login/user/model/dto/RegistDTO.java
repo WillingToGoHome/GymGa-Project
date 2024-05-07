@@ -1,6 +1,7 @@
 package com.willingtogohome.gymga.login.user.model.dto;
 
 public class RegistDTO {
+
     private String userId;
     private String userPwd;
     private String userName;
@@ -8,7 +9,7 @@ public class RegistDTO {
     private String userBirth;
     private String userAddress;
     private String userEtc;
-    private String userRole;
+    private String role;
 
     public RegistDTO(){}
 
@@ -20,7 +21,7 @@ public class RegistDTO {
         this.userBirth = userBirth;
         this.userAddress = userAddress;
         this.userEtc = userEtc;
-        this.userRole = userRole;
+        this.role = role;
     }
 
     public String getUserId() {
@@ -79,12 +80,12 @@ public class RegistDTO {
         this.userEtc = userEtc;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class RegistDTO {
                 ", userBirth='" + userBirth + '\'' +
                 ", userAddress='" + userAddress + '\'' +
                 ", userEtc='" + userEtc + '\'' +
-                ", userRole='" + userRole + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 

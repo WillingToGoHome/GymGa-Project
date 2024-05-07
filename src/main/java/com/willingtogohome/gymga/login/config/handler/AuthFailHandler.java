@@ -38,7 +38,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
 
         /* 오류를 처리할 페이지로 이동 */
-        setDefaultFailureUrl("/auth/fail?message=" + errorMessage);
+        setDefaultFailureUrl("/login/auth/fail?message=" + errorMessage);
 
         super.onAuthenticationFailure(request, response, exception);
     }
