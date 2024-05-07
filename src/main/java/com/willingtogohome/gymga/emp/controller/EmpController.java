@@ -3,7 +3,6 @@ package com.willingtogohome.gymga.emp.controller;
 import com.willingtogohome.gymga.emp.model.dto.*;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
 import jakarta.servlet.http.HttpSession;
-import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/emp")
@@ -47,19 +49,55 @@ public class EmpController {
 
     @PostMapping("/regist")
     public String empRegist(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO, RedirectAttributes rttr,
-                            @RequestParam String qualWrite, @RequestParam String address1, @RequestParam String address2) {
+                            @RequestParam MultipartFile picFile, @RequestParam String qualWrite,
+                            @RequestParam String address1, @RequestParam String address2) {
+
+        System.out.println("picFile = " + picFile);
+        System.out.println(picFile.isEmpty());
+
+        if (!picFile.isEmpty()) {
+            String root = "src/main/resources/static";
+            String filePath = root + "/uploadFiles";
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originFileName = picFile.getOriginalFilename();
+            System.out.println("originFileName = " + originFileName);
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            System.out.println("ext = " + ext);
+
+            String savedName = UUID.randomUUID() + ext;
+            System.out.println("savedName = " + savedName);
+
+            try {
+                picFile.transferTo(new File(filePath + "/" + savedName));
+                empDTO.setPic("/uploadFiles/" +savedName);
+//                picFile.transferTo(new File(filePath + "/" + originFileName));
+//                model.addAttribute("message", "파일 업로드 완료!");
+            } catch (Exception e) {
+//                model.addAttribute("message", "파일 업로드 실패!");
+                e.printStackTrace();
+            }
+        } else {
+            empDTO.setPic("/uloadFiles/default-user.png");
+        }
 
         int code = empService.findLastCode();
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
-        System.out.println("qualWrite = " + qualWrite);
+        if (empDTO.getBirth().isEmpty()) {
+            empDTO.setBirth("2000-01-01");
+        }
 
-        if (qualWrite != "") {
-            String qual = employeeDTO.getQual() + "," + qualWrite;
-            System.out.println(employeeDTO.getQual() + "," + qualWrite);
-            employeeDTO.setQual(qual);
+        if (!qualWrite.isEmpty()) {
+            if (employeeDTO.getQual() != null) {
+                String qual = employeeDTO.getQual() + "," + qualWrite;
+                employeeDTO.setQual(qual);
+            } else {
+                employeeDTO.setQual(qualWrite);
+            }
         }
 
         empDTO.setRole("직원");
@@ -67,6 +105,10 @@ public class EmpController {
         empDTO.setCode(code + 1);
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
+
+        System.out.println("empDTO = " + empDTO);
+        System.out.println("physicalDTO = " + physicalDTO);
+        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
@@ -139,8 +181,36 @@ public class EmpController {
 
     @PostMapping("detail")
     public String empDetail(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
-                            HttpSession session, Model model,
+                            HttpSession session, Model model, @RequestParam MultipartFile picFile,
                             @RequestParam String address1, @RequestParam String address2) {
+
+        if (!picFile.isEmpty()) {
+            String root = "src/main/resources/static";
+            String filePath = root + "/uploadFiles";
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originFileName = picFile.getOriginalFilename();
+            System.out.println("originFileName = " + originFileName);
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            System.out.println("ext = " + ext);
+
+            String savedName = UUID.randomUUID() + ext;
+            System.out.println("savedName = " + savedName);
+
+            try {
+                picFile.transferTo(new File(filePath + "/" + savedName));
+                empDTO.setPic("/uploadFiles/" +savedName);
+//                picFile.transferTo(new File(filePath + "/" + originFileName));
+//                model.addAttribute("message", "파일 업로드 완료!");
+            } catch (Exception e) {
+//                model.addAttribute("message", "파일 업로드 실패!");
+                e.printStackTrace();
+            }
+        }
 
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
@@ -172,27 +242,27 @@ public class EmpController {
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
 
-        return "/emp/detail";
+        return "redirect:/emp/main";
     }
 
-//    @GetMapping("/detail")
-//    public String empDetail(HttpSession session, Model model) {
-//
-//        System.out.println("getDetail");
-//
-//        int code = (int) session.getAttribute("searched");
-//        String text = Integer.toString(code);
-//
-//        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
-//        List<EmpDTO> empList = empService.selectAllEmp();
-//
-//        System.out.println("emp = " + emp);
-//
-//        model.addAttribute("emp", emp);
-//        model.addAttribute("empList", empList);
-//
-//        return "/emp/detail";
-//    }
+    @GetMapping("/detail")
+    public String empDetail(HttpSession session, Model model) {
+
+        System.out.println("getDetail");
+
+        int code = (int) session.getAttribute("searched");
+        String text = Integer.toString(code);
+
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+        List<EmpDTO> empList = empService.selectAllEmp();
+
+        System.out.println("emp = " + emp);
+
+        model.addAttribute("emp", emp);
+        model.addAttribute("empList", empList);
+
+        return "/emp/detail";
+    }
 
     @PostMapping("/remove")
     public String empRemove(HttpSession session) {

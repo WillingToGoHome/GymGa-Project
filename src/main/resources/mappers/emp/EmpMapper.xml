@@ -78,7 +78,7 @@
             , USER_NAME
             , USER_PHONE
             , USER_ROLE
-<!--            , USER_PIC-->
+            , USER_PIC
             , USER_GENDER
             , USER_BIRTH
             , USER_ADDRESS
@@ -91,7 +91,7 @@
             , #{ name }
             , #{ phone }
             , #{ role }
-<!--            , #{ pic }-->
+            , #{ pic }
             , #{ gender }
             , #{ birth }
             , #{ address }
@@ -183,6 +183,9 @@
             </if>
             <if test="name != ''">
                 , USER_NAME = #{ name }
+            </if>
+            <if test="pic != null">
+                , USER_PIC = #{ pic }
             </if>
             <if test="phone != ''">
                 , USER_PHONE = #{ phone }

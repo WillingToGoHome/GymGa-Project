@@ -52,9 +52,9 @@ public class PhysicalDTO {
     public String toString() {
         return "PhysicalDTO{" +
                 "code=" + code +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", bmi=" + bmi +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", bmi='" + bmi + '\'' +
                 '}';
     }
 }

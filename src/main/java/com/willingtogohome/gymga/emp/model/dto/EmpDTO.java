@@ -131,7 +131,7 @@ public class EmpDTO {
                 ", role='" + role + '\'' +
                 ", pic='" + pic + '\'' +
                 ", gender='" + gender + '\'' +
-                ", birth=" + birth +
+                ", birth='" + birth + '\'' +
                 ", address='" + address + '\'' +
                 ", etc='" + etc + '\'' +
                 '}';

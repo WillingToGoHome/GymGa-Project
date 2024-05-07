@@ -93,12 +93,12 @@ public class EmployeeDTO {
         return "EmployeeDTO{" +
                 "code=" + code +
                 ", location='" + location + '\'' +
-                ", year=" + year +
-                ", month=" + month +
-                ", totalYear=" + totalYear +
-                ", totalMonth=" + totalMonth +
+                ", year='" + year + '\'' +
+                ", month='" + month + '\'' +
+                ", totalYear='" + totalYear + '\'' +
+                ", totalMonth='" + totalMonth + '\'' +
                 ", qual='" + qual + '\'' +
-                ", salary=" + salary +
+                ", salary='" + salary + '\'' +
                 '}';
     }
 }
