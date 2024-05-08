@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.sale.model.dto;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Time;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,9 +12,9 @@ import java.sql.Date;
 @ToString
 public class SaleDTO {
 
-    private Integer passCode;
+    private Integer userCode;
     private String salesMethod;
-    private Date salesDate;
+    private Time salesDate;
 
 
 }

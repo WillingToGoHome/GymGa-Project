@@ -27,6 +27,7 @@ public class SaleService {
         return saleMapper.findAllList();
     }
 
+
     public List<PassData> sumPassData() {
         return saleMapper.sumPassData();
     }

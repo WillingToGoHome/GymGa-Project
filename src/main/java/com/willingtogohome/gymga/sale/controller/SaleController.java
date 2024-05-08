@@ -6,8 +6,10 @@ import com.willingtogohome.gymga.sale.model.service.SaleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
+
 
 import java.util.List;
 
@@ -20,9 +22,13 @@ public class SaleController {
         this.saleService = saleService;
     }
 
+//    @GetMapping(value = "passdata",produces = "application/json; charset=UTF-8")
+//    @ResponseBody
+//    public List<PassData> passData(){
+//        return saleService.sumPassData();
+//    }
     @GetMapping("/sale/main")
-    public String saleMain(Model model){
-
+    public void saleMain(Model model){
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
 
         for (PassAndPassQualDTO papq : PAPQList){
@@ -30,18 +36,20 @@ public class SaleController {
         }
         model.addAttribute("PAPQList",PAPQList);
 
+
         List<SaleDTO> saleList = saleService.findAllList();
 
-//        for (SaleDTO sales : saleList){
-//            System.out.println("sales = " + sales);
-//        }
+        for (SaleDTO sales : saleList){
+            System.out.println("sales = " + sales);
+        }
         model.addAttribute("saleList", saleList);
 
+
         List<PassData> passData = saleService.sumPassData();
+        System.out.println("passData = " + passData);
+
         model.addAttribute("passData", passData);
 
-
-
-        return "sale/main";
     }
+
 }
