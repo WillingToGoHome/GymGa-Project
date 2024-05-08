@@ -134,12 +134,15 @@
         WHERE FAC_CODE=#{facCode}
     </update>
 
-    <delete id="deleteFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
-        DELETE
-            FROM FACILITYDB
-                    WHERE FAC_CODE=#{facCode}
+    <update id="deleteFac" parameterType="com.willingtogohome.gymga.fac.model.dto.FacDTO">
+        UPDATE
+        FACILITYDB
 
-
-
-    </delete>
+        SET
+        FAC_STATUS=#{facStatus}
+        , FAC_START=#{facStart}
+        , FAC_END=#{facEnd}
+        , USER_CODE=#{userCode}
+        WHERE FAC_CODE=#{facCode}
+    </update>
 </mapper>
