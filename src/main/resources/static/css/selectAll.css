@@ -17,7 +17,6 @@ body {
     max-width: 90%;
     aspect-ratio: 100 / 56.25;
     box-sizing: border-box;
-    /*border: solid black 10px;*/
     border-radius: 20px;
 }
 
@@ -34,10 +33,17 @@ body {
     max-width: 100%;
     aspect-ratio: 100 / 48.55;
     display: flex;
+    background-color: #F0F0F0;
 }
 
 .contents {
-    margin: 0 auto;
+    width: 85%;
+    height: 89.045%;
+    border-radius: 10px;
+    padding-bottom: 3%;
+    overflow: scroll;
+    margin: auto;
+    background-color: #FFFFFF;
 }
 
 .on {
@@ -45,6 +51,10 @@ body {
     align-items: center;
     margin: auto;
     width: 100%;
+}
+
+.back {
+    padding-left: 1%;
 }
 
 .text {
@@ -58,7 +68,7 @@ body {
 
 .top {
     display: flex;
-    width: 100%;
+    padding-left: 39%;
 }
 
 .search {
@@ -73,7 +83,7 @@ body {
 }
 
 .hr1 {
-    width: 100%;
+    width: 95%;
     margin-block-start: auto;
     margin-block-end: auto;
     margin-top: 14px;
@@ -124,7 +134,7 @@ body {
 }
 
 .hr2 {
-    width: 100%;
+    width: 95%;
     margin-block-start: auto;
     margin-block-end: auto;
     margin-top: 25px;
@@ -202,6 +212,7 @@ body {
 .buttonBox {
     align-content: center;
     width: 130px;
+    display: flex;
 }
 
 .detailButton {
@@ -227,7 +238,7 @@ body {
 }
 
 .hr3 {
-    width: 100%;
+    width: 95%;
     margin-block-start: auto;
     margin-block-end: auto;
     margin-top: 20px;
@@ -246,11 +257,11 @@ body {
 
 .modalContent {
     background-color: #FFFFFF;
-    width: 1263px;
-    height: 667px;
+    width: 80%;
+    height: 60%;
     border-radius: 10px;
     position: absolute;
-    top: 50%;
+    top: 38%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

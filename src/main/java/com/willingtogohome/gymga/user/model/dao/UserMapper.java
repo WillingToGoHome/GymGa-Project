@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.user.model.dao;
 import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
+import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface UserMapper {
     void registUserPhysical(PhysicalDTO physical);
 
     int findLastCode();
+
+    List<UserTotDTO> selectDetail(int code);
 }

@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.user.model.dao.UserMapper;
 import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
+import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +45,10 @@ public class UserService {
 
     public int findLastCode() {
         return userMapper.findLastCode();
+    }
+
+
+    public List<UserTotDTO> selectDetail(int code) {
+        return userMapper.selectDetail(code);
     }
 }
