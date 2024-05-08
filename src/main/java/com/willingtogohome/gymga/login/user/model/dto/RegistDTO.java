@@ -13,7 +13,7 @@ public class RegistDTO {
 
     public RegistDTO(){}
 
-    public RegistDTO(String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String userRole) {
+    public RegistDTO(String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String role) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;

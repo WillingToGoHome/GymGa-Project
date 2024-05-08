@@ -15,6 +15,10 @@ public enum UserRole {
         return role;
     }
 
+    public String getAuthority() {
+        return "ROLE_" + role.toUpperCase();
+    }
+
     @Override
     public String toString() {
         return "UserRole{" +

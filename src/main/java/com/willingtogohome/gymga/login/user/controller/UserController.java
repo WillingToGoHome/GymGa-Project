@@ -21,7 +21,7 @@ public class UserController {
         return "/login/admin/regist";
     }
 
-    @PostMapping("/admin/regist")
+    @PostMapping("/login/admin/regist")
     public ModelAndView regist(@ModelAttribute RegistDTO registDTO) {
         ModelAndView mv = new ModelAndView();
 
@@ -35,7 +35,7 @@ public class UserController {
             message = "회원가입에 실패하였습니다.";
         }
         mv.addObject("message", message);
-        mv.setViewName("/login/admin/regist");
+        mv.setViewName("/login");
 
         return mv;
     }

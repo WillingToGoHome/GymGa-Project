@@ -1,4 +1,4 @@
-package com.willingtogohome.gymga.login.config.handler;
+package com.willingtogohome.gymga.login.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

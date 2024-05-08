@@ -4,6 +4,8 @@ import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
 import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface LoginMapper {
 
@@ -12,6 +14,7 @@ public interface LoginMapper {
 
     /* 아이디 찾아서 로그인 */
     LoginDTO findByUserId(String userId);
+
 
     /* 아이디 중복체크 */
 

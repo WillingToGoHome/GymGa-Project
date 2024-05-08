@@ -1,6 +1,8 @@
-package com.willingtogohome.gymga.login.config.handler;
+package com.willingtogohome.gymga.login.config;
 
 import com.willingtogohome.gymga.login.common.UserRole;
+import com.willingtogohome.gymga.login.config.handler.AuthFailHandler;
+import com.willingtogohome.gymga.login.config.handler.AuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,9 @@ public class SecurityConfig {
 
     @Autowired
     private AuthFailHandler authFailHandler;
+
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
 
     /* 비밀번호 암호화 */
     @Bean
@@ -39,16 +44,15 @@ public class SecurityConfig {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/login", "/login/admin/regist", "/", "/main", "/login/auth/login").permitAll();
             auth.requestMatchers("/login/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
+            auth.requestMatchers("/login/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().permitAll();
 
         }).formLogin( login -> {
             login.loginPage("/login");
-            login.loginProcessingUrl("/login");
             login.usernameParameter("userId");
             login.passwordParameter("userPwd");
-            /*login.successForwardUrl("/login_success");*/
-            login.defaultSuccessUrl("/");
+            /*login.defaultSuccessUrl("/login", true);*/
+            login.successHandler(authSuccessHandler);
             login.failureHandler(authFailHandler);
             login.permitAll();
 
