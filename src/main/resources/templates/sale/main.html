@@ -1,69 +1,78 @@
-<!--
-	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=pie-borderRadius&lang=js
--->
 <!DOCTYPE html>
-<html lang="en" style="height: 100%">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>saleMain</title>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/salesStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 </head>
-<body style="height: 100%; margin: 0">
-<div id="pie" style="height: 270px; width: 490px;"></div>
-<div id="bar" style="height: 300px; width: 490px;"></div>
+<body>
+<div id="main">
+    <div id="app_area">
+        <div id="window">
+            <!--header-->
+            <div th:insert="~{common/header}"></div>
+            <!--navbar-->
+            <div class="mid-container">
+                <div th:insert="~{common/navbar}"></div>
+                <div>
 
 
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
-<!-- Uncomment this line if you want to dataTool extension
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/dataTool.min.js"></script>
--->
-<!-- Uncomment this line if you want to use gl extension
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
--->
-<!-- Uncomment this line if you want to echarts-stat extension
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
--->
-<!-- Uncomment this line if you want to use map
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
--->
-<!-- Uncomment these two lines if you want to use bmap extension
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/bmap.min.js"></script>
--->
-    <div>
-        <div th:each="pass:${passData}">
-            <tr>이용권 판매 데이터 불러오기</tr>
-            <br>
-            <td th:text="${pass.ptCount}">PT</td>
-            <td th:text="${pass.gxCount}">GX</td>
-            <td th:text="${pass.gpCount}">일반</td>
+
+                    <div class="pieG" id="pie"></div>
+
+                    <div class="barG" id="bar"></div>
+
+                    <div class="memberSale" id="pie2">
+                            <table>
+                                <tr>
+                                    <h3>직원 매출</h3>
+                                </tr>
+                                <tr th:each="sale:${PAPQList}">
+                                    <td th:if="${sale.userCode == sale.userDTO.userCode}" th:text="${sale.userDTO.userName}"></td>
+<!--                                    <td th:text="${sale.F_user_name}"></td>-->
+<!--                                    <td th:text="${pass.gpCount}"></td>-->
+                                </tr>
+                            </table>
+                    </div>
+
+                    <div class="salesData">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>이용권</th>
+                                    <th>유효 기간</th>
+                                    <th>결제 금액</th>
+                                    <th>결제 방식</th>
+                                    <th>시 간</th>
+                                </tr>
+                                <tr th:each="sale:${PAPQList}">
+                                    <td th:text="${sale.userDTO.userName}"></td>
+                                    <td class="time" th:text="${sale.passQualDTO.pqName}"></td>
+                                    <td class="time" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+                                 + ' ~ '
+                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
+                                    <td th:text="${sale.saleDTO.salesMethod}"></td>
+                                    <td class="time" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
+                                 +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!--footer-->
+            <div th:insert="~{common/footer}"></div>
         </div>
+    </div>
+</div>
 
-
-
-        <div>
-            <table>
-                <tr th:each="sale:${PAPQList}">
-                    <td th:text="${sale.userDTO.userName}"></td>
-                    <td th:text="${sale.pqCode}"></td>
-                    <td th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
-                             + ' ~ '
-                             + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
-                    <td th:text="${sale.saleDTO.salesMethod}"></td>
-                    <td th:text="${#dates.format(sale.passStart, 'MM.dd ')}
-                             +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
-                </tr>
-            </table>
-        </div>
-
-
-
-
-        <div>
-        <script type="text/javascript">
-
-
+    <script type="text/javascript">
             var dom = document.getElementById('pie');
             var myChart = echarts.init(dom, null, {
                 renderer: 'canvas',
@@ -73,13 +82,13 @@
             var app = {};
 
             var option;
-            var PT=25;
-            var GX=65;
-            var GP=42;
-            var SUM = (PT+GX+GP);
-            var result = PT/SUM*100;
-            var result2 = GX/SUM*100;
-            var result3 = GP/SUM*100;
+            var PT = 25;
+            var GX = 65;
+            var GP = 42;
+            var SUM = (PT + GX + GP);
+            var result = PT / SUM * 100;
+            var result2 = GX / SUM * 100;
+            var result3 = GP / SUM * 100;
 
 
             option = {
@@ -123,9 +132,9 @@
                             // { value: 일반, name: '일반' },
                             // { value: PT, name: 'PT' },
                             // { value: GX, name: 'GX' },
-                            { value: result.toFixed(2), name: 'PT' },
-                            { value: result2.toFixed(2), name: 'GX' },
-                            { value: result3.toFixed(2), name: '일반' },
+                            {value: result.toFixed(2), name: 'PT'},
+                            {value: result2.toFixed(2), name: 'GX'},
+                            {value: result3.toFixed(2), name: '일반'},
                             // { value: 484, name: '비회원' },
                             // { value: 300, name: '' }
                         ]
@@ -137,93 +146,108 @@
                 myChart.setOption(option);
             }
 
+
             window.addEventListener('resize', myChart.resize);
-        </script>
-    </div>
 
+    </script>
 
+    <script  type="text/javascript">
+        var dom = document.getElementById('bar');
+        var myChart = echarts.init(dom, null, {
+            renderer: 'canvas',
+            useDirtyRect: false
+        });
+        var app = {};
 
-    <div>
-        <script type="text/javascript">
-            var dom = document.getElementById('bar');
-            var myChart = echarts.init(dom, null, {
-                renderer: 'canvas',
-                useDirtyRect: false
-            });
-            var app = {};
+        var option;
 
-            var option;
-
-            option = {
-                tooltip: {
-                    trigger: 'item'
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            dataset: [
+                {
+                    dimensions: ['name', 'age', 'profession', 'score', 'date'],
+                    source: [
+                        ['01월 ', 41, 'Engineer', 3140000, '2011-02-12'],
+                        ['02월', 20, 'Teacher', 5050000, '2011-03-01'],
+                        ['03월', 52, 'Musician', 5000000, '2011-02-14'],
+                        ['04월', 37, 'Teacher', 5000000, '2011-02-18'],
+                        ['05월', 25, 'Engineer', 2550000, '2011-04-02'],
+                        ['06월', 19, 'Teacher', 8000000, '2011-01-16'],
+                        ['07월', 71, 'Engineer', 1000006, '2011-03-19'],
+                        ['08월', 36, 'Musician', 3100000, '2011-02-24'],
+                        ['09월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['10월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['11월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['12월', 67, 'Engineer', 3600006, '2011-03-12'],
+                    ]
                 },
-                dataset: [
-                    {
-                        dimensions: ['name', 'age', 'profession', 'score', 'date'],
-                        source: [
-                            ['01월 ', 41, 'Engineer', 3140000, '2011-02-12'],
-                            ['02월', 20, 'Teacher', 5050000, '2011-03-01'],
-                            ['03월', 52, 'Musician', 5000000, '2011-02-14'],
-                            ['04월', 37, 'Teacher', 5000000, '2011-02-18'],
-                            ['05월', 25, 'Engineer', 2550003, '2011-04-02'],
-                            ['06월', 19, 'Teacher', 8000000, '2011-01-16'],
-                            ['07월', 71, 'Engineer', 1000006, '2011-03-19'],
-                            ['08월', 36, 'Musician', 3100000, '2011-02-24'],
-                            ['09월', 67, 'Engineer', 3600006, '2011-03-12'],
-                            ['10월', 67, 'Engineer', 3600006, '2011-03-12'],
-                            ['11월', 67, 'Engineer', 3600006, '2011-03-12'],
-                            ['12월', 67, 'Engineer', 3600006, '2011-03-12'],
-                        ]
-                    },
-                    {
-                        transform: {
-                            type: 'sort',
-                            config: { dimension: 'name', order: 'asc' }
+                {
+                    transform: {
+                        type: 'sort',
+                        config: { dimension: 'name', order: 'asc' }
+                    }
+                }
+            ],
+            xAxis: {
+                type: 'category',
+                axisLabel: { interval: 0, rotate: 30 }
+            },
+            yAxis: {
+                axisLabel: {
+                    formatter: function (value) {
+                        if (value >= 10000) {
+                            return (value / 10000) + '만';
+                        } else {
+                            return value;
                         }
                     }
-                ],
-                xAxis: {
-                    type: 'category',
-                    axisLabel: { interval: 0, rotate: 30 }
-                },
-                yAxis: {},
-                series: [
-                    {
+                }
+            },
+            series: [
+                {
                     name: '매출',
                     type: 'bar',
                     encode: { x: 'name', y: 'score' },
-                    datasetIndex: 1
+                    datasetIndex: 1,
+                    label: {
+                        show: false,
+                        // position: 'middle',
+                        // formatter: '{d}%',
+                        position: 'center',
                     },
-                ],
-                // label: {
-                //     show: false,
-                //     position: 'center',
-                //     formatter: '{b}원',
-                //     // position: 'center'
-                // },
-                // emphasis: {
-                //     label: {
-                //         show: true,
-                //         position:'center',
-                //         fontSize: 16,
-                //         // fontWeight: 'bold'
-                //     }
-                // },
-                // labelLine: {
-                //     show: true,
-                // },
-            };
+                    labelLine: {
+                        show: true,
+                    },
+                },
+            ],
 
-            if (option && typeof option === 'object') {
-                myChart.setOption(option);
-            }
+            // label: {
+            //     show: false,
+            //     position: 'center',
+            //     formatter: '{b}원',
+            //     // position: 'center'
+            // },
+            // emphasis: {
+            //     label: {
+            //         show: true,
+            //         position:'center',
+            //         fontSize: 16,
+            //         // fontWeight: 'bold'
+            //     }
+            // },
+            // labelLine: {
+            //     show: true,
+            // },
+        };
 
-            window.addEventListener('resize', myChart.resize);
-        </script>
-        </div>
-    </div>
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
 
+        window.addEventListener('resize', myChart.resize);
+    </script>
 
 </body>
 </html>

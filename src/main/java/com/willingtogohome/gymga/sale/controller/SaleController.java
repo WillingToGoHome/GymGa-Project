@@ -6,7 +6,6 @@ import com.willingtogohome.gymga.sale.model.service.SaleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 
@@ -32,7 +31,7 @@ public class SaleController {
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
 
         for (PassAndPassQualDTO papq : PAPQList){
-            System.out.println("papq = " + papq);
+//            System.out.println("papq = " + papq);
         }
         model.addAttribute("PAPQList",PAPQList);
 
@@ -40,16 +39,19 @@ public class SaleController {
         List<SaleDTO> saleList = saleService.findAllList();
 
         for (SaleDTO sales : saleList){
-            System.out.println("sales = " + sales);
+//            System.out.println("sales = " + sales);
         }
         model.addAttribute("saleList", saleList);
 
 
         List<PassData> passData = saleService.sumPassData();
-        System.out.println("passData = " + passData);
+//        System.out.println("passData = " + passData);
 
         model.addAttribute("passData", passData);
 
     }
+
+    @GetMapping("/main")
+    public void all(){}
 
 }
