@@ -94,18 +94,6 @@ body {
     color: #4B82D8;
 }
 
-#essenBox {
-    padding: 20px;
-    width: 100%;
-    height: 50px;
-    border: 1px solid #d8d9df;
-    font-size: 12px;
-    color: #98989f;
-    line-height: 1.5em;
-    overflow: auto;
-    resize: none;
-}
-
 .joinBox {
     text-align: left;
     padding: 0;
@@ -117,5 +105,215 @@ body {
 
 .checkBox1, .checkBox2, .checkBox3, .checkBox4 {
     list-style: none;
+}
+
+/*모달창*/
+.buttonBox {
+    align-content: center;
+    width: 130px;
+    display: flex;
+}
+
+/*.detailButton {
+    width: 60px;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    border-radius: 5px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 10px;
+}*/
+
+.registButton {
+    width: 60px;
+    height: 30px;
+    color: #656565;
+    border: 1px solid #656565;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+/*.hr3 {
+    width: 95%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin-top: 20px;
+    border: 1px solid #D9D9D9;
+}*/
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+    background-color: #FFFFFF;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalHeader {
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+#term {
+    display: block;
+}
+
+div[id*="textBox"] {
+    margin-left: 20%;
+    margin-top: 2%;
+}
+
+.modalText1 {
+    padding: 0 10px 15px 0;
+    margin-right: 15%;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 0;
+    border-bottom: 1px solid #3d435f;
+}
+
+.checks {
+    position: relative;
+    display: inline-block;
+}
+
+.checks input[type=checkbox] { /* 실제 체크박스는 화면에서 숨김 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.checks input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checks input[type="checkbox"] + label:before { /*가짜 체크박스*/
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.checks input[type="checkbox"]:checked + label:before { /*체크박스를 체크했을 때*/
+    background: url("../images/chk.png") no-repeat 50% 50% #3a8afd;
+    border-color: #3a8afd;
+}
+
+.checks2 {
+    position: relative;
+}
+
+
+.checks2:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.checks2 input[type="checkbox"] {
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    opacity:0;
+    outline:0;
+    z-index:-1;
+    overflow:hidden
+}
+
+.checks2 input[type="checkbox"] + label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 20.5%;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.checks2 input[type="checkbox"]:checked + label:before {
+    background: url("../images/chk.png") no-repeat 50% 50% #4B82D8;
+    border-color: #4B82D8;
+}
+
+.text1 {
+    margin-left: 20%;
+}
+
+.essenBox {
+    padding: 15px;
+    width: 80%;
+    height: 50px;
+    border: 1px solid #d8d9df;
+    font-size: 12px;
+    color: #98989f;
+    line-height: 1.5em;
+    overflow: auto;
+    resize: none;
+}
+
+.modalButtonBox {
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-left: 40%;
+}
+
+button:focus {
+    outline: none;
+}
+
+.cancelButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.nextButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
 }
 
