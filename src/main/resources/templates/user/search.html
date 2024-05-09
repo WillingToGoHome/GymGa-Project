@@ -18,7 +18,7 @@
                 <!--내용 작성하는 div-->
                 <div class="contents">
                     <div class="on">
-                        <img src="/img/Back.png">
+                        <img src="/img/Back.png" class="back">
                         <p class="text">회원 리스트</p>
                         <form action="/user/search" method="post" class="top">
                             <input type="text" class="search" name="search" placeholder="검색 내용">
@@ -40,31 +40,37 @@
                         <p class="titleText">관리</p>
                     </div>
                     <hr class="hr2">
-                    <div class="userList" th:each="user : ${userList}">
-                        <p class="userName" th:text="${user.name}"></p>
-                        <p class="userId" th:text="${user.id}"></p>
-                        <p th:if="${user.gender == '남'}" class="userGender" th:text="${user.gender}"></p>
-                        <p th:if="${user.gender == '여'}" class="userGender2" th:text="${user.gender}"></p>
-                        <p class="userPhone" th:text="${user.phone}"></p>
-                        <p class="userStaff" th:text="${user.staff}"></p>
-                        <div class="buttonBox">
-                            <form action="/user/selectDetail" method="get">
-                                <input type="hidden" name="code" th:value="${user.code}">
-                                <input class="detailButton" type="submit" onclick="location.href='/user/selectDetail'" value="상세">
-                            </form>
-                            <button class="deleteButton">삭제</button>
-                            <div class="modalContainer">
-                                <div class="modalContent">
-                                    <div class="textBox">
-                                        <p class="modalText1"><span th:text="${user.name}"></span>님이 선택되었습니다</p>
-                                        <p class="modalText2">정말 삭제하시겠습니까?</p>
-                                    </div>
-                                    <div class="modalButtonBox">
-                                        <button class="cancelButton">취소</button>
-                                        <form action="/user/delete" method="post">
-                                            <input type="hidden" name="code" th:value="${user.code}">
-                                            <input class="checkButton" type="submit" value="확인">
-                                        </form>
+                    <div class="zxc">
+                        <div class="userList" th:each="user : ${userList}">
+                            <p class="userName" th:text="${user.name}"></p>
+                            <p class="userId" th:text="${user.id}"></p>
+                            <p th:if="${user.gender == '남'}" class="userGender" th:text="${user.gender}"></p>
+                            <p th:if="${user.gender == '여'}" class="userGender2" th:text="${user.gender}"></p>
+                            <p class="userPhone" th:text="${user.phone}"></p>
+                            <p class="userStaff" th:if="${user.staff == 0 || user.staff == null}" th:text="없음"></p>
+                            <p class="userStaff" th:if="${user.staff == 1}" th:text="구예성"></p>
+                            <p class="userStaff" th:if="${user.staff == 2}" th:text="윤수빈"></p>
+                            <p class="userStaff" th:if="${user.staff == 3}" th:text="김만호"></p>
+                            <p class="userStaff" th:if="${user.staff == 4}" th:text="이민국"></p>
+                            <div class="buttonBox">
+                                <form action="/user/selectDetail" method="get" style="display: flex">
+                                    <input type="hidden" name="code" th:value="${user.code}">
+                                    <input class="detailButton" type="submit" onclick="location.href='/user/selectDetail'" value="상세">
+                                </form>
+                                <button class="deleteButton">삭제</button>
+                                <div class="modalContainer">
+                                    <div class="modalContent">
+                                        <div class="textBox">
+                                            <p class="modalText1"><span th:text="${user.name}"></span>님이 선택되었습니다</p>
+                                            <p class="modalText2">정말 삭제하시겠습니까?</p>
+                                        </div>
+                                        <div class="modalButtonBox">
+                                            <button class="cancelButton">취소</button>
+                                            <form action="/user/delete" method="post">
+                                                <input type="hidden" name="code" th:value="${user.code}">
+                                                <input class="checkButton" type="submit" value="확인">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

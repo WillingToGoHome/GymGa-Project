@@ -87,14 +87,19 @@ public class UserController {
     }
 
     @GetMapping("/regist")
-    public void registPage() {}
+    public String registPage() {
+
+        return "user/regist";
+    }
 
     @PostMapping("/regist")
     public String registUser(UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String address1, @RequestParam String address2) {
+                             @RequestParam String address1, @RequestParam String address2, @RequestParam String staff) {
 
+        int userStaff = Integer.parseInt(staff);
         int code = userService.findLastCode();
 
+        newUser.setStaff(userStaff);
         newUser.setCode(code + 1);
         newUser.setRole("회원");
         newUser.setAddress(address1 + " " + address2);

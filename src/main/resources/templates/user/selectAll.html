@@ -47,11 +47,11 @@
                                 <p th:if="${user.gender == '남'}" class="userGender" th:text="${user.gender}"></p>
                                 <p th:if="${user.gender == '여'}" class="userGender2" th:text="${user.gender}"></p>
                                 <p class="userPhone" th:text="${user.phone}"></p>
-                                <p class="userStaff" th:if="${user.staff == '0' || user.staff == null}" th:text="없음"></p>
-                                <p class="userStaff" th:if="${user.staff == '1'}" th:text="구예성"></p>
-                                <p class="userStaff" th:if="${user.staff == '2'}" th:text="윤수빈"></p>
-                                <p class="userStaff" th:if="${user.staff == '3'}" th:text="김만호"></p>
-                                <p class="userStaff" th:if="${user.staff == '4'}" th:text="이민국"></p>
+                                <p class="userStaff" th:if="${user.staff == 0 || user.staff == null}" th:text="없음"></p>
+                                <p class="userStaff" th:if="${user.staff == 1}" th:text="구예성"></p>
+                                <p class="userStaff" th:if="${user.staff == 2}" th:text="윤수빈"></p>
+                                <p class="userStaff" th:if="${user.staff == 3}" th:text="김만호"></p>
+                                <p class="userStaff" th:if="${user.staff == 4}" th:text="이민국"></p>
                                 <div class="buttonBox">
                                     <form action="/user/selectDetail" method="get" style="display: flex">
                                     <input type="hidden" name="code" th:value="${user.code}">
