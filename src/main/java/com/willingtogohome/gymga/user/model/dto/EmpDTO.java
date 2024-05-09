@@ -9,11 +9,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDTO {
-    private int memberCode;
+public class EmpDTO {
+    private int empCode;
 //    private String userId;
 //    private String userPwd;
-    private String memberName;
+    private String empName;
 //    private String userPhone;
 //    private String userRole;
 //    private String userPic;
@@ -23,9 +23,8 @@ public class UserDTO {
 //    private String userEtc;
 //    private int userStaff;
 
-
 //    @Override
 //    public String toString() {
-//        return memberName + "";
+//        return empName ;
 //    }
 }

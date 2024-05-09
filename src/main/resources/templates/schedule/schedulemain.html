@@ -201,9 +201,28 @@
                         <div class="today-date">
                             <div class="event-day">Wed</div>
                             <div class="event-date">16 November 2022</div>
-                        </div>
+                        </div><!--DB 출력-->
+                        <table>
+                            <tr>
+                                <th>강의코드</th>
+                                <th>강사명</th>
+                                <th>시작시간</th>
+                                <th>인원</th>
+                                <th>회원명</th>
+                                <th>출결</th>
+                            </tr>
+                            <tr th:each="schedule : ${scheduleList}">
+                                <td th:text="${schedule.classCode}"></td>
+                                <td th:text="${schedule.empCode}"></td>
+                                <td th:text="${schedule.scheStartTime}"></td>
+                                <td th:text="${schedule.scheParticipate}"></td>
+                                <td th:text="${schedule.memberCode}"></td>
+                                <td th:text="${schedule.scheAtten}"></td>
+                            </tr>
+                        </table>
                         <div class="events">
                             <!-- 일정 JS -->
+
                         </div>
                         <div class="add-event-wrapper">
                             <div class="add-event-header">
@@ -220,9 +239,11 @@
                                 <div class="add-event-input">
                                     <input type="text" placeholder="Event Time To" class="event-time-to"/>
                                 </div>
+
                             </div>
                             <div class="add-event-footer">
                                 <button class="add-event-btn">add event</button>
+
                             </div>
                         </div>
                     </div>
@@ -323,7 +344,7 @@
         todayBtn = document.querySelector(".today-btn"),
         gotoBtn = document.querySelector(".goto-btn"),
         dateInput = document.querySelector(".date-input");
-    eventDay = document.querySelector(".event-day"),
+        eventDay = document.querySelector(".event-day"),
         eventDate = document.querySelector(".event-date"),
         eventsContainer = document.querySelector(".events"),
         addEventSubmit = document.querySelector(".add-event-btn");
