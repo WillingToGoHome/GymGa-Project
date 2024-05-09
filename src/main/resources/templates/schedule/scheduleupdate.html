@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UPDATE</title>
+</head>
+<body>
+    <h2>일정 변경</h2>
+    <form th:action="@{|/schedule/scheduleupdate/${selectOneSchedule.scheCode}|}" method="post">
+        <input type="hidden" name="scheCode" th:value="${selectOneSchedule.scheCode}">
+        <label>담당 강사 선택</label><br>
+        <select name="empCode" id="empCode"></select><br>
+        <label>일자 선택</label><br>
+        <input type="date" name="scheRunDate"/><br>
+        <label>시간 선택</label><br>
+        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+
+<!--        <button onclick="location.href='/schedule/schedulelist'">리스트로</button>-->
+<!--        <button th:onclick="|location.href='/schedule/scheduledetail/' + ${selectOneSchedule.scheCode}|">취소</button>-->
+        <button type="submit">확인</button>
+    </form>
+</body>
+</html>

@@ -24,10 +24,10 @@
     </resultMap>
 
     <resultMap id="userResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
-        <id property="code" column="user_code"/>
+        <id property="userCode" column="user_code"/>
         <result property="userId" column="user_id"/>
         <result property="userPwd" column="user_pwd"/>
-        <result property="name" column="user_name"/>
+        <result property="userName" column="user_name"/>
         <result property="userPhone" column="user_phone"/>
         <result property="userRole" column="user_role"/>
         <result property="userPic" column="user_pic"/>
@@ -91,5 +91,115 @@
                 null,
                 null)
     </insert>
+
+    <!--collection-->
+    <resultMap id="scheduleAndClassAndUserAndPassResultMap" type="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+        <!--ScheduleDTO-->
+        <id property="scheCode" column="sche_code"/>
+        <result property="scheRegDate" column="sche_reg_date"/>
+        <result property="scheRunDate" column="sche_run_date"/>
+        <result property="scheStartTime" column="sche_start_time"/>
+        <result property="scheEndTime" column="sche_end_time"/>
+        <result property="scheParticipate" column="sche_participate"/>
+        <result property="scheAtten" column="sche_atten"/>
+        <!--classDTO-->
+        <association property="classCategory" javaType="com.willingtogohome.gymga.schedule.model.dto.ClassDTO">
+            <id property="classCode" column="class_code"/>
+            <result property="className" column="class_name"/>
+        </association>
+        <!--userDTO-->
+        <association property="empCategory" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
+            <id property="empCode" column="user_code"/>
+            <result property="empName" column="emp_name"/>
+        </association>
+        <association property="userCategory" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+            <id property="memberCode" column="user_code"/>
+            <result property="memberName" column="user_name"/>
+        </association>
+        <!--passDTO-->
+        <association property="passCategory" javaType="com.willingtogohome.gymga.pass.model.dto.PassDTO">
+            <id property="passCode" column="pass_code"/>
+            <result property="passTotal" column="pass_total"/>
+            <result property="passUse" column="pass_use"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+               A.SCHE_CODE,
+<!--               B.CLASS_CODE,-->
+               B.CLASS_NAME,
+               A.SCHE_REG_DATE,
+               A.SCHE_RUN_DATE,
+               A.SCHE_START_TIME,
+               A.SCHE_END_TIME,
+               A.SCHE_PARTICIPATE,
+<!--               A.EMP_CODE,-->
+<!--               C.USER_CODE,-->
+               C.USER_CODE,
+               C.USER_NAME AS EMP_NAME,
+<!--               A.MEMBER_CODE,-->
+<!--               D.USER_CODE,-->
+               D.USER_CODE,
+               D.USER_NAME,
+<!--               A.PASS_CODE,-->
+<!--               E.PASS_CODE,-->
+               E.PASS_TOTAL,
+               E.PASS_USE
+        FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        ORDER BY A.SCHE_CODE
+    </select>
+
+    <select id="findByScheCode" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+                A.SCHE_CODE,
+                <!--               B.CLASS_CODE,-->
+                B.CLASS_NAME,
+                A.SCHE_REG_DATE,
+                A.SCHE_RUN_DATE,
+                A.SCHE_START_TIME,
+                A.SCHE_END_TIME,
+                A.SCHE_PARTICIPATE,
+                <!--               A.EMP_CODE,-->
+                <!--               C.USER_CODE,-->
+                C.USER_CODE,
+                C.USER_NAME AS EMP_NAME,
+                <!--               A.MEMBER_CODE,-->
+                <!--               D.USER_CODE,-->
+                D.USER_CODE,
+                D.USER_NAME,
+                <!--               A.PASS_CODE,-->
+                <!--               E.PASS_CODE,-->
+                E.PASS_TOTAL,
+                E.PASS_USE
+           FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        WHERE A.SCHE_CODE = #{scheCode}
+        ORDER BY A.SCHE_CODE
+
+    </select>
+
+<!--    <update id="updateSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">-->
+<!--        UPDATE scheduledb A-->
+<!--        INNER JOIN classdb AS B ON A.CLASS_CODE = B.CLASS_CODE-->
+<!--        INNER JOIN userdb AS C ON A.EMP_CODE = C.USER_CODE-->
+<!--        INNER JOIN userdb AS D ON A.MEMBER_CODE = D.USER_CODE-->
+<!--        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE-->
+<!--           SET A.sche_run_date = '2024-05-05',-->
+<!--               A.sche_start_time = '09:00:00',-->
+<!--               A.sche_end_time = '10:00:00',-->
+<!--               A.EMP_CODE = '4',-->
+<!--               A.MEMBER_CODE = '5',-->
+<!--               E.PASS_TOTAL = '29',-->
+<!--               E.PASS_USE = '1'-->
+<!--        WHERE A.sche_code = #{scheCode};-->
+<!--    </update>-->
+
 
 </mapper>
