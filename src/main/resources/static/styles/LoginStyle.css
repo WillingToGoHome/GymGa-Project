@@ -107,23 +107,12 @@ body {
     list-style: none;
 }
 
-/*모달창*/
+/* 이용약관 모달창 */
 .buttonBox {
     align-content: center;
     width: 130px;
     display: flex;
 }
-
-/*.detailButton {
-    width: 60px;
-    height: 30px;
-    color: #FFFFFF;
-    background-color: #4B82D8;
-    border-radius: 5px;
-    border: 1px;
-    font-weight: bold;
-    font-size: 10px;
-}*/
 
 .registButton {
     width: 60px;
@@ -135,14 +124,6 @@ body {
     font-weight: bold;
     font-size: 10px;
 }
-
-/*.hr3 {
-    width: 95%;
-    margin-block-start: auto;
-    margin-block-end: auto;
-    margin-top: 20px;
-    border: 1px solid #D9D9D9;
-}*/
 
 .modalContainer {
     position: absolute;
@@ -316,4 +297,119 @@ button:focus {
     border: 1px solid #FFFFFF;
     background-color: #4B82D8;
 }
+
+/* 회원가입 폼 */
+
+.buttonBox2 {
+    align-content: center;
+    width: 130px;
+    display: flex;
+}
+
+.modalContainer2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContainer2 {
+    background-color: #FFFFFF;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalButtonBox2 {
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-left: 40%;
+}
+
+.modalText2 {
+    padding: 0 10px 15px 0;
+    margin-right: 15%;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 0;
+    border-bottom: 1px solid #3d435f;
+}
+
+#registerForm {
+    margin-left: 20%;
+    margin-top: 2%;
+}
+.regi_table tbody th label{
+    position: relative;
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 500;
+    height: 20px;
+    padding-left: 13px; }
+
+.regi_table tbody th label.req:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    background: #e5433e;
+    border-radius: 2.5px;
+    overflow: hidden;
+}
+
+.req_desc {
+    position: relative;
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 500;
+    height: 20px;
+    padding-left: 72%;
+}
+
+.req_desc:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    margin-left: 101%;
+    background: #e5433e;
+    border-radius: 2.5px;
+    overflow: hidden;
+}
+
+.prevButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.checkButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}
+
 

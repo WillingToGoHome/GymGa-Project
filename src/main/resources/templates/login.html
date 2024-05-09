@@ -200,7 +200,53 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                             </section>
                             <div class="modalButtonBox">
                                 <button class="cancelButton">취소</button>
-                                <button class="nextButton">다음</button>
+                                <button type="submit" value="다음" id="btn_submit" class="nextButton">다음</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonBox2">
+                    <div class="modalContainer2">
+                        <div class="modalContent2">
+                            <div class="modalHeader">
+                                <h3 class="modalText2">회원 정보
+                                <span class="req_desc">필수입력사항</span>
+                                </h3>
+                            </div>
+                                <form id="registerForm" name="registerForm" action="/admin/regist" method="post" autocomplete="off">
+                                    <div id="register_form" class="form_01">
+                                        <div class="regi_table">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userId" class="req">
+                                                                ID
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="text" name="userId" value id="reg_userId" required class="reg_input" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자.">
+                                                            <span id="msg_userId" class="reg_msg"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userPwd" class="req">
+                                                                PASSWORD
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="password" name="userPwd" value id="reg_userPwd" required class="reg_input" maxlength="3" minlength="20">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>
+                            <div class="modalButtonBox2">
+                                <button class="prevButton" id="btn_submit2">이전으로</button>
+                                <input class="checkButton" type="submit" value="확인">
                             </div>
                         </div>
                     </div>
@@ -232,6 +278,30 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         });
     </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function (){
+            var nextButton = document.getElementById("btn_submit");
+
+            nextButton.addEventListener("click", function () {
+                var modalContainer = document.querySelector(".modalContainer");
+                modalContainer.style.display = "none";
+
+                var modalContainer2 = document.querySelector(".modalContainer2");
+                modalContainer2.style.display = "block";
+            });
+
+            var prevButton = document.getElementById("btn_submit2");
+
+            prevButton.addEventListener("click", function () {
+                var modalContainer2 = document.querySelector(".modalContainer2");
+                modalContainer2.style.display = "none";
+
+                var modalContainer = document.querySelector(".modalContainer");
+                modalContainer.style.display = "block";
+            });
+        });
+    </script>
+
     <!-- 이용약관 클릭 스크립트 -->
     <script>
         function fregister_submit(f)
@@ -242,9 +312,23 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                 return false;
             }
             if (!f.chk2.checked) {
-                alert()
+                alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+                f.chk2.focus();
+                return false;
             }
+            return true;
         }
+
+        jQuery(function ($){
+        // 모두선택
+            $("input[name=chk_all]").click(function (){
+                if ($(this).prop('checked')) {
+                    $("input[name^=chk]").prop('checked', true);
+                } else {
+                    $("input[name^=chk]").prop("checked", false);
+                }
+            });
+        });
     </script>
 
 
@@ -351,6 +435,6 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
             </div>
         </div>
     </div>-->
-
+    </div>
 </body>
 </html>
