@@ -52,4 +52,7 @@ public class FacService {
     public FacDTO findAllPer(int facCode) {
         return facMapper.findAllPer(facCode);
     }
+
+
+
 }
