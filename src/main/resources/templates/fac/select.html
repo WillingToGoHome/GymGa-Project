@@ -205,15 +205,17 @@
 
         </tr>
         <tr th:each="facs: ${facList}">
-            <td><a href="#" data-toggle="modal" data-target="#facActionModal">[[${facs.facCode}]]</a></td>
+<!--            <td><a href="#" data-toggle="modal" data-faccode="${facs.facCode}" id="facCodes" data-target="#facActionModal">[[${facs.facCode}]]</a></td>-->
+            <td>
+                <a href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal">[[${facs.facCode}]]</a>
+            </td>
             <td th:text="${facs.facStatus}"></td>
             <td th:text="${facs.facStart}"></td>
-            <td th:text="${facs.userCode}"></td>
+            <td class="userCode" th:text="${facs.userCode}"></td>
             <td th:text="${facs.facEnd}"></td>
         </tr>
     </table>
 </div>
-
 
 
 <!-- 사물함 등록, 수정, 삭제 모달 -->
@@ -247,7 +249,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="facActionModalLabel2">사물함 등록</h5>
+                <h5 class="modal-title" id="facActionModalLabel2" >사물함 등록</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -255,7 +257,8 @@
             <div class="modal-body">
                 <form id="registForm" onsubmit="submitForm()">
                     <label>사물함 번호: </label>
-                    <select name="facCode" id="facActionModalFacCode"></select><br>
+                    <input type="text" name="facCode" id="clickedFacCodeInput" readonly><br>
+<!--                    <p>사물함 번호: <span th:text="${facCode}"></span></p>-->
                     <label>회원 코드: </label>
                     <select name="userCode" id="userCode"></select><br>
                     <label>사용 가능 상태: </label>
@@ -283,6 +286,8 @@
 // 폼 데이터 가져오기
         const formData = new FormData(document.getElementById("registForm"));
 
+
+
 // POST 요청 보내기
         fetch("/fac/regist", {
             method: "POST",
@@ -295,6 +300,8 @@
                     window.location.href = "/fac/select";
 
 
+
+
                 } else {
 // 실패한 경우 오류 메시지 표시
                     console.error('등록 실패');
@@ -302,8 +309,30 @@
             })
             .catch(error => console.error('에러 발생:', error));
     }
-
 </script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // 클릭한 번호를 input 상자에 보여주는 함수
+        $('.facCodeLink').click(function() {
+            // 클릭한 번호 가져오기
+            var facCode = $(this).text(); // 링크의 텍스트를 가져옴
+            var $tr = $(this).closest('tr');
+            var userCode = $tr.find('.userCode').text();
+
+            // data-faccode 속성에 번호 설정
+            $('#facActionModal').attr('data-facCode', facCode);
+            // input 상자에 번호 표시
+            $('#clickedFacCodeInput').val(facCode);
+            $('#clickedFacCodeInput2').val(facCode);
+            $('#clickedFacCodeInput3').val(facCode);
+            $('#clickedUserCodeInput').val(userCode);
+        });
+    });
+</script>
+
+
+
 
 <script>
     fetch("/fac/user")
@@ -319,20 +348,6 @@
         })
 </script>
 
-<script>
-    fetch("/fac/fac")
-        .then(res=>res.json())
-        .then(data=> {
-            const $facCode=document.getElementById("facActionModalFacCode");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].facCode;
-                $option.value=data[index].facCode;
-                $facCode.appendChild($option);
-            }
-        })
-</script>
 
 
 
@@ -348,9 +363,11 @@
             <div class="modal-body">
                 <form id="updateForm" onsubmit="submitForm2()">
                     <label>사물함 번호: </label>
-                    <select name="facCode" id="facActionModalFacCode3"></select><br>
+                    <input type="text" name="facCode" id="clickedFacCodeInput2"><br>
                     <label>회원 코드: </label>
-                    <select name="userCode" id="userCode3"></select><br>
+                    <input type="text" name="userCode" id="clickedUserCodeInput" ><br>
+<!--                    <label>회원 코드: </label>-->
+<!--                    <select name="userCode" id="userCode3"></select><br>-->
                     <label>사용 가능 상태: </label>
                     <select name="facStatus" id="facStatus3">
                         <option value=""></option>
@@ -397,7 +414,6 @@
 </script>
 
 
-
 <script>
     fetch("/fac/user")
         .then(res=>res.json())
@@ -440,7 +456,7 @@
             <div class="modal-body">
                 <form id="deleteForm" onsubmit="submitForm3()">
                     <label>사물함 번호: </label>
-                    <select name="facCode" id="facActionModalFacCode4"></select><br>
+                    <input type="text" name="facCode" id="clickedFacCodeInput3" readonly><br>
                     <label>사용 가능 상태: </label>
                     <select name="facStatus" id="facStatus4">
                         <option value=""></option>
@@ -456,6 +472,9 @@
         </div>
     </div>
 </div>
+
+
+
 <script>
     function submitForm3() {
 
@@ -513,5 +532,6 @@
             }
         })
 </script>
+
 </body>
 </html>
