@@ -32,4 +32,5 @@ public interface UserMapper {
     int findLastCode();
 
     List<UserTotDTO> selectDetail(int code);
+
 }

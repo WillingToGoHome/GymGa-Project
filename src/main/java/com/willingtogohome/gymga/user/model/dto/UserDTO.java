@@ -20,5 +20,5 @@ public class UserDTO {
     private String birth;
     private String address;
     private String etc;
-    private int staff;
+    private String staff;
 }

@@ -110,7 +110,8 @@
 
     <select id="searchedUser" resultMap="userResultMap">
         SELECT
-                USER_NAME
+                USER_CODE
+             ,  USER_NAME
              ,  USER_ID
              ,  USER_GENDER
              ,  USER_PHONE
@@ -140,6 +141,7 @@
              ,  USER_PHONE
              ,  USER_ADDRESS
              ,  USER_ETC
+             ,  USER_STAFF
         )
         VALUES(
                 #{ code }
@@ -152,6 +154,7 @@
               , #{ phone }
               , #{ address }
               , #{ etc }
+              , #{ staff }
         )
     </insert>
 

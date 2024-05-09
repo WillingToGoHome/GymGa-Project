@@ -1,9 +1,6 @@
 package com.willingtogohome.gymga.user.controller;
 
-import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
-import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
-import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
+import com.willingtogohome.gymga.user.model.dto.*;
 import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import static java.awt.SystemColor.text;
 
 @Controller
 @RequestMapping("/user")
@@ -83,6 +78,10 @@ public class UserController {
         session.setAttribute("searchedUser", userList);
 
         model.addAttribute("userList", userList);
+
+        for (UserDTO user : userList) {
+            System.out.println("user = " + user);
+        }
 
         return "user/search";
     }

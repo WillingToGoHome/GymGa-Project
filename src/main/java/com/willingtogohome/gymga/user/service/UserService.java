@@ -1,10 +1,7 @@
 package com.willingtogohome.gymga.user.service;
 
 import com.willingtogohome.gymga.user.model.dao.UserMapper;
-import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
-import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
-import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
+import com.willingtogohome.gymga.user.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
