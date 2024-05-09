@@ -92,7 +92,7 @@ public class EmpController {
                 e.printStackTrace();
             }
         } else {
-            empDTO.setPic("/uloadFiles/default-user.png");
+            empDTO.setPic("/uploadFiles/default-user.png");
         }
 
         int code = empService.findLastCode();
