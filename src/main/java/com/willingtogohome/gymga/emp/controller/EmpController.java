@@ -33,10 +33,20 @@ public class EmpController {
     public String empMain(Model model) {
 
         List<EmpDTO> empList = empService.selectAllEmp();
-        List<ScheDTO> scheList = empService.selectAllSche();
+        List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
+        List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("time", "10:00am"));
+        List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("time", "12:00pm"));
+        List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria("time", "14:00pm"));
+        List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("time", "16:00pm"));
+        List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("time", "18:00pm"));
 
         model.addAttribute("empList", empList);
-        model.addAttribute("scheList", scheList);
+        model.addAttribute("scheList1", scheList1);
+        model.addAttribute("scheList2", scheList2);
+        model.addAttribute("scheList3", scheList3);
+        model.addAttribute("scheList4", scheList4);
+        model.addAttribute("scheList5", scheList5);
+        model.addAttribute("scheList6", scheList6);
 
         return "/emp/main";
     }

@@ -27,9 +27,9 @@ public class EmpService {
         return empMapper.selectAllEmp();
     }
 
-    public List<ScheDTO> selectAllSche() {
+    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
 
-        return scheMapper.selectAllSche();
+        return scheMapper.selectAllSche(searchCriteria);
     }
 
     public EmpTotDTO searchBy(SearchCriteria searchCriteria) {

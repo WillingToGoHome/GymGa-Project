@@ -9,17 +9,19 @@ public class ScheDTO {
     private String classCode;
     private Date date;
     private Time start;
+    private Time end;
     private int emp;
     private ClassDTO classDTO;
     private EmpDTO empDTO;
 
     public ScheDTO() {}
 
-    public ScheDTO(int code, String classCode, Date date, Time start, int emp, ClassDTO classDTO, EmpDTO empDTO) {
+    public ScheDTO(int code, String classCode, Date date, Time start, Time end, int emp, ClassDTO classDTO, EmpDTO empDTO) {
         this.code = code;
         this.classCode = classCode;
         this.date = date;
         this.start = start;
+        this.end = end;
         this.emp = emp;
         this.classDTO = classDTO;
         this.empDTO = empDTO;
@@ -57,6 +59,14 @@ public class ScheDTO {
         this.start = start;
     }
 
+    public Time getEnd() {
+        return end;
+    }
+
+    public void setEnd(Time end) {
+        this.end = end;
+    }
+
     public int getEmp() {
         return emp;
     }
@@ -88,6 +98,7 @@ public class ScheDTO {
                 ", classCode='" + classCode + '\'' +
                 ", date=" + date +
                 ", start=" + start +
+                ", end=" + end +
                 ", emp=" + emp +
                 ", classDTO=" + classDTO +
                 ", empDTO=" + empDTO +

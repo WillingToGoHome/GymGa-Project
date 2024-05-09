@@ -62,6 +62,7 @@
             , USER_ETC
         FROM USERDB
         WHERE USER_ROLE = '직원'
+        ORDER BY USER_NAME
     </select>
 
     <select id="findLastCode">
