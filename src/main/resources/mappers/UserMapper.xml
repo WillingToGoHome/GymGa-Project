@@ -40,7 +40,28 @@
         </association>
     </resultMap>
 
-    <select id="AllUser" resultMap="userResultMap">
+    <resultMap id="userAndEmpResultMap" type="com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userPic" column="user_pic"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEtc" column="user_etc"/>
+        <result property="userStaff" column="user_staff"/>
+        <association property="userCategory" javaType="com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO">
+            <id property="userCode" column="USER_CODE"/>
+            <result property="userCode" column="user_code"/>
+            <result property="userName" column="user_name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="AllUser" resultMap="userAndEmpResultMap">
         SELECT
                USER_CODE
             ,  USER_NAME
@@ -48,12 +69,13 @@
             ,  USER_GENDER
             ,  USER_PHONE
             ,  USER_STAFF
+            ,  USER_ROLE
          FROM USERDB
         WHERE USER_ROLE = '회원'
         ORDER BY USER_CODE
     </select>
 
-    <select id="findLastCode">
+    <select id="findLastCode" resultType="_int">
         SELECT
                 MAX(USER_CODE)
         FROM USERDB
@@ -126,6 +148,25 @@
             </if>
             AND USER_ROLE = '회원'
         </where>
+        ORDER BY USER_CODE
+    </select>
+
+    <select id="findAllTeacher" resultMap="userResultMap">
+        SELECT
+                USER_CODE
+             ,  USER_ID
+             ,  USER_PWD
+             ,  USER_NAME
+             ,  USER_PHONE
+             ,  USER_ROLE
+             ,  USER_PIC
+             ,  USER_GENDER
+             ,  USER_BIRTH
+             ,  USER_ADDRESS
+             ,  USER_ETC
+             ,  USER_STAFF
+         FROM USERDB
+        WHERE USER_ROLE = '직원'
         ORDER BY USER_CODE
     </select>
 
