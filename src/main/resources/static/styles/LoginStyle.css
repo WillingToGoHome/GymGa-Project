@@ -1,0 +1,415 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    min-height: 100%;
+}
+
+#container {
+    display: flex;
+}
+
+
+#box1 {
+    margin: 0;
+    min-height: 100%;
+    width: 56%;
+    background-color: #4B82D8;
+/*    background-color: #2D62EA;*/
+    background-size: 100% 100%;
+}
+
+#box2 {
+    margin: 0;
+    min-height: 100%;
+    width: 44%;
+}
+
+#left {
+    margin-left: 13%;
+}
+
+#right {
+    margin-left: 35%;
+    margin-top: 30%;
+
+}
+
+.left1 {
+    color: white;
+}
+
+.logo {
+    margin-top: 8%;
+    display: flex;
+}
+
+.logo1 {
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.logo2 {
+    width: 3.18vw;
+    aspect-ratio: 100/3.85;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    font-size: 2.01vw;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4B82D8;
+    margin-left: 1%;
+}
+
+.logoimg {
+    margin-top: 0;
+    width: 27vw;
+    margin-left: 7%;
+}
+
+.des1 {
+    margin-top: 0;
+    margin-bottom: 1%;
+    font-size: 3vw;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.des2, .des3 {
+    font-size: 1.2vw;
+    font-weight: lighter;
+}
+
+.des2 {
+    margin-bottom: 0;
+}
+
+.des3 {
+    margin-top: 0;
+    margin-bottom: 8%;
+}
+
+.login {
+    color: #4B82D8;
+}
+
+.joinBox {
+    text-align: left;
+    padding: 0;
+}
+
+.clearfix {
+    list-style: none;
+}
+
+.checkBox1, .checkBox2, .checkBox3, .checkBox4 {
+    list-style: none;
+}
+
+/* 이용약관 모달창 */
+.buttonBox {
+    align-content: center;
+    width: 130px;
+    display: flex;
+}
+
+.registButton {
+    width: 60px;
+    height: 30px;
+    color: #656565;
+    border: 1px solid #656565;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+    background-color: #FFFFFF;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalHeader {
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+#term {
+    display: block;
+}
+
+div[id*="textBox"] {
+    margin-left: 20%;
+    margin-top: 2%;
+}
+
+.modalText1 {
+    padding: 0 10px 15px 0;
+    margin-right: 15%;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 0;
+    border-bottom: 1px solid #3d435f;
+}
+
+.checks {
+    position: relative;
+    display: inline-block;
+}
+
+.checks input[type=checkbox] { /* 실제 체크박스는 화면에서 숨김 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.checks input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checks input[type="checkbox"] + label:before { /*가짜 체크박스*/
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.checks input[type="checkbox"]:checked + label:before { /*체크박스를 체크했을 때*/
+    background: url("../images/chk.png") no-repeat 50% 50% #3a8afd;
+    border-color: #3a8afd;
+}
+
+.checks2 {
+    position: relative;
+}
+
+
+.checks2:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.checks2 input[type="checkbox"] {
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    opacity:0;
+    outline:0;
+    z-index:-1;
+    overflow:hidden
+}
+
+.checks2 input[type="checkbox"] + label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 20.5%;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.checks2 input[type="checkbox"]:checked + label:before {
+    background: url("../images/chk.png") no-repeat 50% 50% #4B82D8;
+    border-color: #4B82D8;
+}
+
+.text1 {
+    margin-left: 20%;
+}
+
+.essenBox {
+    padding: 15px;
+    width: 80%;
+    height: 50px;
+    border: 1px solid #d8d9df;
+    font-size: 12px;
+    color: #98989f;
+    line-height: 1.5em;
+    overflow: auto;
+    resize: none;
+}
+
+.modalButtonBox {
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-left: 40%;
+}
+
+button:focus {
+    outline: none;
+}
+
+.cancelButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.nextButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}
+
+/* 회원가입 폼 */
+
+.buttonBox2 {
+    align-content: center;
+    width: 130px;
+    display: flex;
+}
+
+.modalContainer2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent2 {
+    background-color: #FFFFFF;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalButtonBox2 {
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-left: 40%;
+}
+
+.modalText2 {
+    padding: 0 10px 15px 0;
+    margin-right: 15%;
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 0;
+    border-bottom: 1px solid #3d435f;
+}
+
+#registerForm {
+    margin-left: 20%;
+    margin-top: 2%;
+}
+.regi_table tbody th label{
+    position: relative;
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 500;
+    height: 20px;
+    padding-left: 13px; }
+
+.regi_table tbody th label.req:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    background: #e5433e;
+    border-radius: 2.5px;
+    overflow: hidden;
+}
+
+.req_desc {
+    position: relative;
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 500;
+    height: 20px;
+    padding-left: 72%;
+}
+
+.req_desc:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    margin-left: 101%;
+    background: #e5433e;
+    border-radius: 2.5px;
+    overflow: hidden;
+}
+
+.prevButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.checkButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}
+
+
