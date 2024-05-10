@@ -1,9 +1,6 @@
 package com.willingtogohome.gymga.schedule.model.dto;
 
 
-import com.willingtogohome.gymga.pass.model.dto.PassDTO;
-import com.willingtogohome.gymga.user.model.dto.EmpDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import lombok.*;
 
 import java.sql.Date;
@@ -24,7 +21,8 @@ public class ScheduleAndClassAndUserAndPassDTO {
     private int scheParticipate;
     private String scheAtten;
     private EmpDTO empCategory;
-    private UserDTO userCategory;
-    private PassDTO passCategory;
+    private MemberDTO userCategory;
+    private PassTotalDTO passTotalCategory;
+    private PassUseDTO passUseCategory;
 
 }

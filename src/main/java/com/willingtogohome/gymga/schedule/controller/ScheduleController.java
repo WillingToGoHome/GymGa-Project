@@ -1,9 +1,9 @@
 package com.willingtogohome.gymga.schedule.controller;
 
+import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import com.willingtogohome.gymga.schedule.model.service.ScheduleService;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +47,7 @@ public class ScheduleController {
 
     @GetMapping(value = "/schedule/teacher", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public List<UserDTO> findTeacherList() {
+    public List<EmpDTO> findTeacherList() {
 
         scheduleService.findAllTeacher().forEach(System.out::println);
 
@@ -88,6 +88,8 @@ public class ScheduleController {
 //    @GetMapping("/schedule/scheduleupdate")
 //    public void updatePage(){}
 
+    // 일정변경
+
     @GetMapping("/schedule/scheduleupdate/{scheCode}")
     public String updateSchedule(@PathVariable("scheCode") int scheCode, Model model) {
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheCode(scheCode);
@@ -97,16 +99,41 @@ public class ScheduleController {
         return "schedule/scheduleupdate";
     }
 
-
     @PostMapping("/schedule/scheduleupdate/{scheCode}")
-    public String updateSchedule(ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO, RedirectAttributes redirectAttributes) {
+    public String updateSchedule(ScheduleDTO scheduleDTO, RedirectAttributes redirectAttributes) {
 
-        scheduleService.updateSchedule(scheduleAndClassAndUserAndPassDTO);
+        scheduleService.updateSchedule(scheduleDTO);
 
         redirectAttributes.addFlashAttribute("successMessage", "일정 변경 성공");
 
-        return "redirect:schedule/schedulelist";
+        return "redirect:/schedule/schedulelist";
     }
+
+    // 출결변경(출석버튼)
+    @GetMapping("/schedule/attenupdate/{scheCode}")
+    public String updateAtten(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAtten(scheCode);
+        return "redirect:/schedule/schedulelist/{scheCode}";
+    }
+
+    // 출결변경(결석버튼)
+    @GetMapping("/schedule/absentupdate/{scheCode}")
+    public String updateAbsent(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAbsent(scheCode);
+        return "redirect:/schedule/schedulelist/{scheCode}";
+    }
+
+    // 취소버튼(롤백개념)
+    @GetMapping("/schedule/cancelupdate/{scheCode}")
+    public String updateCancel(@PathVariable("scheCode") int scheCode){
+        scheduleService.updateCancel(scheCode);
+        return "redirect:/schedule/schedulelist/{scheCode}";
+    }
+
+
+
+
+
 
 
 
