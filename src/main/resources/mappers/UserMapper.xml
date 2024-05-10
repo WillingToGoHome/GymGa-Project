@@ -5,35 +5,35 @@
 <mapper namespace="com.willingtogohome.gymga.user.model.dao.UserMapper">
 
     <resultMap id="userResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
-        <id property="code" column="user_code"/>
-        <result property="id" column="user_id"/>
-        <result property="pwd" column="user_pwd"/>
-        <result property="name" column="user_name"/>
-        <result property="phone" column="user_phone"/>
-        <result property="role" column="user_role"/>
-        <result property="pic" column="user_pic"/>
-        <result property="gender" column="user_gender"/>
-        <result property="birth" column="user_birth"/>
-        <result property="address" column="user_address"/>
-        <result property="etc" column="user_etc"/>
-        <result property="staff" column="user_staff"/>
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userPic" column="user_pic"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEtc" column="user_etc"/>
+        <result property="userStaff" column="user_staff"/>
     </resultMap>
 
     <resultMap id="userTotResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
-        <id property="code" column="user_code"/>
-        <result property="id" column="user_id"/>
-        <result property="pwd" column="user_pwd"/>
-        <result property="name" column="user_name"/>
-        <result property="phone" column="user_phone"/>
-        <result property="role" column="user_role"/>
-        <result property="pic" column="user_pic"/>
-        <result property="gender" column="user_gender"/>
-        <result property="birth" column="user_birth"/>
-        <result property="address" column="user_address"/>
-        <result property="etc" column="user_etc"/>
-        <result property="staff" column="user_staff"/>
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userPic" column="user_pic"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userEtc" column="user_etc"/>
+        <result property="userStaff" column="user_staff"/>
         <association property="physicalDTO" javaType="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
-            <id property="code" column="USER_CODE"/>
+            <id property="userCode" column="USER_CODE"/>
             <result property="height" column="PHY_HEIGHT"/>
             <result property="weight" column="PHY_WEIGHT"/>
             <result property="bmi" column="PHY_BMI"/>
@@ -74,37 +74,37 @@
              ,  B.PHY_BMI
         FROM USERDB A
         JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </select>
 
     <delete id="userPain" parameterType="int">
         DELETE FROM PAINDB
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </delete>
 
     <delete id="facilityUser" parameterType="int">
         DELETE FROM FACILITYDB
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </delete>
 
     <delete id="physicalUser" parameterType="int">
         DELETE FROM PHYSICALDB
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </delete>
 
     <delete id="scheduleUser" parameterType="int">
         DELETE FROM SCHEDULEDB
-        WHERE MEMBER_CODE = #{code}
+        WHERE MEMBER_CODE = #{userCode}
     </delete>
 
     <delete id="validateUser" parameterType="int">
         DELETE FROM VALIDATEDB
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </delete>
 
     <delete id="deleteUser" parameterType="int">
         DELETE FROM USERDB
-        WHERE USER_CODE = #{code}
+        WHERE USER_CODE = #{userCode}
     </delete>
 
 
@@ -144,17 +144,17 @@
              ,  USER_STAFF
         )
         VALUES(
-                #{ code }
-              , #{ role }
-              , #{ name }
-              , #{ id }
-              , #{ pwd }
-              , #{ birth }
-              , #{ gender }
-              , #{ phone }
-              , #{ address }
-              , #{ etc }
-              , #{ staff }
+                #{ userCode }
+              , #{ userRole }
+              , #{ userName }
+              , #{ userId }
+              , #{ userPwd }
+              , #{ userBirth }
+              , #{ userGender }
+              , #{ userPhone }
+              , #{ userAddress }
+              , #{ userEtc }
+              , #{ userStaff }
         )
     </insert>
 
@@ -167,7 +167,7 @@
 
         )
         VALUES(
-                #{ code }
+                #{ userCode }
                 , #{ height }
                 , #{ weight }
                 , #{ bmi }

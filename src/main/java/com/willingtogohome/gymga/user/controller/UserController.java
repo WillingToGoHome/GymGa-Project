@@ -39,7 +39,8 @@ public class UserController {
     }
 
     @GetMapping("/selectDetail")
-    public void detailPage() {}
+    public void detailPage() {
+    }
 
     @PostMapping("/selectDetail")
     public String selectDetail(@RequestParam("code") String userCode, Model model) {
@@ -99,13 +100,14 @@ public class UserController {
         int userStaff = Integer.parseInt(staff);
         int code = userService.findLastCode();
 
-        newUser.setStaff(userStaff);
-        newUser.setCode(code + 1);
-        newUser.setRole("회원");
-        newUser.setAddress(address1 + " " + address2);
+        newUser.setUserStaff(userStaff);
+        newUser.setUserCode(code + 1);
+        newUser.setUserRole("회원");
+        newUser.setUserAddress(address1 + " " + address2);
         physical.setCode(code + 1);
 
         userService.registUser(newUser, physical);
 
-     return "redirect:/user/selectAll";
+        return "redirect:/user/selectAll";
     }
+}
