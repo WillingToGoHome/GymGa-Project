@@ -113,6 +113,13 @@ body {
     border: 1px solid #000000;
 }
 
+#userStaff {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+
 .etcInputBox {
     width: 500px;
     height: 110px;

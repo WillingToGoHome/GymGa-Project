@@ -1,8 +1,8 @@
 package com.willingtogohome.gymga.schedule.model.dao;
 
+import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,14 +14,19 @@ public interface ScheduleMapper {
 
 
     // 강사 찾기(옵션 선택용)
-    List<UserDTO> findAllTeacher();
+    List<EmpDTO> findAllTeacher();
     void registNewSchedule(ScheduleDTO newSchedule);
 
 
     List<ScheduleAndClassAndUserAndPassDTO> findAll();
 
-    void updateSchedule(ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO);
+    void updateSchedule(ScheduleDTO scheduleDTO);
 
     ScheduleAndClassAndUserAndPassDTO findByScheCode(int scheCode);
 
+    void updateAtten(int scheCode);
+
+    void updateAbsent(int scheCode);
+
+    void updateCancel(int scheCode);
 }

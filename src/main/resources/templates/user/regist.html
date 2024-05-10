@@ -30,33 +30,26 @@
                                 </div>
                                 <div class="inputBoxAll">
                                     <div class="left">
-                                        <p class="inputText">이름 <input type="text" name="name" class="inputBox"><br></p>
-                                        <p class="inputText">생년월일 <input type="text" name="birth" class="inputBox"><br></p>
-                                        <p class="inputText">성별 <select name="gender" class="inputBox">
-                                            <option value="성별">성별</option>
+                                        <p class="inputText">이름 <input type="text" name="userName" class="inputBox"><br></p>
+                                        <p class="inputText">생년월일 <input type="date" name="userBirth" class="inputBox"><br></p>
+                                        <p class="inputText">성별 <select name="userGender" class="inputBox">
+                                            <option value="null">성별</option>
                                             <option value="남">남</option>
                                             <option value="여">여</option>
                                         </select><br>
                                         </p>
-                                        <p class="inputText">연락처 <input type="text" name="phone" class="inputBox"><br></p>
-                                        <p class="inputText">주소 <input type="text" name="address1" class="inputBox"><br>
-                                               <input type="text" name="address2" class="inputBox"><br></p>
-                                        <p class="inputText">기타 <input type="text" name="etc" class="etcInputBox"><br></p>
+                                        <p class="inputText">연락처 <input type="text" name="userPhone" class="inputBox"><br></p>
+                                        <p class="inputText">주소 <input type="text" name="userAddress1" class="inputBox"><br>
+                                               <input type="text" name="userAddress2" class="inputBox"><br></p>
+                                        <p class="inputText">기타 <input type="text" name="userEtc" class="etcInputBox"><br></p>
                                     </div>
                                     <div class="right">
                                         <p class="inputText">키 <input type="text" name="height" class="inputBox"><br></p>
-                                        <p class="inputText">체중 <input type="text" name="weight"c lass="inputBox"><br></p>
+                                        <p class="inputText">체중 <input type="text" name="weight" class="inputBox"><br></p>
                                         <p class="inputText">BMI <input type="text" name="bmi" class="inputBox"><br></p>
-                                        <p class="inputText">담당강사 <select name="staff" class="inputBox">
-                                            <option value="0">없음</option>
-                                            <option value="1">구예성</option>
-                                            <option value="2">윤수빈</option>
-                                            <option value="3">김만호</option>
-                                            <option value="4">이민국</option>
-                                        </select><br>
-                                        </p>
-                                        <p class="inputText">아이디 <input type="text" name="id" class="inputBox"><br></p>
-                                        <p class="inputText">비밀번호 <input type="text" name="pwd" class="inputBox"><br></p>
+                                        <p class="inputText">담당강사 <select name="userStaff" id="userStaff"></select><br></p>
+                                        <p class="inputText">아이디 <input type="text" name="userId" class="inputBox"><br></p>
+                                        <p class="inputText">비밀번호 <input type="text" name="userPwd" class="inputBox"><br></p>
                                     </div>
                                 </div>
                             </div>
@@ -78,5 +71,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    fetch("/user/teacher")
+        .then(res =>res.json())
+        .then(data => {
+            const $userCode = document.getElementById("userStaff");
+
+            for(let index in data) {
+                const $option = document.createElement('option');
+                $option.value = data[index].userCode;
+                $option.text = data[index].userName;
+
+                $userCode.appendChild($option);
+            }
+        })
+</script>
 </body>
 </html>

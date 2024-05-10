@@ -3,7 +3,7 @@ package com.willingtogohome.gymga.user.model.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +24,6 @@ public class UserDTO {
     private String userAddress;
     private String userEtc;
     private int userStaff;
+    private UserAndEmpDTO empCategory;
 
 }

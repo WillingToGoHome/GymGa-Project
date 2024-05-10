@@ -1,4 +1,3 @@
-<!--
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -49,10 +48,10 @@
         )
     </insert>
 
-    &lt;!&ndash; 아이디 중복 체크 &ndash;&gt;
+    <!-- 아이디 중복 체크 -->
     <select id="idCheck" resultType="int">
         SELECT COUNT(*)
         FROM   USERDB
         WHERE  USER_ID = #{ userId }
     </select>
-</mapper>-->
+</mapper>

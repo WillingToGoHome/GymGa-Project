@@ -6,17 +6,10 @@
     <link rel="stylesheet" href="/styles/schedule/registScheduleStyle.css">
 </head>
 <body>
-    <div class="modal-full">
-        <div class="modal-body">
-            <div class="modal-header">
-               <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>
-                <div>일정 생성</div>
-            </div>
-            <br>
-               <hr>
+    <h1>일정등록창</h1>
         <form action="/schedule/scheduleregist" method="post">
             <label>담당 강사 선택</label><br>
-            <select name="empCode" id="empCode"></select><br>
+            <select name="empCode" id="empSelectCode"></select><br>
             <label>일자 선택</label><br>
             <input type="date" name="scheRunDate"/><br>
             <label>시간 선택</label><br>
@@ -25,33 +18,23 @@
             <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>
             <button type="submit">확인</button>
         </form>
-        </div>
-    </div>
-    <button class="btn-open-modal">Modal</button>
-    <script>
-        const modal = document.querySelector('.modal');
-        const btnOpenModal = document.querySelector('.btn-open-modal');
-
-        btnOpenModal.addEventListener("click", () => {
-            modal.style.display = "flex";
-        });
-    </script>
     <!-- 강사 선택 스크립트 -->
     <script>
         fetch("/schedule/teacher")
             .then(res =>res.json())
             .then(data => {
-                const $userCode = document.getElementById("empCode");
+                const $empCode = document.getElementById("empSelectCode");
 
                 for(let index in data) {
                     const $option = document.createElement('option');
-                    $option.value = data[index].code;
-                    $option.text = data[index].name;
+                    $option.value = data[index].empCode;
+                    $option.text = data[index].empName;
 
-                    $userCode.appendChild($option);
+                    $empCode.appendChild($option);
                 }
             })
     </script>
+
 
 </body>
 </html>
@@ -86,3 +69,51 @@
 <!--    <button type="button" onclick="history.back()">취소</button>-->
 <!--    <button type="button" onclick="submitForm()">확인</button>-->
 <!--</form>-->
+
+<!-- 기존 데이터 -->
+<!--<div class="modal-full">-->
+<!--    <div class="modal-body">-->
+<!--        <div class="modal-header">-->
+<!--            <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>-->
+<!--            <div>일정 생성</div>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <hr>-->
+<!--        <form action="/schedule/scheduleregist" method="post">-->
+<!--            <label>담당 강사 선택</label><br>-->
+<!--            <select name="empCode" id="empCode"></select><br>-->
+<!--            <label>일자 선택</label><br>-->
+<!--            <input type="date" name="scheRunDate"/><br>-->
+<!--            <label>시간 선택</label><br>-->
+<!--            <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>-->
+
+<!--            <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>-->
+<!--            <button type="submit">확인</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<button class="btn-open-modal">Modal</button>-->
+<!--<script>-->
+<!--    const modal = document.querySelector('.modal');-->
+<!--    const btnOpenModal = document.querySelector('.btn-open-modal');-->
+
+<!--    btnOpenModal.addEventListener("click", () => {-->
+<!--        modal.style.display = "flex";-->
+<!--    });-->
+<!--</script>-->
+<!--&lt;!&ndash; 강사 선택 스크립트 &ndash;&gt;-->
+<!--<script>-->
+<!--    fetch("/schedule/teacher")-->
+<!--        .then(res =>res.json())-->
+<!--        .then(data => {-->
+<!--            const $userCode = document.getElementById("empCode");-->
+
+<!--            for(let index in data) {-->
+<!--                const $option = document.createElement('option');-->
+<!--                $option.value = data[index].code;-->
+<!--                $option.text = data[index].name;-->
+
+<!--                $userCode.appendChild($option);-->
+<!--            }-->
+<!--        })-->
+<!--</script>-->
