@@ -60,9 +60,6 @@ public class FacController {
 
 
 
-    @GetMapping("/regist")
-    public void registPage() {}
-
     @GetMapping(value = "user", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<UserDTO> findUserList() {
@@ -86,8 +83,6 @@ public class FacController {
         return "redirect:/fac/select";
     }
 
-    @GetMapping("/update")
-    public void updatePage() {}
 
     @PostMapping("/update")
     public String updateFac(FacDTO renewFac, RedirectAttributes rttr) {
@@ -98,8 +93,6 @@ public class FacController {
         return "redirect:/fac/select";
     }
 
-    @GetMapping("/delete")
-    public void deletePage() {}
 
     @PostMapping("/delete")
     public String deleteFac(FacDTO deleteFac, RedirectAttributes rttr) {
