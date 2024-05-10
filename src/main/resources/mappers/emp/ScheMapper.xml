@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.emp.model.dao.ScheMapper">
+    <resultMap id="scheResultMap" type="com.willingtogohome.gymga.emp.model.dto.ScheDTO">
+        <id property="code" column="SCHE_CODE"/>
+        <result property="classCode" column="CLASS_CODE"/>
+        <result property="date" column="SCHE_RUN_DATE"/>
+        <result property="start" column="SCHE_START_TIME"/>
+        <result property="end" column="SCHE_END_TIME"/>
+        <result property="emp" column="EMP_CODE"/>
+        <association property="classDTO" javaType="com.willingtogohome.gymga.emp.model.dto.ClassDTO">
+            <id property="code" column="CLASS_CODE"/>
+            <result property="name" column="CLASS_NAME"/>
+        </association>
+        <association property="empDTO" javaType="com.willingtogohome.gymga.emp.model.dto.EmpDTO">
+            <id property="code" column="USER_CODE"/>
+            <result property="name" column="USER_NAME"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllSche" resultMap="scheResultMap">
+        SELECT
+            A.SCHE_CODE
+            , A.CLASS_CODE
+            , A.SCHE_RUN_DATE
+            , A.SCHE_START_TIME
+            , A.SCHE_END_TIME
+            , A.EMP_CODE
+            , B.CLASS_CODE
+            , B.CLASS_NAME
+            , C.USER_CODE
+            , C.USER_NAME
+        FROM SCHEDULEDB A
+        JOIN CLASSDB B ON A.CLASS_CODE = B.CLASS_CODE
+        JOIN USERDB C ON A.EMP_CODE = C.USER_CODE
+<!--        WHERE SCHE_RUN_DATE = CURDATE()-->
+        <if test="text == '8:00am'">
+            WHERE A.SCHE_START_TIME BETWEEN '08:00:00' AND '10:00:00'
+        </if>
+        <if test="text == '10:00am'">
+            WHERE A.SCHE_START_TIME BETWEEN '10:00:00' AND '12:00:00'
+        </if>
+        <if test="text == '12:00pm'">
+            WHERE A.SCHE_START_TIME BETWEEN '12:00:00' AND '14:00:00'
+        </if>
+        <if test="text == '14:00pm'">
+            WHERE A.SCHE_START_TIME BETWEEN '14:00:00' AND '16:00:00'
+        </if>
+        <if test="text == '16:00pm'">
+            WHERE A.SCHE_START_TIME BETWEEN '16:00:00' AND '18:00:00'
+        </if>
+        <if test="text == '18:00pm'">
+            WHERE A.SCHE_START_TIME >= '18:00:00'
+        </if>
+        ORDER BY A.SCHE_START_TIME AND C.USER_NAME
+    </select>
+</mapper>

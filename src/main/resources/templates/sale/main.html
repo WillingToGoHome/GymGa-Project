@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/salesStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+<div id="main">
+    <div id="app_area">
+        <div id="window">
+            <!--header-->
+            <div th:insert="~{common/header}"></div>
+            <!--navbar-->
+            <div class="mid-container">
+                <div th:insert="~{common/navbar}"></div>
+                <div>
+
+
+
+                    <div class="pieG" id="pie"></div>
+
+                    <div class="barG" id="bar"></div>
+
+                    <div class="memberSale" id="pie2">
+                            <table>
+                                <tr>
+                                    <h3>직원 매출</h3>
+                                </tr>
+                                <tr th:each="sale:${PAPQList}">
+                                    <td th:if="${sale.userCode == sale.userDTO.userCode}" th:text="${sale.userDTO.userName}"></td>
+<!--                                    <td th:text="${sale.F_user_name}"></td>-->
+<!--                                    <td th:text="${pass.gpCount}"></td>-->
+                                </tr>
+                            </table>
+                    </div>
+
+                    <div class="salesData">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>이용권</th>
+                                    <th>유효 기간</th>
+                                    <th>결제 금액</th>
+                                    <th>결제 방식</th>
+                                    <th>시 간</th>
+                                </tr>
+                                <tr th:each="sale:${PAPQList}">
+                                    <td th:text="${sale.userDTO.userName}"></td>
+                                    <td class="time" th:text="${sale.passQualDTO.pqName}"></td>
+                                    <td class="time" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+                                 + ' ~ '
+                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
+                                    <td th:text="${sale.saleDTO.salesMethod}"></td>
+                                    <td class="time" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
+                                 +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!--footer-->
+            <div th:insert="~{common/footer}"></div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+            var dom = document.getElementById('pie');
+            var myChart = echarts.init(dom, null, {
+                renderer: 'canvas',
+                useDirtyRect: false
+            });
+            console.log()
+            var app = {};
+
+            var option;
+            var PT = 25;
+            var GX = 65;
+            var GP = 42;
+            var SUM = (PT + GX + GP);
+            var result = PT / SUM * 100;
+            var result2 = GX / SUM * 100;
+            var result3 = GP / SUM * 100;
+
+
+            option = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    top: '92%',
+                    left: 'center',
+                },
+                series: [
+                    {
+                        name: '이용권',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        seriesLayoutBy: 'row',
+
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: true,
+                            position: 'middle',
+                            formatter: '{d}%',
+                            // position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 16,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: true,
+                        },
+                        data: [
+                            // { value: 일반, name: '일반' },
+                            // { value: PT, name: 'PT' },
+                            // { value: GX, name: 'GX' },
+                            {value: result.toFixed(2), name: 'PT'},
+                            {value: result2.toFixed(2), name: 'GX'},
+                            {value: result3.toFixed(2), name: '일반'},
+                            // { value: 484, name: '비회원' },
+                            // { value: 300, name: '' }
+                        ]
+                    }
+                ]
+            };
+
+            if (option && typeof option === 'object') {
+                myChart.setOption(option);
+            }
+
+
+            window.addEventListener('resize', myChart.resize);
+
+    </script>
+
+    <script  type="text/javascript">
+        var dom = document.getElementById('bar');
+        var myChart = echarts.init(dom, null, {
+            renderer: 'canvas',
+            useDirtyRect: false
+        });
+        var app = {};
+
+        var option;
+
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            dataset: [
+                {
+                    dimensions: ['name', 'age', 'profession', 'score', 'date'],
+                    source: [
+                        ['01월 ', 41, 'Engineer', 3140000, '2011-02-12'],
+                        ['02월', 20, 'Teacher', 5050000, '2011-03-01'],
+                        ['03월', 52, 'Musician', 5000000, '2011-02-14'],
+                        ['04월', 37, 'Teacher', 5000000, '2011-02-18'],
+                        ['05월', 25, 'Engineer', 2550000, '2011-04-02'],
+                        ['06월', 19, 'Teacher', 8000000, '2011-01-16'],
+                        ['07월', 71, 'Engineer', 1000006, '2011-03-19'],
+                        ['08월', 36, 'Musician', 3100000, '2011-02-24'],
+                        ['09월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['10월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['11월', 67, 'Engineer', 3600006, '2011-03-12'],
+                        ['12월', 67, 'Engineer', 3600006, '2011-03-12'],
+                    ]
+                },
+                {
+                    transform: {
+                        type: 'sort',
+                        config: { dimension: 'name', order: 'asc' }
+                    }
+                }
+            ],
+            xAxis: {
+                type: 'category',
+                axisLabel: { interval: 0, rotate: 30 }
+            },
+            yAxis: {
+                axisLabel: {
+                    formatter: function (value) {
+                        if (value >= 10000) {
+                            return (value / 10000) + '만';
+                        } else {
+                            return value;
+                        }
+                    }
+                }
+            },
+            series: [
+                {
+                    name: '매출',
+                    type: 'bar',
+                    encode: { x: 'name', y: 'score' },
+                    datasetIndex: 1,
+                    label: {
+                        show: false,
+                        // position: 'middle',
+                        // formatter: '{d}%',
+                        position: 'center',
+                    },
+                    labelLine: {
+                        show: true,
+                    },
+                },
+            ],
+
+            // label: {
+            //     show: false,
+            //     position: 'center',
+            //     formatter: '{b}원',
+            //     // position: 'center'
+            // },
+            // emphasis: {
+            //     label: {
+            //         show: true,
+            //         position:'center',
+            //         fontSize: 16,
+            //         // fontWeight: 'bold'
+            //     }
+            // },
+            // labelLine: {
+            //     show: true,
+            // },
+        };
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+
+        window.addEventListener('resize', myChart.resize);
+    </script>
+
+</body>
+</html>
