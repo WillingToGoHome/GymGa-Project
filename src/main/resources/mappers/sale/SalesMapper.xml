@@ -79,13 +79,15 @@
         B.pq_price,
         D.user_name,
         E.sales_method,
-        E.sales_date
+        E.sales_date,
+        F.user_name as F_user_name
         FROM passdb A
         left JOIN passqualdb B ON A.pq_code = B.pq_code
         left join validatedb C on A.pass_code = C.pass_code
         left join userdb D on C.user_code = D.user_code
         left join salesdb E on D.user_code = E.user_code
-        order by A.pass_code;
+        left join userdb F on A.user_code = F.user_code
+        order by A.pass_start desc , E.sales_date desc;
     </select>
 
     <select id="sumPassData" resultMap="passDataResultMap">
