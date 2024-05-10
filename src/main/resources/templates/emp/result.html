@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<div onClick="location.href='/emp/'">0</div>
-<h1>직원 조회</h1>
-<hr>
+    <div onClick="location.href='/emp/'">0</div>
+    <h1>직원 조회</h1>
+    <hr>
     <form action="/emp/result" method="get">
         <input type="search" name="search" placeholder="검색 내용">
         <select name="category">
@@ -17,7 +17,7 @@
     </form>
 
     <div th:object="${ emp }">
-        <img th:src="*pic">
+        <img th:src="*{ pic }">
         <p th:text="|회원 번호 : *{ code }|"></p>
         <p th:text="|아이디 : *{ id }|"></p>
         <p th:text="|이름 : *{ name }|"></p>
@@ -43,13 +43,13 @@
         <input type="submit" value="삭제">
     </form>
 
-<div>
-    <h3>직원 리스트</h3>
-    <div th:each="item : ${ empList }">
-        <p th:text="${ emp.name }"></p>
-        <p th:text="${ emp.role }"></p>
-        <hr>
+    <div>
+        <h3>직원 리스트</h3>
+        <div th:each="emp : ${ empList }">
+            <p th:text="${ emp.name }"></p>
+            <p th:text="${ emp.role }"></p>
+            <hr>
+        </div>
     </div>
-</div>
 </body>
 </html>
