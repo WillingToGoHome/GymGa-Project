@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div th:each="user : ${userList}">
+        <p th:text="${user.name}"></p>
+        <p th:text="${user.id}"></p>
+        <p th:text="${user.pwd}"></p>
+        <p th:text="${user.birth}"></p>
+        <p th:text="${user.gender}"></p>
+        <p th:text="${user.phone}"></p>
+        <p th:text="${user.address}"></p>
+        <p th:text="${user.etc}"></p>
+    </div>
 </body>
 </html>
