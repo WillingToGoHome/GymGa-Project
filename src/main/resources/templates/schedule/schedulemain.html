@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MainPage</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+<!--    <link rel="stylesheet" href="/styles/carendarStyle.css">-->
+    <link rel="stylesheet" href="/styles/schedule/registScheduleStyle.css">
+    <link rel="stylesheet" href="/styles/schedule/calendarStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<div id="main">
+    <div id="app_area">
+        <div id="window">
+            <!--header-->
+            <div th:include="common/header"></div>
+            <!--navbar-->
+            <div class="mid-container">
+                <div th:include="common/navbar"></div>
+                <!--내용 작성하는 div-->
+<!--                <div class="contents">-->
+<!--                    <div class="calendar">-->
+<!--                        <div class="calendar-header">-->
+<!--                            <div class="year-month"></div>-->
+
+<!--                            <div>-->
+<!--                                <button class="btn-open-modal1">+ 일정생성</button>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;선택창 모달&ndash;&gt;-->
+<!--                            <div class="choice-modal-full">-->
+<!--                                <div class="choice-modal-body">-->
+<!--                                    <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>-->
+<!--                                    <h1>일정 생성</h1>-->
+<!--                                    <h2>일정을 생성해 주세요.</h2>-->
+<!--                                    <div class="choice-btn-box">-->
+<!--                                        <button class="choice-btn" onclick="">-->
+<!--                                            <h4>개인 수업</h4>-->
+<!--                                            <h5>일정을 생성해 주세요.</h5>-->
+<!--                                            <img src="/images/개인수업버튼.png">-->
+<!--                                        </button>-->
+<!--                                        <button class="choice-btn">-->
+<!--                                            <h4>그룹 수업</h4>-->
+<!--                                            <h5>일정을 생성해 주세요.</h5>-->
+<!--                                            <img src="/images/그룹수업버튼.png">-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash;개인수업 일정추가 모달 시작&ndash;&gt;-->
+<!--                            <div class="modal-full">-->
+<!--                                <div class="modal-body">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>-->
+<!--                                        <div>일정 생성</div>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <hr>-->
+<!--                                    <form action="/schedule/scheduleregist" method="post">-->
+<!--                                        <h1>개인수업</h1>-->
+<!--                                        <label>담당 강사 선택</label><br>-->
+<!--                                        <select name="empCode" id="empCode"></select><br>-->
+<!--                                        <label>일자 선택</label><br>-->
+<!--                                        <input type="date" name="scheRunDate"/><br>-->
+<!--                                        <label>시간 선택</label><br>-->
+<!--                                        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>-->
+
+<!--                                        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>-->
+<!--                                        <button type="submit">확인</button>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;개인수업 일정추가 모달 끝&ndash;&gt;-->
+<!--                            &lt;!&ndash;그룹수업 일정추가 모달 시작&ndash;&gt;-->
+<!--                            <div class="modal-full">-->
+<!--                                <div class="modal-body">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <input class="back-btn" type="button" onclick="location.href='/schedule/schedulemain'"/>-->
+<!--                                        <div>일정 생성</div>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <hr>-->
+<!--                                    <form action="/schedule/scheduleregist" method="post">-->
+<!--                                        <h1>개인수업</h1>-->
+<!--                                        <label>담당 강사 선택</label><br>-->
+<!--&lt;!&ndash;                                        <select name="empCode" id="empCode"></select><br>&ndash;&gt;-->
+<!--                                        <label>일자 선택</label><br>-->
+<!--                                        <input type="date" name="scheRunDate"/><br>-->
+<!--                                        <label>시간 선택</label><br>-->
+<!--                                        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>-->
+
+<!--                                        <input type="button" onclick="location.href='/schedule/schedulemain'" value="취소"/>-->
+<!--                                        <button type="submit">확인</button>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;그룹수업 일정추가 모달 끝&ndash;&gt;-->
+<!--                            &lt;!&ndash; 기존스크립트 &ndash;&gt;-->
+<!--&lt;!&ndash;                            <script>&ndash;&gt;-->
+<!--&lt;!&ndash;                                const modal = document.querySelector('.modal-full');&ndash;&gt;-->
+<!--&lt;!&ndash;                                const btnOpenModal = document.querySelector('.btn-open-modal');&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                btnOpenModal.addEventListener("click", () => {&ndash;&gt;-->
+<!--&lt;!&ndash;                                    modal.style.display = "flex";&ndash;&gt;-->
+<!--&lt;!&ndash;                                });&ndash;&gt;-->
+<!--&lt;!&ndash;                            </script>&ndash;&gt;-->
+<!--                            &lt;!&ndash; 변경스크립트 &ndash;&gt;-->
+<!--                            <script>-->
+<!--                                const modal = document.querySelector('.choice-modal-full');-->
+<!--                                const registPT = document.querySelector('.modal-full');-->
+<!--                                const btnOpenModal = document.querySelector('.btn-open-modal1');-->
+<!--                                const btnPTModal = document.querySelector('.choice-btn');-->
+
+
+<!--                                btnOpenModal.addEventListener("click", () => {-->
+<!--                                    modal.style.display = "flex";-->
+<!--                                });-->
+
+<!--                                btnPTModal.addEventListener("click", () => {-->
+<!--                                    modal.style.display = "none";-->
+<!--                                    registPT.style.display = "flex";-->
+<!--                                })-->
+<!--                            </script>-->
+<!--                            <script>-->
+<!--                                fetch("/schedule/teacher")-->
+<!--                                    .then(res =>res.json())-->
+<!--                                    .then(data => {-->
+<!--                                        const $userCode = document.getElementById("empCode");-->
+
+<!--                                        for(let index in data) {-->
+<!--                                            const $option = document.createElement('option');-->
+<!--                                            $option.value = data[index].code;-->
+<!--                                            $option.text = data[index].name;-->
+
+<!--                                            $userCode.appendChild($option);-->
+<!--                                        }-->
+<!--                                    })-->
+<!--                            </script>-->
+<!--                            &lt;!&ndash;모달 내용 끝&ndash;&gt;-->
+
+<!--                            <div class="nav">-->
+<!--                                <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>-->
+<!--                                <button class="nav-btn go-today" onclick="goToday()">Today</button>-->
+<!--                                <button class="nav-btn go-next" onclick="nextMonth()">&gt;</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="calendar-main">-->
+<!--                            <div class="days">-->
+<!--                                <div class="day">일</div>-->
+<!--                                <div class="day">월</div>-->
+<!--                                <div class="day">화</div>-->
+<!--                                <div class="day">수</div>-->
+<!--                                <div class="day">목</div>-->
+<!--                                <div class="day">금</div>-->
+<!--                                <div class="day">토</div>-->
+<!--                            </div>-->
+<!--                            <div class="dates"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                    <div class="calendar-today">-->
+<!--                    <h1>Today 스케쥴</h1>-->
+<!--                </div>-->
+
+                <!--내용 작성하는 div-->
+                <div class="container">
+                    <div class="left">
+                        <div class="calendar">
+                            <div class="month">
+                                <i class="fa fa-angle-left prev"></i>
+                                <div class="date"></div>
+                                <i class="fa fa-angle-right next"></i>
+                            </div>
+                            <div class="weekdays">
+                                <div>일</div>
+                                <div>월</div>
+                                <div>화</div>
+                                <div>수</div>
+                                <div>목</div>
+                                <div>금</div>
+                                <div>토</div>
+                            </div>
+                            <div class="days">
+                                <!-- js -->
+                            </div>
+                            <div class="goto-today">
+                                <div class="goto">
+                                    <input type="text" placeholder="mm/yyyy" class="date-input">
+                                    <button class="goto-btn">go</button>
+                                </div>
+                                <button class="today-btn">today</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="today-date">
+                            <div class="event-day">Wed</div>
+                            <div class="event-date">16 November 2022</div>
+                        </div><!--DB 출력-->
+                        <table>
+                            <tr>
+                                <th>강의코드</th>
+                                <th>강사명</th>
+                                <th>시작시간</th>
+                                <th>인원</th>
+                                <th>회원명</th>
+                                <th>출결</th>
+                            </tr>
+                            <tr th:each="schedule : ${scheduleList}">
+                                <td th:text="${schedule.classCode}"></td>
+                                <td th:text="${schedule.empCode}"></td>
+                                <td th:text="${schedule.scheStartTime}"></td>
+                                <td th:text="${schedule.scheParticipate}"></td>
+                                <td th:text="${schedule.memberCode}"></td>
+                                <td th:text="${schedule.scheAtten}"></td>
+                            </tr>
+                        </table>
+                        <div class="events">
+                            <!-- 일정 JS -->
+
+                        </div>
+                        <div class="add-event-wrapper">
+                            <div class="add-event-header">
+                                <div class="title">Add Event</div>
+                                <i class="fas fa-times close"></i>
+                            </div>
+                            <div class="add-event-body">
+                                <div class="add-event-input">
+                                    <input type="text" placeholder="Event Name" class="event-name"/>
+                                </div>
+                                <div class="add-event-input">
+                                    <input type="text" placeholder="Event Time" class="event-time-from"/>
+                                </div>
+                                <div class="add-event-input">
+                                    <input type="text" placeholder="Event Time To" class="event-time-to"/>
+                                </div>
+
+                            </div>
+                            <div class="add-event-footer">
+                                <button class="add-event-btn">add event</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-event">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <!--footer-->
+            <div th:include="common/footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--<script>-->
+<!--    let date= new Date();-->
+
+<!--    const renderCalendar = () => {-->
+<!--        const viewYear = date.getFullYear();-->
+<!--        const viewMonth = date.getMonth();-->
+
+<!--        document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;-->
+
+<!--        const prevLast = new Date(viewYear, viewMonth, 0);-->
+<!--        const thisLast = new Date(viewYear, viewMonth + 1, 0);-->
+
+<!--        const PLDate = prevLast.getDate();-->
+<!--        const PLDay = prevLast.getDay();-->
+
+<!--        const TLDate = thisLast.getDate();-->
+<!--        const TLDay = thisLast.getDay();-->
+
+<!--        const prevDates = [];-->
+<!--        const thisDates = [...Array(TLDate + 1).keys()].slice(1);-->
+<!--        const nextDates = [];-->
+
+<!--        if (PLDay !== 6) {-->
+<!--            for(let i = 0; i < PLDay + 1; i++) {-->
+<!--                prevDates.unshift(PLDate - i);-->
+<!--            }-->
+<!--        }-->
+
+<!--        for (let i = 1; i < 7 - TLDay; i++) {-->
+<!--            nextDates.push(i);-->
+<!--        }-->
+
+<!--        const dates = prevDates.concat(thisDates, nextDates);-->
+
+<!--        const firstDateIndex = dates.indexOf(1);-->
+<!--        const lastDateIndex = dates.lastIndexOf(TLDate);-->
+
+<!--        dates.forEach((date, i) => {-->
+<!--            const condition = i >= firstDateIndex && i < lastDateIndex + 1-->
+<!--                              ? 'this'-->
+<!--                              : 'other';-->
+<!--            dates[i] = `<div class="date"><span class=${condition}>${date}</span></div>`;-->
+<!--        });-->
+
+<!--        document.querySelector('.dates').innerHTML = dates.join('');-->
+
+<!--        // 오늘 날짜 체크-->
+<!--        const today = new Date();-->
+<!--        if (viewMonth === today.getMonth() && viewYear === today.getFullYear()) {-->
+<!--            for (let date of document.querySelectorAll('.this')) {-->
+<!--                if(+date.innerText === today.getDate()) {-->
+<!--                    date.classList.add('today');-->
+<!--                    break;-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    };-->
+
+<!--    renderCalendar();-->
+
+<!--    const prevMonth = () => {-->
+<!--        date.setDate(1);-->
+<!--        date.setMonth(date.getMonth() - 1);-->
+<!--        renderCalendar();-->
+<!--    };-->
+<!--    const nextMonth = () => {-->
+<!--        date.setDate(1);-->
+<!--        date.setMonth(date.getMonth() + 1);-->
+<!--        renderCalendar();-->
+<!--    };-->
+
+<!--    const goToday = () => {-->
+<!--        date = new Date();-->
+<!--        renderCalendar();-->
+<!--    }-->
+<!--</script>-->
+<script>
+    const calendar = document.querySelector(".calendar"),
+        date = document.querySelector(".date"),
+        daysContainer = document.querySelector(".days"),
+        prev = document.querySelector(".prev"),
+        next = document.querySelector(".next"),
+        todayBtn = document.querySelector(".today-btn"),
+        gotoBtn = document.querySelector(".goto-btn"),
+        dateInput = document.querySelector(".date-input");
+        eventDay = document.querySelector(".event-day"),
+        eventDate = document.querySelector(".event-date"),
+        eventsContainer = document.querySelector(".events"),
+        addEventSubmit = document.querySelector(".add-event-btn");
+
+
+    let today = new Date();
+    let activeDay;
+    let month = today.getMonth();
+    let year = today.getFullYear();
+
+    const months = [
+        "1월",
+        "2월",
+        "3월",
+        "4월",
+        "5월",
+        "6월",
+        "7월",
+        "8월",
+        "9월",
+        "10월",
+        "11월",
+        "12월",
+    ];
+
+    // default
+    // const eventsArr = [
+    //     {
+    //         day: 8,
+    //         month: 5,
+    //         year: 2024,
+    //         events: [
+    //             {
+    //                 title: "Event 1 lorem ipsun dolar sit genfa tersd dsad",
+    //                 time: "10:00 AM",
+    //             },
+    //             {
+    //                 title: "Event 2",
+    //                 time: "11:00 AM",
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         day: 10,
+    //         month: 5,
+    //         year: 2024,
+    //         events: [
+    //             {
+    //                 title: "Event 1 lorem ipsun dolar sit genfa tersd dsad",
+    //                 time: "10:00 AM",
+    //             },
+    //         ],
+    //     },
+    // ];
+
+    //set a empty array
+    let eventsArr = [];
+
+    // then call get
+    getEvents();
+
+    //function to add days
+
+    function initCalendar() {
+        //to get prev month days and current month all days and rem next month days
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const prevLastDay = new Date(year, month, 0);
+        const prevDays = prevLastDay.getDate();
+        const lastDate = lastDay.getDate();
+        const day = firstDay.getDay();
+        const nextDays = 7 - lastDay.getDay() -1;
+
+        //update date top of calendar
+        date.innerHTML = months[month] + " " + year;
+
+        //adding days on dom
+
+        let days = "";
+
+        // prev month days
+
+        for(let x = day; x > 0; x--) {
+            days += `<div class="day prev-date" >${prevDays -x + 1}</div>`;
+        }
+
+        // current month days
+        for(let i = 1; i <= lastDate; i++) {
+
+            // check if event present on current day
+            let event = false;
+            eventsArr.forEach((eventObj) => {
+                if(
+                    eventObj.day === i &&
+                    eventObj.month === month + 1 &&
+                    eventObj.year === year
+                ) {
+                    // if event found
+                    event = true;
+                }
+            });
+
+
+            // if day is today add class today
+            if(i === new Date().getDate() &&
+                year === new Date().getFullYear() &&
+                month === new Date().getMonth()
+            ) {
+
+                activeDay = i;
+                getActiveDay(i);
+                updateEvents(i);
+
+                //if event found also add event class
+                if(event) {
+                    days += `<div class="day today active event" >${i}</div>`;
+                } else {
+                    days += `<div class="day today active">${i}</div>`;
+                }
+            }
+            //add remaing as it is
+            else {
+                if(event) {
+                    days += `<div class="day event" >${i}</div>`;
+                } else {
+                    days += `<div class="day">${i}</div>`;
+                }
+            }
+        }
+
+        //next month days
+
+        for(let j = 1; j <= nextDays; j++) {
+            days += `<div class="day next-date" >${j}</div>`;
+        }
+        daysContainer.innerHTML = days;
+        //add listner after calendar initialized
+        addListner();
+    }
+
+    initCalendar();
+
+    //prev month
+    function prevMonth() {
+        month--;
+        if(month <0) {
+            month = 11;
+            year--;
+        }
+        initCalendar();
+    }
+
+    // next month
+
+    function nextMonth() {
+        month++;
+        if(month > 11) {
+            month = 0;
+            year++;
+        }
+        initCalendar();
+    }
+
+    // add eventlistner on prev and next
+
+    prev.addEventListener("click", prevMonth);
+    next.addEventListener("click", nextMonth);
+
+    // our calendar is ready
+    //lets add goto date and goto today functionality
+
+    todayBtn.addEventListener("click", () => {
+        today = new Date();
+        month = today.getMonth();
+        year = today.getFullYear();
+        initCalendar();
+    })
+
+    dateInput.addEventListener("input", (e) => {
+        // allow only numbers remove anything else
+        dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
+        if(dateInput.value.length ===2) {
+            // add a slash if two numbers entered
+            dateInput.value += "/";
+        }
+        if(dateInput.value.length > 7) {
+            dateInput.value = dateInput.value.slice(0, 7);
+        }
+
+        // if backspace pressed
+        if(e.inputType === "deleteContentBackward"){
+            if(dateInput.value.length ===3){
+                dateInput.value = dateInput.value.slice(0,2);
+            }
+        }
+    });
+
+    gotoBtn.addEventListener("click", gotoDate);
+
+    function gotoDate() {
+        const dateArr = dateInput.value.split("/");
+        // some date validation
+        if(dateArr.length === 2) {
+            if(dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length ===4) {
+                month == dateArr[0] - 1;
+                year = dateArr[1];
+                initCalendar();
+                return;
+            }
+        }
+        //if invalid date
+        alert("invalid date");
+    }
+
+    // 일정 추가 스크립트
+
+    const addEventBtn = document.querySelector(".add-event"),
+        addEventContainer = document.querySelector(".add-event-wrapper"),
+        addEventCloseBtn = document.querySelector(".close"),
+        addEventTitle = document.querySelector(".event-name"),
+        addEventFrom = document.querySelector(".event-time-from"),
+        addEventTo = document.querySelector(".event-time-to");
+
+    addEventBtn.addEventListener("click", () => {
+        addEventContainer.classList.toggle("active");
+    });
+
+    addEventCloseBtn.addEventListener("click", () => {
+        addEventContainer.classList.remove("active");
+    });
+
+    // if click outside
+    document.addEventListener("click", (e) => {
+        if(e.target !== addEventBtn && !addEventContainer.contains(e.target)) {
+            addEventContainer.classList.remove("active");
+        }
+    });
+
+    //allow onlyu 50 chars in title
+    addEventTitle.addEventListener("input", (e)=> {
+        addEventTitle.value = addEventTitle.value.slice(0, 50);
+    });
+
+    //time format in from and to time
+
+    addEventFrom.addEventListener("input", (e) => {
+        //remove anything else numbers
+        addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
+        // if two numbers entered auto add :
+        if(addEventFrom.value.length === 2 ){
+            addEventFrom.value += ":";
+        }
+        // don't let user enter more than 5chars
+        if(addEventFrom.value.length > 5) {
+            addEventFrom.value = addEventFrom.value.slice(0, 5);
+        }
+    })
+
+    // same with to time
+    addEventTo.addEventListener("input", (e) => {
+        //remove anything else numbers
+        addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
+        // if two numbers entered auto add :
+        if(addEventTo.value.length === 2 ){
+            addEventTo.value += ":";
+        }
+        // don't let user enter more than 5chars
+        if(addEventTo.value.length > 5) {
+            addEventTo.value = addEventTo.value.slice(0, 5);
+        }
+    })
+
+    //lets create function to add listner on days after rendered
+
+    function addListner() {
+        const days = document.querySelectorAll(".day")
+        days.forEach((day) => {
+            day.addEventListener("click", (e) => {
+                activeDay = Number(e.target.innerHTML);
+
+                // call active day after click
+                getActiveDay(e.target.innerHTML);
+                updateEvents(Number(e.target.innerHTML));
+
+                // remove active from already active day
+
+                days.forEach((day) => {
+                    day.classList.remove("active");
+                });
+
+                // if prev month day clicked goto prev month and add active
+
+                if(e.target.classList.contains("prev-date")) {
+                    prevMonth();
+
+                    setTimeout(() => {
+                        // select all days of that month
+                        const days = document.querySelector(".day");
+
+                        // after going to prev month add active to clicked
+                        days.forEach((day) => {
+                            if(
+                                !day.classList.contains("prev-date") &&
+                                day.innerHTML === e.target.innerHTML
+                            ) {
+                                day.classList.add("active");
+                            }
+                        });
+                    }, 100);
+                    // same with next month
+                } else if(e.target.classList.contains("next-date")) {
+                    nextMonth();
+
+                    setTimeout(() => {
+                        // select all days of that month
+                        const days = document.querySelector(".day");
+
+                        // after going to prev month add active to clicked
+                        days.forEach((day) => {
+                            if(
+                                !day.classList.contains("next-date") &&
+                                day.innerHTML === e.target.innerHTML
+                            ) {
+                                day.classList.add("active");
+                            }
+                        });
+                    }, 100);
+                } else {
+                    //remaing current month days
+                    e.target.classList.add("active");
+                }
+
+            });
+        });
+    }
+
+    // lets show active day events and date at top
+
+    function getActiveDay(date) {
+        const day = new Date(year, month, date);
+        const dayName = day.toString().split(" ")[0];
+        eventDay.innerHTML = dayName;
+        eventDate.innerHTML = year + "년 " + months[month] + " " + date + "일"
+    }
+
+    // function to show events of that day
+    function updateEvents(date) {
+        let events = "";
+        eventsArr.forEach((event) => {
+            //get events of active day only
+            if (date === event.day &&
+                month + 1 === event.month &&
+                year === event.year) {
+                //then show event on document
+
+                event.events.forEach((event) => {
+                    events += `
+                    <div class="event">
+                        <div class="title">
+                            <i class="fas fa-circle"></i>
+                            <h3 class="event-title">${event.title}</h3>
+                        </div>
+                        <div class="event-time">
+                            <span class="event-time">${event.time}</span>
+                        </div>
+                    </div>
+                    `;
+                });
+            }
+        });
+
+        //if nothing found
+
+        if((events === "")) {
+            events = `<div class="no-event">
+                    <h3>No Event</h3>
+                  </div>`;
+        }
+        console.log(events);
+        eventsContainer.innerHTML = events;
+
+        //save events when new one added
+        saveEvents();
+
+    }
+
+    //lets create function to add events
+    addEventSubmit.addEventListener("click", () => {
+        const eventTitle = addEventTitle.value;
+        const eventTimeFrom = addEventFrom.value;
+        const eventTimeTo = addEventTo.value;
+
+        // some validations
+
+        if(eventTitle === "" ||
+            eventTimeFrom === "" ||
+            eventTimeTo === "")
+        {
+            alert("please fill all the fields");
+            return;
+        }
+
+        const timeFromArr = eventTimeFrom.split(":");
+        const timeToArr = eventTimeTo.split(":");
+
+        if(
+            timeFromArr.length !== 2 ||
+            timeToArr.length !== 2 ||
+            timeFromArr[0] > 23 ||
+            timeFromArr[1] > 59 ||
+            timeToArr[0] > 23 ||
+            timeToArr[1] > 59
+        ) {
+            alert("Invalid Time Format");
+        }
+
+        const timeFrom = convertTime(eventTimeFrom);
+        const timeTo = convertTime(eventTimeTo);
+
+        const newEvent = {
+            title : eventTitle,
+            time : timeFrom + " - " + timeTo,
+        };
+
+        let eventAdded = false;
+
+        //check if eventsarr not empty
+        if(eventsArr.length > 0) {
+            //check if current day has already and event then add to that
+            eventsArr.forEach((item) => {
+                if(
+                    item.day === activeDay &&
+                    item.month === month + 1 &&
+                    item.year === year
+                ) {
+                    item.events.push(newEvent);
+                    eventAdded = true;
+                }
+            });
+        }
+
+        // if event array empty or current day has no event create new
+        if(!eventAdded) {
+            eventsArr.push ({
+                day: activeDay,
+                month: month + 1,
+                year: year,
+                events: [newEvent],
+            });
+        }
+
+        //remove active from add event form
+        addEventContainer.classList.remove("active")
+        //clear the fields
+        addEventTitle.value = "";
+        addEventFrom.value = "";
+        addEventTo.value = "";
+
+        // show current added event
+        updateEvents(activeDay);
+
+        // also add event class to newly added day if not already
+
+        const activeDayElem = document.querySelector(".day.active");
+        if(!activeDayElem.classList.contains("event")) {
+            activeDayElem.classList.add("event");
+        }
+    });
+
+    function convertTime(time) {
+        let timeArr = time.split(":");
+        let timeHour = timeArr[0];
+        let timeMin = timeArr[1];
+        let timeFormat = timeHour >= 12 ? "PM" : "AM";
+        timeHour = timeHour % 12 || 12;
+        time = timeHour + ":" + timeMin + " " + timeFormat;
+        return time;
+    }
+
+    // lets create a function to remove events on click
+    eventsContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("event")) {
+            const eventTitle = e.target.children[0].children[1].innerHTML;
+            // get the title of event than search in array by title and delete
+            eventsArr.forEach((event) => {
+                if (
+                    event.day === activeDay &&
+                    event.month === month + 1 &&
+                    event.year === year
+                ) {
+                    event.events.forEach((item, index) => {
+                        if(item.title === eventTitle) {
+                            event.events.splice(index, 1);
+                        }
+                    });
+
+                    //ifno event remaining on that dat remove complete day
+
+                    if(event.events.length === 0) {
+                        eventsArr.splice(eventsArr.indexOf(event), 1);
+                        //after remove complete day also remove active class of that day
+
+                        const activeDayElem = document.querySelector(".day.active");
+                        if (activeDayElem.classList.contains("event")) {
+                            activeDayElem.classList.remove("event");
+                        }
+                    }
+
+                }
+            });
+            //after removing from array update event
+            updateEvents(activeDay);
+        }
+    })
+
+    //lets store events in local storage get from there
+
+    function saveEvents() {
+        localStorage.setItem("events", JSON.stringify(eventsArr));
+    }
+
+    function getEvents() {
+        if(localStorage.getItem("events" === null)) {
+            return;
+        }
+        // eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    }
+</script>
+
+
+</html>

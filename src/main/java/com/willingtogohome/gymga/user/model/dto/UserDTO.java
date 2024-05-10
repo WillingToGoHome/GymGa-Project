@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class UserDTO {
 
-    private Integer userCode;
+    private int userCode;
     private String userId;
     private String userPwd;
     private String userName;
@@ -23,6 +23,6 @@ public class UserDTO {
     private Date userBirth;
     private String userAddress;
     private String userEtc;
-    private Integer userStaff;
+    private int userStaff;
 
 }

@@ -2,21 +2,22 @@ package com.willingtogohome.gymga.pass.model.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-@ToString
 public class PassDTO {
 
-    private Integer passCode;
+    private int passCode;
     private String pqCode;
     private String passStatus;
     private Date passStart;
     private Date passEnd;
-    private Integer passTotal;
-    private Integer passUse;
-    private Integer userCode;
+    private int passTotal;
+    private int passUse;
+    private int userCode;
+
 }
