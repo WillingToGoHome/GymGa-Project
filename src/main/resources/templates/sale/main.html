@@ -19,8 +19,6 @@
                 <div th:insert="~{common/navbar}"></div>
                 <div>
 
-
-
                     <div class="pieG" id="pie"></div>
 
                     <div class="barG" id="bar"></div>
@@ -30,9 +28,9 @@
                                 <tr>
                                     <h3>직원 매출</h3>
                                 </tr>
-                                <tr th:each="sale:${PAPQList}">
-                                    <td th:if="${sale.userCode == sale.userDTO.userCode}" th:text="${sale.userDTO.userName}"></td>
-<!--                                    <td th:text="${sale.F_user_name}"></td>-->
+                                <tr th:each="empAndUser:${employeeAndUserDTO}">
+                                    <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
+                                    <td class="td" th:text="${empAndUser.total1}+'원'"></td>
 <!--                                    <td th:text="${pass.gpCount}"></td>-->
                                 </tr>
                             </table>
@@ -50,14 +48,14 @@
                                     <th>시 간</th>
                                 </tr>
                                 <tr th:each="sale:${PAPQList}">
-                                    <td th:text="${sale.userDTO.userName}"></td>
-                                    <td class="time" th:text="${sale.passQualDTO.pqName}"></td>
-                                    <td class="time" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+                                    <td class="time" th:text="${sale.userDTO.userName}"></td>
+                                    <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
+                                    <td class="td" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
                                  + ' ~ '
                                  + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
-                                    <td th:text="${sale.saleDTO.salesMethod}"></td>
-                                    <td class="time" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
+                                    <td class="td" th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
+                                    <td class="time2" th:text="${sale.saleDTO.salesMethod}"></td>
+                                    <td class="time2" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
                                  +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
                                 </tr>
                             </thead>

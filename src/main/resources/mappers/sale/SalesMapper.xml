@@ -49,6 +49,7 @@
         <result property="salesMethod" column="sales_method"/>
         <result property="salesDate" column="sales_date"/>
     </association>
+
 </resultMap>
 
     <resultMap id="passDataResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassData">
@@ -56,6 +57,52 @@
         <result property="gxCount" column="GX_Count"/>
         <result property="gpCount" column="GP_Count"/>
     </resultMap>
+
+
+    <resultMap id="empAndUserResultMap" type="com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO">
+        <id property="total1" column="total1"/>
+        <association property="userDTO" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPwd" column="user_pwd"/>
+            <result property="userName" column="user_name"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRole" column="user_role"/>
+            <result property="userPic" column="user_pic"/>
+            <result property="userGender" column="user_gender"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userEtc" column="user_etc"/>
+            <result property="userStaff" column="user_staff"/>
+        </association>
+        <association property="employeeDTO" javaType="com.willingtogohome.gymga.emp.model.dto.EmployeeDTO">
+            <id property="code" column="USER_CODE"/>
+            <result property="location" column="EMP_LOCATION"/>
+            <result property="year" column="EMP_YEAR"/>
+            <result property="month" column="EMP_MONTH"/>
+            <result property="totalYear" column="EMP_TOT_YEAR"/>
+            <result property="totalMonth" column="EMP_TOT_MONTH"/>
+            <result property="qual" column="EMP_QUAL"/>
+            <result property="salary" column="EMP_SALARY"/>
+        </association>
+        <association property="passQualDTO" javaType="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
+            <id property="pqCode" column="pq_code"/>
+            <result property="pqName" column="pq_name"/>
+            <result property="pqPrice" column="pq_price"/>
+        </association>
+        <association property="passDTO" javaType="com.willingtogohome.gymga.pass.model.dto.PassDTO">
+            <id property="passCode" column="pass_code"/>
+            <result property="pqCode" column="pq_code"/>
+            <result property="passStatus" column="pass_status"/>
+            <result property="passStart" column="pass_start"/>
+            <result property="passEnd" column="pass_end"/>
+            <result property="passTotal" column="pass_total"/>
+            <result property="passUse" column="pass_use"/>
+            <result property="userCode" column="user_code"/>
+        </association>
+    </resultMap>
+
+
 
     <select id="findAllList" resultMap="salesMap">
         SELECT
@@ -67,36 +114,47 @@
 
     <select id="findPassAndPassQualList" resultMap="passResultMap">
         SELECT
-        A.pass_code,
-        A.pq_code,
-        B.pq_name,
-        A.pass_status,
-        A.pass_start,
-        A.pass_end,
-        A.pass_total,
-        A.pass_use,
-        A.user_code,
-        B.pq_price,
-        D.user_name,
-        E.sales_method,
-        E.sales_date,
-        F.user_name as F_user_name
+                A.pass_code,
+                A.pq_code,
+                B.pq_name,
+                A.pass_status,
+                A.pass_start,
+                A.pass_end,
+                A.pass_total,
+                A.pass_use,
+                A.user_code,
+                B.pq_price,
+                D.user_name,
+                E.sales_method,
+                E.sales_date
         FROM passdb A
-        left JOIN passqualdb B ON A.pq_code = B.pq_code
-        left join validatedb C on A.pass_code = C.pass_code
-        left join userdb D on C.user_code = D.user_code
-        left join salesdb E on D.user_code = E.user_code
-        left join userdb F on A.user_code = F.user_code
-        order by A.pass_start desc , E.sales_date desc;
+            left JOIN passqualdb B ON A.pq_code = B.pq_code
+            left join validatedb C on A.pass_code = C.pass_code
+            left join userdb D on C.user_code = D.user_code
+            left join salesdb E on D.user_code = E.user_code
+            order by A.pass_start desc , E.sales_date desc;
     </select>
 
     <select id="sumPassData" resultMap="passDataResultMap">
         SELECT
-            PT_Count,
-            GX_Count,
-            GP_Count
+                PT_Count,
+                GX_Count,
+                GP_Count
         FROM passdata
     </select>
+    <select id="empAndUser" resultMap="empAndUserResultMap">
+        SELECT
+        A.user_name,
+        SUM(CASE WHEN A.user_code = 1 or A.user_code = 2 or A.user_code = 3 or A.user_code = 4 THEN D.pq_price ELSE 0 END) AS total1
+        from userdb A
+        join employeedb B on A.user_code=B.user_code
+        left join passdb C on C.user_code=B.user_code
+        left join passqualdb D on C.pq_code=D.pq_code
+        GROUP BY A.user_code
+        order by A.user_name;
+    </select>
+
+
 
 <!--    <update id="updatePassData" parameterMap="passDataResultMap">-->
 <!--        UPDATE passdata-->

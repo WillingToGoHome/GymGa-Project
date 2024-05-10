@@ -27,4 +27,5 @@ public class ScheduleAndClassAndUserAndPassDTO {
     private UserDTO userCategory;
     private PassDTO passCategory;
 
+
 }

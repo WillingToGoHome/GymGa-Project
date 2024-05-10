@@ -2,6 +2,7 @@ package com.willingtogohome.gymga.sale.model.dao;
 
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassData;
+import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,6 @@ public interface SaleMapper {
 
 
     List<PassData> sumPassData();
+
+    List<EmployeeAndUserDTO> empAndUser();
 }

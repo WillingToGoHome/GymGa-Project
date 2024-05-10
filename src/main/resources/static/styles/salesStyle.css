@@ -17,6 +17,7 @@
 .memberSale {
     color: black;
     text-align: center;
+    /*font-weight: normal;*/
     aspect-ratio: 100 / 48.55;
     float: right;
     /*float: none;*/
@@ -27,12 +28,14 @@
     box-shadow: 1px 1px 1px 1px #BDBDBD;
     padding-bottom: 10px;
     height: 660px;
+    max-height: 660px;
     width: 300px;
     margin-right: 20px;
     /*min-width: 20vw;*/
     /*max-width: 22vw;*/
     /*min-height: 25vh;*/
     /*max-height: 30vh;*/
+    overflow-y: scroll;
 }
 
 
@@ -63,11 +66,19 @@
     box-shadow: 1px 1px 1px 1px #BDBDBD;
 }
 
-.time{
-    width: 6vw;
-}
-td{
-    min-width: 140px;
+.td{
+    min-width: 180px;
+    height: 50px;
     border-bottom: 1px black;
+}
+
+.time{
+    width: 50px;
+    height: 50px;
+}
+.time2{
+    width: 100px;
+    height: 50px;
+    font-size: 14px;
 }
 

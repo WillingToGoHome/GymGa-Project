@@ -1,6 +1,7 @@
 package com.willingtogohome.gymga.sale.controller;
 
 import com.willingtogohome.gymga.pass.model.dto.PassData;
+import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.service.SaleService;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,15 @@ public class SaleController {
 //        System.out.println("passData = " + passData);
 
         model.addAttribute("passData", passData);
+
+        List<EmployeeAndUserDTO> employeeAndUserDTO = saleService.empAndUser();
+        model.addAttribute("employeeAndUserDTO",employeeAndUserDTO);
+
+        System.out.println("employeeAndUserDTO = " + employeeAndUserDTO);
+//
+//        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
+//        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
+
 
     }
 
