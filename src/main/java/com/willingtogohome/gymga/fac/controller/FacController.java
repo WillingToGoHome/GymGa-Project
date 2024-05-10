@@ -56,10 +56,6 @@ public class FacController {
         return "fac/select";
     }
 
-    
-
-
-
     @GetMapping(value = "user", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<UserDTO> findUserList() {
@@ -74,7 +70,6 @@ public class FacController {
 
     @PostMapping("/regist")
     public String registFac(FacDTO newFac, RedirectAttributes rttr) {
-
 
         facService.registNewFac(newFac);
 
