@@ -30,7 +30,10 @@ public class EmpController {
     }
 
     @GetMapping(value={"/", "/main"})
-    public String empMain(Model model) {
+    public String empMain(Model model, HttpSession session) {
+
+        System.out.println("get : /emp/ or /emp/main");
+        System.out.println(session.getAttribute("searched"));
 
         List<EmpDTO> empList = empService.selectAllEmp();
         List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
@@ -54,6 +57,8 @@ public class EmpController {
     @GetMapping("/regist")
     public String registPage() {
 
+        System.out.println("get : /emp/regist");
+
         return "/emp/regist";
     }
 
@@ -62,8 +67,9 @@ public class EmpController {
                             @RequestParam MultipartFile picFile, @RequestParam String qualWrite,
                             @RequestParam String address1, @RequestParam String address2) {
 
-        System.out.println("picFile = " + picFile);
-        System.out.println(picFile.isEmpty());
+        System.out.println("post : /emp/regist");
+//        System.out.println("picFile = " + picFile);
+//        System.out.println(picFile.isEmpty());
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -75,12 +81,12 @@ public class EmpController {
             }
 
             String originFileName = picFile.getOriginalFilename();
-            System.out.println("originFileName = " + originFileName);
+//            System.out.println("originFileName = " + originFileName);
             String ext = originFileName.substring(originFileName.lastIndexOf("."));
-            System.out.println("ext = " + ext);
+//            System.out.println("ext = " + ext);
 
             String savedName = UUID.randomUUID() + ext;
-            System.out.println("savedName = " + savedName);
+//            System.out.println("savedName = " + savedName);
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
@@ -96,6 +102,7 @@ public class EmpController {
         }
 
         int code = empService.findLastCode();
+//        System.out.println("code = " + code);
 
         if (empDTO.getBirth().isEmpty()) {
             empDTO.setBirth("2000-01-01");
@@ -116,9 +123,9 @@ public class EmpController {
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
+//        System.out.println("empDTO = " + empDTO);
+//        System.out.println("physicalDTO = " + physicalDTO);
+//        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
@@ -127,6 +134,8 @@ public class EmpController {
 
     @GetMapping("/search")
     public String empSearch(Model model) {
+
+        System.out.println("get : /emp/search");
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
@@ -138,9 +147,11 @@ public class EmpController {
     @GetMapping("/result")
     public String empResult(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
 
-        System.out.println("search = " + search);
-        System.out.println("category = " + category);
-        System.out.println("model = " + model);
+        System.out.println("get : /emp/result");
+
+//        System.out.println("search = " + search);
+//        System.out.println("category = " + category);
+//        System.out.println("model = " + model);
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
@@ -156,43 +167,52 @@ public class EmpController {
     @GetMapping("/update")
     public String empUpdate(HttpSession session, Model model) {
 
+        System.out.println("get : /emp/update");
+
         int code = (int) session.getAttribute("searched");
         System.out.println("code = " + code);
+//        System.out.println("code = " + code);
         String text = Integer.toString(code);
-        System.out.println("text = " + text);
+//        System.out.println("text = " + text);
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
-        System.out.println("emp = " + emp);
+        List<EmpDTO> empList = empService.selectAllEmp();
+//        System.out.println("emp = " + emp);
 
         model.addAttribute("emp", emp);
+        model.addAttribute("empList", empList);
 
         return "/emp/update";
     }
 
-//    @PostMapping("/update")
-//    public String empUpdate(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
-//                            HttpSession session) {
-//
-//        int code = (int) session.getAttribute("searched");
+    @PostMapping("/update")
+    public String empUpdate(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
+                            HttpSession session) {
+
+        System.out.println("post : /emp/update");
+
+        int code = (int) session.getAttribute("searched");
 //        System.out.println("updatecode = " + code);
-//
-//        empDTO.setCode(code);
-//        physicalDTO.setCode(code);
-//        employeeDTO.setCode(code);
-//
+
+        empDTO.setCode(code);
+        physicalDTO.setCode(code);
+        employeeDTO.setCode(code);
+
 //        System.out.println("empDTO = " + empDTO);
 //        System.out.println("physicalDTO = " + physicalDTO);
 //        System.out.println("employeeDTO = " + employeeDTO);
-//
-//        empService.updateEmp(empDTO, physicalDTO, employeeDTO);
-//
-//        return "redirect:/emp/detail";
-//    }
+
+        empService.updateEmp(empDTO, physicalDTO, employeeDTO);
+
+        return "redirect:/emp/detail";
+    }
 
     @PostMapping("detail")
     public String empDetail(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
                             HttpSession session, Model model, @RequestParam MultipartFile picFile,
                             @RequestParam String address1, @RequestParam String address2) {
+
+        System.out.println("post : /emp/detail");
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -204,16 +224,16 @@ public class EmpController {
             }
 
             String originFileName = picFile.getOriginalFilename();
-            System.out.println("originFileName = " + originFileName);
+//            System.out.println("originFileName = " + originFileName);
             String ext = originFileName.substring(originFileName.lastIndexOf("."));
-            System.out.println("ext = " + ext);
+//            System.out.println("ext = " + ext);
 
             String savedName = UUID.randomUUID() + ext;
-            System.out.println("savedName = " + savedName);
+//            System.out.println("savedName = " + savedName);
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
-                empDTO.setPic("/uploadFiles/" +savedName);
+//                empDTO.setPic("/uploadFiles/" +savedName);
 //                picFile.transferTo(new File(filePath + "/" + originFileName));
 //                model.addAttribute("message", "파일 업로드 완료!");
             } catch (Exception e) {
@@ -225,8 +245,8 @@ public class EmpController {
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
 
-        System.out.println("address1 = " + address1);
-        System.out.println("address2 = " + address2);
+//        System.out.println("address1 = " + address1);
+//        System.out.println("address2 = " + address2);
 
         if (address1 != "") {
             String address = address1 + " " + address2;
@@ -238,27 +258,29 @@ public class EmpController {
         physicalDTO.setCode(code);
         employeeDTO.setCode(code);
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
+//        System.out.println("empDTO = " + empDTO);
+//        System.out.println("physicalDTO = " + physicalDTO);
+//        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.updateEmp(empDTO, physicalDTO, employeeDTO);
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        System.out.println("emp = " + emp);
+//        System.out.println("emp = " + emp);
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
 
-        return "redirect:/emp/main";
+        return "redirect:/emp/detail";
     }
 
     @GetMapping("/detail")
     public String empDetail(HttpSession session, Model model) {
 
-        System.out.println("getDetail");
+        System.out.println("get : /emp/detail");
+
+//        System.out.println("getDetail");
 
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
@@ -267,6 +289,9 @@ public class EmpController {
         List<EmpDTO> empList = empService.selectAllEmp();
 
         System.out.println("emp = " + emp);
+        System.out.println("empList = " + empList);
+
+//        System.out.println("emp = " + emp);
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
@@ -276,6 +301,8 @@ public class EmpController {
 
     @PostMapping("/remove")
     public String empRemove(HttpSession session) {
+
+        System.out.println("post : /emp/remove");
 
         int code = (int) session.getAttribute("searched");
         empService.removeEmp(code);
