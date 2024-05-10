@@ -65,7 +65,7 @@
         ORDER BY USER_NAME
     </select>
 
-    <select id="findLastCode">
+    <select id="findLastCode" resultType="_int">
         SELECT
             MAX(USER_CODE)
         FROM USERDB

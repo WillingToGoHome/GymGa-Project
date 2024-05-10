@@ -2,54 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>직원 조회</title>
+    <link rel="stylesheet" href="/emp/styles/resultStyle.css">
 </head>
 <body>
-    <div onClick="location.href='/emp/'">0</div>
-    <h1>직원 조회</h1>
-    <hr>
-    <form action="/emp/result" method="get">
-        <input type="search" name="search" placeholder="검색 내용">
-        <select name="category">
-            <option value="name">강사명</option>
-        </select>
-        <input type="submit">
-    </form>
-
-    <div th:object="${ emp }">
-        <img th:src="*{ pic }">
-        <p th:text="|회원 번호 : *{ code }|"></p>
-        <p th:text="|아이디 : *{ id }|"></p>
-        <p th:text="|이름 : *{ name }|"></p>
-        <p th:text="|전화번호 : *{ phone }|"></p>
-        <p th:text="|직급 : *{ role }|"></p>
-        <p th:text="|성별 : *{ gender }|"></p>
-        <p th:text="|생년월일 : *{ birth }|"></p>
-        <p th:text="|주소 : *{ address }|"></p>
-        <p th:text="|기타 : *{ etc }|"></p>
-        <p th:text="|키 : *{ physicalDTO.height }|"></p>
-        <p th:text="|체중 : *{ physicalDTO.weight }|"></p>
-        <p th:text="|BMI : *{ physicalDTO.bmi }|"></p>
-        <p>경력 사항</p>
-        <p th:text="|근무지 : *{ employeeDTO.location }|"></p>
-        <p th:text="|경력 : *{ employeeDTO.year }년 *{ employeeDTO.month }개월|"></p>
-        <p th:text="|총 경력 : *{ employeeDTO.totalYear }년 *{ employeeDTO.totalMonth }개월|"></p>
-        <p th:text="|자격 사항 : *{ employeeDTO.qual }|"></p>
-        <p th:text="|급여 : *{ employeeDTO.salary }|"></p>
-    </div>
-
-    <button onClick="location.href='/emp/update'">수정</button>
-    <form action="/emp/remove" method="post">
-        <input type="submit" value="삭제">
-    </form>
-
-    <div>
-        <h3>직원 리스트</h3>
-        <div th:each="emp : ${ empList }">
-            <p th:text="${ emp.name }"></p>
-            <p th:text="${ emp.role }"></p>
-            <hr>
+<div class="outerDiv">
+    <div class="mainBox">
+        <div>
+            <img class="back" onClick="location.href='/emp/'" src="/uploadFiles/icon-back.png">
+            <div class="main">
+                <span class="topic">직원 조회</span>
+            </div>
+            <div class="searchBox">
+                <form action="/emp/result" method="get">
+                    <input type="search" name="search" placeholder="검색 내용">
+                    <select name="category">
+                        <option value="name">강사명</option>
+                    </select>
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+            <hr class="line1">
+        </div>
+        <div>
+            <div th:object="${ emp }">
+                <div class="empInfoBox">
+                    <div class="picBox">
+                        <img th:src="*{ pic }">
+                    </div>
+                    <div class="infoBox">
+                        <div class="upperInfoBox">
+                            <div class="infoBox1">
+                                <div class="left">
+                                    <span>사용자 번호</span><br>
+                                    <span>아이디</span><br>
+                                    <span>직급</span>
+                                </div>
+                                <div class="left" style="margin-left: 20px">
+                                    <span th:text="|*{ code }|"></span><br>
+                                    <span th:text="|*{ id }|"></span><br>
+                                    <span th:text="|*{ role }|"></span>
+                                </div>
+                            </div>
+                            <div class="infoBox2">
+                                <div class="left" style="margin-left: 100px">
+                                    <span>이름</span><br>
+                                    <span>전화번호</span><br>
+                                    <span>생년월일</span><br>
+                                    <span>성별</span>
+                                </div>
+                                <div class="left" style="margin-left: 30px">
+                                    <span th:text="|*{ name }|"></span><br>
+                                    <span th:text="|*{ phone }|"></span><br>
+                                    <span th:text="|*{ birth }|"></span><br>
+                                    <span th:text="|*{ gender }|"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="infoBox3">
+                            <div class="left">
+                                <span>주소</span>
+                            </div>
+                            <div class="left" style="margin-left: 68px">
+                                <span th:text="|*{ address }|"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detailBox">
+                    <div class="infoBox1" style="margin-left: 130px">
+                        <div class="left">
+                            <span>신체조건</span><br>
+                            <span>키</span><br>
+                            <span>체중</span><br>
+                            <span>BMI</span>
+                        </div>
+                        <div class="left">
+                            <br>
+                            <span th:text="|*{ physicalDTO.height }|"></span><br>
+                            <span th:text="|*{ physicalDTO.weight }|"></span><br>
+                            <span th:text="|*{ physicalDTO.bmi }|"></span>
+                        </div>
+                    </div>
+                    <div class="infoBox1" style="margin-left: 120px">
+                        <span style="line-height: 42px">자격 사항</span><br>
+                        <div class="left">
+                            <span th:text="|*{ employeeDTO.qual }|"></span>
+                        </div>
+                    </div>
+                    <div class="infoBox1" style="margin-left: 100px">
+                        <div class="left">
+                            <span>경력 사항</span><br>
+                            <span>근무지</span><br>
+                            <span>기간</span><br>
+                            <span>전체 사항</span><br>
+                            <span>기본급</span><br>
+                        </div>
+                        <div class="left">
+                            <br>
+                            <span th:text="|*{ employeeDTO.location }|"></span><br>
+                            <span th:text="|*{ employeeDTO.year }년 *{ employeeDTO.month }개월|"></span><br>
+                            <span th:text="|*{ employeeDTO.totalYear }년 *{ employeeDTO.totalMonth }개월|"></span><br>
+                            <span th:text="|*{ employeeDTO.salary }|"></span>
+                        </div>
+                    </div>
+                    <div class="infoBox3" style="margin-left: 130px">
+                        <div>
+                            <div class="left">
+                                <span>기타</span>
+                            </div>
+                            <div class="left" style="width: 300px">
+                                <span th:text="|*{ etc }|"></span>
+                            </div>
+                        </div>
+                        <div style="float: right; margin-right: 140px; padding-top: 10px">
+                            <div style="float: left; margin-right: 10px">
+                                <form action="/emp/remove" method="post">
+                                    <button type="submit" style="background-color: white; color: rgba(75, 130, 216, 1); width: 150px; cursor: pointer; font-size: 24px; font-weight: bold">삭제</button>
+                                </form>
+                            </div>
+                            <div style="float: left">
+                                <button style="width: 150px; cursor: pointer; font-size: 24px; font-weight: bold" onClick="location.href='/emp/update'">수정</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="sideBox">
+        <div>
+            <div class="main" style="margin-bottom: 24px">
+                <span class="topic" style="margin-left: 40px">직원 리스트</span>
+            </div>
+            <hr class="line2">
+        </div>
+        <div class="empList">
+            <div class="empBlock" th:each="emp : ${ empList }">
+                <div class="empBlockLeft">
+                    <img class="empImg" th:src="${ emp.pic }">
+                </div>
+                <div class="empBlockRight">
+                    <p class="empName" th:text="${ emp.name }"></p>
+                    <p class="empRole" th:text="${ emp.role }"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>
