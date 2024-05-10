@@ -3,8 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/selectAll.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
+<div id="main">
+    <div id="app_area">
+        <div id="window">
+            <!--header-->
+            <div th:include="common/header"></div>
+            <!--navbar-->
+            <div class="mid-container">
+                <div th:include="common/navbar"></div>
+                <!--내용 작성하는 div-->
+                    <div class="contents">
+                        <div class="on">
+                            <img src="/img/Back.png" class="back">
+                            <p class="text">회원 리스트</p>
+                            <form action="/user/search" method="post" class="top">
+                                <input type="text" class="search" name="search" placeholder="검색 내용">
+                                <select name="category" class="option">
+                                    <option value="basic">카테고리</option>
+                                    <option value="name">이름</option>
+                                    <option value="id">아이디</option>
+                                </select>
+                                <button type="submit" class="searchButton">검색</button>
+                            </form>
+                        </div>
+                        <hr class="hr1">
+                        <div class="title">
+                            <p class="titleText">이름</p>
+                            <p class="titleText">아이디</p>
+                            <p class="titleText">성별</p>
+                            <p class="titleText">전화번호</p>
+                            <p class="titleText">담당강사</p>
+                            <p class="titleText">관리</p>
+                        </div>
+                            <hr class="hr2">
+                        <div class="zxc">
+                            <div class="userList" th:each="user : ${userList}">
+                                <p class="userName" th:text="${user.userName}"></p>
+                                <p class="userId" th:text="${user.userId}"></p>
+                                <p th:if="${user.userGender == '남'}" class="userGender" th:text="${user.userGender}"></p>
+                                <p th:if="${user.userGender == '여'}" class="userGender2" th:text="${user.userGender}"></p>
+                                <p class="userPhone" th:text="${user.userPhone}"></p>
+                                <p class="userStaff" th:if="${user.userStaff == 0 || user.userStaff == null}" th:text="없음"></p>
+                                <p class="userStaff" th:if="${user.userStaff == 1}" th:text="구예성"></p>
+                                <p class="userStaff" th:if="${user.userStaff == 2}" th:text="윤수빈"></p>
+                                <p class="userStaff" th:if="${user.userStaff == 3}" th:text="김만호"></p>
+                                <p class="userStaff" th:if="${user.userStaff == 4}" th:text="이민국"></p>
+                                <div class="buttonBox">
+                                    <form action="/user/selectDetail" method="get" style="display: flex">
+                                    <input type="hidden" name="code" th:value="${user.userCode}">
+                                    <input class="detailButton" type="submit" onclick="location.href='/user/selectDetail'" value="상세">
+                                    </form>
+                                    <button class="deleteButton">삭제</button>
+                                    <div class="modalContainer">
+                                        <div class="modalContent">
+                                            <div class="textBox">
+                                                <p class="modalText1"><span th:text="${user.userName}"></span>님이 선택되었습니다</p>
+                                                <p class="modalText2">정말 삭제하시겠습니까?</p>
+                                            </div>
+                                            <div class="modalButtonBox">
+                                                <button class="cancelButton">취소</button>
+                                                <form action="/user/delete" method="post">
+                                                    <input type="hidden" name="code" th:value="${user.userCode}">
+                                                    <input class="checkButton" type="submit" value="확인">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="qwe">
+                            <button type="button" class="registButton" onclick="location.href='/user/regist'">등록</button>
+                        </div>
+                    </div>
+            </div>
+            <!--내용 작성하는 div-->
+            <!--footer-->
+            <div th:include="common/footer"></div>
+        </div>
+    </div>
+</div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var userListSize = $(".userList").length;
+            for (var i = 0; i < userListSize - 1; i++) {
+                var userList = $(".userList:eq(" + i + ")");
+                userList.after("<div>");
+                var hrDiv = userList.next();
+                hrDiv.append("<div><hr class='hr3'></div>");
+            }
+
+            $(".deleteButton").click(function() {
+                $(this).siblings(".modalContainer").show();
+            });
+
+            $(".cancelButton").click(function() {
+                $(this).closest(".modalContainer").hide();
+            });
+        });
+
+    </script>
 </body>
 </html>
