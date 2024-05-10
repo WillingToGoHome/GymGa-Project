@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.sale.model.service;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassData;
 import com.willingtogohome.gymga.sale.model.dao.SaleMapper;
+import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class SaleService {
 
     public List<PassData> sumPassData() {
         return saleMapper.sumPassData();
+    }
+
+    public List<EmployeeAndUserDTO> empAndUser() {
+        return saleMapper.empAndUser();
     }
 }
