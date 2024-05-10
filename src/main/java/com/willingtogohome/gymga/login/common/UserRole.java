@@ -1,3 +1,4 @@
+/*
 package com.willingtogohome.gymga.login.common;
 
 public enum UserRole {
@@ -26,3 +27,4 @@ public enum UserRole {
                 '}';
     }
 }
+*/

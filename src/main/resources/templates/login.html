@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to GymGa</title>
@@ -35,7 +35,7 @@
                 <h3 class="login">Log In</h3>
                 <button type="button">관리자</button>
                 <button type="button">직원</button>
-                <form action="/login" method="post">
+                <form th:action="@{/login}" method="post">
                     <input type="text" value="userId" name="userId" placeholder="아이디를 입력해주세요"><br>
                     <input type="password" value="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요"><br>
                     <button type="submit">Sign in</button>
@@ -226,7 +226,8 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                         </th>
                                                         <td>
                                                             <input type="text" name="userId" value id="reg_userId" required class="reg_input" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자.">
-                                                            <span id="msg_userId" class="reg_msg"></span>
+                                                            <input type="button" class="btn_frmline" name="userId" id="reg_userId_chk" value="중복체크">
+                                                            <div id="message_id"></div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -239,15 +240,105 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                             <input type="password" name="userPwd" value id="reg_userPwd" required class="reg_input" maxlength="3" minlength="20">
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userPwd" class="req">
+                                                                PASSWORD 확인
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="password" name="userPwd" value id="reg_userPwd_re" required class="reg_input" maxlength="3" minlength="20">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userName" class="req">
+                                                                이름
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="text" name="userName" value id="reg_userName" required class="reg_input">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userPhone" class="req">
+                                                                전화번호
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <div class="userPhone_wrap">
+                                                                <input type="text" name="userPhone" value="010" id="reg_userPhone" required class="reg_input">
+                                                                <b>_</b>
+                                                                <input type="text" name="userPhone" value id="reg_userPhone2" required class="reg_input" maxlength="4">
+                                                                <b>_</b>
+                                                                <input type="text" name="userPhone" value id="reg_userPhone3" required class="reg_input" maxlength="4">
+                                                            </div>
+                                                            <input type="hidden" name="userPhone" value id="reg_userPhone_hp">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userBirth" class="req">
+                                                                생년월일
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="tel" name="userBirth" value id="reg_userBirth" required class="reg_input" placeholder="ex)19990101">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userAddress" class="req">
+                                                                주소
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="text" name="userAddress" value id="reg_userAddress" required class="reg_input" maxlength="6" placeholder="우편번호">
+                                                            <button type="button" class="btn_frmline">주소검색</button>
+                                                            <br>
+                                                            <input type="text" name="userAddress" value id="reg_userAddress1" required class="reg_input" placeholder="기본주소">
+                                                            <label for="reg_userAddress1" class="sound_only">
+                                                                기본주소
+                                                                <strong>필수</strong>
+                                                            </label>
+                                                            <br>
+                                                            <input type="text" name="userAddress" value id="reg_userAddress2" required class="reg_input" placeholder="상세주소">
+                                                            <label for="reg_userAddress2" class="sound_only">상세주소</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userEtc" class="req">
+                                                                사업자등록증
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="file" name="userEtc" value id="reg_userEtc" class="reg_input" placeholder="jgp,png,pdf파일 형식으로 입력해주세요.">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="role" class="req">
+                                                                권한
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <select name="role" id="reg_role" class="reg_input" required>
+                                                                <option value="대표">대표</option>
+                                                                <option value="직원">직원</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div class="modalButtonBox2">
+                                            <button class="prevButton" id="btn_submit2">이전으로</button>
+                                            <input class="checkButton" type="submit" id="btn_submit3" value="확인">
+                                        </div>
                                     </div>
                                 </form>
-                            <div class="modalButtonBox2">
-                                <button class="prevButton" id="btn_submit2">이전으로</button>
-                                <input class="checkButton" type="submit" value="확인">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -332,92 +423,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
     </script>
 
 
-   <!-- &lt;!&ndash; 모달 창 &ndash;&gt;
-    <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">약관동의(Gym家 홈페이지)</h5>
-                </div>
-                <div class="modal-body">
-                    &lt;!&ndash; 이용약관 폼 &ndash;&gt;
-                    <form method="post" action="/admin/regist">
-                        <ul class="joinBox">
-                            <li class="checkBox1">
-                                <ul class="clearfix">
-                                    <input type="radio" id="all" value="all" checked>
-                                    <li>전체 약관 동의</li>
-                                </ul>
-                            </li>
-
-                            <li class="checkBox2">
-                                <ul class="clearfix">
-                                    <input type="radio" id="essential1" value="essential1">
-                                    <li>(필수) 이용 약관</li>
-                                    <textarea name="essential1" id="essenbox" cols="30" rows="3"></textarea>
-                                </ul>
-                            </li>
-
-                            <li class="checkBox3">
-                                <ul class="clearfix">
-                                    <input type="radio" id="essential2" value="essential2">
-                                    <li>(필수) 개인정보 수집 이용 동의</li>
-                                </ul>
-                            </li>
-
-                            <li class="checkBox4">
-                                <ul class="clearfix">
-                                    <input type="radio" id="choice" value="choice">
-                                    <li>(선택) 맞춤 마케팅을 위한 개인정보 수집 이용 동의</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="close" style="float: left">
-                            취소
-                        </button>
-                        <button type="button" class="btn btn-primary" data-target="#registerModal2" data-toggle="modal" data-dismiss="modal">다음</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    &lt;!&ndash; 모달 창2 &ndash;&gt;
-    <div class="modal" id="registerModal2" tabindex="-1" role="dialog" aria-labelledby="registerModal2">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModal2Label">회원정보</h5>
-                </div>
-                <div class="modal-body">
-                    &lt;!&ndash; 회원가입 폼 &ndash;&gt;
-                    <form id="registForm" method="post" action="/login/admin/regist">
-                        <label th:for="userId" class="form-label">ID</label>
-                        <input type="text" name="userId" required><br>
-                        <label th:for="userPwd" class="form-label">Password</label>
-                        <input type="password" name="userPwd" required><br>
-                        &lt;!&ndash;Password 확인 : <input type="password" name="userPwd" required><br>&ndash;&gt;
-                        <label th:for="userName" class="form-label">이름</label>
-                        <input type="text" name="userName" required><br>
-                        전화번호 : <input type="number" name="userPhone" required><br>
-                        생년월일 : <input type="date" name="userBirth" required><br>
-                        주소 : <input type="text" name="userAddress" required><br>
-                        사업자등록증 : <input type="file" name="userEtc"><br>
-                        권한 :
-                        <select name="role" required>
-                            <option value="대표">대표</option>
-                            <option value="직원">직원</option>
-                        </select><br>
-                        <button type="button" class="btn btn-secondary" data-target="#registerModal" data-toggle="modal" data-dismiss="modal">
-                            이전으로
-                        </button>
-                        <button type="submit" class="btn btn-primary" data-target="#registerModal3" data-toggle="modal">회원가입</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    &lt;!&ndash; 모달 창3 &ndash;&gt;
-    <div class="modal" id="registerModal3" tabindex="-1" role="dialog" aria-labelledby="registerModal3">
+    <!--<div class="modal" id="registerModal3" tabindex="-1" role="dialog" aria-labelledby="registerModal3">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -433,8 +439,6 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                     </div>
                 </div>
             </div>
-        </div>
-    </div>-->
-    </div>
+        </div>-->
 </body>
 </html>
