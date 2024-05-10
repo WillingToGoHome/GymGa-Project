@@ -4,13 +4,14 @@ import com.willingtogohome.gymga.user.model.dto.*;
 import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -27,9 +28,9 @@ public class UserController {
     @GetMapping("/selectAll")
     public String UserAllList(Model model) {
 
-        List<UserDTO> userList = userService.AllUser();
+        List<UserAndEmpDTO> userList = userService.AllUser();
 
-        for (UserDTO user : userList) {
+        for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);
         }
 
@@ -87,6 +88,15 @@ public class UserController {
         return "user/search";
     }
 
+    @GetMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<UserDTO> findTeacherList() {
+
+        userService.findAllTeacher().forEach(System.out::println);
+
+        return userService.findAllTeacher();
+    }
+
     @GetMapping("/regist")
     public String registPage() {
 
@@ -94,17 +104,15 @@ public class UserController {
     }
 
     @PostMapping("/regist")
-    public String registUser(UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String address1, @RequestParam String address2, @RequestParam String staff) {
+    public String registUser(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") UserDTO newUser, PhysicalDTO physical,
+                             @RequestParam String userAddress1, @RequestParam String userAddress2) {
 
-        int userStaff = Integer.parseInt(staff);
         int code = userService.findLastCode();
 
-        newUser.setUserStaff(userStaff);
         newUser.setUserCode(code + 1);
         newUser.setUserRole("회원");
-        newUser.setUserAddress(address1 + " " + address2);
-        physical.setCode(code + 1);
+        newUser.setUserAddress(userAddress1 + " " + userAddress2);
+        physical.setUserCode(code + 1);
 
         userService.registUser(newUser, physical);
 

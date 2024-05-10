@@ -1,9 +1,10 @@
 package com.willingtogohome.gymga.user.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.sql.Date;
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -17,7 +18,7 @@ public class UserTotDTO {
     private String role;
     private String pic;
     private String gender;
-    private String birth;
+    private Date birth;
     private String address;
     private String etc;
     private int staff;

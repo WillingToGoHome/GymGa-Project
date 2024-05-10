@@ -13,7 +13,7 @@ public class UserService {
     private final UserMapper userMapper;
     @Autowired
     public UserService(UserMapper userMapper) { this.userMapper = userMapper; }
-    public List<UserDTO> AllUser() {
+    public List<UserAndEmpDTO> AllUser() {
 
         return userMapper.AllUser();
     }
@@ -47,5 +47,10 @@ public class UserService {
 
     public List<UserTotDTO> selectDetail(int code) {
         return userMapper.selectDetail(code);
+    }
+
+    public List<UserDTO> findAllTeacher() {
+
+        return userMapper.findAllTeacher();
     }
 }

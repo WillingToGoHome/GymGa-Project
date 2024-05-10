@@ -7,11 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class PhysicalDTO {
+public class UserAndEmpDTO {
 
     private int userCode;
-    private String height;
-    private String weight;
-    private String bmi;
 
+    private String userName;
 }

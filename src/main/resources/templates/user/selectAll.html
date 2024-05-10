@@ -48,10 +48,7 @@
                                 <p th:if="${user.userGender == '여'}" class="userGender2" th:text="${user.userGender}"></p>
                                 <p class="userPhone" th:text="${user.userPhone}"></p>
                                 <p class="userStaff" th:if="${user.userStaff == 0 || user.userStaff == null}" th:text="없음"></p>
-                                <p class="userStaff" th:if="${user.userStaff == 1}" th:text="구예성"></p>
-                                <p class="userStaff" th:if="${user.userStaff == 2}" th:text="윤수빈"></p>
-                                <p class="userStaff" th:if="${user.userStaff == 3}" th:text="김만호"></p>
-                                <p class="userStaff" th:if="${user.userStaff == 4}" th:text="이민국"></p>
+                                <p class="userStaff" th:if="${user.userStaff}" th:text="${user.userName}"></p>
                                 <div class="buttonBox">
                                     <form action="/user/selectDetail" method="get" style="display: flex">
                                     <input type="hidden" name="code" th:value="${user.userCode}">
