@@ -1,0 +1,210 @@
+.outerDiv {
+    background: rgba(240, 240, 240, 1);
+    width: 1560px;
+    height: 850px;
+}
+
+.mainBox {
+    float: left;
+}
+
+.empList {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 1020px;
+    height: 470px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    padding-top: 30px;
+}
+
+.topic {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+.line1 {
+    width: 950px;
+    align-content: center;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.empBlock {
+    width: 400px;
+    height: 70px;
+    float: left;
+    margin-left: 55px;
+    margin-right: 55px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.empBlockLeft {
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+
+.empImg {
+    width: 70px;
+    height: 70px;
+}
+
+.empBlockRight {
+    width: 330px;
+    height: 60px;
+    float: left;
+    padding-top: 10px;
+}
+
+.empName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -4px;
+    margin-bottom: 6px;
+    margin-left: 10px;
+}
+
+.empRole {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-bottom: -4px;
+    color: rgba(171, 171, 171, 1);
+}
+
+.bigButton {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 495px;
+    height: 320px;
+    margin-right: 30px;
+    float: left;
+    cursor: pointer;
+    align-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(101, 101, 101, 1);
+}
+
+.scheduleBox {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 480px;
+    height: 820px;
+    padding-top: 30px;
+    float: left;
+}
+
+.date {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(205, 205, 205, 1);
+    margin-left: 10px;
+}
+
+.moreSche {
+    font-size: 16px;
+    font-weight: bold;
+    collapse: rgba(101, 101, 101, 1);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 110px;
+}
+
+table {
+    margin-top: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    width: 340px;
+    height: 100px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.none {
+    width: 45px;
+}
+
+.today {
+    background-color: rgba(75, 130, 216, 1);
+    color: white;
+    width: 45px;
+    border-radius: 100%;
+}
+
+.line2 {
+    width: 410px;
+    align-content: center;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.scheBox {
+    width: 410px;
+    margin-left: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(171, 171, 171, 1);
+    float: left;
+}
+
+.timeLine {
+    width: 20px;
+    float: left;
+    padding-top: 3px;
+}
+
+.pointer {
+    background-color: rgba(217, 217, 217, 1);
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+}
+
+.pointerTime {
+    background-color: rgba(75, 130, 216, 1);
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+}
+
+.verticalLine {
+    background-color: rgba(217, 217, 217, 1);
+    width: 1px;
+    height: 74px;
+    margin-top: -1px;
+    margin-right: 10.5px;
+    margin-bottom: -5px;
+}
+
+.scheTime {
+    color: black;
+}
+
+.scheList {
+    width: 390px;
+    height: 64px;
+    overflow-y: auto;
+}
+
+.scheList::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scheList::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.scheList::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}

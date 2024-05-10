@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div onClick="location.href='/emp/'">0</div>
+    <h1>직원 조회</h1>
+    <hr>
+    <form action="/emp/result" method="get">
+        <input type="search" name="search" placeholder="검색 내용">
+        <select name="category">
+            <option value="name">강사명</option>
+        </select>
+        <input type="submit">
+    </form>
+
+    <div th:object="${ emp }">
+        <img th:src="*{ pic }">
+        <p th:text="|회원 번호 : *{ code }|"></p>
+        <p th:text="|아이디 : *{ id }|"></p>
+        <p th:text="|이름 : *{ name }|"></p>
+        <p th:text="|전화번호 : *{ phone }|"></p>
+        <p th:text="|직급 : *{ role }|"></p>
+        <p th:text="|성별 : *{ gender }|"></p>
+        <p th:text="|생년월일 : *{ birth }|"></p>
+        <p th:text="|주소 : *{ address }|"></p>
+        <p th:text="|기타 : *{ etc }|"></p>
+        <p th:text="|키 : *{ physicalDTO.height }|"></p>
+        <p th:text="|체중 : *{ physicalDTO.weight }|"></p>
+        <p th:text="|BMI : *{ physicalDTO.bmi }|"></p>
+        <p>경력 사항</p>
+        <p th:text="|근무지 : *{ employeeDTO.location }|"></p>
+        <p th:text="|경력 : *{ employeeDTO.year }년 *{ employeeDTO.month }개월|"></p>
+        <p th:text="|총 경력 : *{ employeeDTO.totalYear }년 *{ employeeDTO.totalMonth }개월|"></p>
+        <p th:text="|자격 사항 : *{ employeeDTO.qual }|"></p>
+        <p th:text="|급여 : *{ employeeDTO.salary }|"></p>
+    </div>
+
+    <button onClick="location.href='/emp/update'">수정</button>
+    <form action="/emp/remove" method="post">
+        <input type="submit" value="삭제">
+    </form>
+
+    <div>
+        <h3>직원 리스트</h3>
+        <div th:each="emp : ${ empList }">
+            <p th:text="${ emp.name }"></p>
+            <p th:text="${ emp.role }"></p>
+            <hr>
+        </div>
+    </div>
+</body>
+</html>

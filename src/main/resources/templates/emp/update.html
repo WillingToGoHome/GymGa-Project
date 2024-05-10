@@ -3,8 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
+    <div onClick="location.href='/emp/'">0</div>
+    <h1>직원 정보 수정</h1>
+    <hr>
+    <form action="/emp/detail" method="post" enctype="multipart/form-data" onsubmit="isValidCode()">
+<!--    <form action="/emp/detail" method="post">-->
+<!--        <input type="file" onchange="previewFile()"/><br>-->
+<!--        <img src="" alt=""><br>-->
+<!--        <input id="browse" type="file" onchange="previewFiles()" multiple><br>-->
+<!--        <div id="preview"></div>-->
+        <div th:object="${ emp }">
+            <span th:text="|회원 번호 : *{ code }|"></span><br>
+            <img id="preview" th:src="*{ pic }"><br>
+            사진 등록 : <input type="file" name="picFile" onchange="updateImage(this)"><br/>
+            아이디 : <input th:type="text" th:name="id" th:id="id" th:placeHolder="*{ id }"><br>
+            비밀번호 : <input type="password" name="pwd" id="pwd" onchange="pwdChanged(this)"><br>
+            비밀번호 확인 : <input type="password" id="confirm"><br>
+            <button onclick="pwdCheck()" type="button" id="button-confirm">비밀번호 확인</button><br>
+            이름 : <input th:type="text" th:name="name" th:placeHolder="*{ name }"><br>
+            <span th:text="|직급 : *{ role }|"></span>
+            생년월일 : <input th:type="date" th:name="birth" th:placeHolder="*{ birth }"><br>
+            성별 : <input th:type="text" th:name="gender" th:placeholder="*{ gender }"><br>
+            전화번호 : <input th:type="text" th:name="phone" th:placeholder="*{ phone }"><br>
+            <span th:text="|현재 주소 : *{ address }|"></span>
+            주소 : <input type="text" id="sample4_postcode" placeholder="우편번호">
+            <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+            <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1">
+            <!--        <span id="guide" style="color:#999;display:none"></span>-->
+            <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2"><br>
+            신체조건 <br>
+            키 : <input th:type="text" th:name="height" th:placeHolder="*{ physicalDTO.height }"><br>
+            체중 : <input th:type="text" th:name="weight" th:placeHolder="*{ physicalDTO.weight }"><br>
+            bmi : <input th:type="text" th:name="bmi" th:placeHolder="*{ physicalDTO.bmi }"><br>
+            <span th:text="|자격 사항 : *{ employeeDTO.qual }|"></span>
+            경력 사항 <br>
+            근무지 : <input th:type="text" th:name="location" th:placeHolder="*{ employeeDTO.location }"><br>
+            기간 : <input th:type="text" name="year" th:placeHolder="*{ employeeDTO.year }">년 <input th:type="text" th:name="month" th:placeHolder="*{ employeeDTO.month }">개월 <br>
+            전체 경력 : <input th:type="text" th:name="totalYear" th:placeHolder="*{ employeeDTO.totalYear }">년 <input th:type="text" th:name="totalMonth" th:placeHolder="*{ employeeDTO.totalMonth }">개월 <br>
+            기타 : <input th:type="text" th:name="etc" th:placeHolder="*{ etc }"> <br>
+            기본급 : <input th:type="text" th:name="salary" th:placeHolder="*{ employeeDTO.salary }"> <br>
+            <button type="submit" name="submit" id="submit">등록</button>
+        </div>
+    </form>
 
+    <div>
+        <h3>직원 리스트</h3>
+        <div th:each="emp : ${ empList }">
+            <p th:text="${ emp.name }"></p>
+            <p th:text="${ emp.role }"></p>
+            <hr>
+        </div>
+    </div>
+
+    <script>
+
+        let pwdChecked = false;
+
+        function previewFile() {
+            var preview = document.querySelector("img");
+            var file = document.querySelector("input[type=file]").files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener(
+                "load",
+                function () {
+                    preview.src = reader.result;
+                },
+                false,
+            );
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewFiles() {
+            var preview = document.querySelector("#preview");
+            var files = document.querySelector("input[type=file]").files;
+
+            function readAndPreview(file) {
+                if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                    var reader = new FileReader();
+
+                    reader.addEventListener(
+                        "load",
+                        function () {
+                            var image = new Image();
+                            image.height = 100;
+                            image.title = file.name;
+                            image.src = this.result;
+                            preview.appendChild(image);
+                        },
+                        false,
+                    );
+
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            if (files) {
+                [].forEach.call(files, readAndPreview);
+            }
+        }
+
+        function updateImage(obj) {
+
+            const file = obj.files[0];
+
+            console.log(file);
+
+            if (file) {
+                const reader = new FileReader();
+
+                console.log(reader.readAsDataURL(file));
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                };
+
+                // reader.readAsDataURL(file);
+            }
+            // console.log(obj);
+            // console.log(new FileReader().readAsDataURL(obj));
+
+            // for (let i = 0; i < obj.size; i++) {
+            //
+            //     let reader = new FileReader();
+            //
+            //     console.log("hi");
+                // console.log(reader.readAsDataURL(obj.files[0]));
+                // reader.readAsDataURL(obj.files[0]);
+                // reader.onload = function (e) {
+                //     $('#preview')[0].src = e.target.result;
+                // }
+            // }
+        }
+
+        function pwdChanged(e) {
+            document.getElementById("confirm").value = '';
+            pwdChecked = false;
+        }
+
+        function pwdCheck() {
+
+            let first = document.getElementById("pwd");
+            let second = document.getElementById("confirm");
+            let check = document.getElementById("pwd").value == document.getElementById("confirm").value? true : false;
+
+            // console.log(first.value);
+            // console.log(second.value);
+            // console.log(check);
+
+            if (first.value == null || first.value == '') {
+                alert("비밀번호를 입력하세요.");
+                // console.log(pwdChecked);
+                // console.log($('#pwdCheckResult'));
+                // console.log($('#pwdCheckResult')[0]);
+                // console.log($('#pwdCheckResult')[0].innerHTML);
+            } else {
+                if (check) {
+                    alert("비밀번호가 일치합니다.");
+                    pwdChecked = true;
+                } else {
+                    alert("비밀번호가 일치하지 않습니다.")
+                    first.value = '';
+                    second.value = '';
+                    pwdChecked = false;
+                }
+            }
+        }
+        function isValidCode() {
+
+            console.log(document.getElementById("id").value != '');
+            console.log(document.getElementById("pwd").value != '');
+            console.log(document.getElementById("confirm").value != '');
+            console.log(pwdChecked);
+            console.log($('#name').html());
+            console.log(document.getElementById("name").innerText != '');
+            console.log(document.getElementById("phone").value != '');
+            console.log(document.getElementById("salary").value != '');
+            console.log(document.getElementById("agreement").checked);
+
+            if (document.getElementById("id").value != '') {
+                if (document.getElementById("pwd") != '') {
+                    if (document.getElementById("confirm") != '') {
+                        if (pwdChecked) {
+                            if (document.getElementById("name") != '') {
+                                if (document.getElementById("phone") != '') {
+                                    if (document.getElementById("salary") != '') {
+                                        if (document.getElementById("agreement").checked) {
+                                            pwdChecked = false;
+                                            return true;
+                                        } else { alert("가입 약관에 등의해주세요."); }
+                                    } else { alert("급여 정보를 입력하세요."); }
+                                } else { alert("전화번호를 입력하세요."); }
+                            }else { alert("이름을 입력하세요."); }
+                        } else { alert("비밀번호 확인을 진행하세요."); }
+                    } else { alert("비밀번호를 다시 입력하세요."); }
+                } else { alert("비밀번호를 입력하세요."); }
+            } else { alert("아이디를 입력하세요."); }
+
+            // if (document.getElementById("id").value != '') {
+            //     alert("아이디를 입력하세요.");
+            // } else if (document.getElementById("pwd") == '') {
+            //     alert("비밀번호를 입력하세요.");
+            // } else if (document.getElementById("confirm") == '') {
+            //     alert("비밀번호 확인을 입력하세요.");
+            // } else if (!pwdChecked) {
+            //     alert("비밀번호 확인을 진행해주세요.");
+            // } else if (document.getElementById("name") == '') {
+            //     alert("이름을 입력하세요.");
+            // } else if (document.getElementById("phone") == '') {
+            //     alert("연락처를 입력하세요.");
+            // } else if (document.getElementById("salary") == '') {
+            //     alert("기본급을 입력하세요.");
+            // } else if (!document.getElementById("agreement").checked) {
+            //     alert("회원가입 약관에 동의해주세요.");
+            // } else {
+            //     pwdChecked = false;
+            //     return true;
+            // }
+
+            // if (pwdChecked) {
+            //     pwdChecked = false;
+            //     return true;
+            // } else {
+            //     alert("비밀번호를 확인해주세요.");
+            // }
+            return false;
+        }
+    </script>
+
+    <script>
+        function sample4_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var roadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 참고 항목 변수
+
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraRoadAddr !== ''){
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample4_postcode').value = data.zonecode;
+                    document.getElementById("sample4_roadAddress").value = roadAddr;
+
+                    var guideTextBox = document.getElementById("guide");
+                    // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                    if(data.autoRoadAddress) {
+                        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                        guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                        guideTextBox.style.display = 'block';
+
+                    } else if(data.autoJibunAddress) {
+                        var expJibunAddr = data.autoJibunAddress;
+                        // guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                        // guideTextBox.style.display = 'block';
+                    } else {
+                        // guideTextBox.innerHTML = '';
+                        // guideTextBox.style.display = 'none';
+                    }
+                }
+            }).open();
+        }
+    </script>
 </body>
 </html>

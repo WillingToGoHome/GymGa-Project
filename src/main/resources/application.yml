@@ -2,7 +2,6 @@
 server:
   port: 8001
 
-
 ## driver config
 spring:
   datasource:
@@ -10,7 +9,12 @@ spring:
     url: jdbc:mysql://localhost:3306/crmdb
     username: ohgiraffers
     password: ohgiraffers
+  servlet:
+    multipart:
+      location: C:\lecture\GymGa-Project
+
 
 ## mybatis config
 mybatis:
   mapper-locations: mappers/**/*.xml
+

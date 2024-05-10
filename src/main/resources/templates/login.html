@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to GymGa</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/LoginStyle.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="box1">
+            <div id="left">
+                <div class="left1">
+                    <div class="logo">
+                        <p class="logo1">Gym</p>
+                        <p class="logo2">家</p>
+                    </div>
+                    <img src="/images/loginImage1.png" class="logoimg">
+
+                    <div class="desc">
+                        <p class="des1">Welcome!</p>
+                        <p class="des2">Helps you operate your gym easily and conveniently</p>
+                        <p class="des3">by recommending the optimal marketing solution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="box2">
+            <div id="right">
+                <h3 class="login">Log In</h3>
+                <button type="button">관리자</button>
+                <button type="button">직원</button>
+                <form action="/login" method="post">
+                    <input type="text" value="userId" name="userId" placeholder="아이디를 입력해주세요"><br>
+                    <input type="password" value="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요"><br>
+                    <button type="submit">Sign in</button>
+                </form>
+
+                <a href="auth/find">아이디/비밀번호 찾기</a>
+                <p class="regdes">아직 회원이 아니신가요? </p>
+                <div class="buttonBox">
+                    <button class="registButton">계정만들기</button>
+                    <div class="modalContainer">
+                        <div class="modalContent">
+                            <div class="modalHeader">
+                                <h3 class="modalText1">약관동의 (Gym 家 사이트)</h3>
+                            </div>
+                            <div class="checks2" id="textBox0">
+                                <input type="checkbox" id="chk_all" value="1" name="chk_all">
+                                <label for="chk_all">전체 약관 동의</label>
+                                <hr style="margin-right: 20%; margin-top: 0">
+                            </div>
+                            <section class="term">
+                                <div class="checks2" id="textBox1">
+                                    <input type="checkbox" id="chk_1" name="chk" value="1">
+                                    <label for="chk_1">
+                                        <span id="essen1">(필수)</span>
+                                        이용 약관 동의
+                                    </label>
+                                </div>
+                                <div class="text1">
+                                <textarea readonly class="essenBox">**제1장 총칙**
+**제1조 (목적)**
+본 약관은 Gym家 주식회사(이하 "회사")가 인터넷 사이트(https://www.gymga.kr)를 통하여 제공하는 제반 서비스의 이용과 관련하여 회사와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
+**제2조 (정의)**
+본 약관에서 사용하는 용어의 정의는 다음과 같습니다.
+1. 서비스: 회원이 온라인 홈페이지를 통하여 본 약관에 따라 이용할 수 있는 회사 또는 회사의 자회사가 제공하는 모든 서비스를 의미합니다.
+2. 홈페이지: 본 약관에 따라 회사가 제공하는 서비스가 구현되는 온라인상의 웹페이지(https://www.gymga.kr)를 말합니다.
+3. 회원: 본 약관에 따라 회사와 서비스이용계약을 체결하고 홈페이지를 통하여 서비스를 이용할 수 있는 자격을 부여받은 자를 말합니다.
+4. 아이디(ID): 회원의 식별과 서비스 이용을 위하여 회원이 정하고 회사가 승인하는 문자와 숫자의 조합을 의미합니다.
+5. 비밀번호: 회원이 부여 받은 아이디와 일치되는 회원임을 확인하고 비밀보호를 위해 회원 자신이 정한 문자 또는 숫자의 조합을 의미합니다.
+6. 게시물: 회원이 서비스를 이용함에 있어 홈페이지의 게시판에 게재한 부호ㆍ문자ㆍ음성ㆍ음향ㆍ화상ㆍ동영상 등의 정보 형태의 글, 사진, 동영상 및 각종 파일과 링크 등을 의미합니다.
+**제2장 서비스의 이용**
+**제3조 (서비스의 제공)**
+1. 본 약관에 동의하여 회원이 된 자는 서비스를 구성하는 다음 각 호의 서비스를 이용할 수 있습니다. 
+1. 회원 서비스
+2. 광고 서비스
+3. 파트너서비스
+4. 위 각 호 서비스 제공을 위해 필요하거나 이에 부수하는 서비스
+2. 회원은 제1항 각 호의 서비스 중 특정 개별 서비스를 이용하기 위해서는 회사 또는 회사의 자회사가 별도로 제공하는 이용약관 및 운영 정책, 세부 지침(이하 "개별 약관 등")에 동의하셔야 할 수 있습니다. 이 경우 개별 서비스의 구체적인 내용은 각 개별 약관 등에서 정한 바에 따릅니다.
+3. 서비스는 연중무휴, 1일 24시간 제공함을 원칙으로 합니다. 다만, 회사는 서비스를 일정 범위로 분할하여 범위별로 이용 가능 시간을 별도로 지정할 수 있으며 이러한 경우에는 그 내용을 사전에 공지합니다.
+4. 회사는 컴퓨터 등 정보통신설비의 보수∙점검, 교체 및 고장, 통신 두절 또는 운영상 타당한 이유가 있는 경우 서비스의 제공을 일시적으로 중단할 수 있습니다. 이 경우 회사는 회원에게 통지합니다. 다만, 회사가 사전에 통지할 수 없는 부득이한 사유가 있는 경우 사후에 통지할 수 있습니다.
+5. 회사는 서비스의 제공에 필요한 경우 정기 점검을 실시할 수 있으며, 정기 점검 시간은 서비스 제공 화면에 공지한 바에 따릅니다.
+**제4조 (서비스의 변경)**
+1. 회사는 타당한 이유가 있는 경우에 운영상, 기술상의 필요에 따라 제공하고 있는 전부 또는 일부 서비스를 변경할 수 있습니다.
+2. 서비스의 내용, 이용 방법, 이용 시간에 대하여 변경이 있는 경우에는 변경 사유, 변경될 서비스의 내용 및 제공 일자 등은 그 변경 전에 해당 서비스 초기 화면에 게시됩니다. 단, 해당 변경이 서비스의 중요한 내용을 구성하는 경우에는 해당 내용을 회원에게 개별 통지합니다.
+3. 회사는 무료로 제공되는 서비스의 일부 또는 전부를 회사의 정책 및 운영의 필요상 수정, 중단, 변경할 수 있으며, 이에 대하여 관계 법령에 특별한 규정이 없는 한 회원에게 별도의 보상을 하지 않습니다.
+**제5조 (이용계약의 체결)**
+1. 회사가 본 약관에 따라 제공하는 서비스를 이용하기 위하여 회사와 서비스이용계약(이하 "이용계약")을 체결하여 회원가입에 따른 회원의 자격을 부여받아야 합니다.
+2. 서비스를 이용하고자 하는 자(이하 "이용신청자")가 본 약관의 내용에 대하여 동의를 한 다음 회사가 제공하는 양식에 따라 정보 입력을 하고 본인 확인을 위한 인증 절차를 이행하는 방법으로 회원가입 신청을 하면 서비스에 대한 이용신청(이하 "이용신청")이 있는 것으로 보며, 이용신청에 대하여 회사가 승낙함으로써 이용계약이 체결됩니다.
+3. 제2항의 회원가입 신청 절차의 방법과 내용은 회원이 개인(자연인)인 경우와 법인인 경우에 따라 다를 수 있습니다.
+4. 회사는 관계 법령에 따라 이용신청자가 제1항에 따라 입력한 정보에 대한 사실 확인을 위하여 필요한 경우 이용신청자에게 증빙자료의 제출을 요청할 수 있으며, 이용신청자는 이에 따라 증빙자료를 제출하여야 합니다.
+5. 회사는 다음 각 호에 해당하는 이용신청에 대하여는 승낙을 하지 않을 수 있습니다.
+1. 이용신청자가 이전에 본 약관에 의하여 회원 자격을 상실한 적이 있는 경우(회사의 회원 재가입 승낙을 얻은 경우 제외)
+2. 이용신청자가 본 약관에 의하여 이전에 회사로부터 서비스 이용제한 조치를 받은 상태에서 이용계약을 해지하고 다시 이용신청을 한 경우
+3. 제2항의 이용신청 시 실명이 아니거나 타인의 명의를 이용하여 이용신청을 한 경우
+4. 제2항의 이용신청 시 필요한 정보를 입력하지 않거나 허위의 정보를 기재한 경우
+5. 제4항에 따라 요청받은 사실확인을 위한 증빙자료를 제출하지 않은 경우
+6. 14세 미만 아동이 법정대리인의 동의를 얻지 아니한 경우
+7. 사회의 안녕과 질서, 미풍양속을 저해할 우려가 있는 경우
+8. 타인의 서비스 이용을 방해하거나 그 정보를 도용하는 등 전자상거래 질서를 위협할 우려가 있는 경우
+9. 위법 또는 부당한 목적으로 이용신청을 한 경우
+10. 본 약관을 위반하며 신청하는 경우
+6. 회사는 다음 각 호의 경우에 승낙을 유보할 수 있습니다.
+1. 제공하는 서비스 관련 설비의 용량이 부족한 등 여유가 없는 경우
+2. 기타 서비스 제공을 위한 재정적, 기술적 문제가 있다고 판단되는 경우
+7. 회사는 본 약관 및 개별 약관에서 정한 바에 따라 회원별로 서비스의 이용 시간, 이용 횟수, 메뉴 등을 세분하여 달리 적용할 수 있습니다.
+**제6조 (서비스 이용료)**
+1. 회사는 제3조에 따른 서비스를 이용하는 회원에 대하여 개별 약관 및 정책에 따라 수수료를 징수할 수 있으며, 서비스 이용을 위한 접속통신망의 이용료는 회원이 직접 납부하여야 합니다.
+2. 회원이 타 유료서비스에 접속하여 서비스를 이용하는 경우에 부과되는 일체의 요금은 회원이 해당 서비스 업체에 지불하여야 합니다.
+**제7조 (회원의 이용계약 해지 등)**
+1. 회원은 서비스 중단을 원할 경우 회사가 제공하는 양식에 따라 회원 탈퇴 신청을 하면 이용계약 해지의 의사 표시를 한 것으로 보며, 회사에 해지의 의사 표시가 도달한 때에 이용계약의 해지 효력이 발생합니다.
+2. 해지 효력이 발생한 때로부터 회원은 회원의 자격을 상실하며, 회사가 제공하는 모든 서비스를 이용할 수 없게 됩니다.
+3. 제1항에도 불구하고 회원이 개별 약관에 따라 회사의 개별 서비스를 이용하고 있는 경우에는 회원 탈퇴 신청이 제한될 수 있습니다.
+4. 제2항에도 불구하고 이용계약의 해지 효력이 발생할 당시 당해 회원이 회사가 제공하는 서비스를 통해 진행 중인 거래 또는 절차가 있다면 당해 서비스에 관한 개별 약관 또는 회사의 안내에 따라 정산 절차를 거쳐야 합니다.
+5. 회원이 제1항과 제2항에 따라 이용계약을 해지하여 회원 자격을 상실하게 될 경우, 당해 회원은 본 약관에 따라 다시 회원가입을 신청하는 데 있어 제한을 받을 수 있습니다.
+6. 회원이 제1항과 제2항에 따라 이용계약을 해지할 경우, 관계 법령 및 개인정보처리방침에 따라 회사가 회원 정보를 보유하는 경우를 제외하고는 회원의 모든 데이터는 소멸됩니다. 다만, 이 경우에도 타인에 의해 담기, 스크랩 등이 되어 재게시되거나, 공용 게시판에 등록된 게시물 등은 삭제되지 않을 수 있습니다.
+**제8조 (회사의 이용계약의 제한, 해지 등)**
+1. 회사는 회원에게 다음 각 호의 해지 사유가 있는 경우 7일 이상으로 정한 기간 내에 그 해지 사유의 시정을 요구하고, 이와 같이 정한 기간 내에 회원이 이를 시정하지 아니하면 회사는 이용계약을 해지할 수 있습니다.
+1. 제5조 제5항 각 호에서 정한 승낙 거부 사유가 있음이 밝혀진 경우
+2. 회원이 공공질서 및 미풍양속에 위배되는 거래 행위를 하거나 시도한 경우
+3. 회원이 본 약관에 따른 중대한 의무를 위반하거나 서비스와 관련된 법령 위반이 있는 경우
+4. 주민등록법을 위반한 명의도용 및 결제 도용, 저작권법 및 컴퓨터프로그램보호법을 위반한 불법 프로그램의 제공 및 운영방해, 정보통신망 이용촉진 및 정보보호 등에 관한 법률(이하 "정보통신망법")을 위반한 불법 통신 및 해킹, 악성 프로그램의 배포, 접속 권한 초과 행위 등 관계 법령을 위반한 경우
+5. 제3자의 결제 수단이나 개인정보를 도용한 경우
+6. 회사와 기타 제3자의 저작권 등 지적재산권에 대한 침해 행위를 한 경우
+7. 회사 및 기타 제3자의 권리나 명예, 신용 기타 정당한 이익을 침해하는 행위를 한 경우
+8. 외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에 반하는 정보를 홈페이지에 공개 또는 게시하는 행위
+9. 회사의 동의 없이 영리를 목적으로 서비스를 이용한 경우
+10. 기타 위법하거나 부당한 목적으로 서비스를 이용한 경우
+11. 제16조 제5항 단서의 경우에 해당하는 경우
+2. 제1항의 경우에도 불구하고 회사는 제1항 각 호의 사유가 시정이 가능하다고 인정되는 경우 회원에게 그 사유를 통지를 하고 일정한 기간 동안 회원에게 경고, 일시 정지, 영구 이용 정지 등으로 서비스의 이용을 단계적으로 제한할 수 있습니다. 다만, 개별 서비스의 이용 제한에 관한 조건 및 세부 내용은 개별 서비스상의 개별 약관 또는 회사가 미리 고지한 정책에서 정하는 바에 의합니다.
+3. 제1항에 따라 이용계약이 해지된 경우 해지되기 전까지 회원이 서비스 이용을 통해 획득한 "포인트" 및 기타 혜택 등도 무상으로 지급된 이상 모두 소멸되며, 회사는 이에 대해 별도로 보상하지 않습니다.
+4. 본 조에 따라 서비스 이용을 제한하거나 이용계약을 해지하는 경우에는 회사는 회원에게 개별적으로 통지합니다.
+5. 회원은 제1항과 제2항에 따른 이용해지 또는 이용제한 등에 대하여 회사가 제공하는 양식과 절차에 따라 이의신청을 할 수 있습니다. 이 경우 이의신청이 정당하다고 회사가 인정하는 경우 회사는 서비스의 이용을 재개합니다.</textarea>
+                                </div>
+                            </section>
+                            <section class="term">
+                                <div class="checks2" id="textBox2">
+                                    <input type="checkbox" name="chk2" value="1" id="chk_2">
+                                    <label for="chk_2">
+                                        <span id="essen2">(필수)</span>
+                                        개인 정보 수집 이용 동의
+                                    </label>
+                                </div>
+                                <div class="text1">
+                                    <textarea readonly class="essenBox">1. 개인정보의 수집항목 및 수집방법
+Gym家사이트에서는 기본적인 회원 서비스 제공을 위한 필수정보로 실명인증정보와 가입정보로 구분하여 다음의 정보를 수집하고 있습니다. 필수정보를 입력해주셔야 회원 서비스 이용이 가능합니다.
+가. 수집하는 개인정보의 항목 
+* 수집하는 필수항목
+- 실명인증정보 : 이름, 휴대전화번호, 본인 인증
+- 가입정보 : 아이디, 비밀번호, 성명, 이메일, 전화번호, 휴대전화번호, 사업자등록증
+[컴퓨터에 의해 자동으로 수집되는 정보]
+인터넷 서비스 이용과정에서 아래 개인정보 항목이 자동으로 생성되어 수집될 수 있습니다.
+- IP주소, 서비스 이용기록, 방문기록 등
+나. 개인정보 수집방법
+홈페이지 회원가입을 통한 수집
+1. 개인정보의 수집/이용 목적 및 보유/이용 기간
+Gym 家 사이트에서는 정보주체의 회원 가입일로부터 서비스를 제공하는 기간 동안에 한하여 Gym 家 사이트 서비스를 이용하기 위한 최소한의 개인정보를 보유 및 이용 하게 됩니다. 회원가입 등을 통해 개인정보의 수집·이용, 제공 등에 대해 동의하신 내용은 언제든지 철회하실 수 있습니다. 회원 탈퇴를 요청하거나 수집/이용목적을 달성하거나 보유/이용기간이 종료한 경우, 사업 폐지 등의 사유발생시 개인 정보를 지체 없이 파기합니다.
+- 실명인증정보
+    - 개인정보 수집항목 : 이름, 휴대폰 본인 인증 또는 I-PIN(개인식별번호), GPKI
+    - 개인정보의 수집·이용목적 : 홈페이지 이용에 따른 본인 식별/인증절차에 이용
+    - 개인정보의 보유 및 이용기간 : I-PIN / GPKI는 별도로 저장하지 않으며 실명인증용으로만 이용
+- 가입정보
+    - 개인정보 수집항목 : 아이디, 비밀번호, 성명, 이메일, 전화번호, 휴대전환번호, 기관명
+    - 개인정보의 수집·이용목적 : 홈페이지 서비스 이용 및 회원관리, 불량회원의 부정 이용방지, 민원신청 및 처리 등
+    - 개인정보의 보유 및 이용기간 : 2년 또는 회원탈퇴시
+정보주체는 개인정보의 수집·이용목적에 대한 동의를 거부할 수 있으며, 동의 거부시 통계청 나라통계사이트에 회원가입이 되지 않으며, 통계청 나라통계사이트에서 제공하는 서비스를 이용할 수 없습니다.
+1. 수집한 개인정보 제3자 제공
+통계청 나라통계사이트에서는 정보주체의 동의, 법률의 특별한 규정 등 개인정보 보호법 제17조 및 제18조에 해당하는 경우에만 개인정보를 제3자에게 제공합니다.
+2. 개인정보 처리업무 안내
+Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으며, 원활한 서비스 제공을 위해 아래의 기관을 통한 실명인증 및 공공 I-PIN, GPKI 인증을 하고 있습니다.
+                                    </textarea>
+                                </div>
+                            </section>
+                            <section class="term">
+                                <div class="checks2" id="textBox3">
+                                    <input type="checkbox" name="chk" value="1" id="chk_3">
+                                    <label for="chk_3">
+                                        <span id="essen3">(선택)</span>
+                                        맞춤 마케팅을 위한 개인정보 수집 이용 동의
+                                    </label>
+                                </div>
+                                <div class="text1">
+                                    <textarea readonly class="essenBox">1) 마케팅 정보 수신 동의는 [계정 설정> 알림 설정]을 통해 언제든지 변경(동의/철회) 하실 수 있습니다.
+2) 귀하는 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나, 동의를 거부하는 경우 각종 소식 및 이벤트 내용과 관련된 정보를 더 이상 제공 받으실 수 없습니다.
+- 개인정보 수집 항목 : [회원정보] 이름, 휴대폰 번호, 이메일 주소, 생년월일, 성별, 거래기록, 직업, 비즈니스 분야 [서비스 이용정보] 쿠키에 의한 자동수집 정보
+- 개인정보 수집 이용 목적 :  ▪SMS, 이메일, 앱푸시 등 전자적 전송 매체를 통한 개인 맞춤형 광고 전송
+ ▪ 관심사 기반 맞춤형 광고 게재
+ ▪ 이벤트 및 프로모션 관련 정보 안내
+ ▪ 신규 서비스(제품) 출시 정보 및 회원 특화 정보 제공
+ ▪ 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계
+- 제공받는 자의보유 및 이용기간 : 수신 동의 철회 및 회원 탈퇴 시까지
+                                    </textarea>
+                                </div>
+                            </section>
+                            <div class="modalButtonBox">
+                                <button class="cancelButton">취소</button>
+                                <button type="submit" value="다음" id="btn_submit" class="nextButton">다음</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonBox2">
+                    <div class="modalContainer2">
+                        <div class="modalContent2">
+                            <div class="modalHeader">
+                                <h3 class="modalText2">회원 정보
+                                <span class="req_desc">필수입력사항</span>
+                                </h3>
+                            </div>
+                                <form id="registerForm" name="registerForm" action="/admin/regist" method="post" autocomplete="off">
+                                    <div id="register_form" class="form_01">
+                                        <div class="regi_table">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userId" class="req">
+                                                                ID
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="text" name="userId" value id="reg_userId" required class="reg_input" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자.">
+                                                            <span id="msg_userId" class="reg_msg"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <label th:for="userPwd" class="req">
+                                                                PASSWORD
+                                                            </label>
+                                                        </th>
+                                                        <td>
+                                                            <input type="password" name="userPwd" value id="reg_userPwd" required class="reg_input" maxlength="3" minlength="20">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>
+                            <div class="modalButtonBox2">
+                                <button class="prevButton" id="btn_submit2">이전으로</button>
+                                <input class="checkButton" type="submit" value="확인">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="connect">
+                    <form>
+                        <p class="des4">Connect to</p>
+                        <p class="des5">02) 000 - 0000</p><br>
+                        <p class="des6">gymga@gmail.com</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 계정만들기 클릭 시 나타나는 모달 창 -->
+    <script>
+        $(document).ready(function() {
+
+
+            $(".registButton").click(function() {
+                $(this).siblings(".modalContainer").show();
+            });
+
+            $(".cancelButton").click(function() {
+                $(this).closest(".modalContainer").hide();
+            });
+        });
+    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (){
+            var nextButton = document.getElementById("btn_submit");
+
+            nextButton.addEventListener("click", function () {
+                var modalContainer = document.querySelector(".modalContainer");
+                modalContainer.style.display = "none";
+
+                var modalContainer2 = document.querySelector(".modalContainer2");
+                modalContainer2.style.display = "block";
+            });
+
+            var prevButton = document.getElementById("btn_submit2");
+
+            prevButton.addEventListener("click", function () {
+                var modalContainer2 = document.querySelector(".modalContainer2");
+                modalContainer2.style.display = "none";
+
+                var modalContainer = document.querySelector(".modalContainer");
+                modalContainer.style.display = "block";
+            });
+        });
+    </script>
+
+    <!-- 이용약관 클릭 스크립트 -->
+    <script>
+        function fregister_submit(f)
+        {
+            if (!f.chk.checked) {
+                alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+                f.chk.focus();
+                return false;
+            }
+            if (!f.chk2.checked) {
+                alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+                f.chk2.focus();
+                return false;
+            }
+            return true;
+        }
+
+        jQuery(function ($){
+        // 모두선택
+            $("input[name=chk_all]").click(function (){
+                if ($(this).prop('checked')) {
+                    $("input[name^=chk]").prop('checked', true);
+                } else {
+                    $("input[name^=chk]").prop("checked", false);
+                }
+            });
+        });
+    </script>
+
+
+   <!-- &lt;!&ndash; 모달 창 &ndash;&gt;
+    <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">약관동의(Gym家 홈페이지)</h5>
+                </div>
+                <div class="modal-body">
+                    &lt;!&ndash; 이용약관 폼 &ndash;&gt;
+                    <form method="post" action="/admin/regist">
+                        <ul class="joinBox">
+                            <li class="checkBox1">
+                                <ul class="clearfix">
+                                    <input type="radio" id="all" value="all" checked>
+                                    <li>전체 약관 동의</li>
+                                </ul>
+                            </li>
+
+                            <li class="checkBox2">
+                                <ul class="clearfix">
+                                    <input type="radio" id="essential1" value="essential1">
+                                    <li>(필수) 이용 약관</li>
+                                    <textarea name="essential1" id="essenbox" cols="30" rows="3"></textarea>
+                                </ul>
+                            </li>
+
+                            <li class="checkBox3">
+                                <ul class="clearfix">
+                                    <input type="radio" id="essential2" value="essential2">
+                                    <li>(필수) 개인정보 수집 이용 동의</li>
+                                </ul>
+                            </li>
+
+                            <li class="checkBox4">
+                                <ul class="clearfix">
+                                    <input type="radio" id="choice" value="choice">
+                                    <li>(선택) 맞춤 마케팅을 위한 개인정보 수집 이용 동의</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close" style="float: left">
+                            취소
+                        </button>
+                        <button type="button" class="btn btn-primary" data-target="#registerModal2" data-toggle="modal" data-dismiss="modal">다음</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    &lt;!&ndash; 모달 창2 &ndash;&gt;
+    <div class="modal" id="registerModal2" tabindex="-1" role="dialog" aria-labelledby="registerModal2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModal2Label">회원정보</h5>
+                </div>
+                <div class="modal-body">
+                    &lt;!&ndash; 회원가입 폼 &ndash;&gt;
+                    <form id="registForm" method="post" action="/login/admin/regist">
+                        <label th:for="userId" class="form-label">ID</label>
+                        <input type="text" name="userId" required><br>
+                        <label th:for="userPwd" class="form-label">Password</label>
+                        <input type="password" name="userPwd" required><br>
+                        &lt;!&ndash;Password 확인 : <input type="password" name="userPwd" required><br>&ndash;&gt;
+                        <label th:for="userName" class="form-label">이름</label>
+                        <input type="text" name="userName" required><br>
+                        전화번호 : <input type="number" name="userPhone" required><br>
+                        생년월일 : <input type="date" name="userBirth" required><br>
+                        주소 : <input type="text" name="userAddress" required><br>
+                        사업자등록증 : <input type="file" name="userEtc"><br>
+                        권한 :
+                        <select name="role" required>
+                            <option value="대표">대표</option>
+                            <option value="직원">직원</option>
+                        </select><br>
+                        <button type="button" class="btn btn-secondary" data-target="#registerModal" data-toggle="modal" data-dismiss="modal">
+                            이전으로
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-target="#registerModal3" data-toggle="modal">회원가입</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    &lt;!&ndash; 모달 창3 &ndash;&gt;
+    <div class="modal" id="registerModal3" tabindex="-1" role="dialog" aria-labelledby="registerModal3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModal3Label">회원 가입 신청이 완료되었습니다.</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">
+                        Gym家에서 검토 / 승인 후 <br>
+                        로그인 가능합니다.
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    </div>
+</body>
+</html>
