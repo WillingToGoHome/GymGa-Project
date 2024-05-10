@@ -34,6 +34,10 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
+
+    .facCodeLink {
+        cursor: pointer; /* 클릭 커서로 변경 */
+    }
 </style>
 </head>
 <body>
@@ -206,9 +210,7 @@
         </tr>
         <tr th:each="facs: ${facList}">
 <!--            <td><a href="#" data-toggle="modal" data-faccode="${facs.facCode}" id="facCodes" data-target="#facActionModal">[[${facs.facCode}]]</a></td>-->
-            <td>
-                <a href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal">[[${facs.facCode}]]</a>
-            </td>
+            <td href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal" th:text="${facs.facCode}"></td>
             <td th:text="${facs.facStatus}"></td>
             <td th:text="${facs.facStart}"></td>
             <td class="userCode" th:text="${facs.userCode}"></td>
@@ -267,8 +269,11 @@
                         <option value="사용중">사용 중</option>
                         <option value="만료">만료</option>
                     </select><br>
-                    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
-                    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
+                    <label>사용 시작 기간: </label>
+                    <input type="date" name="facStart" id="facStart"><br>
+                    <label>사용 만료 기간: </label>
+                    <input type="date" name="facEnd" id="facEnd"><br>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -279,12 +284,11 @@
     </div>
 </div>
 
-
 <script>
     function submitForm() {
 
 // 폼 데이터 가져오기
-        const formData = new FormData(document.getElementById("registForm"));
+        const formData = new FormData(document.getElementById("registForm"))
 
 
 
@@ -312,6 +316,8 @@
     }
 </script>
 
+
+
 <script th:inline="javascript">
     $(document).ready(function () {
         // 클릭한 번호를 input 상자에 보여주는 함수
@@ -332,9 +338,6 @@
     });
 </script>
 
-
-
-
 <script>
     fetch("/fac/user")
         .then(res=>res.json())
@@ -348,6 +351,7 @@
             }
         })
 </script>
+
 
 
 
