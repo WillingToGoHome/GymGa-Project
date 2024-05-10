@@ -56,12 +56,12 @@ public class FacController {
         return "fac/select";
     }
 
+    
 
-//    @GetMapping("/regist")
-//    public String registFac(@RequestParam("facCode") int facCode, Model model) {
-//        model.addAttribute("facCode", facCode);
-//        return "fac/select";
-//    }
+
+
+    @GetMapping("/regist")
+    public void registPage() {}
 
     @GetMapping(value = "user", produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -78,6 +78,7 @@ public class FacController {
     @PostMapping("/regist")
     public String registFac(FacDTO newFac, RedirectAttributes rttr) {
 
+
         facService.registNewFac(newFac);
 
         rttr.addFlashAttribute("successMessage","사물함 등록 성공");
@@ -85,7 +86,8 @@ public class FacController {
         return "redirect:/fac/select";
     }
 
-
+    @GetMapping("/update")
+    public void updatePage() {}
 
     @PostMapping("/update")
     public String updateFac(FacDTO renewFac, RedirectAttributes rttr) {
@@ -96,13 +98,8 @@ public class FacController {
         return "redirect:/fac/select";
     }
 
-//    @GetMapping("/delete")
-//    public String deletePage(Model model) {
-//        // 모달창 스크립트에 전달할 값을 모델에 추가
-//        model.addAttribute("delResult", "someValue"); // 삭제 결과에 따른 값을 여기에 설정해야 합니다.
-//        model.addAttribute("bno", "someValue"); // 삭제된 게시물 번호에 해당하는 값을 여기에 설정해야 합니다.
-//        return "yourViewName"; // 해당하는 뷰의 이름으로 변경해야 합니다.
-//    }
+    @GetMapping("/delete")
+    public void deletePage() {}
 
     @PostMapping("/delete")
     public String deleteFac(FacDTO deleteFac, RedirectAttributes rttr) {
