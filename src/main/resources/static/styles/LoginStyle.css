@@ -137,11 +137,11 @@ body {
 
 .modalContent {
     background-color: #FFFFFF;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 75%;
     border-radius: 10px;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -157,7 +157,7 @@ body {
 
 div[id*="textBox"] {
     margin-left: 20%;
-    margin-top: 2%;
+    margin-top: 3%;
 }
 
 .modalText1 {
@@ -258,7 +258,7 @@ div[id*="textBox"] {
 .essenBox {
     padding: 15px;
     width: 80%;
-    height: 50px;
+    height: 80px;
     border: 1px solid #d8d9df;
     font-size: 12px;
     color: #98989f;
@@ -272,8 +272,8 @@ div[id*="textBox"] {
     height: 40px;
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
-    margin-left: 40%;
+    margin-top: 5%;
+    margin-left: 35%;
 }
 
 button:focus {
@@ -318,11 +318,11 @@ button:focus {
 
 .modalContent2 {
     background-color: #FFFFFF;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 75%;
     border-radius: 10px;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -333,7 +333,7 @@ button:focus {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
-    margin-left: 40%;
+    margin-left: 20%;
 }
 
 .modalText2 {
@@ -347,8 +347,10 @@ button:focus {
 
 #registerForm {
     margin-left: 20%;
-    margin-top: 2%;
+    margin-top: 1%;
 }
+
+
 .regi_table tbody th label{
     position: relative;
     font-size: 14px;
@@ -365,11 +367,83 @@ button:focus {
     left: 0;
     width: 5px;
     height: 5px;
-    margin-top: -2.5px;
-    background: #e5433e;
+    margin-top: 13px;
+    background: #4B82D8;
     border-radius: 2.5px;
     overflow: hidden;
 }
+
+.regi_table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.regi_table tbody th {
+    width: 130px;
+    line-height: 50px;
+    padding: 0;
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 500;
+    background-color: white;
+    border: 0;
+    vertical-align: top;
+    text-align: left;
+}
+
+.regi_table tbody td {
+    font-size: 14px;
+    color: #2d2f43;
+    font-weight: 400;
+    background-color: white;
+    border: 0;
+    text-align: left;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .reg_input {
+    padding: 0;
+    width: 35%;
+    height: 40px;
+    font-size: 14px;
+    color: #444;
+    font-weight: normal;
+    background-color: white;
+    border: 0;
+    !important; border-bottom: 1px solid #656565;
+    !important; vertical-align: top;
+    box-shadow: none;
+    !important; outline: none;
+    !important;
+}
+
+.userPhone_wrap b {
+    vertical-align: middle;
+}
+
+#reg_userPhone, #reg_userPhone2, #reg_userPhone3 {
+    width: 10.2%;
+    text-align: center;
+}
+
+.regi_table .btn_frmline {
+    min-width: 50px;
+    height: 35px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: white;
+    font-weight: normal;
+    background-color: #4B82D8;
+    border: 1px solid #4B82D8;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    margin-left: 1.5%;
+}
+
 
 .req_desc {
     position: relative;
@@ -377,7 +451,7 @@ button:focus {
     color: #2d2f43;
     font-weight: 500;
     height: 20px;
-    padding-left: 72%;
+    padding-left: 73%;
 }
 
 .req_desc:before {
@@ -389,10 +463,11 @@ button:focus {
     height: 5px;
     margin-top: -2.5px;
     margin-left: 101%;
-    background: #e5433e;
+    background: #4B82D8;
     border-radius: 2.5px;
     overflow: hidden;
 }
+
 
 .prevButton {
     width: 130px;
@@ -411,5 +486,7 @@ button:focus {
     border: 1px solid #FFFFFF;
     background-color: #4B82D8;
 }
+
+
 
 

@@ -1,3 +1,4 @@
+/*
 package com.willingtogohome.gymga.login.user.model.dto;
 
 import com.willingtogohome.gymga.login.common.UserRole;
@@ -25,6 +26,7 @@ public class LoginDTO {
 
     public List<String> getRole(){
         if (this.userRole.getRole().length() > 0) {
+            System.out.println("4");
             return Arrays.asList(this.userRole.getRole().split(","));
         }
         return new ArrayList<>();
@@ -83,3 +85,4 @@ public class LoginDTO {
 
 
 }
+*/
