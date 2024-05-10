@@ -23,19 +23,9 @@
         <result property="className" column="class_name"/>
     </resultMap>
 
-    <resultMap id="userResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
-        <id property="userCode" column="user_code"/>
-        <result property="userId" column="user_id"/>
-        <result property="userPwd" column="user_pwd"/>
-        <result property="userName" column="user_name"/>
-        <result property="userPhone" column="user_phone"/>
-        <result property="userRole" column="user_role"/>
-        <result property="userPic" column="user_pic"/>
-        <result property="userGender" column="user_gender"/>
-        <result property="userBirth" column="user_birth"/>
-        <result property="userAddress" column="user_address"/>
-        <result property="userEtc" column="user_etc"/>
-        <result property="userStaff" column="user_staff"/>
+    <resultMap id="empResultMap" type="com.willingtogohome.gymga.schedule.model.dto.EmpDTO">
+        <id property="empCode" column="user_code"/>
+        <result property="empName" column="user_name"/>
     </resultMap>
 
     <select id="findAllSchedule" resultMap="scheduleResultMap">
@@ -56,7 +46,7 @@
     </select>
 
 
-    <select id="findAllTeacher" resultMap="userResultMap">
+    <select id="findAllTeacher" resultMap="empResultMap">
         SELECT
                user_code,
                user_id,
@@ -78,7 +68,7 @@
     <insert id="registNewSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
         INSERT
           INTO scheduledb
-               (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code, member_code, pass_code)
+               (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code)
         VALUES (
                 'PT01',
                 SYSDATE(),
@@ -87,9 +77,8 @@
                 #{ scheEndTime },
                 #{ scheParticipate },
                 '예약대기',
-                #{ empCode },
-                null,
-                null)
+                #{ empCode }
+               )
     </insert>
 
     <!--collection-->
@@ -108,18 +97,21 @@
             <result property="className" column="class_name"/>
         </association>
         <!--userDTO-->
-        <association property="empCategory" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
+        <association property="empCategory" javaType="com.willingtogohome.gymga.schedule.model.dto.EmpDTO">
             <id property="empCode" column="user_code"/>
             <result property="empName" column="emp_name"/>
         </association>
-        <association property="userCategory" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        <association property="userCategory" javaType="com.willingtogohome.gymga.schedule.model.dto.MemberDTO">
             <id property="memberCode" column="user_code"/>
             <result property="memberName" column="user_name"/>
         </association>
         <!--passDTO-->
-        <association property="passCategory" javaType="com.willingtogohome.gymga.pass.model.dto.PassDTO">
+        <association property="passTotalCategory" javaType="com.willingtogohome.gymga.schedule.model.dto.PassTotalDTO">
             <id property="passCode" column="pass_code"/>
             <result property="passTotal" column="pass_total"/>
+        </association>
+        <association property="passUseCategory" javaType="com.willingtogohome.gymga.schedule.model.dto.PassUseDTO">
+            <id property="passCode" column="pass_code"/>
             <result property="passUse" column="pass_use"/>
         </association>
     </resultMap>
@@ -133,6 +125,7 @@
                A.SCHE_START_TIME,
                A.SCHE_END_TIME,
                A.SCHE_PARTICIPATE,
+               A.SCHE_ATTEN,
 <!--               A.EMP_CODE,-->
 <!--               C.USER_CODE,-->
                C.USER_CODE,
@@ -163,6 +156,7 @@
                 A.SCHE_START_TIME,
                 A.SCHE_END_TIME,
                 A.SCHE_PARTICIPATE,
+                A.SCHE_ATTEN,
                 <!--               A.EMP_CODE,-->
                 <!--               C.USER_CODE,-->
                 C.USER_CODE,
@@ -182,24 +176,59 @@
         LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
         WHERE A.SCHE_CODE = #{scheCode}
         ORDER BY A.SCHE_CODE
-
     </select>
 
-<!--    <update id="updateSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">-->
-<!--        UPDATE scheduledb A-->
-<!--        INNER JOIN classdb AS B ON A.CLASS_CODE = B.CLASS_CODE-->
-<!--        INNER JOIN userdb AS C ON A.EMP_CODE = C.USER_CODE-->
-<!--        INNER JOIN userdb AS D ON A.MEMBER_CODE = D.USER_CODE-->
-<!--        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE-->
-<!--           SET A.sche_run_date = '2024-05-05',-->
-<!--               A.sche_start_time = '09:00:00',-->
-<!--               A.sche_end_time = '10:00:00',-->
-<!--               A.EMP_CODE = '4',-->
-<!--               A.MEMBER_CODE = '5',-->
-<!--               E.PASS_TOTAL = '29',-->
-<!--               E.PASS_USE = '1'-->
-<!--        WHERE A.sche_code = #{scheCode};-->
-<!--    </update>-->
+    <!-- 1:1PT 일정 변경 -->
+    <update id="updateSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        UPDATE scheduledb
+           SET sche_run_date = #{scheRunDate},
+               sche_start_time = #{scheStartTime},
+               sche_end_time = #{scheEndTime},
+               EMP_CODE = #{empCode}
+        WHERE sche_code = #{scheCode};
+    </update>
+
+    <!-- 출석 버튼 눌렀을 시 차감 -->
+    <update id="updateAtten" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+        UPDATE scheduledb A
+        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
+           SET  A.SCHE_ATTEN = '출석',
+                E.PASS_TOTAL = E.PASS_TOTAL - 1,
+                E.PASS_USE = E.PASS_USE + 1
+        WHERE A.sche_code = #{scheCode};
+    </update>
+
+    <!-- 결석 버튼 눌렀을 시 차감 -->
+    <update id="updateAbsent" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+        UPDATE scheduledb A
+        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
+        SET  A.SCHE_ATTEN = '결석',
+        E.PASS_TOTAL = E.PASS_TOTAL - 1,
+        E.PASS_USE = E.PASS_USE + 1
+        WHERE A.sche_code = #{scheCode};
+    </update>
+
+    <!-- 취소 버튼 눌렀을 시 원래대로 돌아감 수정해야함 -->
+    <update id="updateCancel" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+        UPDATE scheduledb A
+        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
+           SET A.SCHE_ATTEN =
+          CASE
+            WHEN A.SCHE_ATTEN = '출석' THEN '예약'
+            ELSE A.SCHE_ATTEN
+          END,
+               E.PASS_TOTAL =
+          CASE
+            WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_TOTAL + 1
+            ELSE E.PASS_TOTAL + 1
+          END,
+               E.PASS_USE =
+          CASE
+            WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_USE - 1
+            ELSE E.PASS_USE -1
+          END
+        WHERE A.sche_code = #{scheCode};
+    </update>
 
 
 </mapper>

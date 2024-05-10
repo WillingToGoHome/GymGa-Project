@@ -14,6 +14,7 @@
         <th>SCHE_START_TIME</th>
         <th>SCHE_END_TIME</th>
         <th>SCHE_PARTICIPATE</th>
+        <th>SCHE_ATTEN</th>
         <th>EMP_NAME</th>
         <th>MEMBER_NAME</th>
         <th>PASS_TOTAL</th>
@@ -27,14 +28,19 @@
         <td th:text="${selectOneSchedule.scheStartTime}"></td>
         <td th:text="${selectOneSchedule.scheEndTime}"></td>
         <td th:text="${selectOneSchedule.scheParticipate}"></td>
+        <td th:text="${selectOneSchedule.scheAtten}"></td>
         <td th:text="${selectOneSchedule.empCategory.empName}"></td>
         <td th:text="${selectOneSchedule.userCategory.memberName}"></td>
-        <td th:text="${selectOneSchedule.passCategory.passTotal}"></td>
-        <td th:text="${selectOneSchedule.passCategory.passUse}"></td>
+        <td th:text="${selectOneSchedule.passTotalCategory != null ? selectOneSchedule.passTotalCategory.passTotal : ''}"></td>
+        <td th:text="${selectOneSchedule.passUseCategory != null ? selectOneSchedule.passUseCategory.passUse : ''}"></td>
     </tr>
 </table>
-<button onclick="location.href='/schedule/schedulelist'">목록으로</button>
-<button th:onclick="|location.href='/schedule/scheduleupdate/' + ${selectOneSchedule.scheCode}|">이동하기</button>
+<button onclick="location.href='/schedule/schedulelist'">변경(목록으로)</button>
+<button th:onclick="|location.href='/schedule/scheduleupdate/' + ${selectOneSchedule.scheCode}|">일정변경</button>
+<button th:onclick="|location.href='/schedule/attenupdate/' + ${selectOneSchedule.scheCode}|">출석</button>
+<button th:onclick="|location.href='/schedule/absentupdate/' + ${selectOneSchedule.scheCode}|">결석</button>
+<button th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>
+
 
 </body>
 

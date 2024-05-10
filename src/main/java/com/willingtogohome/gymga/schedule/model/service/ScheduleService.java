@@ -1,9 +1,9 @@
 package com.willingtogohome.gymga.schedule.model.service;
 
 import com.willingtogohome.gymga.schedule.model.dao.ScheduleMapper;
+import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ScheduleService {
     }
 
     // 강사 목록 선택
-    public List<UserDTO> findAllTeacher() {
+    public List<EmpDTO> findAllTeacher() {
 
         return scheduleMapper.findAllTeacher();
     }
@@ -48,8 +48,8 @@ public class ScheduleService {
         return scheduleMapper.findAll();
     }
 
-    public void updateSchedule(ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO) {
-        scheduleMapper.updateSchedule(scheduleAndClassAndUserAndPassDTO);
+    public void updateSchedule(ScheduleDTO scheduleDTO) {
+        scheduleMapper.updateSchedule(scheduleDTO);
     }
 
 
@@ -57,5 +57,19 @@ public class ScheduleService {
     public ScheduleAndClassAndUserAndPassDTO findByScheCode(int scheCode) {
 
         return scheduleMapper.findByScheCode(scheCode);
+    }
+
+
+    public void updateAtten(int scheCode) {
+
+        scheduleMapper.updateAtten(scheCode);
+    }
+
+    public void updateAbsent(int scheCode) {
+        scheduleMapper.updateAbsent(scheCode);
+    }
+
+    public void updateCancel(int scheCode) {
+        scheduleMapper.updateCancel(scheCode);
     }
 }
