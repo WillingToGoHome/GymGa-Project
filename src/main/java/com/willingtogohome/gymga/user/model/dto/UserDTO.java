@@ -1,24 +1,28 @@
 package com.willingtogohome.gymga.user.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
+import lombok.*;
+
+import java.util.Date;
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
 public class UserDTO {
 
-    private int code;
-    private String id;
-    private String pwd;
-    private String name;
-    private String phone;
-    private String role;
-    private String pic;
-    private String gender;
-    private String birth;
-    private String address;
-    private String etc;
-    private int staff;
+    private Integer userCode;
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String userPhone;
+    private String userRole;
+    private String userPic;
+    private String userGender;
+    private Date userBirth;
+    private String userAddress;
+    private String userEtc;
+    private Integer userStaff;
+
 }
