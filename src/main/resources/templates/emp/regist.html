@@ -21,7 +21,8 @@
                 <hr class="line" style="width: 950px"/>
             </div>
             <div>
-                <form action="/emp/regist" method="post" enctype="multipart/form-data" onsubmit="return isValid()">
+<!--                <form action="/emp/regist" method="post" enctype="multipart/form-data" onsubmit="return isValid()">-->
+                <form action="/emp/regist" method="post" enctype="multipart/form-data">
                     <div class="userInfoBox">
                         <div class="previewBox">
                             <img id="preview" src="/uploadFiles/default-user.png"/><br>
@@ -126,7 +127,7 @@
                                 <input type="text" name="location"><br>
                                 <input type="text" name="year" style="width: 50px">년 <input type="text" name="month" style="width: 50px">개월 <br>
                                 <input type="text" name="totalYear" style="width: 50px">년 <input type="text" name="totalMonth" style="width: 50px">개월 <br>
-                                <input type="text" name="salary" id="salary" placeholder="필수 입력" autofocus> <br>
+                                <input type="text" id="salary" name="salary" placeholder="필수 입력" autofocus> <br>
                             </div>
                         </div>
                         <div style="clear: left; margin-left: 130px; padding-top: 30px">
@@ -406,17 +407,18 @@
             reader.onload = function (e) {
                 // $('#preview')[0].src = e.target.result;
                 document.getElementById("preview").src = e.target.result;
+                document.getElementById("urlAddress").value = e.target.result;
             }
         }
 
-        function pwdChanged(e) {
+        function pwdChanged() {
             document.getElementById("confirm").value = '';
             pwdChecked = false;
             document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+            $('#confirm').focus();
         }
 
         function pwdCheck() {
-
             let first = document.getElementById("pwd");
             let second = document.getElementById("confirm");
             let check = document.getElementById("pwd").value == document.getElementById("confirm").value? true : false;
@@ -425,99 +427,66 @@
                 alert("비밀번호를 입력하세요.");
                 pwdChecked = false;
                 document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                $('#pwd').focus();
             } else {
                 if (check) {
                     alert("비밀번호가 일치합니다.");
                     pwdChecked = true;
                     document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                    $('#name').focus();
                 } else {
                     alert("비밀번호가 일치하지 않습니다.")
                     first.value = '';
                     second.value = '';
                     pwdChecked = false;
                     document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                    $('#pwd').focus();
                 }
             }
         }
 
         function isValid() {
+            let id = document.getElementById("id");
+            let name = document.getElementById("name");
+            let phone = document.getElementById("phone");
+            let salary = document.getElementById("salary");
+            let agreement = document.getElementById("agreement");
 
-            console.log(document.getElementById("id").value != '');
-            console.log(document.getElementById("pwd").value != '');
-            console.log(document.getElementById("confirm").value != '');
-            console.log(pwdChecked);
-            console.log($('#name').html());
-            console.log(document.getElementById("name").innerText != '');
-            console.log(document.getElementById("phone").value != '');
-            console.log(document.getElementById("salary").value != '');
-            console.log(document.getElementById("agreement").checked);
+            if (id.value != '') {
+                if (pwdChecked) {
+                    if (name.value != '') {
+                        if (phone.value != '') {
+                            if (salary.value != '') {
+                                if (agreement.checked) {
+                                    return true;
+                                } else {
+                                    alert('약관에 동의해주세요.');
+                                    $('#agreement').focus();
+                                }
+                            } else {
+                                alert('기본급을 입력하세요.');
+                                $('#salary').focus();
+                            }
+                        } else {
+                            alert('연락처를 입력하세요.');
+                            $('#phone').focus();
+                        }
+                    } else {
+                        alert('이름을 입력하세요.');
+                        $('#name').focus();
+                    }
+                } else {
+                    alert('비밀번호를 확인하세요.');
+                    $('#pwd').focus();
+                }
+            } else {
+                alert('아이디를 입력하세요.');
+                $('#id').focus();
+            }
 
-            if (document.getElementById("id").value != '') {
-                if (document.getElementById("pwd") != '') {
-                    if (document.getElementById("confirm") != '') {
-                        if (pwdChecked) {
-                            if (document.getElementById("name") != '') {
-                                if (document.getElementById("phone") != '') {
-                                    if (document.getElementById("salary") != '') {
-                                        if (document.getElementById("agreement").checked) {
-                                            pwdChecked = false;
-                                            return true;
-                                        } else { alert("가입 약관에 등의해주세요."); }
-                                    } else { alert("급여 정보를 입력하세요."); }
-                                } else { alert("전화번호를 입력하세요."); }
-                            }else { alert("이름을 입력하세요."); }
-                        } else { alert("비밀번호 확인을 진행하세요."); }
-                    } else { alert("비밀번호를 다시 입력하세요."); }
-                } else { alert("비밀번호를 입력하세요."); }
-            } else { alert("아이디를 입력하세요."); }
-
-            // if (document.getElementById("id").value != '') {
-            //     alert("아이디를 입력하세요.");
-            // } else if (document.getElementById("pwd") == '') {
-            //     alert("비밀번호를 입력하세요.");
-            // } else if (document.getElementById("confirm") == '') {
-            //     alert("비밀번호 확인을 입력하세요.");
-            // } else if (!pwdChecked) {
-            //     alert("비밀번호 확인을 진행해주세요.");
-            // } else if (document.getElementById("name") == '') {
-            //     alert("이름을 입력하세요.");
-            // } else if (document.getElementById("phone") == '') {
-            //     alert("연락처를 입력하세요.");
-            // } else if (document.getElementById("salary") == '') {
-            //     alert("기본급을 입력하세요.");
-            // } else if (!document.getElementById("agreement").checked) {
-            //     alert("회원가입 약관에 동의해주세요.");
-            // } else {
-            //     pwdChecked = false;
-            //     return true;
-            // }
-
-            // if (pwdChecked) {
-            //     pwdChecked = false;
-            //     return true;
-            // } else {
-            //     alert("비밀번호를 확인해주세요.");
-            // }
             return false;
         }
     </script>
-
-<!--    <script th:inline="javascript">-->
-<!--        $(document).ready(function() {-->
-
-<!--            $("#button-apply").on("click", (e) => {-->
-<!--                apply();-->
-<!--            });-->
-
-<!--            function apply() {-->
-
-<!--                let url = document.getElementById("urlAddress").value;-->
-<!--                console.log(url);-->
-
-<!--                $("#picture")[0].src = url;-->
-<!--            }-->
-<!--        })-->
-<!--    </script>-->
 
     <script>
         function sample4_execDaumPostcode() {

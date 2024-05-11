@@ -35,6 +35,18 @@ public class EmpController {
         System.out.println("get : /emp/ or /emp/main");
 
         List<EmpDTO> empList = empService.selectAllEmp();
+
+        for (EmpDTO emp: empList) {
+            String root = "src/main/resources/static";
+            File file = new File(root + emp.getPic());
+
+            if (!file.exists()) {
+                String path = emp.getPic();
+                String temp = (String) session.getAttribute(path);
+                emp.setPic(temp);
+            }
+        }
+
         List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
         List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("time", "10:00am"));
         List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("time", "12:00pm"));
@@ -72,9 +84,12 @@ public class EmpController {
     }
 
     @PostMapping("/regist")
-    public String empRegist(EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO, RedirectAttributes rttr,
-                            @RequestParam MultipartFile picFile, @RequestParam String qualWrite,
-                            @RequestParam String address1, @RequestParam String address2) {
+    public String empRegist(HttpSession session,
+                            @RequestParam MultipartFile picFile,
+                            @RequestParam String urlAddress,
+                            EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
+                            @RequestParam String address1, @RequestParam String address2,
+                            @RequestParam String qualWrite) {
 
         System.out.println("post : /emp/regist");
 
@@ -94,7 +109,8 @@ public class EmpController {
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
-                empDTO.setPic("/uploadFiles/" +savedName);
+                empDTO.setPic("/uploadFiles/" + savedName);
+                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -127,7 +143,7 @@ public class EmpController {
         System.out.println("physicalDTO = " + physicalDTO);
         System.out.println("employeeDTO = " + employeeDTO);
 
-//        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
+        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
         return "redirect:/emp/main";
     }

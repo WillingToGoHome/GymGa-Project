@@ -195,7 +195,7 @@
                     fri.innerHTML = a.getDate();
                     a.setDate(d.getDate() + 3)
                     sat.innerHTML = a.getDate();
-                break;
+                    break;
             case 4: day.innerHTML = '오늘, 목요일';
                     thu.className = "today";
                     a.setDate(d.getDate() - 4);
@@ -251,8 +251,6 @@
 
         date.innerHTML = d.getFullYear() + '.' + ((d.getMonth() + 1) < 10? '0' + (d.getMonth() + 1) : (d.getMonth() + 1)) + '.' + (d.getDate() < 10? '0' + d.getDate() : d.getDate());
 
-        console.log(d);
-        console.log(d.getHours());
         switch (d.getHours()) {
             case 8 : case 9: document.getElementById("pointer1").className = "pointerTime";
                              document.getElementById("time1").className = "scheTime"; break;
