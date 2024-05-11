@@ -1,0 +1,267 @@
+span {
+    /*color: rgba(171, 171, 171, 1);*/
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+input {
+    width: 150px;
+    height: 30px;
+    border: 1px solid rgba(171, 171, 171, 1);
+    border-radius: 5px;
+    /*color: rgba(171, 171, 171, 1);*/
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+label {
+    width: 150px;
+    height: 30px;
+    /*color: rgba(171, 171, 171, 1);*/
+    font-size: 16px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+select {
+    width: 56.98px;
+    height: 34.97px;
+    border: 1px solid rgba(171, 171, 171, 1);
+    border-radius: 5px;
+    /*color: rgba(171, 171, 171, 1);*/
+    font-size: 16px;
+    margin: 5px 0;
+    /*text-align: center;*/
+}
+
+button {
+    width: 156.98px;
+    height: 34.97px;
+    background-color: rgba(75, 130, 216, 1);
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid rgba(171, 171, 171, 1);
+    border-radius: 5px;
+    outline: 0;
+    position: relative;
+    margin: 3.5px 0;
+    cursor: pointer;
+}
+
+input[type='checkbox']::before {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+input[type='checkbox']::after {
+    content: '';
+    width: 15%;
+    height: 40%;
+    transform: rotate(45deg);
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    top: 20%;
+    left: 40%;
+    position: relative;
+    display: none;
+}
+
+input[type='checkbox']:checked {
+    background: rgba(75, 130, 216, 1);
+    border: none;
+}
+
+input[type='checkbox']:checked::after {
+    display: block;
+}
+
+.outerDiv {
+    width: 1560px;
+    height: 850px;
+    background-color: rgba(240, 240, 240, 1);
+}
+
+.mainBox {
+    width: 1020px;
+    height: 850px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    float: left;
+    margin-right: 30px;
+}
+
+.back {
+    float: left;
+    cursor: pointer;
+}
+
+.main {
+    padding-top: 25px;
+    float: left;
+}
+
+.titleText {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.line {
+    align-content: center;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.userInfoBox {
+    width: 1020px;
+    height: 300px;
+    padding-top: 40px;
+}
+
+.previewBox {
+    width: 200px;
+    text-align: center;
+    margin-left: 100px;
+    padding-top: 33px;
+    float: left;
+}
+
+.previewBox img {
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    margin-bottom: 10px;
+}
+
+.fileBox label {
+    padding: 9px 27px;
+    background-color: rgba(75, 130, 216, 1);
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fileBox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.infoBox1 {
+    float: left;
+}
+
+.infoBox2 {
+    float: left;
+}
+
+.infoBox3 {
+    clear: left;
+}
+
+.spanTagBoxWSup {
+    line-height: 36px;
+    margin-right: 20px;
+    font-weight: bold;
+    float: left;
+}
+
+.highlightSpan {
+    vertical-align: super;
+    color: red;
+}
+
+.spanTagBoxWOSup {
+    line-height: 44px;
+    margin-right: 20px;
+    font-weight: bold;
+    float: left;
+}
+
+.pwdCheckFalse {
+    background-color: red;
+    font-weight: bold;
+}
+
+.pwdCheckTrue {
+    background-color: lightseagreen;
+    font-weight: bold;
+}
+
+.left {
+    line-height: 42px;
+    margin-right: 20px;
+    float: left;
+}
+
+.right {
+    margin-right: 20px;
+    float: left;
+}
+
+
+.detailBox {
+    width: 1020px;
+    /*font-size: 16px;*/
+    /*font-weight: bold;*/
+}
+
+.submitButton {
+    height: 50px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 120px;
+}
+
+.sideBox {
+    width: 480px;
+    height: 850px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    float: left;
+}
+
+.agreement {
+    width: 410px;
+    height: 600px;
+    border: 1px solid rgba(171, 171, 171, 1);
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 40px;
+    overflow-y: scroll;
+}
+
+.agreement::-webkit-scrollbar {
+    width: 10px;
+}
+
+.agreement::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.agreement::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}

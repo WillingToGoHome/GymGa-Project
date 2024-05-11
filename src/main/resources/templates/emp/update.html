@@ -26,10 +26,10 @@
                 <hr class="line1">
             </div>
             <div th:object="${ emp }">
-                <form action="/emp/regist" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
+                <form action="/emp/detail" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
                     <div class="signupBox">
                         <div class="previewBox">
-                            <img id="preview" th:src="*{ pic }"><br>
+                            <img id="preview" name="preview" th:src="*{ pic }"><br>
                             <input type="file" name="picFile" onchange="chooseImage(this)" style="width: 100px; cursor: pointer"><br>
                         </div>
                         <div class="infoBox">
@@ -163,84 +163,16 @@
 
         let pwdChecked = false;
 
-        function previewFile() {
-            var preview = document.querySelector("img");
-            var file = document.querySelector("input[type=file]").files[0];
-            var reader = new FileReader();
-
-            reader.addEventListener(
-                "load",
-                function () {
-                    preview.src = reader.result;
-                },
-                false,
-            );
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function previewFiles() {
-            var preview = document.querySelector("#preview");
-            var files = document.querySelector("input[type=file]").files;
-
-            function readAndPreview(file) {
-                if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
-                    var reader = new FileReader();
-
-                    reader.addEventListener(
-                        "load",
-                        function () {
-                            var image = new Image();
-                            image.height = 100;
-                            image.title = file.name;
-                            image.src = this.result;
-                            preview.appendChild(image);
-                        },
-                        false,
-                    );
-
-                    reader.readAsDataURL(file);
-                }
-            }
-
-            if (files) {
-                [].forEach.call(files, readAndPreview);
-            }
-        }
-
         function chooseImage(obj) {
+            let reader = new FileReader();
 
-            const file = obj.files[0];
+            reader.readAsDataURL(obj.files[0]);
 
-            console.log(file);
-
-            if (file) {
-                const reader = new FileReader();
-
-                console.log(reader.readAsDataURL(file));
-
-                reader.onload = function(e) {
-                    $('#preview').attr('src', e.target.result);
-                };
-
-                // reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                // $(`#preview`)[0].src = e.target.result;
+                // console.log(e.target.result);
+                document.getElementById("preview").src = e.target.result;
             }
-            // console.log(obj);
-            // console.log(new FileReader().readAsDataURL(obj));
-
-            // for (let i = 0; i < obj.size; i++) {
-            //
-            //     let reader = new FileReader();
-            //
-            //     console.log("hi");
-                // console.log(reader.readAsDataURL(obj.files[0]));
-                // reader.readAsDataURL(obj.files[0]);
-                // reader.onload = function (e) {
-                //     $('#preview')[0].src = e.target.result;
-                // }
-            // }
         }
 
         function pwdChanged(e) {

@@ -44,7 +44,7 @@ public class PicController {
         return "/emp/regist";
     }
 
-    @PostMapping("emp/test")
+//    @PostMapping("emp/test")
     public String profileUpdate(@RequestParam MultipartFile picFile, Model model) {
 
         System.out.println("picFile = " + picFile);

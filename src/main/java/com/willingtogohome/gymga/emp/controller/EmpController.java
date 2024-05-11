@@ -30,10 +30,9 @@ public class EmpController {
     }
 
     @GetMapping(value={"/", "/main"})
-    public String empMain(Model model, HttpSession session) {
+    public String empMain(HttpSession session, Model model) {
 
         System.out.println("get : /emp/ or /emp/main");
-        System.out.println(session.getAttribute("searched"));
 
         List<EmpDTO> empList = empService.selectAllEmp();
         List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
@@ -55,9 +54,19 @@ public class EmpController {
     }
 
     @GetMapping("/regist")
-    public String registPage() {
+    public String registPage(Model model) {
 
         System.out.println("get : /emp/regist");
+
+        List<EmpDTO> userIDList = empService.selectAllUserID();
+
+        String[] idList = new String[userIDList.size()];
+        int i = 0;
+        for (EmpDTO userId : userIDList) {
+            idList[i++] = userId.getId();
+        }
+
+        model.addAttribute("idList", idList);
 
         return "/emp/regist";
     }
@@ -68,8 +77,6 @@ public class EmpController {
                             @RequestParam String address1, @RequestParam String address2) {
 
         System.out.println("post : /emp/regist");
-//        System.out.println("picFile = " + picFile);
-//        System.out.println(picFile.isEmpty());
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -81,20 +88,14 @@ public class EmpController {
             }
 
             String originFileName = picFile.getOriginalFilename();
-//            System.out.println("originFileName = " + originFileName);
             String ext = originFileName.substring(originFileName.lastIndexOf("."));
-//            System.out.println("ext = " + ext);
 
             String savedName = UUID.randomUUID() + ext;
-//            System.out.println("savedName = " + savedName);
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
                 empDTO.setPic("/uploadFiles/" +savedName);
-//                picFile.transferTo(new File(filePath + "/" + originFileName));
-//                model.addAttribute("message", "파일 업로드 완료!");
             } catch (Exception e) {
-//                model.addAttribute("message", "파일 업로드 실패!");
                 e.printStackTrace();
             }
         } else {
@@ -102,7 +103,6 @@ public class EmpController {
         }
 
         int code = empService.findLastCode();
-//        System.out.println("code = " + code);
 
         if (empDTO.getBirth().isEmpty()) {
             empDTO.setBirth("2000-01-01");
@@ -123,11 +123,11 @@ public class EmpController {
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
 
-//        System.out.println("empDTO = " + empDTO);
-//        System.out.println("physicalDTO = " + physicalDTO);
-//        System.out.println("employeeDTO = " + employeeDTO);
+        System.out.println("empDTO = " + empDTO);
+        System.out.println("physicalDTO = " + physicalDTO);
+        System.out.println("employeeDTO = " + employeeDTO);
 
-        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
+//        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
         return "redirect:/emp/main";
     }
@@ -311,8 +311,30 @@ public class EmpController {
     }
 
     @GetMapping("/test")
-    public String empTest() {
+    public String empGetTest(Model model, HttpSession session) {
+
+        int code = (int) session.getAttribute("searched");
+        String text = Integer.toString(code);
+        System.out.println("text = " + text);
+
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+
+        model.addAttribute("emp", emp);
 
         return "/emp/test";
+    }
+
+    @PostMapping("/test")
+    public String empPostTest(Model model, HttpSession session) {
+
+        int code = (int) session.getAttribute("searched");
+        String text = Integer.toString(code);
+        System.out.println("text = " + text);
+
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+
+        model.addAttribute("emp", emp);
+
+        return "redirect:/emp/test";
     }
 }

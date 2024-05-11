@@ -32,4 +32,6 @@ public interface EmpMapper {
     void updatePhysical(PhysicalDTO physicalDTO);
 
     void updateEmployee(EmployeeDTO employeeDTO);
+
+    List<EmpDTO> selectAllUserID();
 }
