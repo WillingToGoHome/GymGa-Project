@@ -130,7 +130,16 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
+    // 하나의 일정 값 불러오기?
+    @GetMapping(value = "/schedule/scheatten/{scheCode}", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ScheduleAndClassAndUserAndPassDTO findScheAtten(@PathVariable int scheCode) {
 
+        ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findScheAtten(scheCode);
+        System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);
+
+        return scheduleAndClassAndUserAndPassDTO;
+    }
 
 
 

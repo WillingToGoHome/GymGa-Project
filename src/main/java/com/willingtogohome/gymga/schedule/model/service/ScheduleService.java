@@ -73,4 +73,8 @@ public class ScheduleService {
         scheduleMapper.updateCancel(scheCode);
     }
 
+
+    public ScheduleAndClassAndUserAndPassDTO findScheAtten(int scheCode) {
+        return scheduleMapper.findScheAtten(scheCode);
+    }
 }

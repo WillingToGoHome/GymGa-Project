@@ -187,47 +187,101 @@
         WHERE sche_code = #{scheCode};
     </update>
 
-    <!-- 출석 버튼 눌렀을 시 차감 -->
-    <update id="updateAtten" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+    <!-- 출석 눌렀을 때-->
+    <update id="updateAtten" parameterType="int">
         UPDATE scheduledb A
         INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
-           SET  A.SCHE_ATTEN = '출석',
-                E.PASS_TOTAL = E.PASS_TOTAL - 1,
-                E.PASS_USE = E.PASS_USE + 1
-        WHERE A.sche_code = #{scheCode};
+        SET E.PASS_TOTAL = CASE
+        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_TOTAL - 1
+        ELSE E.PASS_TOTAL
+        END,
+        E.PASS_USE = CASE
+        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_USE + 1
+        ELSE E.PASS_USE
+        END,
+        A.SCHE_ATTEN = CASE
+        WHEN A.SCHE_ATTEN = '예약' THEN '출석'
+        ELSE A.SCHE_ATTEN
+        END
+        WHERE A.sche_code = #{scheCode} AND A.SCHE_ATTEN = '예약';
     </update>
 
-    <!-- 결석 버튼 눌렀을 시 차감 -->
-    <update id="updateAbsent" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
+    <!-- 결석 눌렀을 때-->
+    <update id="updateAbsent" parameterType="int">
         UPDATE scheduledb A
         INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
-        SET  A.SCHE_ATTEN = '결석',
-        E.PASS_TOTAL = E.PASS_TOTAL - 1,
-        E.PASS_USE = E.PASS_USE + 1
-        WHERE A.sche_code = #{scheCode};
+        SET E.PASS_TOTAL = CASE
+        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_TOTAL - 1
+        ELSE E.PASS_TOTAL
+        END,
+        E.PASS_USE = CASE
+        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_USE + 1
+        ELSE E.PASS_USE
+        END,
+        A.SCHE_ATTEN = CASE
+        WHEN A.SCHE_ATTEN = '예약' THEN '결석'
+        ELSE A.SCHE_ATTEN
+        END
+        WHERE A.sche_code = #{scheCode} AND A.SCHE_ATTEN = '예약';
     </update>
 
     <!-- 취소 버튼 눌렀을 시 원래대로 돌아감 수정해야함 -->
+<!--    <update id="updateCancel1" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">-->
+<!--        UPDATE scheduledb A-->
+<!--        INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE-->
+<!--        SET-->
+<!--        E.PASS_TOTAL =-->
+<!--        CASE-->
+<!--        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_TOTAL + 1-->
+<!--        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_TOTAL + 1-->
+<!--        ELSE E.PASS_TOTAL + 1-->
+<!--        END,-->
+<!--        E.PASS_USE =-->
+<!--        CASE-->
+<!--        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_USE - 1-->
+<!--        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_USE - 1-->
+<!--        ELSE E.PASS_USE - 1-->
+<!--        END,-->
+<!--        A.SCHE_ATTEN =-->
+<!--        CASE-->
+<!--        WHEN A.SCHE_ATTEN = '출석' THEN '예약'-->
+<!--        WHEN A.SCHE_ATTEN = '결석' THEN '예약'-->
+<!--        ELSE A.SCHE_ATTEN-->
+<!--        END-->
+<!--        WHERE A.sche_code = #{scheCode};-->
+<!--    </update>-->
     <update id="updateCancel" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO">
         UPDATE scheduledb A
         INNER JOIN passdb AS E ON A.PASS_CODE = E.PASS_CODE
-           SET A.SCHE_ATTEN =
-          CASE
-            WHEN A.SCHE_ATTEN = '출석' THEN '예약'
-            ELSE A.SCHE_ATTEN
-          END,
-               E.PASS_TOTAL =
-          CASE
-            WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_TOTAL + 1
-            ELSE E.PASS_TOTAL + 1
-          END,
-               E.PASS_USE =
-          CASE
-            WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_USE - 1
-            ELSE E.PASS_USE -1
-          END
+        SET
+        E.PASS_TOTAL =
+        CASE
+        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_TOTAL + 1
+        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_TOTAL + 1
+        ELSE E.PASS_TOTAL + 1
+        END,
+        E.PASS_USE =
+        CASE
+        WHEN A.SCHE_ATTEN = '출석' THEN E.PASS_USE - 1
+        WHEN A.SCHE_ATTEN = '결석' THEN E.PASS_USE - 1
+        ELSE E.PASS_USE - 1
+        END,
+        A.SCHE_ATTEN =
+        CASE
+        WHEN A.SCHE_ATTEN IN ('출석', '결석') THEN '예약'
+        ELSE A.SCHE_ATTEN
+        END
         WHERE A.sche_code = #{scheCode};
     </update>
+
+    <select id="findScheAtten" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+               sche_code,
+               sche_atten
+          FROM scheduledb
+         WHERE sche_code = #{scheCode}
+    </select>
+
 
 
 </mapper>

@@ -61,8 +61,34 @@
 <button th:onclick="|location.href='/schedule/scheduleupdate/' + ${selectOneSchedule.scheCode}|">일정변경</button>
 <button id="attenBtn">출석</button>
 <button id="absentBtn">결석</button>
-<button th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>
+<!--<button th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>-->
+<button id="cancelBtn" th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>
 
+
+
+<script th:inline="javascript">
+    let scheCode = /*[[${selectOneSchedule.scheCode}]]*/ null;
+    let cancelBtn = document.getElementById("cancelBtn");
+
+    // fetch 요청 보내기
+    fetch(`/schedule/scheatten/${scheCode}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const scheAttenValue = data.scheAtten;
+            console.log(scheAttenValue);
+
+            if (scheAttenValue === "예약") {
+                console.log("작동하니?")
+                cancelBtn.disabled = true;
+                cancelBtn.classList.add("disabled");
+            } else {
+                cancelBtn.disabled = false;
+                cancelBtn.classList.remove("disabled");
+            }
+
+        });
+</script>
 <script>
     // 모달 요소 가져오기
     var attenModal = document.getElementById("attenModal");
@@ -108,6 +134,8 @@
         attenModal.style.display = "none";
         absentModal.style.display = "none";
     }
+
+
 </script>
 
 
