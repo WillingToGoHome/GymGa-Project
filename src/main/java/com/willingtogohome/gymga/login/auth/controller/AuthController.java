@@ -7,13 +7,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//@Controller
-//@RequestMapping("/auth")
+@Controller
+@RequestMapping("/auth")
 public class AuthController {
 
-//    @GetMapping("/login")
-//    public void login(){}
-//
+    @GetMapping("/login")
+    public void login(){}
+
 //    @GetMapping(value = "/auth/login")
 //    public ModelAndView authLogin(@ModelAttribute LoginDTO loginDTO){
 //        ModelAndView mv = new ModelAndView();
@@ -36,13 +36,13 @@ public class AuthController {
 //            return "redirect:/login/user/page"; // 사용자 페이지로 리다이렉트
 //        }
 //    }
-//
-//    @GetMapping("/fail")
-//    public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
-//
-//        mv.addObject("message", message);
-//        mv.setViewName("login/auth/fail");
-//
-//        return mv;
-//    }
+
+    @GetMapping("/fail")
+    public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
+
+        mv.addObject("message", message);
+        mv.setViewName("login/auth/fail");
+
+        return mv;
+    }
 }
