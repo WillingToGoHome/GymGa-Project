@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/selectAll")
     public String UserAllList(Model model) {
 
-        List<UserAndEmpDTO> userList = userService.AllUser();
+        List<UserAndEmpDTO> userList = userService.allUser();
 
         for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);

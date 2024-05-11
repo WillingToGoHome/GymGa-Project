@@ -2,10 +2,10 @@ package com.willingtogohome.gymga.user.model.dto;
 
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class PhysicalDTO {
 

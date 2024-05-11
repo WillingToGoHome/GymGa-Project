@@ -13,9 +13,9 @@ public class UserService {
     private final UserMapper userMapper;
     @Autowired
     public UserService(UserMapper userMapper) { this.userMapper = userMapper; }
-    public List<UserAndEmpDTO> AllUser() {
+    public List<UserAndEmpDTO> allUser() {
 
-        return userMapper.AllUser();
+        return userMapper.allUser();
     }
 
     @Transactional

@@ -3,10 +3,10 @@ package com.willingtogohome.gymga.user.model.dto;
 import lombok.*;
 
 import java.sql.Date;
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class UserTotDTO {
 
