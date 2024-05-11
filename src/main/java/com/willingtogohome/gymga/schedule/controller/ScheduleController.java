@@ -106,7 +106,7 @@ public class ScheduleController {
 
         redirectAttributes.addFlashAttribute("successMessage", "일정 변경 성공");
 
-        return "redirect:/schedule/schedulelist";
+        return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
     // 출결변경(출석버튼)
@@ -130,7 +130,7 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
-    // 하나의 일정 값 불러오기?
+    // Sche_atten 값 찾기(출결상태 수정)
     @GetMapping(value = "/schedule/scheatten/{scheCode}", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ScheduleAndClassAndUserAndPassDTO findScheAtten(@PathVariable int scheCode) {
