@@ -29,20 +29,19 @@ public class EmpController {
         this.empService = empService;
     }
 
-    @GetMapping(value={"/", "/main"})
+    @GetMapping(value = {"/", "/main"})
     public String empMain(HttpSession session, Model model) {
 
         System.out.println("get : /emp/ or /emp/main");
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        for (EmpDTO emp: empList) {
-            String root = "src/main/resources/static";
-            File file = new File(root + emp.getPic());
+        for (EmpDTO emp : empList) {
 
-            if (!file.exists()) {
-                String path = emp.getPic();
-                String temp = (String) session.getAttribute(path);
+            String path = emp.getPic();
+            String temp = (String) session.getAttribute(path);
+
+            if (temp != null) {
                 emp.setPic(temp);
             }
         }
