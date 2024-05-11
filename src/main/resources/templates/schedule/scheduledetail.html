@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detail</title>
+    <Link rel="stylesheet" href="/styles/schedule/modalStyle.css">
 </head>
 <body>
 <table align="center", border="1">
@@ -35,11 +36,79 @@
         <td th:text="${selectOneSchedule.passUseCategory != null ? selectOneSchedule.passUseCategory.passUse : ''}"></td>
     </tr>
 </table>
+<input type="hidden" id="scheCode" data-sche-code="${selectOneSchedule.scheCode}">
+
+<!--출석 모달-->
+<div id="attenModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>출석 처리 하시겠습니까?</p>
+        <button th:onclick="|location.href='/schedule/attenupdate/' + ${selectOneSchedule.scheCode}|">확인</button>
+        <button class="close">취소</button>
+    </div>
+</div>
+<!--결석 모달-->
+<div id="absentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>결석 처리 하시겠습니까?</p>
+        <button th:onclick="|location.href='/schedule/absentupdate/' + ${selectOneSchedule.scheCode}|">결석</button>
+        <button class="close">취소</button>
+    </div>
+</div>
+
 <button onclick="location.href='/schedule/schedulelist'">변경(목록으로)</button>
 <button th:onclick="|location.href='/schedule/scheduleupdate/' + ${selectOneSchedule.scheCode}|">일정변경</button>
-<button th:onclick="|location.href='/schedule/attenupdate/' + ${selectOneSchedule.scheCode}|">출석</button>
-<button th:onclick="|location.href='/schedule/absentupdate/' + ${selectOneSchedule.scheCode}|">결석</button>
+<button id="attenBtn">출석</button>
+<button id="absentBtn">결석</button>
 <button th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>
+
+<script>
+    // 모달 요소 가져오기
+    var attenModal = document.getElementById("attenModal");
+    var absentModal = document.getElementById("absentModal");
+
+    // 출석 버튼 가져오기
+    var attenBtn = document.getElementById("attenBtn");
+    // 결석 버튼 가져오기
+    var absentBtn = document.getElementById("absentBtn");
+    // 모달 닫기 버튼 가져오기
+    var closeBtns = document.getElementsByClassName("close");
+    // 확인 버튼 가져오기
+    var confirmBtn = document.getElementById("confirmBtn");
+
+    // 출석 버튼 클릭 시 모달 열기
+    attenBtn.onclick = function() {
+        attenModal.style.display = "block";
+    }
+
+    // 결석 버튼 클릭 시 모달 열기
+    absentBtn.onclick = function () {
+        absentModal.style.display ="block";
+    }
+
+    // 모달 닫기 버튼에 이벤트 추가
+    for (var i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+        }
+    }
+    // 사용자가 모달 외부를 클릭할 경우 모달 닫기
+    window.onclick = function(event) {
+        console.log("외부클릭 이벤트 발생함", event.target)
+        if (event.target == attenModal || event.target == absentModal) {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+        }
+    }
+
+    // 확인 버튼 클릭 시 출석 처리
+    confirmBtn.onclick = function() {
+        attenModal.style.display = "none";
+        absentModal.style.display = "none";
+    }
+</script>
 
 
 </body>

@@ -45,7 +45,6 @@
         ORDER BY sche_code
     </select>
 
-
     <select id="findAllTeacher" resultMap="empResultMap">
         SELECT
                user_code,

@@ -29,4 +29,5 @@ public interface ScheduleMapper {
     void updateAbsent(int scheCode);
 
     void updateCancel(int scheCode);
+
 }

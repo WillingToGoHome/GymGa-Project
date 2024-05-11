@@ -72,4 +72,5 @@ public class ScheduleService {
     public void updateCancel(int scheCode) {
         scheduleMapper.updateCancel(scheCode);
     }
+
 }
