@@ -1,3 +1,7 @@
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 span {
     /*color: rgba(171, 171, 171, 1);*/
     font-size: 16px;
@@ -119,7 +123,16 @@ input[type='checkbox']:checked::after {
     font-weight: bold;
 }
 
+.searchBox {
+    margin-top: 15px;
+    margin-right: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
+
 .line {
+    clear: left;
     align-content: center;
     background-color: rgba(217, 217, 217, 1);
 }
@@ -206,6 +219,15 @@ input[type='checkbox']:checked::after {
     font-weight: bold;
 }
 
+.hiddenInputBox {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
 .left {
     line-height: 42px;
     margin-right: 20px;
@@ -229,7 +251,6 @@ input[type='checkbox']:checked::after {
     border-radius: 10px;
     font-size: 24px;
     font-weight: bold;
-    margin-left: 120px;
 }
 
 .sideBox {
@@ -264,4 +285,47 @@ input[type='checkbox']:checked::after {
 .agreement::-webkit-scrollbar-track {
     background: rgba(205, 205, 205, 0.25);
     border-radius: 10px;
+}
+
+.sideEmpList {
+    width: 410px;
+    margin: auto
+}
+
+.sideEmpBlock {
+    width: 410px;
+    height: 70px;
+    float: left;
+    margin: 15px 0;
+}
+
+.empBlockLeft {
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin-right: 20px
+}
+
+.empImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+}
+
+.empBlockRight {
+    height: 60px;
+    float: left;
+    padding-top: 10px;
+}
+
+.empName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -4px;
+}
+
+.empRole {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(171, 171, 171, 1);
 }
