@@ -8,11 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -105,7 +108,30 @@ public class UserController {
 
     @PostMapping("/regist")
     public String registUser(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String userAddress1, @RequestParam String userAddress2) {
+                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam MultipartFile picFile) {
+
+        if (!picFile.isEmpty()) {
+            String root = "src/main/resources/static";
+            String filePath = root + "/uploadFiles";
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originFileName = picFile.getOriginalFilename();
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            String savedName = UUID.randomUUID() + ext;
+
+            try {
+                picFile.transferTo(new File(filePath + "/" + savedName));
+                newUser.setUserPic("/uploadFiles/" + savedName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            newUser.setUserPic("/uploadFiles/default-user.png");
+        }
 
         int code = userService.findLastCode();
 
