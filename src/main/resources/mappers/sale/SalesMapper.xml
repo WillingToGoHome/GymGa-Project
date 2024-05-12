@@ -11,15 +11,21 @@
         <result property="salesDate" column="sales_date"/>
     </resultMap>
 
-<resultMap id="passResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO">
-    <id property="passCode" column="pass_code"/>
-    <result property="pqCode" column="pq_code"/>
-    <result property="passStatus" column="pass_status"/>
-    <result property="passStart" column="pass_start"/>
-    <result property="passEnd" column="pass_end"/>
-    <result property="passTotal" column="pass_total"/>
-    <result property="passUse" column="pass_use"/>
-    <result property="userCode" column="user_code"/>
+    <resultMap id="passMonthResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassMonthDTO">
+        <id property="month" column="month"/>
+        <result property="total" column="total"/>
+    </resultMap>
+
+
+    <resultMap id="passResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO">
+        <id property="passCode" column="pass_code"/>
+        <result property="pqCode" column="pq_code"/>
+        <result property="passStatus" column="pass_status"/>
+        <result property="passStart" column="pass_start"/>
+        <result property="passEnd" column="pass_end"/>
+        <result property="passTotal" column="pass_total"/>
+        <result property="passUse" column="pass_use"/>
+        <result property="userCode" column="user_code"/>
     <association property="passQualDTO" javaType="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
         <id property="pqCode" column="pq_code"/>
         <result property="pqName" column="pq_name"/>
@@ -49,17 +55,8 @@
         <result property="salesMethod" column="sales_method"/>
         <result property="salesDate" column="sales_date"/>
     </association>
-
-</resultMap>
-
-    <resultMap id="passDataResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassData">
-        <id property="ptCount" column="PT_Count"/>
-        <result property="gxCount" column="GX_Count"/>
-        <result property="gpCount" column="GP_Count"/>
     </resultMap>
-
-
-    <resultMap id="empAndUserResultMap" type="com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO">
+<resultMap id="empAndUserResultMap" type="com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO">
         <id property="total1" column="total1"/>
         <association property="userDTO" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
             <id property="userCode" column="user_code"/>
@@ -100,7 +97,7 @@
             <result property="passUse" column="pass_use"/>
             <result property="userCode" column="user_code"/>
         </association>
-    </resultMap>
+</resultMap>
 
 
 
@@ -123,6 +120,7 @@
                 A.pass_total,
                 A.pass_use,
                 A.user_code,
+                D.user_pic,
                 B.pq_price,
                 D.user_name,
                 E.sales_method,
@@ -135,15 +133,17 @@
             order by A.pass_start desc , E.sales_date desc;
     </select>
 
-    <select id="sumPassData" resultMap="passDataResultMap">
+    <select id="getData" resultMap="passResultMap">
         SELECT
-                PT_Count,
-                GX_Count,
-                GP_Count
-        FROM passdata
+            SUM(CASE WHEN pq_code LIKE 'PT%' THEN 1 ELSE 0 END) as ptCount,
+            SUM(CASE WHEN pq_code LIKE 'GX%' THEN 1 ELSE 0 END) as gxCount,
+            SUM(CASE WHEN pq_code LIKE 'GP%' THEN 1 ELSE 0 END) as gpCount
+        FROM passdb;
     </select>
+
     <select id="empAndUser" resultMap="empAndUserResultMap">
         SELECT
+        A.user_pic,
         A.user_name,
         SUM(CASE WHEN A.user_code = 1 or A.user_code = 2 or A.user_code = 3 or A.user_code = 4 THEN D.pq_price ELSE 0 END) AS total1
         from userdb A
@@ -152,6 +152,30 @@
         left join passqualdb D on C.pq_code=D.pq_code
         GROUP BY A.user_code
         order by A.user_name;
+    </select>
+
+    <select id="getPassDataForPieChart" resultMap="passMonthResultMap">
+        SELECT
+                month.month,
+                COALESCE(SUM(B.pq_price), 0) AS total
+            FROM (
+                SELECT '01' AS month
+                UNION SELECT '02'
+                UNION SELECT '03'
+                UNION SELECT '04'
+                UNION SELECT '05'
+                UNION SELECT '06'
+                UNION SELECT '07'
+                UNION SELECT '08'
+                UNION SELECT '09'
+                UNION SELECT '10'
+                UNION SELECT '11'
+                UNION SELECT '12'
+                ) AS month
+        LEFT JOIN passdb A ON SUBSTRING(A.pass_start, 6, 2) = month.month
+        LEFT JOIN passqualdb B ON A.pq_code = B.pq_code
+        GROUP BY month.month
+        ORDER BY month.month;
     </select>
 
 

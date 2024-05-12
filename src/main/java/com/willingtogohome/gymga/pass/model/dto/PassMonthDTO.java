@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.pass.model.dto;
 
+
 import lombok.*;
 
 @NoArgsConstructor
@@ -7,9 +8,8 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class PassData {
+public class PassMonthDTO {
 
-    private int ptCount;
-    private int gxCount;
-    private int gpCount;
+    private String month;
+    private double total;
 }
