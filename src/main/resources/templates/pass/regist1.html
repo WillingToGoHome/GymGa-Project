@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <img src="/pass/images/icon-back.png" onclick="location.href='/pass/main/'">
+    </div>
+    <span>이용권 정보 등록</span>
+    <hr>
+    <form action="/pass/regist2" method="post">
+        <div onchange="typeChange()">
+            <span>· 구분</span>
+            <input type="radio" id="pt" name="type">
+            <label for="pt">PT 이용권</label>
+            <input type="radio" id="gx" name="type">
+            <label for="gx">GX 이용권</label>
+            <input type="radio" id="gp" name="type">
+            <label for="gp">일반 회원권</label>
+        </div>
+
+        <div>
+            <span>· 기간</span>
+            <span>시작</span>
+            <input type="date" id="start" name="start" onchange="startChange()">
+            <span>만료</span>
+            <input type="date" id="finish" disabled>
+        </div>
+
+        <div>
+            <span id="optionPre">· 선택</span>
+            <select id="number" name="number" onchange="numberChange()">
+                <option selected disabled>선택</option>
+                <option id="option1" value="1"></option>
+                <option id="option2" value="2"></option>
+                <option id="option3" value="3"></option>
+            </select>
+            <span id="optionSuf"></span>
+        </div>
+
+        <div>
+            <span>· 계약일</span>
+            <input type="date" id="date" name="date">
+        </div>
+
+        <div>
+            <span>· 직원</span>
+            <select name="empCode" id="empCode">
+                <option selected disabled>선택</option>
+            </select>
+        </div>
+
+        <div>
+            <span>· 금액</span>
+            <span id="charged"></span>
+            <span id="info"></span>
+        </div>
+
+        <div>
+            <input type="hidden" id="pqCode" name="pqCode">
+        </div>
+
+        <button type="button" onclick="location.href='/pass/main'">취소</button>
+        <button type="submit">다음</button>
+    </form>
+
+    <script>
+        let pt = document.getElementById("pt");
+        let gx = document.getElementById("gx");
+        let gp = document.getElementById("gp");
+        let date = new Date();
+
+        let today = date.getFullYear() + '-' + (date.getMonth() + 1 < 10? '0' + (date.getMonth() + 1) : date.getMonth()) + '-' + (date.getDate() < 10? '0' + date.getDate() : date.getDate());
+        document.getElementById("start").defaultValue = today;
+        document.getElementById("date").defaultValue = today;
+
+        function typeChange() {
+
+            if (pt.checked || gx.checked) {
+                document.getElementById("optionPre").innerHTML = '· 횟수';
+                document.getElementById("option1").innerHTML = '10';
+                document.getElementById("option2").innerHTML = '20';
+                document.getElementById("option3").innerHTML = '30';
+                document.getElementById("optionSuf").innerHTML = '회';
+            } else if (gp.checked) {
+                document.getElementById("optionPre").innerHTML = '· 기간';
+                document.getElementById("option1").innerHTML = '3';
+                document.getElementById("option2").innerHTML = '6';
+                document.getElementById("option3").innerHTML = '12';
+                document.getElementById("optionSuf").innerHTML = '개월';
+            }
+
+            let start = document.getElementById("start").value;
+            var selectedDate = new Date(start);
+
+            if (pt.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '500,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '900,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '1,300,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M3-U30';
+                }
+            } else if (gx.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '100,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '190,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '250,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M3-U30';
+                }
+            } else if (gp.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '200,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M3';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 6);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '390,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M6';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 12);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '700,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M12';
+                }
+            }
+        }
+
+        function startChange() {
+
+            let start = document.getElementById("start").value;
+            var selectedDate = new Date(start);
+
+            if (pt.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '500,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '900,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '1,300,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M3-U30';
+                }
+            } else if (gx.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '100,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '190,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '250,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M3-U30';
+                }
+            } else if (gp.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '200,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M3';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 6);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '390,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M6';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 12);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '700,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M12';
+                }
+            }
+        }
+
+        function numberChange() {
+
+            let start = document.getElementById("start").value;
+            var selectedDate = new Date(start);
+
+            if (pt.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '500,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '900,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '1,300,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 PT 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'PT-M3-U30';
+                }
+            } else if (gx.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 1);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '100,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M1-U10';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 2);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '190,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M2-U20';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '250,000 원';
+                    document.getElementById("info").innerHTML = '본 금액은 GX 이용권에 포함되어있습니다.';
+                    document.getElementById("pqCode").value = 'GX-M3-U30';
+                }
+            } else if (gp.checked) {
+                if (document.getElementById("option1").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 3);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '200,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M3';
+                } else if (document.getElementById("option2").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 6);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '390,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M6';
+                } else if (document.getElementById("option3").selected) {
+                    var finish = new Date(selectedDate);
+                    finish.setMonth(selectedDate.getMonth() + 12);
+                    let finishDate = finish.getFullYear() + '-' + (finish.getMonth() + 1 < 10? '0' + (finish.getMonth() + 1) : finish.getMonth()) + '-' + (finish.getDate() < 10? '0' + finish.getDate() : finish.getDate());
+                    document.getElementById("finish").value = finishDate;
+                    document.getElementById("charged").innerHTML = '700,000 원';
+                    document.getElementById("info").innerHTML = '';
+                    document.getElementById("pqCode").value = 'GP-M12';
+                }
+            }
+        }
+
+        fetch("/pass/empList")
+            .then(res => res.json())
+            .then(data => {
+                const $empCode = document.getElementById("empCode");
+
+                for (let index in data) {
+                    const $option = document.createElement('option');
+                    $option.value = data[index].userCode;
+                    $option.text = data[index].userName;
+
+                    $empCode.appendChild($option);
+                }
+            })
+    </script>
+</body>
+</html>
