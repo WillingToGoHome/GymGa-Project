@@ -35,7 +35,6 @@
         FROM SCHEDULEDB A
         JOIN CLASSDB B ON A.CLASS_CODE = B.CLASS_CODE
         JOIN USERDB C ON A.EMP_CODE = C.USER_CODE
-<!--        WHERE SCHE_RUN_DATE = CURDATE()-->
         <if test="text == '8:00am'">
             WHERE A.SCHE_START_TIME BETWEEN '08:00:00' AND '10:00:00'
         </if>
@@ -54,6 +53,7 @@
         <if test="text == '18:00pm'">
             WHERE A.SCHE_START_TIME >= '18:00:00'
         </if>
+<!--        AND SCHE_RUN_DATE = CURDATE()-->
         ORDER BY A.SCHE_START_TIME AND C.USER_NAME
     </select>
 </mapper>

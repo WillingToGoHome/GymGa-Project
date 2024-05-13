@@ -65,4 +65,9 @@ public class EmpService {
         empMapper.updatePhysical(physicalDTO);
         empMapper.updateEmployee(employeeDTO);
     }
+
+    public List<EmpDTO> selectAllUserID() {
+
+        return empMapper.selectAllUserID();
+    }
 }

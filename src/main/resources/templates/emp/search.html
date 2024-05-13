@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>직원 조회</title>
-    <link rel="stylesheet" href="/emp/styles/searchStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
 </head>
 <body>
     <div class="outerDiv">
         <div class="mainBox">
             <div>
-                <img class="back" onClick="location.href='/emp/'" src="/uploadFiles/icon-back.png">
+                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
                 <div class="main">
-                    <span class="topic">직원 조회</span>
+                    <span class="titleText">직원 조회</span>
                 </div>
                 <div class="searchBox">
                     <form action="/emp/result" method="get">
-                        <input type="search" name="search" placeholder="검색 내용">
-                        <select name="category">
+                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
                             <option value="name">강사명</option>
                         </select>
-                        <button type="submit">검색</button>
+                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
                     </form>
                 </div>
-                <hr class="line1">
+                <hr class="line" style="width: 950px">
             </div>
-            <div class="searchResult">
-                <div style="height: 220px"></div>
-                <img src="/uploadFiles/list-is-empty.png"><br>
-                <span style="font-size: 24px; font-weight: bold">이름으로 검색해주세요</span>
+            <div style="text-align: center">
+                <div style="padding-top: 220px">
+                    <img src="/emp/images/list-is-empty.png"><br>
+                    <span style="font-size: 24px; font-weight: bold">이름으로 검색해주세요</span>
+                </div>
             </div>
         </div>
         <div class="sideBox">
             <div>
-                <div class="main" style="margin-bottom: 24px">
-                    <span class="topic" style="margin-left: 40px">직원 리스트</span>
+                <div class="main" style="margin-bottom: 20px">
+                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
                 </div>
-                <hr class="line2">
+                <hr class="line" style="width: 410px">
             </div>
-            <div class="empList">
-                <div class="empBlock" th:each="emp : ${ empList }">
+            <div class="sideEmpList">
+                <div class="sideEmpBlock" th:each="emp : ${ empList }">
                     <div class="empBlockLeft">
                         <img class="empImg" th:src="${ emp.pic }">
                     </div>

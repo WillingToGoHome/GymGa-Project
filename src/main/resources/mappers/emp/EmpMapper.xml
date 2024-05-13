@@ -265,4 +265,10 @@
         DELETE FROM EMPLOYEEDB
         WHERE USER_CODE = #{ code }
     </delete>
+
+    <select id="selectAllUserID" resultMap="empResultMap">
+        SELECT
+            USER_ID
+        FROM USERDB
+    </select>
 </mapper>
