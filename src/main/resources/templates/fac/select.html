@@ -35,10 +35,6 @@
             display: block;
         }
 
-        .facCodeLink {
-            cursor: pointer; /* 클릭 커서로 변경 */
-        }
-
         /*.ul2 {*/
         /*    width: 250px;*/
         /*    height: 250px;*/
@@ -49,7 +45,10 @@
         /*    position: relative;*/
         /*}*/
 
-        ul {
+        .facCodeLink {
+            list-style: none; /* 목록 기호 제거 */
+            display: flex; /* 요소들을 가로로 배치합니다 */
+            justify-content: space-between; /* 요소들 사이에 여백을 넣어 가로로 고르게 배치합니다 */
             width: 200px;
             height: 200px;
             background-color:#8DD0F6;
@@ -57,24 +56,30 @@
             border-radius: 25px/50px;
             padding-left: 15px;
             position: relative;
-
-        }
-
-
-        /* Optional: Add additional styles for the text */
-        li {
-            font-size: 16px;
+            font-size:24px;
             font-weight: bold;
-            align-items: center;
-            display: flex;
-            padding-top: 10px;
-            justify-content: left; /* 텍스트를 왼쪽 중앙에 위치시킵니다. */
+        }
+
+        .label {
+            font-size: 24px;
+            margin-bottom: 250px;
+            margin-left: 150px;
+            position: relative;
+            list-style: none;
+            font-weight: bold;
 
         }
 
 
 
 
+        .userCode,
+        .facStart,
+        .facEnd {
+            margin-left: 7px;
+            list-style: none;
+            font-size:16px;
+        }
     </style>
 </head>
 <body>
@@ -235,73 +240,54 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!--<div th:each="facs: ${facList}">-->
-<!--    <ul th:text="${facs.facCode}" style="font-size:24px;" href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal"></ul>-->
-<!--</div>-->
-
-<!--<div th:each="facs: ${facList}" class="ul2">-->
-<!--    <li>-->
-<!--        <span class="label" th:text="${facs.facStatus}" style="position: absolute; margin-left: 7px; margin-top: 20px; margin-right: 20px; top: 0;-->
-<!--    right: 0; font-size:24px;"  ></span>-->
-<!--    </li>-->
-<!--    <li>-->
-<!--        <span>회원 번호:</span>-->
-<!--        <span class="userCode" th:text="${facs.userCode}" style="margin-left: 7px;"></span>-->
-<!--    </li>-->
-<!--    <li>-->
-<!--        <span>시작 기간:</span>-->
-<!--        <span th:text="${facs.facStart}" style="margin-left: 7px;"></span>-->
-<!--    </li>-->
-<!--    <li>-->
-<!--        <span>만료 기간:</span>-->
-<!--        <span th:text="${facs.facEnd}" style="margin-left: 7px;"></span>-->
-<!--    </li>-->
-<!--    </div>-->
-
-<!--<div th:each="facs: ${facList}">-->
-<!--    <a>-->
-<!--    <span class="label" th:text="${facs.facStatus}" style="position: absolute; margin-left: 7px; margin-top: 20px; margin-right: 20px; top: 0; right: 0; font-size:24px;"></span>-->
-<!--</a>-->
-<!--    <a>-->
-<!--        <span>회원 번호:</span>-->
-<!--        <span class="userCode" th:text="${facs.userCode}" style="margin-left: 7px;"></span>-->
-<!--    </a>-->
-<!--    <a>-->
-<!--        <span>시작 기간:</span>-->
-<!--        <span th:text="${facs.facStart}" style="margin-left: 7px;"></span>-->
-<!--    </a>-->
-<!--    <a>-->
-<!--        <span>만료 기간:</span>-->
-<!--        <span th:text="${facs.facEnd}" style="margin-left: 7px;"></span>-->
-<!--    </a>-->
-
-<!--    <ul style="font-size:24px; cursor: pointer;" href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal" th:text="${facs.facCode}"></ul>-->
-<!--</div>-->
-
-<div th:fragment="select">
+<div>
     <ul th:each="facs: ${facList}">
-        <li>
-            <span th:text="${facs.facCode}" style="font-size:24px;" href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal"></span>
-        </li>
-        <li>
-            <span class="label" th:text="${facs.facStatus}" style="position: absolute; margin-left: 7px; margin-top: 20px; margin-right: 20px; top: 0;
-    right: 0; font-size:24px;"  ></span>
-        </li>
-        <li >
+        <li th:text="${facs.facCode}" style="font-size:24px;" class="facCodeLink" data-toggle="modal" data-target="#facActionModal"></li>
+        <li class="label" th:text="${facs.facStatus}">
+        <li class="userCode">
             <span>회원 번호:</span>
-            <span class="userCode" th:text="${facs.userCode}" style="margin-left: 7px;"></span>
+            <span class="userCode" th:text="${facs.userCode}"></span>
         </li>
-        <li>
+        <li class="facStart">
             <span>시작 기간:</span>
-            <span th:text="${facs.facStart}" style="margin-left: 7px;"></span>
+            <span th:text="${facs.facStart}"></span>
         </li>
-        <li>
-            <a >만료 기간:</a>
-            <a th:text="${facs.facEnd}" style="margin-left: 7px;"></a>
+        <li class="facEnd">
+            <span>만료 기간:</span>
+            <span th:text="${facs.facEnd}"></span>
         </li>
     </ul>
 </div>
 
+
+
+
+
+<!--<div th:fragment="select" class="facList">-->
+<!--    <ul th:each="facs: ${facList}" >-->
+<!--        <li th:text="${facs.facCode}" style="font-size:24px;" href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal">-->
+<!--        </li>-->
+<!--        <li class="label" th:text="${facs.facStatus}" style="position: absolute; margin-left: 7px; margin-top: 20px; margin-right: 20px; top: 0;-->
+<!--        right: 0; font-size:24px;">-->
+<!--        </li>-->
+<!--        <li style="margin-left: 7px;">-->
+<!--        </li>-->
+<!--        <li th:text="${facs.facStart}" style="margin-left: 7px;">-->
+<!--        </li>-->
+<!--        <li th:text="${facs.facEnd}" style="margin-left: 7px;">-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    <ul th:each="facs: ${facList}" style="font-size:24px;" class="facCodeLink">-->
+<!--        <li th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></li>-->
+<!--        <li th:text="${facs.facStatus}"></li>-->
+<!--        <li><span>회원 번호:</span><span class="userCode" th:text="${facs.userCode}"></span></li>-->
+<!--        <li><span>시작 기간:</span><span th:text="${facs.facStart}"></span></li>-->
+<!--        <li><span>만료 기간:</span><span th:text="${facs.facEnd}"></span></li>-->
+<!--    </ul>-->
+<!--</div>-->
 
 
 
@@ -410,8 +396,8 @@
         $('.facCodeLink').click(function() {
             // 클릭한 번호 가져오기
             var facCode = $(this).text(); // 링크의 텍스트를 가져옴
-            var $tr = $(this).closest('tr');
-            var userCode = $tr.find('.userCode').text();
+            var $ul = $(this).closest('ul');
+            var userCode = $ul.find('.userCode').text();
 
             // data-faccode 속성에 번호 설정
             $('#facActionModal').attr('data-facCode', facCode);
