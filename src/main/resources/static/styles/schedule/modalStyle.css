@@ -2,30 +2,75 @@
     display: none;
     position: fixed;
     z-index: 1;
-    left: 0;
-    top: 0;
+    left: 428px;
+    top: 172px;
     width: 1147px;
     height: 637px;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
+    width: 450px;
+    height: 225px;
     background-color: #fefefe;
-    /*margin: 15% auto;*/
-    /*padding: 20px;*/
-    /*border: 1px solid #888;*/
-    width: 600px;
-    height: 300px;
-    border-radius: 15px;
-    margin: 12.5% auto;
+    margin: 17.5% auto;
+    border-radius: 7.5px;
+    border: none;
+}
+
+
+
+.modal-content-text {
+    height: 113px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-content-text .text-1 {
+    margin-top: 30px;
+    line-height: 40px;
+}
+
+.modal-content-text .text-2 {
+    font-size: 11.25px;
+    color: #656565;
+}
+
+/*.modal-content-button {*/
+/*    height: 112px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+.modal-content p {
+    color: #000000;
+    font-size: 18.75px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.modal-content button {
+    width: 187.5px;
+    height: 60px;
+    border: none;
+    font-size: 18.75px;
+    font-weight: bold;
+    border-radius: 7.5px;
+}
+
+.confirm {
+    background-color: #4B82D8;
+    color: #FFFFFF;
+    margin-left: 23px;
 }
 
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    background-color: #F0F0F0;
+    color: #000000;
+    margin-left: 27px;
 }
 
 .close:hover,
@@ -33,4 +78,117 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.updatePt-modal-content {
+    width: 405px;
+    height: 525px;
+    background-color: #ffffff;
+    margin: 4.5% auto;
+    border-radius: 7.5px;
+    border: none;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.updatePt-modal-header {
+    height: 60px;
+    border-bottom: 1.5px solid #D9D9D9;
+    display: flex;
+    align-items: center;
+}
+
+.updatePt-modal-content #changeBack {
+    margin-left: 15px;
+    margin-right: 15px;
+    border: none;
+    background-color: #ffffff;
+    width: 60px;
+    height: 55px;
+    cursor: pointer;
+    position: static;
+}
+
+#changeBack img {
+    width: 60px;
+    height: 60px;
+}
+
+.updatePt-modal-header p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.pt-or-gx {
+    height: 67px;
+    display: flex;
+    align-items: center;
+    margin-left: 45px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.updatePt-modal-content form {
+    margin-left: 45px;
+}
+
+.updatePt-modal-content label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.updatePt-modal-content input, select {
+    /*margin-left: 45px;*/
+    width: 135px;
+    height: 37.5px;
+    border-radius: 7.5px;
+    border: 0.75px solid #656565;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.endtime {
+    margin-left: 0;
+}
+
+.time-choice {
+    display: flex;
+    align-items: center;
+}
+
+.time-choice p {
+    font-size: 15px;
+    margin-left: 19px;
+    margin-right: 19px;
+}
+
+.updatePt-modal-content button {
+    width: 127.5px;
+    height: 45px;
+    border-radius: 7.5px;
+    font-weight: bold;
+}
+
+.updatePt-modal-content .check {
+    position: absolute;
+    top: 458px;
+    left: 217px;
+    background-color: #4B82D8;
+    color: #FFFFFF;
+    border:none;
+}
+
+.updatePt-modal-content .close {
+    position: absolute;
+    top: 458px;
+    left: 30px;
+    border: 0.75px solid #4B82D8;
+    color: #4B82D8;
+    background-color: #FFFFFF;
 }

@@ -1,10 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Detail</title>
+    <Link rel="stylesheet" href="/styles/schedule/modalStyle.css">
 </head>
 <body>
+<table align="center", border="1">
+    <tr>
+        <th>SCHE_CODE</th>
+        <th>CLASS_NAME</th>
+        <th>SCHE_REG_DATE</th>
+        <th>SCHE_RUN_DATE</th>
+        <th>SCHE_START_TIME</th>
+        <th>SCHE_END_TIME</th>
+        <th>SCHE_PARTICIPATE</th>
+        <th>SCHE_ATTEN</th>
+        <th>EMP_NAME</th>
+        <th>MEMBER_NAME</th>
+        <th>연락처</th>
+        <th>이용권명</th>
+        <th>PASS_TOTAL</th>
+        <th>PASS_USE</th>
+    </tr>
+    <tr>
+        <td th:text="${selectOneSchedule.scheCode}">
+        <td th:text="${selectOneSchedule.classCategory.className}"></td>
+        <td th:text="${selectOneSchedule.scheRegDate}"></td>
+        <td th:text="${selectOneSchedule.scheRunDate}"></td>
+        <td th:text="${selectOneSchedule.scheStartTime}"></td>
+        <td th:text="${selectOneSchedule.scheEndTime}"></td>
+        <td th:text="${selectOneSchedule.scheParticipate}"></td>
+        <td th:text="${selectOneSchedule.scheAtten}"></td>
+        <td th:text="${selectOneSchedule.empCategory.empName}"></td>
+        <td th:text="${selectOneSchedule.userCategory.memberName}"></td>
+        <td th:text="${selectOneSchedule.userCategory.memberPhone}"></td>
+        <td th:text="${selectOneSchedule.passqualCategory != null ? selectOneSchedule.passqualCategory.pqName : ''}"></td>
+        <td th:text="${selectOneSchedule.passTotalCategory != null ? selectOneSchedule.passTotalCategory.passTotal : ''}"></td>
+        <td th:text="${selectOneSchedule.passUseCategory != null ? selectOneSchedule.passUseCategory.passUse : ''}"></td>
+    </tr>
+</table>
+<input type="hidden" id="scheCode" data-sche-code="${selectOneSchedule.scheCode}">
+
+<!--출석 모달-->
+<div id="attenModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>출석 처리 하시겠습니까?</p>
+        <button th:onclick="|location.href='/schedule/attenupdate/' + ${selectOneSchedule.scheCode}|">확인</button>
+        <button class="close">취소</button>
+    </div>
+</div>
+<!--결석 모달-->
+<div id="absentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>결석 처리 하시겠습니까?</p>
+        <button th:onclick="|location.href='/schedule/absentupdate/' + ${selectOneSchedule.scheCode}|">확인</button>
+        <button class="close">취소</button>
+    </div>
+</div>
+<!--취소 모달-->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>취소 처리 하시겠습니까?</p>
+        <button th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">확인</button>
+        <button class="close">취소</button>
+    </div>
+</div>
+
+<!--일정변경 모달-->
+<div id="updateScheduleModal" class="modal">
+    <div class="modal-content">
+        <h2>일정 변경</h2>
+        <form th:action="@{|/schedule/scheduleupdate/${selectOneSchedule.scheCode}|}" method="post">
+            <input type="hidden" name="scheCode" th:value="${selectOneSchedule.scheCode}">
+            <label>담당 강사 선택</label><br>
+            <select name="empCode" id="empSelectCode"></select><br>
+            <label>일자 선택</label><br>
+            <input type="date" name="scheRunDate" th:value="${selectOneSchedule.scheRunDate}"><br>
+            <label>시간 선택</label><br>
+            <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}"> ~ <input type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
+            <button type="submit">확인</button>
+        </form>
+        <button onclick="goBack()">취소</button>
+
+        <!-- 뒤로가기 스크립트 -->
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+        <!-- 강사선택 스크립트 -->
+        <script>
+            fetch("/schedule/teacher")
+                .then(res =>res.json())
+                .then(data => {
+                    const $empCode = document.getElementById("empSelectCode");
+
+                    for(let index in data) {
+                        const $option = document.createElement('option');
+                        $option.value = data[index].empCode;
+                        $option.text = data[index].empName;
+
+                        $empCode.appendChild($option);
+                        document.getElementById("empSelectCode").value = data[index].empCode;
+                    }
+                })
+        </script>
+        <button class="close">취소</button>
+    </div>
+</div>
+
+
+<button onclick="location.href='/schedule/schedulelist'">변경(목록으로)</button>
+<!--<button id="scheduleUpdateBtn" th:onclick="|location.href='/schedule/scheduleupdate/' + ${selectOneSchedule.scheCode}|">일정변경</button>-->
+<button id="updateScheduleBtn">일정변경</button>
+<button id="attenBtn">출석</button>
+<button id="absentBtn">결석</button>
+<button id="cancelBtn">취소</button>
+<!--<button id="cancelBtn" th:onclick="|location.href='/schedule/cancelupdate/' + ${selectOneSchedule.scheCode}|">취소</button>-->
+
+
+
+<script th:inline="javascript">
+    let scheCode = /*[[${selectOneSchedule.scheCode}]]*/ null;
+    let cancelBtn = document.getElementById("cancelBtn");
+
+    // fetch 요청 보내기
+    fetch(`/schedule/scheatten/${scheCode}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const scheAttenValue = data.scheAtten;
+            console.log(scheAttenValue);
+
+            if (scheAttenValue === "예약") {
+                console.log("작동하니?")
+                cancelBtn.disabled = true;
+                cancelBtn.classList.add("disabled");
+            } else {
+                cancelBtn.disabled = false;
+                cancelBtn.classList.remove("disabled");
+            }
+
+        });
+</script>
+<script th:inline="javascript">
+    attenBtn.onclick = function() {
+        // fetch 요청을 통해 현재 scheatten 상태를 가져옴
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue === "출석") {
+                    alert("이미 출석처리가 되어 있습니다.");
+                } else if (scheAttenValue === "결석") {
+                    alert("이미 결석처리가 되어 있습니다.");
+                } else {
+                    // 출석 모달 열기
+                    attenModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    absentBtn.onclick = function() {
+        // fetch 요청을 통해 현재 scheatten 상태를 가져옴
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue === "결석") {
+                    alert("이미 결석처리가 되어 있습니다.");
+                } else if (scheAttenValue === "출석") {
+                    alert("이미 출석처리가 되어 있습니다.");
+                } else {
+                    // 출석 모달 열기
+                    absentModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    updateScheduleBtn.onclick = function() {
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue !== "예약대기") {
+                    alert("일정변경이 불가능합니다.");
+                } else {
+                    // 출석 모달 열기
+                    updateScheduleModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script>
+<script>
+    // 모달 요소 가져오기
+    var attenModal = document.getElementById("attenModal");
+    var absentModal = document.getElementById("absentModal");
+    var cancelModal = document.getElementById("cancelModal");
+    var updateScheduleModal = document.getElementById("updateScheduleModal");
+
+
+
+    // 출석 버튼 가져오기
+    var attenBtn = document.getElementById("attenBtn");
+    // 결석 버튼 가져오기
+    var absentBtn = document.getElementById("absentBtn");
+    // 모달 닫기 버튼 가져오기
+    var closeBtns = document.getElementsByClassName("close");
+    // 확인 버튼 가져오기
+    var confirmBtn = document.getElementById("confirmBtn");
+    // 일정변경 버튼 가져오기
+    var updateScheduleBtn = document.getElementById("scheduleUpdateBtn");
+
+    // 취소 버튼 클릭 시 모달 열기
+    cancelBtn.onclick = function () {
+        cancelModal.style.display ="block";
+    }
+
+
+    // 모달 닫기 버튼에 이벤트 추가
+    for (var i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+            cancelModal.style.display = "none";
+            updateScheduleModal.style.display ="none";
+        }
+    }
+    // 사용자가 모달 외부를 클릭할 경우 모달 닫기
+    window.onclick = function(event) {
+        console.log("외부클릭 이벤트 발생함", event.target)
+        if (event.target == modal || event.target == modal) {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+            cancelModal.style.display = "none";
+        }
+    }
+
+    // 확인 버튼 클릭 시 출석 처리
+    confirmBtn.onclick = function() {
+        attenModal.style.display = "none";
+        absentModal.style.display = "none";
+        cancelModal.style.display = "none";
+    }
+
+
+</script>
+
 
 </body>
+
 </html>

@@ -22,6 +22,7 @@ public class ScheduleAndClassAndUserAndPassDTO {
     private String scheAtten;
     private EmpDTO empCategory;
     private MemberDTO userCategory;
+    private PassqualDTO passqualCategory;
     private PassTotalDTO passTotalCategory;
     private PassUseDTO passUseCategory;
 
