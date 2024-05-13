@@ -2,99 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>main</title>
+    <title>Title</title>
     <link rel="stylesheet" href="../styles/mainStyle.css">
     <link rel="stylesheet" href="../styles/headerStyle.css">
     <link rel="stylesheet" href="../styles/navbarStyle.css">
     <link rel="stylesheet" href="../styles/myStyle.css">
     <link rel="stylesheet" href="../styles/footerStyle.css">
-    <link rel="stylesheet" href="../styles/salesStyle.css">
+    <link rel="stylesheet" href="../styles/salesSearchStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
-    <div id="app_area">
-        <div id="window">
-                <form action="/sale/main" method="post">
-            <!--header-->
-            <div th:insert="~{common/header}"></div>
-            <!--navbar-->
-            <div class="main-container">
-                <div th:insert="~{common/navbar}"></div>
-
-                <div class="my-style">
-
-                    <div class="pieG" id="pie"></div>
-
-                    <div class="barG" id="bar"></div>
-
-                    <div class="memberSale" id="pie2">
-                            <table>
-                                <tr>
-                                    <p style="font-size: 18px; font-weight: bold; margin-top: 10px">직원 매출</p>
-                                </tr>
-                                <tr th:each="empAndUser:${employeeAndUserDTO}">
-                                    <td>
-                                        <img th:src="${empAndUser.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/>
-                                    </td>
-                                    <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
-                                    <td class="price" th:text="${empAndUser.total1}"></td>
-<!--                                    <td th:text="${pass.gpCount}"></td>-->
-                                </tr>
-                            </table>
-                    </div>
-
-                    <div class="salesData">
-                        <table>
-                            <tr>
-                                <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px">결제 내역</p>
-                            </tr>
-                            <thead>
-                                <tr>
-                                    <th> </th>
-                                    <th>이름</th>
-                                    <th>이용권</th>
-                                    <th>유효 기간</th>
-                                    <th>결제 금액</th>
-                                    <th>결제 방식</th>
-                                    <th>시 간</th>
-                                </tr>
-                                <tr th:each="sale:${PAPQList}">
-                                    <td >
-                                        <img th:src="${sale.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/>
-                                    </td>
-                                    <td class="time" th:text="${sale.userDTO.userName}"></td>
-                                    <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
-                                    <td class="date2" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+<div id="app_area">
+    <div id="window">
+        <!--header-->
+        <div th:include="common/header"></div>
+        <!--navbar-->
+        <div class="main-container">
+            <div th:include="common/navbar"></div>
+            <!--내용 작성하는 div-->
+            <div class="my-style">
+                <div class="graph">
+                    <div class="backGround">
+                        <div class="on">
+                            <img src="/img/Back.png" class="back">
+                            <p class="text">내역 조회</p>
+                            <form action="/sale/search" method="post" class="top">
+                                <input type="text" class="search" name="search" placeholder="검색 내용">
+                                <select name="category" class="option">
+                                    <option value="">전체 조회</option>
+                                    <option value="month">월별</option>
+                                    <option value="name">이름</option>
+                                    <option value="id">단위 기간</option>
+                                </select>
+                                <button type="submit" class="searchButton">검색</button>
+                            </form>
+                        </div>
+                        <hr class="hr1">
+                        <div class="title">
+                            <p class="img"></p>
+                            <p class="userName">이름</p>
+                            <p class="userId">판매 번호</p>
+                            <p class="price2">이용권</p>
+                            <p class="userPhone">이용권 기간</p>
+                            <p class="price2">판매 금액</p>
+                            <p class="userStaff">결제 방식</p>
+                        </div>
+                        <hr class="hr2">
+                        <div class="zxc">
+                            <div class="userList" th:each="user:${userList}">
+                                <p class="img"><img th:src="${user.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/></p>
+                                <p class="userName" th:text="${user.userDTO.userName}"></p>
+                                <p class="userId" th:text="${user.passQualDTO.pqCode}"></p>
+                                <p  class="price2" th:text="${user.passQualDTO.pqName}"></p>
+                                <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')
                                  + ' ~'
-                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
-                                    <td class="price" th:text="${sale.passQualDTO.pqPrice}"></td>
-                                    <td class="time2" th:text="${sale.saleDTO.salesMethod}"></td>
-                                    <td class="time2" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
-                                 +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
-                                </tr>
-                            </thead>
-                        </table>
+                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                                <p class="price" th:text="${user.passQualDTO.pqPrice}"></p>
+                                <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="graph2">
+                        <div class="pieG" id="pie"></div>
+
+                        <div class="barG" id="bar"></div>
                     </div>
                 </div>
             </div>
-            <!--footer-->
-            <div th:insert="~{common/footer}"></div>
-                </form>
         </div>
+        <!--내용 작성하는 div-->
+        <!--footer-->
+        <div th:include="common/footer"></div>
     </div>
+</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var prices = document.querySelectorAll('.price');
-            prices.forEach(function(price) {
-                var value = price.textContent.trim();
-                var formattedValue = Number(value).toLocaleString('en');
-                price.textContent = formattedValue + '원';
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectElement = document.querySelector('.option');
+        selectElement.addEventListener('change', function() {
+            // 현재 선택된 옵션의 값 가져오기
+            var selectedOption = selectElement.value;
+            // 검색 input 요소 가져오기
+            var searchInput = document.querySelector('.search');
+
+            // 선택된 옵션에 따라 placeholder 설정
+            switch (selectedOption) {
+                case 'month':
+                    searchInput.placeholder = '월별 검색 ex) 6';
+                    break;
+                case 'name':
+                    searchInput.placeholder = '이름 검색 ex) 홍길동';
+                    break;
+                case 'id':
+                    searchInput.placeholder = '분기 조회 ex) 3';
+                    break;
+                default:
+                    searchInput.placeholder = '검색 내용';
+            }
         });
-    </script>
+        var userList = document.querySelectorAll('.userList');
+        if (userList.length === 0 || userList === '') {
+            displayNoResultsMessage();
+        }
+    });
+    function displayNoResultsMessage() {
+
+        var messageDiv = document.createElement('div');
+        messageDiv.textContent = '검색 결과가 없습니다.';
+        messageDiv.style.color = 'red';
+        messageDiv.style.textAlign ='center';
+        messageDiv.style.marginTop='10px'
+
+        var contentContainer = document.querySelector('.zxc');
+        contentContainer.appendChild(messageDiv);
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectElement = document.querySelector('.option');
+        var searchInput = document.querySelector('.search');
+
+        // 옵션을 선택했을 때 입력 상자에 초점을 맞춤
+        selectElement.addEventListener('change', function() {
+            searchInput.focus();
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        var userListSize = $(".userList").length;
+        for (var i = 0; i < userListSize - 1; i++) {
+            var userList = $(".userList:eq(" + i + ")");
+            userList.after("<div>");
+            var hrDiv = userList.next();
+            hrDiv.append("<div><hr class='hr3'></div>");
+        }
+
+        $(".deleteButton").click(function() {
+            $(this).siblings(".modalContainer").show();
+        });
+
+        $(".cancelButton").click(function() {
+            $(this).closest(".modalContainer").hide();
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var prices = document.querySelectorAll('.price');
+        prices.forEach(function(price) {
+            var value = price.textContent.trim();
+            var formattedValue = Number(value).toLocaleString('en');
+            price.textContent = formattedValue + '원';
+        });
+    });
+</script>
 
 <script type="text/javascript">
     var dom = document.getElementById('pie');
@@ -130,9 +197,8 @@
                         top: 10,
                         textStyle: {
                             fontSize: 18,
-                            fontWeight: 'bold',
-                            fontFamily: 'Noto Sans KR, sans-serif'}
-                        },
+                            fontWeight: 'bold'}
+                    },
                     tooltip: {
                         trigger: 'item'
                     },
@@ -188,7 +254,7 @@
                             ]
                         }
                     ]
-            };
+                };
                 console.log(data)
                 myChart.setOption(option);
             })
@@ -230,8 +296,7 @@
                         top: 10,
                         textStyle: {
                             fontSize: 18,
-                            fontWeight: 'bold',
-                            fontFamily: 'Noto Sans KR, sans-serif'}
+                            fontWeight: 'bold'}
                     },
                     grid: {
                         left: '10px',
@@ -287,8 +352,6 @@
         myChart2.resize();
     });
 </script>
-
-
 
 </body>
 </html>

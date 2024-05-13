@@ -1,9 +1,12 @@
 package com.willingtogohome.gymga.sale.controller;
 
+import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.service.SaleService;
+import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.HashMap;
@@ -33,6 +37,18 @@ public class SaleController {
 //        return saleService.sumPassData();
 //    }
 
+    @GetMapping("/selectall")
+    public String UserAllList(Model model) {
+
+        List<PassAndPassQualDTO> userList = saleService.findAllList();
+
+        for (PassAndPassQualDTO passAndPassQualDTO : userList){
+//            System.out.println("passAndPassQualDTO = " + passAndPassQualDTO);
+        }
+        model.addAttribute("userList", userList);
+
+        return "sale/selectall";
+    }
 
     @GetMapping("/main")
     public String saleMain(Model model){
@@ -42,15 +58,6 @@ public class SaleController {
 //            System.out.println("papq = " + papq);
         }
         model.addAttribute("PAPQList",PAPQList);
-
-
-        List<SaleDTO> saleList = saleService.findAllList();
-
-        for (SaleDTO sales : saleList){
-//            System.out.println("sales = " + sales);
-        }
-        model.addAttribute("saleList", saleList);
-
 
 //        List<PassData> passData = saleService.sumPassData();
 ////        System.out.println("passData = " + passData);
@@ -95,4 +102,45 @@ public class SaleController {
 //            throw e;
 //        }
 //    }
+    @GetMapping("/search")
+    public void searchPage() {
+    }
+
+    @PostMapping("/search")
+    public String userSearch(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> userList = saleService.searchedUser(criteria);
+
+        session.setAttribute("searchedUser", userList);
+
+        model.addAttribute("userList", userList);
+
+        for (PassAndPassQualDTO user : userList) {
+//            System.out.println("user = " + user);
+        }
+
+
+//        List<PassData> passData = saleService.sumPassData();
+////        System.out.println("passData = " + passData);
+//
+//        model.addAttribute("passData", passData);
+
+        List<EmployeeAndUserDTO> employeeAndUserDTO = saleService.empAndUser();
+        model.addAttribute("employeeAndUserDTO",employeeAndUserDTO);
+//        System.out.println("employeeAndUserDTO = " + employeeAndUserDTO);
+//
+//        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
+//        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
+
+        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
+
+        model.addAttribute("pieChartData", pieChartData);
+
+        return "sale/search";
+    }
+
 }
