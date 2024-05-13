@@ -4,6 +4,9 @@ server:
 
 ## driver config
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/crmdb
@@ -17,4 +20,3 @@ spring:
 ## mybatis config
 mybatis:
   mapper-locations: mappers/**/*.xml
-
