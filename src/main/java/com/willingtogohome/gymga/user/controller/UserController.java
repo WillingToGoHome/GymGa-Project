@@ -145,6 +145,10 @@ public class UserController {
 
         int code = userService.findLastCode();
 
+        if (newUser.getUserBirth() == null) {
+            newUser.setUserBirth(java.sql.Date.valueOf("2000-01-01"));
+        }
+
         newUser.setUserCode(code + 1);
         newUser.setUserRole("회원");
         newUser.setUserAddress(userAddress1 + " " + userAddress2);
