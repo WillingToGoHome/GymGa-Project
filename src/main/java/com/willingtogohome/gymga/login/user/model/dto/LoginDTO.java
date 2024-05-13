@@ -1,6 +1,8 @@
 package com.willingtogohome.gymga.login.user.model.dto;
 
 import com.willingtogohome.gymga.login.common.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +27,7 @@ public class LoginDTO {
 
     public List<String> getRole(){
         if (this.userRole.getRole().length() > 0) {
+            System.out.println("4 UserRole" + userRole);
             return Arrays.asList(this.userRole.getRole().split(","));
         }
         return new ArrayList<>();

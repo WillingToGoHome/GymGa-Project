@@ -12,7 +12,7 @@
         <result property="userRole" column="USER_ROLE"/>
     </resultMap>
 
-    <select id="findByUserId" resultMap="login">
+    <select id="findByUsername" resultMap="login">
         SELECT
             USER_CODE
         ,   USER_ID
@@ -20,7 +20,7 @@
         ,   USER_NAME
         ,   USER_ROLE
         FROM    USERDB
-        WHERE USER_ID = #{ userId }
+        WHERE USER_ID = #{ username }
     </select>
 
     <insert id="regist" parameterType="com.willingtogohome.gymga.login.user.model.dto.RegistDTO">
@@ -48,10 +48,10 @@
         )
     </insert>
 
-    <!-- 아이디 중복 체크 -->
+    <!-- 아이디 중복체크 -->
     <select id="idCheck" resultType="int">
         SELECT COUNT(*)
-        FROM   USERDB
-        WHERE  USER_ID = #{ userId }
+        FROM USERDB
+        WHERE USERID = #{userId}
     </select>
 </mapper>

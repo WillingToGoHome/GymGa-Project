@@ -13,10 +13,8 @@ public interface LoginMapper {
     int regist(RegistDTO registDTO);
 
     /* 아이디 찾아서 로그인 */
-    LoginDTO findByUserId(String userId);
+    LoginDTO findByUsername(String username);
 
 
     /* 아이디 중복체크 */
-
-
 }
