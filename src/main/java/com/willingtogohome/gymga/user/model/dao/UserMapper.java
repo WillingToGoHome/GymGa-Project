@@ -32,4 +32,5 @@ public interface UserMapper {
 
     List<UserDTO> findAllTeacher();
 
+    List<UserDTO> selectAllUserID();
 }

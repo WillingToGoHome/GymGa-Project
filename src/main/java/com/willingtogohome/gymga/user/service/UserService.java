@@ -53,4 +53,9 @@ public class UserService {
 
         return userMapper.findAllTeacher();
     }
+
+    public List<UserDTO> selectAllUserID() {
+
+        return userMapper.selectAllUserID();
+    }
 }

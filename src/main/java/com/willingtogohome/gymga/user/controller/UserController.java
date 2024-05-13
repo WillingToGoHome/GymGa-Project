@@ -101,14 +101,23 @@ public class UserController {
     }
 
     @GetMapping("/regist")
-    public String registPage() {
+    public String registPage(Model model) {
+
+        List<UserDTO> userIDList = userService.selectAllUserID();
+
+        String[] idList = new String[userIDList.size()];
+
+        model.addAttribute("idList", idList);
 
         return "user/regist";
     }
 
     @PostMapping("/regist")
-    public String registUser(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam MultipartFile picFile) {
+    public String registUser(HttpSession session,
+                             @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
+                             UserDTO newUser, PhysicalDTO physical,
+                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam String urlAddress,
+                             @RequestParam MultipartFile picFile) {
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -126,6 +135,7 @@ public class UserController {
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
                 newUser.setUserPic("/uploadFiles/" + savedName);
+                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
