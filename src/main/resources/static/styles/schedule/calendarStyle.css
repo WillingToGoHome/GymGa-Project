@@ -1,17 +1,18 @@
 :root {
-    --primary-clr: #b38add;
+    --primary-clr: #4B82D8;
 }
 
 .left {
-    width: 806px;
+    width: 807px;
     height: 639px;
     display: flex;
     justify-content: center;
+    background: lightgreen;
 }
 
 .calendar {
     position: relative;
-    width: 807px;
+    width: 767px;
     height: 639px;
     display: flex;
     flex-direction: column;
@@ -26,7 +27,7 @@
 
 .calendar .month {
     background-color: #F0F0F0;
-    width: 807px;
+    width: 767px;
     height: 62px;
     display: flex;
     justify-content: space-around;
@@ -37,7 +38,7 @@
 }
 
 .calendar .month-box{
-    width: 649px;
+    width: 676px;
     display: flex;
     justify-content: space-around;
     box-sizing: border-box;
@@ -67,7 +68,7 @@
 
 
 .calendar .weekdays {
-    width: 807px;
+    width: 767px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -76,11 +77,11 @@
     font-size: 1rem;
     font-weight: 500;
     text-transform: capitalize;
-    background-color: pink;
+    /*background-color: pink;*/
 }
 
 .calendar .weekdays div {
-    width: 118.68px;
+    width: calc(100%/7);
     height: 31.04px;
     display: flex;
     align-items: center;
@@ -102,7 +103,7 @@
 }
 
 .calendar .days{
-    width: 807px;
+    width: 767px;
     height: 649px;
     display: flex;
     flex-wrap: wrap;
@@ -111,11 +112,11 @@
     font-weight: bold;
     margin-bottom: 20px;
     border: 1.5px solid #F0F0F0;
-    background-color: #D25656;
+    /*background-color: #D25656;*/
 }
 
 .calendar .days .day {
-    width: 14.28%;
+    width: calc(100%/7);
     display: flex;
     /*align-items: center;*/
     /*justify-content: center;*/
@@ -140,7 +141,7 @@
 
 .calendar .days .active {
     position: relative;
-    font-size: 18px;
+    font-size: 24px;
     color: #fff;
     background-color: var(--primary-clr);
 }
@@ -152,11 +153,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 10px 2px var(--primary-clr);
+    box-shadow: 0 0 10px 2px #4B82D8;
 }
 
 .calendar .days .today {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .calendar .days .event {
@@ -197,7 +198,7 @@
     gap: 5px;
     padding: 0 20px;
     margin-bottom: 20px;
-    color: var(--primary-clr);
+    color: #4B82D8;
 }
 
 .calendar .goto-today .goto {
@@ -205,7 +206,7 @@
     align-items: center;
     border-radius: 5px;
     overflow: hidden;
-    border: 1px solid var(--primary-clr);
+    border: 1px solid #4B82D8;
 }
 
 .calendar .goto-today .goto input {
@@ -214,49 +215,59 @@
     outline: none;
     border: none;
     border-radius: 5px;
-    padding: 0 20px;
-    color: var(--primary-clr);
+    /*padding: 0 20px;*/
+    color: #4B82D8;
 }
 
 .calendar .goto-today button {
     padding: 5px 10px;
-    border: 1px solid var(--primary-clr);
+    border: 1px solid #4B82D8;
     border-radius: 5px;
     background-color: transparent;
     cursor: pointer;
-    color: var(--primary-clr);
+    color: #4B82D8;
 }
 
 .calendar .goto-today button:hover {
     color: #fff;
-    background-color: var(--primary-clr);
+    background-color: #4B82D8;
 }
 
 .calendar .goto-today .goto button {
     border:none;
-    border-left: 1px solid var(--primary-clr);
+    border-left: 1px solid #4B82D8;
     border-radius: 0px;
 }
 
 .container .right {
     width: 427px;
-    height: 659px;
-    background-color: lightblue;
+    height: 637px;
+    background-color: #F0F0F0;
     display: flex;
     flex-direction: column;
+    justify-content: end;
+}
+
+.container .right .right-container {
+    width: 357px;
+    height: 659px;
+    border-radius: 7.5px;
+    background: #FFFFFF;
+    margin-left: 23px;
+    color: #000000;
 }
 
 .right .today-date {
     width: 100%;
-    height: 50px;
+    height: 47px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    /*gap: 10px;*/
     align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    justify-content: center;
+    /*padding: 0 40px;*/
+    /*margin-top: 50px;*/
+    /*margin-bottom: 20px;*/
     text-transform: capitalize;
 }
 
@@ -271,41 +282,82 @@
 
 
 .today-date .event-day {
-    font-size: 2rem;
-    font-weight: 500;
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .today-date .event-date {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #878895;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
 }
 
-.event {
+.count-schedule {
+    background: #9ABAFF;
+    height: 31px;
     width: 100%;
-    height: 100%;
-    max-height: 600px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    border: 1.5px solid #F0F0F0;
     display: flex;
-    flex-direction: column;
-    padding: 4px;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
 }
 
-.events .event{
-    position: relative;
-    width: 95%;
-    min-height: 70px;
+.atten-classify {
+    height: 23px;
+    border-top: 0.75px solid #F0F0F0;
+    border-bottom: 0.75px solid #F0F0F0;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 20px;
-    padding-left: 50px;
-    color: #fff;
-    cursor: pointer;
-    background: linear-gradient(90deg, #3f4458, transparent);
+    justify-content: space-around;
+    align-items: center;
 }
+
+.right-container table {
+    font-size: 10.5px;
+    font-weight: bold;
+    color: #656565;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.right-container td, th {
+    width: calc(100%/6);
+    height: 23px;
+    border: none;
+    border-bottom: 0.75px solid #F0F0F0;
+
+}
+
+
+
+/*.event {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    max-height: 600px;*/
+/*    overflow-x: hidden;*/
+/*    overflow-y: auto;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    padding: 4px;*/
+/*}*/
+
+/*.events .event{*/
+/*    position: relative;*/
+/*    width: 95%;*/
+/*    min-height: 70px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    flex-direction: column;*/
+/*    gap: 5px;*/
+/*    padding: 0 20px;*/
+/*    padding-left: 50px;*/
+/*    color: #fff;*/
+/*    cursor: pointer;*/
+/*    background: linear-gradient(90deg, #3f4458, transparent);*/
+/*}*/
 
 .events .event:nth-child(even) {
     background: transparent;

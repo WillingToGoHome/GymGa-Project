@@ -31,4 +31,6 @@ public interface ScheduleMapper {
     void updateCancel(int scheCode);
 
     ScheduleAndClassAndUserAndPassDTO findScheAtten(int scheCode);
+
+    List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate();
 }

@@ -24,21 +24,26 @@ public class ScheduleController {
         return "main";
     }
 
-    // 일정 전체 조회
-    @GetMapping("/schedule/schedulemain")
+//     일정 전체 조회
+    @GetMapping(value = "/schedule/schedulemain")
     public String scheduleMain(Model model) {
 
-        List<ScheduleDTO> scheduleList = scheduleService.findAllSchedule();
-
-        for(ScheduleDTO schedules : scheduleList) {
-            System.out.println("schedules = " + schedules);
-        }
-
-        model.addAttribute("scheduleList", scheduleList);
-
+        List<ScheduleAndClassAndUserAndPassDTO> allList = scheduleService.findAll();
+        model.addAttribute("allList", allList);
+        System.out.println("allList = " + allList);
 
         return "schedule/schedulemain";
+    }
 
+    // ScheRunDate 값 찾기
+    @GetMapping(value = "/schedule/scherundate", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate() {
+        System.out.println("test");
+
+        scheduleService.findAllScheRunDate().forEach(System.out::println);
+
+        return scheduleService.findAllScheRunDate();
     }
 
     @GetMapping("/schedule/scheduleregist")

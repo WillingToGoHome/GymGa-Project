@@ -294,6 +294,12 @@
          WHERE sche_code = #{scheCode}
     </select>
 
+    <select id="findAllScheRunDate" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+               sche_run_date
+          FROM scheduledb
+    </select>
+
 
 
 </mapper>
