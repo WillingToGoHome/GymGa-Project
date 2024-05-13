@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserMapper {
     List<UserAndEmpDTO> allUser();
 
-    List<UserDTO> searchedUser(SearchCriteria criteria);
+    List<UserAndEmpDTO> searchedUser(SearchCriteria criteria);
 
     void userPain(int code);
 
@@ -19,6 +19,8 @@ public interface UserMapper {
     void scheduleUser(int code);
 
     void validateUser(int code);
+
+    void salesUser(int code);
 
     void deleteUser(int code);
 
