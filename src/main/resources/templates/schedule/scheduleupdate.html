@@ -11,9 +11,9 @@
     <label>담당 강사 선택</label><br>
     <select name="empCode" id="empSelectCode"></select><br>
     <label>일자 선택</label><br>
-    <input type="date" name="scheRunDate"/><br>
+    <input type="date" name="scheRunDate" th:value="${selectOneSchedule.scheRunDate}"><br>
     <label>시간 선택</label><br>
-    <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+    <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}"> ~ <input type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
     <button type="submit">확인</button>
 </form>
 <button onclick="goBack()">취소</button>
