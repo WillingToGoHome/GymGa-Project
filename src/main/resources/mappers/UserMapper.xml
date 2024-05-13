@@ -53,26 +53,28 @@
         <result property="userAddress" column="user_address"/>
         <result property="userEtc" column="user_etc"/>
         <result property="userStaff" column="user_staff"/>
-        <association property="userCategory" javaType="com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO">
-            <id property="userCode" column="USER_CODE"/>
-            <result property="userCode" column="user_code"/>
-            <result property="userName" column="user_name"/>
+        <association property="empCategory" javaType="com.willingtogohome.gymga.user.model.dto.User2DTO">
+            <id property="empCode" column="user_code"/>
+            <result property="empName" column="user_name"/>
         </association>
     </resultMap>
 
 
-    <select id="AllUser" resultMap="userAndEmpResultMap">
+    <select id="allUser" resultMap="userAndEmpResultMap">
         SELECT
-               USER_CODE
-            ,  USER_NAME
-            ,  USER_ID
-            ,  USER_GENDER
-            ,  USER_PHONE
-            ,  USER_STAFF
-            ,  USER_ROLE
-         FROM USERDB
-        WHERE USER_ROLE = '회원'
-        ORDER BY USER_CODE
+              USER_CODE
+            , USER_NAME
+            , USER_ID
+            , USER_GENDER
+            , USER_PHONE
+            , USER_STAFF
+            , USER_ROLE
+         FROM
+              USERDB
+        WHERE
+              USER_ROLE = '회원'
+        ORDER BY
+              USER_CODE
     </select>
 
     <select id="findLastCode" resultType="_int">
@@ -94,39 +96,54 @@
              ,  B.PHY_HEIGHT
              ,  B.PHY_WEIGHT
              ,  B.PHY_BMI
-        FROM USERDB A
-        JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
-        WHERE USER_CODE = #{userCode}
+        FROM
+             USERDB A
+        JOIN
+             PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        WHERE
+             USER_CODE = #{userCode}
     </select>
 
     <delete id="userPain" parameterType="int">
-        DELETE FROM PAINDB
-        WHERE USER_CODE = #{userCode}
+        DELETE FROM
+              PAINDB
+        WHERE
+              USER_CODE = #{userCode}
     </delete>
 
     <delete id="facilityUser" parameterType="int">
-        DELETE FROM FACILITYDB
-        WHERE USER_CODE = #{userCode}
+        DELETE FROM
+              FACILITYDB
+        WHERE
+              USER_CODE = #{userCode}
     </delete>
 
     <delete id="physicalUser" parameterType="int">
-        DELETE FROM PHYSICALDB
-        WHERE USER_CODE = #{userCode}
+        DELETE FROM
+              PHYSICALDB
+        WHERE
+              USER_CODE = #{userCode}
     </delete>
 
     <delete id="scheduleUser" parameterType="int">
-        DELETE FROM SCHEDULEDB
-        WHERE MEMBER_CODE = #{userCode}
+        DELETE FROM
+              SCHEDULEDB
+        WHERE
+              MEMBER_CODE = #{userCode}
     </delete>
 
     <delete id="validateUser" parameterType="int">
-        DELETE FROM VALIDATEDB
-        WHERE USER_CODE = #{userCode}
+        DELETE FROM
+              VALIDATEDB
+        WHERE
+              USER_CODE = #{userCode}
     </delete>
 
     <delete id="deleteUser" parameterType="int">
-        DELETE FROM USERDB
-        WHERE USER_CODE = #{userCode}
+        DELETE FROM
+              USERDB
+        WHERE
+              USER_CODE = #{userCode}
     </delete>
 
 
@@ -138,7 +155,8 @@
              ,  USER_GENDER
              ,  USER_PHONE
              ,  USER_STAFF
-        FROM USERDB
+        FROM
+              USERDB
         <where>
             <if test="condition == 'name'">
                 AND USER_NAME Like CONCAT('%', #{ text }, '%')
@@ -148,7 +166,8 @@
             </if>
             AND USER_ROLE = '회원'
         </where>
-        ORDER BY USER_CODE
+        ORDER BY
+              USER_CODE
     </select>
 
     <select id="findAllTeacher" resultMap="userResultMap">
@@ -165,9 +184,12 @@
              ,  USER_ADDRESS
              ,  USER_ETC
              ,  USER_STAFF
-         FROM USERDB
-        WHERE USER_ROLE = '직원'
-        ORDER BY USER_CODE
+         FROM
+              USERDB
+        WHERE
+              USER_ROLE = '직원'
+        ORDER BY
+              USER_CODE
     </select>
 
     <insert id="registUser" parameterType="com.willingtogohome.gymga.user.model.dto.UserDTO">

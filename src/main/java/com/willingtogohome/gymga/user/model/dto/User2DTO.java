@@ -7,8 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SearchCriteria {
+public class User2DTO {
 
-    private String condition;
-    private String text;
+    private int empCode;
+
+    private String empName;
 }

@@ -48,7 +48,9 @@
                                 <p th:if="${user.userGender == '여'}" class="userGender2" th:text="${user.userGender}"></p>
                                 <p class="userPhone" th:text="${user.userPhone}"></p>
                                 <p class="userStaff" th:if="${user.userStaff == 0 || user.userStaff == null}" th:text="없음"></p>
-                                <p class="userStaff" th:if="${user.userStaff}" th:text="${user.userName}"></p>
+                                <p class="userStaff" th:if="${user.userStaff}">
+                                    <span th:each="emp : ${user.empCategory}" th:if="${user.userStaff == emp.empCode}" th:text="${emp.empName}"></span>
+                                </p>
                                 <div class="buttonBox">
                                     <form action="/user/selectDetail" method="get" style="display: flex">
                                     <input type="hidden" name="code" th:value="${user.userCode}">
