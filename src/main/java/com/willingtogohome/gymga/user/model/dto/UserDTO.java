@@ -5,10 +5,10 @@ import lombok.*;
 
 import java.sql.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class UserDTO {
 
@@ -24,6 +24,4 @@ public class UserDTO {
     private String userAddress;
     private String userEtc;
     private int userStaff;
-    private UserAndEmpDTO empCategory;
-
 }
