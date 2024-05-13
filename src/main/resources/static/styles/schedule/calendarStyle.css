@@ -2,35 +2,35 @@
     --primary-clr: #b38add;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-body {
-    min-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #e2e1dc;
-}
+/*body {*/
+/*    min-height: 100%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    background-color: #e2e1dc;*/
+/*}*/
 
-.container {
-    position: relative;
-    width: 88.41%;
-    aspect-ratio: 100 / 48.55;
-    margin: 0 auto;
-    padding: 5px;
-    color: #fff;
-    display: flex;
-    border-radius: 10px;
-    background-color: pink;
-    /*background-color: #F0F0f0;*/
-}
+/*.container {*/
+/*    position: relative;*/
+/*    width: 88.41%;*/
+/*    aspect-ratio: 100 / 48.55;*/
+/*    margin: 0 auto;*/
+/*    padding: 5px;*/
+/*    color: #fff;*/
+/*    display: flex;*/
+/*    border-radius: 10px;*/
+/*    background-color: pink;*/
+/*    !*background-color: #F0F0f0;*!*/
+/*}*/
 
 .left {
-    width: 66.42%;
+    width: 40%;
     /*padding: 20px;*/
     display: flex;
     justify-content: center;
