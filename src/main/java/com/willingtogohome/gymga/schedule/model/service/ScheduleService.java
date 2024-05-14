@@ -77,4 +77,9 @@ public class ScheduleService {
     public ScheduleAndClassAndUserAndPassDTO findScheAtten(int scheCode) {
         return scheduleMapper.findScheAtten(scheCode);
     }
+
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate() {
+        return scheduleMapper.findAllScheRunDate();
+    }
 }
