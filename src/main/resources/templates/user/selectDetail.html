@@ -26,10 +26,11 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="outerDiv">
+                <div th:object="${userList}"></div>
                 <div class="mainBox">
                     <div class="on">
-                        <img class="back" onClick="location.href='/user/selectAll'" src="/img/Back.png">
-                        <p class="topic" th:text="${user.userName}"></p>
+                        <img class="back" onClick="location.href='/user/selectAll'" th:src="${userPic}">
+                        <p class="topic" th:text="${userName}"></p>
                     </div>
                     <hr class="line1">
                     <div>

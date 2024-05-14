@@ -43,7 +43,30 @@ public class UserController {
     }
 
     @GetMapping("/selectDetail")
-    public void detailPage() {
+    public void detailPage(@RequestParam("code") String userCode, HttpSession session, Model model) {
+
+        int code = (int) session.getAttribute(userCode);
+        String text = Integer.toString(code);
+
+//        UserTotDTO user = userService.searchBy(new SearchCriteria("code", text));
+//        List<UserDTO> userList = userService.selectAllUser();
+//
+//        String pic = user.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            user.setPic(url);
+//        }
+//
+//        for (UserDTO user : userList) {
+//
+//            String path = user.getUserPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setUserPic(temp);
+//            }
+//        }
     }
 
     @PostMapping("/selectDetail")
