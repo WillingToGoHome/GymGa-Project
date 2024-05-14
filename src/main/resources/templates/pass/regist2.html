@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <img src="/pass/images/icon-back.png" onclick="location.href='/pass/main'">
+    </div>
+    <span>이용권 정보 등록</span>
+    <hr>
+    <span>회원 정보</span>
+    <form action="/pass/searchMember" method="get">
+        <div>
+            <span>· 이름</span>
+            <input type="search" id="name" name="name">
+            <button type="submit" >조회</button>
+<!--            <button type="button" onclick="searchMembers()">조회</button>-->
+        </div>
+    </form>
+
+    <form action="/pass/regist" method="post">
+        <div>
+            <span>· 조회내역</span>
+            <table id="members">
+                <tr>
+                    <th>체크</th>
+                    <th>회원 번호</th>
+                    <th>이름</th>
+                    <th>성별</th>
+                    <th>연락처</th>
+<!--                    <th>비고</th>-->
+                </tr>
+                <tr th:each="member: ${ memberList }">
+                        <td><input type="checkbox" name="memberCode" th:value="${ member.userCode }"></td>
+                        <td th:text="${ member.userCode }"></td>
+                        <td th:text="${ member.userName }"></td>
+                        <td th:text="${ member.userGender }"></td>
+                        <td th:text="${ member.userPhone }"></td>
+<!--                        <td th:text="${ member.userETC }"></td>-->
+                </tr>
+            </table>
+        </div>
+        <div>
+            <button type="button" onclick="location.href='/pass/main'">취소</button>
+            <button type="submit">등록</button>
+        </div>
+    </form>
+
+    <script>
+
+        // function searchMembers() {
+        //     const $members = document.getElementById("members");
+        //     const name = document.getElementById("searchName").value;
+        //
+        //     let path = 'pass/memberList?' + name;
+        //     console.log(path);
+        //
+        //     $.ajax({
+        //         url:"/pass/memberList", type:'get',
+        //         data:{name:"name"}
+        //     });
+        //
+        //     fetch("/pass/memberList")
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             for (let index in data) {
+        //                 const $member = document.createElement('tr');
+        //                 const $checkBox = document.createElement('input');
+        //                 const $userCheck = document.createElement('td');
+        //                 const $userCode = document.createElement('td');
+        //                 const $userName = document.createElement('td');
+        //                 const $userGender = document.createElement('td');
+        //                 const $userPhone = document.createElement('td');
+        //                 const $userEtc = document.createElement('td');
+        //
+        //                 $checkBox.type = 'checkbox';
+        //                 $checkBox.value = data[index].userCode;
+        //                 $checkBox.name = 'memberCode';
+        //
+        //                 $userCode.innerHTML = data[index].userCode;
+        //                 $userName.innerHTML = data[index].userName;
+        //                 $userGender.innerHTML = data[index].userGender;
+        //                 $userPhone.innerHTML = data[index].userPhone;
+        //                 $userEtc.innerHTML = data[index].userEtc;
+        //
+        //                 $userCheck.append($checkBox);
+        //
+        //                 $member.append($userCheck);
+        //                 $member.append($userCode);
+        //                 $member.append($userName);
+        //                 $member.append($userGender);
+        //                 $member.append($userPhone);
+        //                 $member.append($userEtc);
+        //
+        //                 $members.append($member);
+        //             }
+        //         });
+        // }
+    </script>
+</body>
+</html>

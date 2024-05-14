@@ -14,7 +14,7 @@ spring:
     password: ohgiraffers
   servlet:
     multipart:
-      location: D:\lecture\GymGa-Project
+      location: C:\lecture\GymGa-Project
 
 
 ## mybatis config
