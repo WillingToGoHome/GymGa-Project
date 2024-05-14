@@ -70,7 +70,7 @@
 }
 
 .class-info-top .regist-info {
-    margin-left: 635px;
+    margin-left: 720px;
     font-size: 15px;
     color: #ababab;
     display: flex;
@@ -189,6 +189,8 @@
 
 .atten-button-container {
     height: 112.5px;
+    display: flex;
+    justify-content: center;
 }
 
 .atten-button-container button {
@@ -219,6 +221,8 @@
 
 .member-detail-container {
     height: 112.5px;
+    display: flex;
+    justify-content: center;
 }
 
 .member-detail-container button{

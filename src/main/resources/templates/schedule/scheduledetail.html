@@ -30,20 +30,20 @@
                 <div class="detail-container">
                     <div class="white-board">
                         <div class="white-board-header">
-                            <img onclick="location.href='/schedule/schedulelist'" src="/images/back.png">
+                            <img onclick="location.href='/schedule/schedulemain'" src="/images/back.png">
                             <div class="time-user">
 <!--                                09시 00분 히비키 회원님-->
                                 <p th:text="${selectOneSchedule.scheStartTime}"></p>&nbsp;
                                 <p th:text="${selectOneSchedule.userCategory.memberName + ' 회원님'}"></p>
                             </div>
-                            <button class="change" onclick="location.href='/schedule/schedulelist'">변경</button>
+                            <button class="change" onclick="location.href='/schedule/schedulemain'">변경</button>
                             <button class="cancel" id="cancelBtn">취소</button>
                         </div>
                         <!--시간까지 나오도록 수정해야함-->
                         <div class="class-info-top">
                             <p>수업정보</p>
-                            <span class="regist-info">생성일 : </span>
-                            <p class="regist-info-th" th:text="${#temporals.format(selectOneSchedule.scheRegDate, 'yyyy-MM-dd HH:mm:ss')}"></p>
+                            <span class="regist-info">생성일 : </span>&nbsp;
+                            <p class="regist-info-th" th:text="${#temporals.format(selectOneSchedule.scheRegDate, 'yyyy-MM-dd HH:mm:ss')}"></p>&nbsp;
                             <p class="regist-info-th" th:text="${selectOneSchedule.empCategory.empName}"></p>
 
                         </div>
