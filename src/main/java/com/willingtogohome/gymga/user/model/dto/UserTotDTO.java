@@ -10,7 +10,7 @@ import java.sql.Date;
 @ToString
 public class UserTotDTO {
 
-    private int code;
+    private int userCode;
     private String id;
     private String pwd;
     private String name;
