@@ -249,5 +249,11 @@
         )
     </insert>
 
+    <select id="selectAllUserID" resultMap="userResultMap">
+        SELECT
+            USER_ID
+        FROM USERDB
+    </select>
+
 
 </mapper>
