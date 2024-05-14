@@ -77,7 +77,7 @@ public class ScheduleController {
 
         redirectAttributes.addFlashAttribute("successMessage", "일정 등록 성공");
 
-        return "redirect:/schedule/schedulemain";
+        return "schedule/schedulemain";
     }
 
 
@@ -88,7 +88,7 @@ public class ScheduleController {
         model.addAttribute("allList", allList);
         System.out.println("allList = " + allList);
 
-        return "schedule/schedulelist";
+        return "schedule/schedulemain";
         // return 변경 예정
     }
 

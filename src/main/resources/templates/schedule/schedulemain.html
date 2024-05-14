@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/navbarStyle.css">
     <link rel="stylesheet" href="/styles/myStyle.css">
     <link rel="stylesheet" href="/styles/schedule/calendarStyle.css">
+    <link rel="stylesheet" href="/styles/schedule/modalStyle.css">
     <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -58,7 +59,73 @@
                             <div class="date"></div>
                             <i class="fa fa-angle-right next"></i>
                         </div>
-                        <button class="makeschedule" onclick="location.href='/schedule/scheduleregist'">+ 일정 추가</button>
+                        <button type="button" class="makeschedule" id="makeschedule">+ 일정 추가</button>
+                        <!-- MODAL SECTION START -->
+                        <!--일정생성 모달-->
+                        <div id="registScheModal" class="modal">
+                            <div class="regist-modal-content">
+                                <div class="regist-modal-content-text">
+                                    <p class="text-1">일정 생성</p>
+                                    <p class="text-2">일정을 생성해 주세요</p>
+                                </div>
+                                <div class="regist-modal-content-button">
+                                    <button class="pt" id="registPtBtn">
+                                        <p class="regist-big-font">개인 수업</p>
+                                        <p class="regist-small-font">일정을 생성해 주세요.</p>
+                                        <img src="/images/개인수업버튼.png">
+                                    </button>
+                                    <button class="gx">
+                                        <p class="regist-big-font">그룹 수업</p>
+                                        <p class="regist-small-font">일정을 생성해 주세요.</p>
+                                        <img src="/images/그룹수업버튼.png">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--일정생성 모달 끝-->
+                        <!-- 개인수업 등록 모달 -->
+                        <div id="registPtModal" class="modal">
+                            <div class="updatePt-modal-content">
+                                <div class="updatePt-modal-header">
+                                    <button class="close" id="changeBack">
+                                        <img src="/images/back.png">
+                                    </button>
+                                    <p>일정 생성</p>
+                                </div>
+                                <p class="pt-or-gx">개인 수업</p>
+                                <form action="/schedule/scheduleregist" method="post">
+                                    <label>담당 강사 선택</label><br>
+                                    <select name="empCode" id="empSelectCode"></select><br>
+                                    <label>일자 선택</label><br>
+                                    <input type="date" name="scheRunDate"/><br>
+                                    <label>시간 선택</label><br>
+                                    <div class="time-choice">
+                                    <input type="time" name="scheStartTime">
+                                    <p>~</p>
+                                    <input type="time" name="scheEndTime">
+                                    </div>
+                                    <button class="check" type="submit">확인</button>
+                                </form>
+                                <!-- 강사선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/teacher")
+                                        .then(res =>res.json())
+                                        .then(data => {
+                                            const $empCode = document.getElementById("empSelectCode");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].empCode;
+                                                $option.text = data[index].empName;
+
+                                                $empCode.appendChild($option);
+                                                document.getElementById("empSelectCode").value = data[index].empCode;
+                                            }
+                                        })
+                                </script>
+                                <button class="close">취소</button>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="weekdays">
@@ -462,6 +529,38 @@
             return;
         }
         // eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    }
+</script>
+<script>
+    // 모달요소 가져오기
+    let registScheModal = document.getElementById("registScheModal");
+    let registPtModal = document.getElementById("registPtModal");
+    // 일정생성 버튼 가져오기
+    let registscheBtn = document.getElementById("makeschedule");
+    let registPtBtn = document.getElementById("registPtBtn");
+    let closeBtns = document.getElementsByClassName("close");
+
+
+    registscheBtn.onclick = function() {
+        registScheModal.style.display = "block";
+    }
+
+    registPtBtn.onclick = function() {
+        registPtModal.style.display = "block";
+    }
+
+    for(let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+            registPtModal.style.display = "none";
+        }
+    }
+
+    // 모달 외부 클릭 시 모달 닫기
+    window.onclick = function(event) {
+        if(event.target == registScheModal || event.target == modal) {
+            console.log("외부클릭 이벤트 발생함", event.target)
+            registScheModal.style.display = "none";
+        }
     }
 </script>
 
