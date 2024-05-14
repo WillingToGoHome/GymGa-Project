@@ -10,17 +10,18 @@ import java.sql.Date;
 @ToString
 public class UserTotDTO {
 
+//    private UserDTO userDTO;
     private int userCode;
-    private String id;
-    private String pwd;
-    private String name;
-    private String phone;
-    private String role;
-    private String pic;
-    private String gender;
-    private Date birth;
-    private String address;
-    private String etc;
-    private int staff;
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String userPhone;
+    private String userRole;
+    private String userPic;
+    private String userGender;
+    private Date userBirth;
+    private String userAddress;
+    private String userEtc;
+    private int userStaff;
     private PhysicalDTO PhysicalDTO;
 }

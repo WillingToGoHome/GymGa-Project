@@ -62,13 +62,21 @@
     color: black;
 }
 
+.userText {
+    width: 120px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
 .signupBox {
     width: 712px;
     height: 300px;
     font-size: 16px;
     font-weight: bold;
-    padding-top: 20px;
-    padding-left: 15px;
+    padding-top: 30px;
+    padding-left: 70px;
 }
 
 .previewBox {
@@ -86,7 +94,7 @@
 
 .infoBox {
     float: left;
-    padding-left: 20px;
+    padding-left: 50px;
 }
 
 .fileBox label {
@@ -155,7 +163,7 @@
 .right2 {
     margin-right: 10px;
     float: left;
-    line-height: 40px;
+    line-height: 27px;
     padding-top: 5px;
 }
 
@@ -228,41 +236,18 @@ select {
     overflow-y: auto;
 }
 
-.agreementText {
-    font-size: 14px;
-    font-weight: lighter;
-    color: black;
+.painBox {
+    text-align: center;
 }
 
-.agreement::-webkit-scrollbar {
-    width: 10px;
-}
-
-.agreement::-webkit-scrollbar-thumb {
-    height: 30%;
-    background: rgba(75, 130, 216, 1);
-    border-radius: 10px;
-}
-
-.agreement::-webkit-scrollbar-track {
-    background: rgba(205, 205, 205, 0.25);
-    border-radius: 10px;
-}
-
-.highlightSpan {
-    vertical-align: super;
-    color: red;
-}
-
-.pwdCheckFalse {
-    background-color: red;
+.painText {
+    color: #656565;
     font-weight: bold;
+    font-size: 24px;
+    margin-top: 40px;
 }
 
-.pwdCheckTrue {
-    background-color: lightseagreen;
-    font-weight: bold;
-}
+
 
 
 

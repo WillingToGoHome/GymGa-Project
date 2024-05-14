@@ -19,7 +19,7 @@
         <result property="userStaff" column="user_staff"/>
     </resultMap>
 
-    <resultMap id="userTotResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
+    <resultMap id="userTotResultMap" type="com.willingtogohome.gymga.user.model.dto.UserTotDTO">
         <id property="userCode" column="user_code"/>
         <result property="userId" column="user_id"/>
         <result property="userPwd" column="user_pwd"/>
@@ -33,7 +33,6 @@
         <result property="userEtc" column="user_etc"/>
         <result property="userStaff" column="user_staff"/>
         <association property="physicalDTO" javaType="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
-            <id property="userCode" column="USER_CODE"/>
             <result property="height" column="PHY_HEIGHT"/>
             <result property="weight" column="PHY_WEIGHT"/>
             <result property="bmi" column="PHY_BMI"/>
@@ -81,28 +80,6 @@
         SELECT
                 MAX(USER_CODE)
         FROM USERDB
-    </select>
-
-    <select id="selectDetail" parameterType="com.willingtogohome.gymga.user.model.dto.UserTotDTO">
-        SELECT
-                A. USER_CODE
-             ,  A. USER_NAME
-             ,  A. USER_ID
-             ,  A. USER_PWD
-             ,  A. USER_BIRTH
-             ,  A. USER_GENDER
-             ,  A. USER_PHONE
-             ,  A. USER_ADDRESS
-             ,  A. USER_ETC
-             ,  B.PHY_HEIGHT
-             ,  B.PHY_WEIGHT
-             ,  B.PHY_BMI
-        FROM
-             USERDB A
-        JOIN
-             PHYSICALDB B ON A.USER_CODE = B.USER_CODE
-        WHERE
-             A.USER_CODE = #{userCode}
     </select>
 
     <delete id="userPain" parameterType="int">
@@ -255,5 +232,26 @@
         FROM USERDB
     </select>
 
+    <select id="getUserDetailByCode" resultMap="userTotResultMap">
+        SELECT
+            A.USER_CODE
+            , A.USER_ID
+            , A.USER_PWD
+            , A.USER_NAME
+            , A.USER_PHONE
+            , A.USER_ROLE
+            , A.USER_PIC
+            , A.USER_GENDER
+            , A.USER_BIRTH
+            , A.USER_ADDRESS
+            , A.USER_ETC
+            , A.USER_STAFF
+            , B.PHY_HEIGHT
+            , B.PHY_WEIGHT
+            , B.PHY_BMI
+        FROM USERDB A
+        LEFT JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        WHERE A.USER_CODE = #{ code }
+    </select>
 
 </mapper>

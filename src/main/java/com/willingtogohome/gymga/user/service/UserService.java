@@ -45,11 +45,6 @@ public class UserService {
         return userMapper.findLastCode();
     }
 
-
-    public List<UserTotDTO> selectDetail(int code) {
-        return userMapper.selectDetail(code);
-    }
-
     public List<UserDTO> findAllTeacher() {
 
         return userMapper.findAllTeacher();
@@ -58,5 +53,10 @@ public class UserService {
     public List<UserDTO> selectAllUserID() {
 
         return userMapper.selectAllUserID();
+    }
+
+    public UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        return userMapper.getUserDetailByCode(code, userDTO, physicalDTO);
     }
 }
