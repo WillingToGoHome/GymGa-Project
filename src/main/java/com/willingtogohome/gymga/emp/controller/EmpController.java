@@ -108,8 +108,8 @@ public class EmpController {
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
-                empDTO.setPic("/uploadFiles/" + savedName);
-                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
+                empDTO.setPic(savedName);
+//                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -130,6 +130,8 @@ public class EmpController {
             } else {
                 employeeDTO.setQual(qualWrite);
             }
+        } else if (employeeDTO.getQual() == null) {
+            employeeDTO.setQual("");
         }
 
         empDTO.setRole("직원");
@@ -140,7 +142,7 @@ public class EmpController {
 
 //        System.out.println("empDTO = " + empDTO);
 //        System.out.println("physicalDTO = " + physicalDTO);
-//        System.out.println("employeeDTO = " + employeeDTO);
+        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
@@ -154,15 +156,15 @@ public class EmpController {
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        for (EmpDTO emp : empList) {
-
-            String path = emp.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                emp.setPic(temp);
-            }
-        }
+//        for (EmpDTO emp : empList) {
+//
+//            String path = emp.getPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                emp.setPic(temp);
+//            }
+//        }
 
         model.addAttribute("empList", empList);
 
@@ -180,22 +182,22 @@ public class EmpController {
         EmpTotDTO emp = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        String pic = emp.getPic();
-        String url = (String) session.getAttribute(pic);
-
-        if (url != null) {
-            emp.setPic(url);
-        }
-
-        for (EmpDTO user : empList) {
-
-            String path = user.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                user.setPic(temp);
-            }
-        }
+//        String pic = emp.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            emp.setPic(url);
+//        }
+//
+//        for (EmpDTO user : empList) {
+//
+//            String path = user.getPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setPic(temp);
+//            }
+//        }
 
         session.setAttribute("searched", emp.getCode());
 
@@ -216,24 +218,24 @@ public class EmpController {
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        String pic = emp.getPic();
-        String url = (String) session.getAttribute(pic);
-
-        if (url != null) {
-            emp.setPic(url);
-        }
+//        String pic = emp.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            emp.setPic(url);
+//        }
 
         String[] quals = emp.getEmployeeDTO().getQual().split(",");
 
-        for (EmpDTO user : empList) {
-
-            String path = user.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                user.setPic(temp);
-            }
-        }
+//        for (EmpDTO user : empList) {
+//
+//            String path = user.getPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setPic(temp);
+//            }
+//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("quals", quals);
@@ -269,8 +271,8 @@ public class EmpController {
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
-                empDTO.setPic("/uploadFiles/" + savedName);
-                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
+                empDTO.setPic(savedName);
+//                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -316,15 +318,15 @@ public class EmpController {
 
 //        System.out.println("urlAddress = " + urlAddress);
 
-        for (EmpDTO user : empList) {
-
-            String path = user.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                user.setPic(temp);
-            }
-        }
+//        for (EmpDTO user : empList) {
+//
+//            String path = user.getPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setPic(temp);
+//            }
+//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
@@ -343,22 +345,22 @@ public class EmpController {
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        String pic = emp.getPic();
-        String url = (String) session.getAttribute(pic);
-
-        if (url != null) {
-            emp.setPic(url);
-        }
-
-        for (EmpDTO user : empList) {
-
-            String path = user.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                user.setPic(temp);
-            }
-        }
+//        String pic = emp.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            emp.setPic(url);
+//        }
+//
+//        for (EmpDTO user : empList) {
+//
+//            String path = user.getPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setPic(temp);
+//            }
+//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
@@ -375,5 +377,11 @@ public class EmpController {
         empService.removeEmp(code);
 
         return "redirect:/emp/main";
+    }
+
+    @GetMapping("/test")
+    public String empTest() {
+
+        return "/emp/test";
     }
 }

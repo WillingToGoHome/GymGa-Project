@@ -15,7 +15,7 @@
                 <hr class="line1">
                 <div class="empBlock" th:each="emp : ${ empList }">
                     <div class="empBlockLeft">
-                        <img class="empImg" th:src="${ emp.pic }"/>
+                        <img class="empImg" th:src="|/images/${ emp.pic }|"/>
                     </div>
                     <div class="empBlockRight">
                         <p class="empName" th:text="${ emp.name }"></p>

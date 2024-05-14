@@ -31,7 +31,7 @@
                 <div th:object="${ emp }">
                     <div class="userInfoBox">
                         <div class="previewBox">
-                            <img th:src="*{ pic }">
+                            <img th:src="|/images/${ emp.pic }|">
                         </div>
                         <div style="float: left">
                             <div>
@@ -141,7 +141,7 @@
             <div class="sideEmpList">
                 <div class="sideEmpBlock" th:each="emp : ${ empList }">
                     <div class="empBlockLeft">
-                        <img class="empImg" th:src="${ emp.pic }">
+                        <img class="empImg" th:src="|/images/${ emp.pic }|">
                     </div>
                     <div class="empBlockRight">
                         <p class="empName" th:text="${ emp.name }"></p>
