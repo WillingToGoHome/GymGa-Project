@@ -42,10 +42,22 @@
                                             <div class="left">
                                                 <span class="inputText">아이디</span><br>
                                                 <span class="inputText">비밀번호</span><br>
+                                                <span class="inputText">키</span><br>
+                                                <span class="inputText">체중</span><br>
+                                                <span class="inputText">BMI</span>
                                             </div>
                                             <div class="right2">
                                                 <p class="userText" th:text="${user.userId}"></p>
                                                 <p class="userText" th:text="${user.userPwd}" style="padding-top: 10px"></p>
+                                                <p class="userText" th:if="${user.physicalDTO.height == null}" style="margin-top: 21px"></p>
+                                                <p class="userText" th:if="${user.physicalDTO.height != null}" style="margin-top: 21px">
+                                                    <span th:text="${user.physicalDTO.height} + ' cm'"></span>
+                                                </p>
+                                                <p class="userText" th:if="${user.physicalDTO.weight == null}" style="padding-top: 9px"></p>
+                                                <p class="userText" th:if="${user.physicalDTO.weight != null}" style="padding-top: 9px">
+                                                    <span th:text="${user.physicalDTO.weight} + ' kg'"></span>
+                                                </p>
+                                                <p class="userText" th:text="${user.physicalDTO.bmi}" style="padding-top: 20px"></p>
                                             </div>
                                         </div>
                                         <div class="infoBox2">
@@ -53,17 +65,18 @@
                                                 <span class="inputText">이름</span><br>
                                                 <span class="inputText">전화번호</span><br>
                                                 <span class="inputText">생년월일</span><br>
-                                                <div class="leftIn">
-                                                    <span class="inputText">성별</span><br>
-                                                    <span class="inputText">담당강사</span>
-                                                </div>
+                                                <span class="inputText">성별</span><br>
+                                                <span class="inputText">담당강사</span>
                                             </div>
                                             <div class="right2" style="margin-left: 30px">
                                                 <p class="userText" th:text="${user.userName}"></p>
-                                                <p class="userText" th:text="${user.userPhone}"></p>
-                                                <p class="userText" th:text="${user.userBirth}"></p>
-                                                <p class="userText" th:text="${user.userGender}"></p>
-                                                <p class="userText" th:text="${user.userStaff}"></p>
+                                                <p class="userText" th:text="${user.userPhone}" style="margin-top: 10px"></p>
+                                                <p class="userText" th:text="${user.userBirth}" style="margin-top: 10px"></p>
+                                                <p class="userText" th:text="${user.userGender}" style="margin-top: 11px"></p>
+                                                <p class="userText" th:if="${user.userStaff == 0 || user.userStaff == null}" th:text="없음" style="margin-top: 10px"></p>
+                                                <p class="userText" th:if="${user.userStaff}" style="margin-top: 10px">
+                                                    <span th:text="${user.staffName}"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +86,7 @@
                                                 <span class="inputText">주소</span>
                                             </div>
                                         </div>
-                                        <div class="right2" style="margin-left: 62px">
+                                        <div class="right2" style="margin-left: 30px; padding-top: 7px">
                                             <div style="display: flex; align-items: center">
                                                 <p class="userText" th:text="${user.userAddress}" style="width: 200px"></p>
                                             </div>
@@ -82,42 +95,24 @@
                                 </div>
                             </div>
                             <div class="detailBox">
-                                <div class="infoBox1" style="margin-left: 30px; display: flex">
-                                    <div class="left" style="width: 60px">
-                                        <span class="inputText">신체조건</span><br>
-                                        <span class="inputText">키</span><br>
-                                        <span class="inputText">체중</span><br>
-                                        <span class="inputText">BMI</span>
-                                    </div>
-                                    <div class="right">
-                                        <br>
-                                        <p class="userText" th:text="${user.physicalDTO.height} + cm"></p>
-                                        <p class="userText" th:text="${user.physicalDTO.weight} + kg"></p>
-                                        <p class="userText" th:text="${user.physicalDTO.bmi}"></p>
-                                    </div>
-                                </div>
                                 <div class="etcAndButton">
                                     <div class="infoBox4">
                                         <div class="left">
                                             <span class="inputText">기타</span>
                                         </div>
-                                        <div class="right">
-                                            <p class="userText" th:text="${user.userEtc}"></p>
-                                        </div>
+                                        <p class="etcText" th:text="${user.userEtc}"></p>
+                                    </div>
                                         <form id="updateForm" action="/user/update" method="post">
-                                            <div class="infoBox3">
                                                 <input type="hidden" name="code" th:value="${user.userCode}">
                                                 <button class="submitButton" type="submit" name="submit" id="submit">수정</button>
-                                            </div>
                                         </form>
-                                    </div>
                                 </div>
                             </div>
                     </div>
                 </div>
                 <div class="sideBox">
                     <div class="painBox">
-                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px" >
+                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px" onClick="location.href='/user/pain'">
                         <p class="painText">통증등록</p>
                     </div>
                 </div>

@@ -23,5 +23,6 @@ public class UserTotDTO {
     private String userAddress;
     private String userEtc;
     private int userStaff;
+    private String staffName;
     private PhysicalDTO PhysicalDTO;
 }

@@ -32,6 +32,7 @@
         <result property="userAddress" column="user_address"/>
         <result property="userEtc" column="user_etc"/>
         <result property="userStaff" column="user_staff"/>
+        <result property="staffName" column="staff_name"/>
         <association property="physicalDTO" javaType="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
             <result property="height" column="PHY_HEIGHT"/>
             <result property="weight" column="PHY_WEIGHT"/>
@@ -249,8 +250,10 @@
             , B.PHY_HEIGHT
             , B.PHY_WEIGHT
             , B.PHY_BMI
+            , C.USER_NAME AS STAFF_NAME
         FROM USERDB A
         LEFT JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        LEFT JOIN USERDB C ON A.USER_STAFF = C.USER_CODE
         WHERE A.USER_CODE = #{ code }
     </select>
 

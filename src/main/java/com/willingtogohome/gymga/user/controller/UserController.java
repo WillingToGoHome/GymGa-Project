@@ -164,8 +164,6 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        System.out.println("코드 가져옴?" + code);
-
         return "user/selectDetail";
     }
 }
