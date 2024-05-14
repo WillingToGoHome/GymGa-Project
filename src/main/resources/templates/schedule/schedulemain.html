@@ -239,7 +239,7 @@
                             </tr>
                             <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}" >
                                 <td>
-                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulePtlist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>
+                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>
 <!--                                    <a th:switch="${scheduleByRunDate.classCategory.className}">-->
 <!--                                        <span th:case="'PT01'">-->
 <!--                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulePtlist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>-->

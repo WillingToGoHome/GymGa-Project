@@ -111,7 +111,7 @@ public class ScheduleController {
     }
 
     // PT 상세페이지(scheCode로 선택)
-    @GetMapping("/schedule/schedulePtlist/{scheCode}")
+    @GetMapping("/schedule/schedulelist/{scheCode}")
     public String findByScheduleCode(@PathVariable("scheCode") int scheCode, Model model) {
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheCode(scheCode);
         model.addAttribute("selectOneSchedule", scheduleAndClassAndUserAndPassDTO);
