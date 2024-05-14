@@ -78,13 +78,13 @@ public class UserController {
         criteria.setText(search);
         criteria.setCondition(category);
 
-        List<UserDTO> userList = userService.searchedUser(criteria);
+        List<UserAndEmpDTO> userList = userService.searchedUser(criteria);
 
         session.setAttribute("searchedUser", userList);
 
         model.addAttribute("userList", userList);
 
-        for (UserDTO user : userList) {
+        for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);
         }
 

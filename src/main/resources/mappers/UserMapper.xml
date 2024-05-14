@@ -53,28 +53,28 @@
         <result property="userAddress" column="user_address"/>
         <result property="userEtc" column="user_etc"/>
         <result property="userStaff" column="user_staff"/>
-        <association property="empCategory" javaType="com.willingtogohome.gymga.user.model.dto.User2DTO">
-            <id property="empCode" column="user_code"/>
-            <result property="empName" column="user_name"/>
-        </association>
+        <result property="staffName" column="staff_name"/>
     </resultMap>
 
 
     <select id="allUser" resultMap="userAndEmpResultMap">
         SELECT
-              USER_CODE
-            , USER_NAME
-            , USER_ID
-            , USER_GENDER
-            , USER_PHONE
-            , USER_STAFF
-            , USER_ROLE
+              A.USER_CODE
+            , A.USER_NAME
+            , A.USER_ID
+            , A.USER_GENDER
+            , A.USER_PHONE
+            , A.USER_STAFF
+            , A.USER_ROLE
+            , B.USER_NAME AS STAFF_NAME
          FROM
-              USERDB
+              USERDB A
+         LEFT JOIN
+              USERDB B ON A.USER_STAFF = B.USER_CODE
         WHERE
-              USER_ROLE = '회원'
+              A.USER_ROLE = '회원'
         ORDER BY
-              USER_CODE
+              A.USER_CODE;
     </select>
 
     <select id="findLastCode" resultType="_int">
@@ -85,7 +85,8 @@
 
     <select id="selectDetail" parameterType="com.willingtogohome.gymga.user.model.dto.UserTotDTO">
         SELECT
-                A. USER_NAME
+                A. USER_CODE
+             ,  A. USER_NAME
              ,  A. USER_ID
              ,  A. USER_PWD
              ,  A. USER_BIRTH
@@ -101,7 +102,7 @@
         JOIN
              PHYSICALDB B ON A.USER_CODE = B.USER_CODE
         WHERE
-             USER_CODE = #{userCode}
+             A.USER_CODE = #{userCode}
     </select>
 
     <delete id="userPain" parameterType="int">
@@ -139,6 +140,13 @@
               USER_CODE = #{userCode}
     </delete>
 
+    <delete id="salesUser" parameterType="int">
+        DELETE FROM
+            SALESDB
+        WHERE
+            USER_CODE = #{userCode}
+    </delete>
+
     <delete id="deleteUser" parameterType="int">
         DELETE FROM
               USERDB
@@ -147,27 +155,31 @@
     </delete>
 
 
-    <select id="searchedUser" resultMap="userResultMap">
+    <select id="searchedUser" resultMap="userAndEmpResultMap">
         SELECT
-                USER_CODE
-             ,  USER_NAME
-             ,  USER_ID
-             ,  USER_GENDER
-             ,  USER_PHONE
-             ,  USER_STAFF
+            A.USER_CODE
+            , A.USER_NAME
+            , A.USER_ID
+            , A.USER_GENDER
+            , A.USER_PHONE
+            , A.USER_STAFF
+            , A.USER_ROLE
+            , B.USER_NAME AS STAFF_NAME
         FROM
-              USERDB
+            USERDB A
+        LEFT JOIN
+            USERDB B ON A.USER_STAFF = B.USER_CODE
         <where>
             <if test="condition == 'name'">
-                AND USER_NAME Like CONCAT('%', #{ text }, '%')
+                AND A.USER_NAME Like CONCAT('%', #{ text }, '%')
             </if>
             <if test="condition == 'id'">
-                AND USER_ID Like CONCAT('%', #{ text }, '%')
+                AND A.USER_ID Like CONCAT('%', #{ text }, '%')
             </if>
-            AND USER_ROLE = '회원'
+            AND A.USER_ROLE = '회원'
         </where>
         ORDER BY
-              USER_CODE
+              A.USER_CODE;
     </select>
 
     <select id="findAllTeacher" resultMap="userResultMap">
