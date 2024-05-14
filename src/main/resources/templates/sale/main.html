@@ -71,8 +71,8 @@
                                  + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
                                     <td class="price" th:text="${sale.passQualDTO.pqPrice}"></td>
                                     <td class="time2" th:text="${sale.saleDTO.salesMethod}"></td>
-                                    <td class="time2" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
-                                 +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
+                                    <td class="time2" th:text="${#dates.format(sale.passStart, 'YY.MM.dd')}
+                                 +${#dates.format(sale.saleDTO.salesDate, ' / a / HH:mm')}"></td>
                                 </tr>
                             </thead>
                         </table>

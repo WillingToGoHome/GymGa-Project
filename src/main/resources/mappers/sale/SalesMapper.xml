@@ -219,14 +219,10 @@
                 AND A.USER_ID Like CONCAT('%', #{ text }, '%')
             </if>
             <if test="condition == 'month'">
-                AND DATE_FORMAT(C.pass_start, '%m') = LPAD(#{text}, 2, '0')
+                AND DATE_FORMAT(C.pass_start, '%m'||'%m월') = LPAD(#{text}, 2, '0')
             </if>
             <if test="condition == 'string'">
                 AND A.USER_NAME Like CONCAT('%', #{ text }, '%')
-            </if>
-            <!-- 추가된 부분: 입력값이 숫자인 경우 -->
-            <if test="condition == 'number'">
-                AND DATE_FORMAT(C.pass_start, '%m') = LPAD(#{text}, 2, '0')
             </if>
             AND A.USER_ROLE = '회원'
         </where>
