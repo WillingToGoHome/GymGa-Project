@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -44,6 +46,16 @@ public class ScheduleController {
         scheduleService.findAllScheRunDate().forEach(System.out::println);
 
         return scheduleService.findAllScheRunDate();
+    }
+
+    // 일정으로 페이지 가기 ?
+    @GetMapping("schedule/test/{scheRunDate}")
+    public String findByScheRunDate(@PathVariable("scheRunDate")Date scheRunDate, Model model) {
+        ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheRunDate(scheRunDate);
+        model.addAttribute("selectOneRunDate", scheduleAndClassAndUserAndPassDTO);
+        System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);
+
+        return "schedule/schedulemain";
     }
 
     @GetMapping("/schedule/scheduleregist")

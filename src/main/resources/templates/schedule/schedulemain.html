@@ -32,27 +32,29 @@
                 <!--달력-->
                 <div class="left">
                     <table class="calendar" id="calendar">
-                        <thead>
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>
-                        </thead>
-                        <tbody id="calendar-body">
-                        </tbody>
+                        <div class="month">
+                        </div>
+                            <thead>
+                            <tr>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                            </thead>
+                            <tbody id="calendar-body">
+                            </tbody>
+
                     </table>
                 </div>
                 <!--Today-->
                 <div class="right">
                     <div class="right-container">
                         <div class="today-date">
-                            <div class="event-date">16 November 2024</div>
-                            <div class="event-day">Wed</div>
+                            <p th:text="${scheRunDate}"></p>
                         </div>
                         <div class="count-schedule">
                             <p>·총일정 : </p>
@@ -75,13 +77,13 @@
                                 <th>회원명</th>
                                 <th>출결</th>
                             </tr>
-                            <tr th:each="schedule : ${allList}">
-                                <td th:text="${schedule.classCategory.className}"></td>
-                                <td th:text="${schedule.empCategory.empName}"></td>
-                                <td th:text="${schedule.scheStartTime}"></td>
-                                <td th:text="${schedule.scheParticipate}"></td>
-                                <td th:text="${schedule.userCategory.memberName}"></td>
-                                <td th:text="${schedule.scheAtten}"></td>
+                            <tr th:each="schedule : ${selectOneRunDate}">
+                                <td th:text="${selectOneRunDate.classCategory.className}"></td>
+                                <td th:text="${selectOneRunDate.empCategory.empName}"></td>
+                                <td th:text="${selectOneRunDate.scheStartTime}"></td>
+                                <td th:text="${selectOneRunDate.scheParticipate}"></td>
+                                <td th:text="${selectOneRunDate.userCategory.memberName}"></td>
+                                <td th:text="${selectOneRunDate.scheAtten}"></td>
                             </tr>
                         </table>
                     </div>
@@ -124,6 +126,9 @@
                         const clickedDate = new Date(year, month, parseInt(this.innerText, 10) + 1);
                         const mysqlDate = clickedDate.toISOString().split('T')[0];
                         console.log('Clicked on ' + mysqlDate);
+
+                        window.location.href = `/schedule/test/${mysqlDate}`;
+
 
                         fetch("/schedule/scherundate")
                             .then(res => res.json())

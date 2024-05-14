@@ -6,6 +6,7 @@ import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPa
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -81,5 +82,9 @@ public class ScheduleService {
 
     public List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate() {
         return scheduleMapper.findAllScheRunDate();
+    }
+
+    public ScheduleAndClassAndUserAndPassDTO findByScheRunDate(Date scheRunDate) {
+        return scheduleMapper.findByScheRunDate(scheRunDate);
     }
 }

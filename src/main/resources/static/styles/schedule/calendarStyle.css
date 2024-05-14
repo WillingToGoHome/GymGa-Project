@@ -24,6 +24,21 @@
     /*margin: auto;*/
 }
 
+.calendar th, .calendar td {
+    width: 100px;
+    height: 50px;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+.calendar th {
+    background-color: #f2f2f2;
+}
+.calendar td:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
 
 .calendar .month {
     background-color: #F0F0F0;
@@ -269,6 +284,8 @@
     /*margin-top: 50px;*/
     /*margin-bottom: 20px;*/
     text-transform: capitalize;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .right table {
@@ -328,6 +345,7 @@
     height: 23px;
     border: none;
     border-bottom: 0.75px solid #F0F0F0;
+    text-align: center;
 
 }
 
@@ -580,23 +598,5 @@
     }
 }
 
-/* 임시 */
-.calendar {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 600px;
-}
-.calendar th, .calendar td {
-    width: 100px;
-    height: 50px;
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 8px;
-}
-.calendar th {
-    background-color: #f2f2f2;
-}
-.calendar td:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
+
+

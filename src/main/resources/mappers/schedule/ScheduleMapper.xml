@@ -300,6 +300,41 @@
           FROM scheduledb
     </select>
 
+    <select id="findByScheRunDate" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+        A.SCHE_CODE,
+        <!--               B.CLASS_CODE,-->
+        B.CLASS_NAME,
+        A.SCHE_REG_DATE,
+        A.SCHE_RUN_DATE,
+        A.SCHE_START_TIME,
+        A.SCHE_END_TIME,
+        A.SCHE_PARTICIPATE,
+        A.SCHE_ATTEN,
+        <!--               A.EMP_CODE,-->
+        <!--               C.USER_CODE,-->
+        C.USER_CODE,
+        C.USER_NAME AS EMP_NAME,
+        <!--               A.MEMBER_CODE,-->
+        <!--               D.USER_CODE,-->
+        D.USER_CODE,
+        D.USER_NAME,
+        D.USER_PHONE,
+        A.PASS_CODE,
+        <!--               E.PASS_CODE,-->
+        F.PQ_NAME,
+        E.PASS_TOTAL,
+        E.PASS_USE
+        FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        LEFT JOIN PASSQUALDB AS F ON (E.PQ_CODE = F.PQ_CODE)
+        WHERE A.SCHE_RUN_DATE = #{scheRunDate}
+        ORDER BY A.SCHE_CODE
+    </select>
+
 
 
 </mapper>
