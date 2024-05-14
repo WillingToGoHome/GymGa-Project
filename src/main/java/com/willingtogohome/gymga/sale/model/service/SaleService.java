@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.sale.model.service;
 
+import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassDataDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
@@ -30,7 +31,7 @@ public class SaleService {
         return saleMapper.findPassAndPassQualList();
     }
 
-    public List<SaleDTO> findAllList() {
+    public List<PassAndPassQualDTO> findAllList() {
         return saleMapper.findAllList();
     }
 
@@ -69,4 +70,7 @@ public class SaleService {
         return saleMapper.getPassDataForPieChart();
     }
 
+    public List<PassAndPassQualDTO> searchedUser(SearchCriteria criteria) {
+        return saleMapper.searchedUser(criteria);
+    }
 }

@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.sale.model.dao;
 
+import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassDataDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 @Mapper
 public interface SaleMapper {
-    List<SaleDTO> findAllList();
+    List<PassAndPassQualDTO> findAllList();
 
     List<PassAndPassQualDTO> findPassAndPassQualList();
 
@@ -32,4 +33,6 @@ public interface SaleMapper {
     PassDataDTO getPassDataDTO();
 
     List<PassMonthDTO> getPassDataForPieChart();
+
+    List<PassAndPassQualDTO> searchedUser(SearchCriteria criteria);
 }
