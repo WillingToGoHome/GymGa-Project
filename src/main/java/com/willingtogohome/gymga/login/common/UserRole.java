@@ -12,6 +12,7 @@ public enum UserRole {
     }
 
     public String getRole() {
+        System.out.println(role);
         return role;
     }
 

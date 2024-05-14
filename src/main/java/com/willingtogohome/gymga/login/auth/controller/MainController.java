@@ -28,6 +28,9 @@ public class MainController {
     @GetMapping(value = "/login")
     public void login(){}
 
+    @GetMapping("/login/auth/success")
+    public void success(){}
+
 
 //    @GetMapping("/user/user")
 //    public String userPage(){

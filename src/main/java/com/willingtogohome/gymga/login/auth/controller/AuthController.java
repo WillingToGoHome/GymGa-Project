@@ -13,6 +13,8 @@ public class AuthController {
     @GetMapping("/auth/login")
     public void login(){}
 
+
+
     @GetMapping("/login/auth/fail")
     public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
 

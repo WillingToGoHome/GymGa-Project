@@ -29,7 +29,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             GrantedAuthority authority= authlist_it.next();
             //설정되어 있는 권한 중 ADMIN이 있다면
             if(authority.getAuthority().equals(UserRole.ADMIN.getRole())) {
-                url="/login/admin/admin";
+                url="/login/auth/success";
             }
         }
 
