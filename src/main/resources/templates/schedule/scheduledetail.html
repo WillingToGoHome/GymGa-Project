@@ -43,7 +43,7 @@
                         <div class="class-info-top">
                             <p>수업정보</p>
                             <span class="regist-info">생성일 : </span>
-                            <p class="regist-info-th" th:text="${selectOneSchedule.scheRegDate}"></p>
+                            <p class="regist-info-th" th:text="${#temporals.format(selectOneSchedule.scheRegDate, 'yyyy-MM-dd HH:mm:ss')}"></p>
                             <p class="regist-info-th" th:text="${selectOneSchedule.empCategory.empName}"></p>
 
                         </div>
@@ -58,7 +58,7 @@
                                 </tr>
                                 <tr>
                                     <td th:text="${selectOneSchedule.classCategory.className}"></td>
-                                    <td th:text="${selectOneSchedule.scheRegDate}"></td>
+                                    <td th:text="${selectOneSchedule.scheRunDate}"></td>
                                     <td>
                                         <span th:text="${selectOneSchedule.scheStartTime}"></span> ~ <span th:text="${selectOneSchedule.scheEndTime}"></span>
                                     </td>
