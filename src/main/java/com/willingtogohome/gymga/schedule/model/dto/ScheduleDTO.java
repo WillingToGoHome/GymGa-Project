@@ -2,9 +2,10 @@ package com.willingtogohome.gymga.schedule.model.dto;
 
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
-import java.sql.Date;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,7 +16,9 @@ public class ScheduleDTO {
 
     private int scheCode;           // 일정코드
     private String classCode;       // 강의코드 (1:1 PT, 필라테스, 스피닝, 에어로빅)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheRegDate;       // 등록일자
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheRunDate;       // 시작일
     private LocalTime scheStartTime;     // 시작시간
     private LocalTime scheEndTime;       // 종료시간

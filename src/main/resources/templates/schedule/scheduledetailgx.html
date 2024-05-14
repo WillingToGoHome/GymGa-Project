@@ -32,16 +32,9 @@
                         <div class="white-board-header">
                             <img onclick="location.href='/schedule/schedulemain'" src="/images/back.png">
                             <div class="time-user">
-<!--                                09시 00분 히비키 회원님-->
-<!--                                <p th:text="${selectOneSchedule.scheStartTime}"></p>&nbsp;-->
-<!--                                <p th:text="${selectOneSchedule.userCategory.memberName + ' 회원님'}"></p>-->
-                                <th:block th:if="${selectOneSchedule.classCategory.className == '1:1 PT'}">
-                                    <p th:text="${selectOneSchedule.scheStartTime}"></p>&nbsp;
-                                    <p th:if="${selectOneSchedule.userCategory.memberName != null}" th:text="${selectOneSchedule.userCategory.memberName + ' 회원님'}"></p>
-                                </th:block>
-                                <th:block th:unless="${selectOneSchedule.classCategory.className == '1:1 PT'}">
-                                    <p th:text="${selectOneSchedule.scheStartTime + ' G.X ' + selectOneSchedule.classCategory.className}"></p>
-                                </th:block>
+                                <!--                                09시 00분 히비키 회원님-->
+                                <p th:text="${selectOneSchedule.scheStartTime}"></p>&nbsp;
+                                <p th:text="${selectOneSchedule.userCategory.memberName + ' 회원님'}"></p>
                             </div>
                             <button class="change" onclick="location.href='/schedule/schedulemain'">변경</button>
                             <button class="cancel" id="cancelBtn">취소</button>
@@ -70,7 +63,7 @@
                                         <span th:text="${selectOneSchedule.scheStartTime}"></span> ~ <span th:text="${selectOneSchedule.scheEndTime}"></span>
                                     </td>
                                     <td>
-                                    <span th:text="${selectOneSchedule.scheParticipate + ' 명'}"></span>
+                                        <span th:text="${selectOneSchedule.scheParticipate + ' 명'}"></span>
                                     </td>
                                     <td th:text="${selectOneSchedule.empCategory.empName}"></td>
                                 </tr>
@@ -177,9 +170,9 @@
                         <input type="date" name="scheRunDate" th:value="${selectOneSchedule.scheRunDate}"><br>
                         <label>시간 선택</label><br>
                         <div class="time-choice">
-                        <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}">
-                        <p>~</p>
-                        <input class="endtime" type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
+                            <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}">
+                            <p>~</p>
+                            <input class="endtime" type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
                         </div>
                         <button class="check" type="submit">확인</button>
                     </form>

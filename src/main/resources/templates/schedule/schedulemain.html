@@ -74,7 +74,7 @@
                                         <p class="regist-small-font">일정을 생성해 주세요.</p>
                                         <img src="/images/개인수업버튼.png">
                                     </button>
-                                    <button class="gx">
+                                    <button class="gx" id="registGxBtn">
                                         <p class="regist-big-font">그룹 수업</p>
                                         <p class="regist-small-font">일정을 생성해 주세요.</p>
                                         <img src="/images/그룹수업버튼.png">
@@ -93,16 +93,16 @@
                                     <p>일정 생성</p>
                                 </div>
                                 <p class="pt-or-gx">개인 수업</p>
-                                <form action="/schedule/scheduleregist" method="post">
+                                <form action="/schedule/scheduleregistPt" method="post">
                                     <label>담당 강사 선택</label><br>
                                     <select name="empCode" id="empSelectCode"></select><br>
                                     <label>일자 선택</label><br>
                                     <input type="date" name="scheRunDate"/><br>
                                     <label>시간 선택</label><br>
                                     <div class="time-choice">
-                                    <input type="time" name="scheStartTime">
+                                    <input type="time" name="scheStartTime" id="scheStartTime2" step="1800">
                                     <p>~</p>
-                                    <input type="time" name="scheEndTime">
+                                    <input type="time" name="scheEndTime" id="scheEndTime2" step="1800">
                                     </div>
                                     <button class="check" type="submit">확인</button>
                                 </form>
@@ -120,6 +120,74 @@
 
                                                 $empCode.appendChild($option);
                                                 document.getElementById("empSelectCode").value = data[index].empCode;
+                                            }
+                                        })
+                                </script>
+                                <button class="close">취소</button>
+                            </div>
+                        </div>
+                        <!-- 그룹수업 등록 모달 -->
+                        <div id="registGxModal" class="modal">
+                            <div class="updateGx-modal-content">
+                                <div class="updateGx-modal-header">
+                                    <button class="close" id="changeBack2">
+                                        <img src="/images/back.png">
+                                    </button>
+                                    <p>일정 생성</p>
+                                </div>
+                                <p class="pt-or-gx">그룹 수업</p>
+                                <form action="/schedule/scheduleregistGx" method="post">
+                                    <label>담당 강사 선택</label><br>
+                                    <select name="empCode" id="empSelectCode2"></select><br>
+                                    <div class="class-choice">
+                                        <label>강의종목</label>
+                                        <label class="margin">인원수*</label>
+                                    </div>
+                                    <div class="class-choice">
+                                        <select name="classCode" id="classSelectCode"></select>
+                                        <input type="number" min="2" max="4" value="2">
+                                    </div>
+                                    <label>일자 선택</label><br>
+                                    <input type="date" name="scheRunDate"/><br>
+                                    <label>시간 선택</label><br>
+                                    <div class="time-choice">
+                                        <input type="time" name="scheStartTime" id="scheStartTime" step="1800">
+                                        <p>~</p>
+                                        <input type="time" name="scheEndTime" id="scheEndTime" step="1800">
+                                    </div>
+                                    <button class="check" type="submit">확인</button>
+                                </form>
+                                <!-- 강사선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/teacher")
+                                        .then(res =>res.json())
+                                        .then(data => {
+                                            const $empCode = document.getElementById("empSelectCode2");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].empCode;
+                                                $option.text = data[index].empName;
+
+                                                $empCode.appendChild($option);
+                                                document.getElementById("empSelectCode").value = data[index].empCode;
+                                            }
+                                        })
+                                </script>
+                                <!-- 강의선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/className")
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            const $className = document.getElementById("classSelectCode");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].classCode;
+                                                $option.text = data[index].className;
+
+                                                $className.appendChild($option);
+                                                document.getElementById("classSelectCode").value = data[index].classCode;
                                             }
                                         })
                                 </script>
@@ -162,31 +230,44 @@
                         <!--DB 출력-->
                         <table>
                             <tr>
-                                <th>강의코드</th>
+                                <th>강의명</th>
                                 <th>강사명</th>
                                 <th>시작시간</th>
                                 <th>인원</th>
                                 <th>회원명</th>
                                 <th>출결</th>
                             </tr>
-                            <tr th:each="schedule : ${selectOneRunDate}" >
+                            <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}" >
                                 <td>
-                                    <a th:text="${selectOneRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulePtlist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>
+<!--                                    <a th:switch="${scheduleByRunDate.classCategory.className}">-->
+<!--                                        <span th:case="'PT01'">-->
+<!--                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulePtlist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>-->
+<!--                                        </span>-->
+<!--                                        <span th:case="*">-->
+<!--                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/scheduleGxlist/${scheduleByRunDate.classCategory.classCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>-->
+<!--                                        </span>-->
+<!--                                    </a>-->
                                 </td>
                                 <td>
-                                    <a th:text="${selectOneRunDate.empCategory.empName}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:text="${scheduleByRunDate.empCategory.empName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
                                 </td>
                                 <td>
-                                    <a th:text="${selectOneRunDate.scheStartTime}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:text="${scheduleByRunDate.scheStartTime}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
                                 </td>
                                 <td>
-                                    <a th:text="${selectOneRunDate.scheParticipate}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:text="${scheduleByRunDate.scheParticipate}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
                                 </td>
                                 <td>
-                                    <a th:text="${selectOneRunDate.userCategory.memberName}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:text="${scheduleByRunDate.userCategory.memberName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
                                 </td>
                                 <td>
-                                    <a th:text="${selectOneRunDate.scheAtten}" th:href="@{|/schedule/schedulelist/${selectOneRunDate.scheCode}|}" style="text-decoration-line: none"></a>
+                                    <a th:switch="${scheduleByRunDate.scheAtten}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration: none;">
+                                        <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
+                                        <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>
+                                        <span th:case="'예약'" style="color: #000000;">■ 예약</span>
+                                        <span th:case="'예약대기'" style="color: #ABABAB;">■ 예약대기</span>
+                                    </a>
                                 </td>
                             </tr>
                         </table>
@@ -535,9 +616,11 @@
     // 모달요소 가져오기
     let registScheModal = document.getElementById("registScheModal");
     let registPtModal = document.getElementById("registPtModal");
+    let registGxModal = document.getElementById("registGxModal");
     // 일정생성 버튼 가져오기
     let registscheBtn = document.getElementById("makeschedule");
     let registPtBtn = document.getElementById("registPtBtn");
+    let registGxBtn = document.getElementById("registGxBtn");
     let closeBtns = document.getElementsByClassName("close");
 
 
@@ -549,9 +632,14 @@
         registPtModal.style.display = "block";
     }
 
+    registGxBtn.onclick = function() {
+        registGxModal.style.display = "block";
+    }
+
     for(let i = 0; i < closeBtns.length; i++) {
         closeBtns[i].onclick = function() {
             registPtModal.style.display = "none";
+            registGxModal.style.display = "none";
         }
     }
 
@@ -563,7 +651,139 @@
         }
     }
 </script>
+<!-- Input type="time" 관련 스크립트 -->
+<script>
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
 
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = start.getMinutes();
+            if (minutes < 30) {
+                start.setMinutes(0);
+            } else {
+                start.setMinutes(30);
+            }
+
+            // 시작 시간 입력 필드에 값 설정
+            this.value = start.toTimeString().substring(0, 5);
+        }
+    });
+
+    document.getElementById("scheStartTime2").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = start.getMinutes();
+            if (minutes < 30) {
+                start.setMinutes(0);
+            } else {
+                start.setMinutes(30);
+            }
+
+            // 시작 시간 입력 필드에 값 설정
+            this.value = start.toTimeString().substring(0, 5);
+        }
+    });
+
+    // 종료 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheEndTime").addEventListener("change", function() {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if(endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 종료 시간을 계산하여 1시간을 더함
+            var end = new Date(start.getTime() + (60 * 60 * 1000));
+
+            // 종료 시간의 시간과 분을 추출하여 문자열로 변환
+            var hours = ("0" + end.getHours()).slice(-2);
+            var minutes = ("0" + end.getMinutes()).slice(-2);
+
+            // 종료 시간 입력 필드에 값 설정
+            document.getElementById("scheEndTime").value = hours + ":" + minutes;
+        }
+    });
+    document.getElementById("scheEndTime").addEventListener("change", function() {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if(endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime2").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 종료 시간을 계산하여 1시간을 더함
+            var end = new Date(start.getTime() + (60 * 60 * 1000));
+
+            // 종료 시간의 시간과 분을 추출하여 문자열로 변환
+            var hours = ("0" + end.getHours()).slice(-2);
+            var minutes = ("0" + end.getMinutes()).slice(-2);
+
+            // 종료 시간 입력 필드에 값 설정
+            document.getElementById("scheEndTime2").value = hours + ":" + minutes;
+        }
+    });
+</script>
 
 
 </body>

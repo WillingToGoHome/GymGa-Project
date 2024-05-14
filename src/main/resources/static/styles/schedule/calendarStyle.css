@@ -335,6 +335,8 @@
     align-items: center;
 }
 
+
+
 .right-container table {
     font-size: 10.5px;
     font-weight: bold;
@@ -349,7 +351,6 @@
     border: none;
     border-bottom: 0.75px solid #F0F0F0;
     text-align: center;
-
 }
 
 

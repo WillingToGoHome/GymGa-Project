@@ -1,6 +1,7 @@
 package com.willingtogohome.gymga.schedule.model.service;
 
 import com.willingtogohome.gymga.schedule.model.dao.ScheduleMapper;
+import com.willingtogohome.gymga.schedule.model.dto.ClassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
@@ -39,10 +40,13 @@ public class ScheduleService {
     }
 
     // 일정 추가하기
-    public void registNewSchedule(ScheduleDTO newSchedule) {
-        scheduleMapper.registNewSchedule(newSchedule);
+    public void registNewPtSchedule(ScheduleDTO newSchedule) {
+        scheduleMapper.registNewPtSchedule(newSchedule);
     }
 
+    public void registNewGxSchedule(ScheduleDTO newSchedule) {
+        scheduleMapper.registNewGxSchedule(newSchedule);
+    }
 
     public List<ScheduleAndClassAndUserAndPassDTO> findAll() {
 
@@ -84,7 +88,18 @@ public class ScheduleService {
         return scheduleMapper.findAllScheRunDate();
     }
 
-    public ScheduleAndClassAndUserAndPassDTO findByScheRunDate(Date scheRunDate) {
-        return scheduleMapper.findByScheRunDate(scheRunDate);
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findByScheRunDate(Date scheRunDate) {
+
+        return scheduleMapper.findAllByScheRunDate(scheRunDate);
+    }
+
+    public List<ClassDTO> findAllClassName() {
+        return scheduleMapper.findAllClassName();
+    }
+
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findByClassCode(String classCode) {
+        return scheduleMapper.findByClassCode(classCode);
     }
 }
