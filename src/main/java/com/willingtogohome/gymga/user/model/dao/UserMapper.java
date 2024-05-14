@@ -1,17 +1,14 @@
 package com.willingtogohome.gymga.user.model.dao;
 
-import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
-import com.willingtogohome.gymga.user.model.dto.UserDTO;
-import com.willingtogohome.gymga.user.model.dto.SearchCriteria;
-import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
+import com.willingtogohome.gymga.user.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 @Mapper
 public interface UserMapper {
-    List<UserDTO> AllUser();
+    List<UserAndEmpDTO> allUser();
 
-    List<UserDTO> searchedUser(SearchCriteria criteria);
+    List<UserAndEmpDTO> searchedUser(SearchCriteria criteria);
 
     void userPain(int code);
 
@@ -23,6 +20,8 @@ public interface UserMapper {
 
     void validateUser(int code);
 
+    void salesUser(int code);
+
     void deleteUser(int code);
 
     void registUser(UserDTO newUser);
@@ -33,4 +32,7 @@ public interface UserMapper {
 
     List<UserTotDTO> selectDetail(int code);
 
+    List<UserDTO> findAllTeacher();
+
+    List<UserDTO> selectAllUserID();
 }

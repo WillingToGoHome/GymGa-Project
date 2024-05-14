@@ -29,6 +29,7 @@
     width: 950px;
     align-content: center;
     background-color: rgba(217, 217, 217, 1);
+    margin-top: -2px;
 }
 
 .empBlock {
@@ -50,6 +51,7 @@
 .empImg {
     width: 70px;
     height: 70px;
+    border-radius: 70px;
 }
 
 .empBlockRight {

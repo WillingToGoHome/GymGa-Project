@@ -5,19 +5,41 @@
     <title>UPDATE</title>
 </head>
 <body>
-    <h2>일정 변경</h2>
-    <form th:action="@{|/schedule/scheduleupdate/${selectOneSchedule.scheCode}|}" method="post">
-        <input type="hidden" name="scheCode" th:value="${selectOneSchedule.scheCode}">
-        <label>담당 강사 선택</label><br>
-        <select name="empCode" id="empCode"></select><br>
-        <label>일자 선택</label><br>
-        <input type="date" name="scheRunDate"/><br>
-        <label>시간 선택</label><br>
-        <input type="time" name="scheStartTime"> ~ <input type="time" name="scheEndTime"><br>
+<h2>일정 변경</h2>
+<form th:action="@{|/schedule/scheduleupdate/${selectOneSchedule.scheCode}|}" method="post">
+    <input type="hidden" name="scheCode" th:value="${selectOneSchedule.scheCode}">
+    <label>담당 강사 선택</label><br>
+    <select name="empCode" id="empSelectCode"></select><br>
+    <label>일자 선택</label><br>
+    <input type="date" name="scheRunDate" th:value="${selectOneSchedule.scheRunDate}"><br>
+    <label>시간 선택</label><br>
+    <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}"> ~ <input type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
+    <button type="submit">확인</button>
+</form>
+<button onclick="goBack()">취소</button>
 
-<!--        <button onclick="location.href='/schedule/schedulelist'">리스트로</button>-->
-<!--        <button th:onclick="|location.href='/schedule/scheduledetail/' + ${selectOneSchedule.scheCode}|">취소</button>-->
-        <button type="submit">확인</button>
-    </form>
+<!-- 뒤로가기 스크립트 -->
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    <!-- 강사선택 스크립트 -->
+</script>
+<script>
+    fetch("/schedule/teacher")
+        .then(res =>res.json())
+        .then(data => {
+            const $empCode = document.getElementById("empSelectCode");
+
+            for(let index in data) {
+                const $option = document.createElement('option');
+                $option.value = data[index].empCode;
+                $option.text = data[index].empName;
+
+                $empCode.appendChild($option);
+            }
+        })
+</script>
 </body>
 </html>

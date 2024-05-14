@@ -4,14 +4,18 @@ import com.willingtogohome.gymga.user.model.dto.*;
 import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -27,9 +31,9 @@ public class UserController {
     @GetMapping("/selectAll")
     public String UserAllList(Model model) {
 
-        List<UserDTO> userList = userService.AllUser();
+        List<UserAndEmpDTO> userList = userService.allUser();
 
-        for (UserDTO user : userList) {
+        for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);
         }
 
@@ -39,7 +43,30 @@ public class UserController {
     }
 
     @GetMapping("/selectDetail")
-    public void detailPage() {
+    public void detailPage(@RequestParam("code") String userCode, HttpSession session, Model model) {
+
+        int code = (int) session.getAttribute(userCode);
+        String text = Integer.toString(code);
+
+//        UserTotDTO user = userService.searchBy(new SearchCriteria("code", text));
+//        List<UserDTO> userList = userService.selectAllUser();
+//
+//        String pic = user.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            user.setPic(url);
+//        }
+//
+//        for (UserDTO user : userList) {
+//
+//            String path = user.getUserPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setUserPic(temp);
+//            }
+//        }
     }
 
     @PostMapping("/selectDetail")
@@ -74,37 +101,81 @@ public class UserController {
         criteria.setText(search);
         criteria.setCondition(category);
 
-        List<UserDTO> userList = userService.searchedUser(criteria);
+        List<UserAndEmpDTO> userList = userService.searchedUser(criteria);
 
         session.setAttribute("searchedUser", userList);
 
         model.addAttribute("userList", userList);
 
-        for (UserDTO user : userList) {
+        for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);
         }
 
         return "user/search";
     }
 
+    @GetMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<UserDTO> findTeacherList() {
+
+        userService.findAllTeacher().forEach(System.out::println);
+
+        return userService.findAllTeacher();
+    }
+
     @GetMapping("/regist")
-    public String registPage() {
+    public String registPage(Model model) {
+
+        List<UserDTO> userIDList = userService.selectAllUserID();
+
+        String[] idList = new String[userIDList.size()];
+
+        model.addAttribute("idList", idList);
 
         return "user/regist";
     }
 
     @PostMapping("/regist")
-    public String registUser(UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String address1, @RequestParam String address2, @RequestParam String staff) {
+    public String registUser(HttpSession session,
+                             @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
+                             UserDTO newUser, PhysicalDTO physical,
+                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam String urlAddress,
+                             @RequestParam MultipartFile picFile) {
 
-        int userStaff = Integer.parseInt(staff);
+        if (!picFile.isEmpty()) {
+            String root = "src/main/resources/static";
+            String filePath = root + "/uploadFiles";
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originFileName = picFile.getOriginalFilename();
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            String savedName = UUID.randomUUID() + ext;
+
+            try {
+                picFile.transferTo(new File(filePath + "/" + savedName));
+                newUser.setUserPic("/uploadFiles/" + savedName);
+                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            newUser.setUserPic("/uploadFiles/default-user.png");
+        }
+
         int code = userService.findLastCode();
 
-        newUser.setUserStaff(userStaff);
+        if (newUser.getUserBirth() == null) {
+            newUser.setUserBirth(java.sql.Date.valueOf("2000-01-01"));
+        }
+
         newUser.setUserCode(code + 1);
         newUser.setUserRole("회원");
-        newUser.setUserAddress(address1 + " " + address2);
-        physical.setCode(code + 1);
+        newUser.setUserAddress(userAddress1 + " " + userAddress2);
+        physical.setUserCode(code + 1);
 
         userService.registUser(newUser, physical);
 

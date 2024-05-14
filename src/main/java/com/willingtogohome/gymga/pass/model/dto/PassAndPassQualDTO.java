@@ -4,9 +4,9 @@ package com.willingtogohome.gymga.pass.model.dto;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.dto.ValidateDTO;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
+import com.willingtogohome.gymga.user.model.dto.EmpDTO;
 import lombok.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -31,4 +31,6 @@ public class PassAndPassQualDTO {
     private UserDTO userDTO;
     private ValidateDTO validateDTO;
     private SaleDTO saleDTO;
+    private EmpDTO empDTO;
+
 }

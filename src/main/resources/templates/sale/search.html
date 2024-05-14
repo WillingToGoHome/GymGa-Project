@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/headerStyle.css">
+    <link rel="stylesheet" href="../styles/navbarStyle.css">
+    <link rel="stylesheet" href="../styles/myStyle.css">
+    <link rel="stylesheet" href="../styles/footerStyle.css">
+    <link rel="stylesheet" href="../styles/salesSearchStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="app_area">
+    <div id="window">
+            <!--header-->
+            <div th:include="common/header"></div>
+            <!--navbar-->
+            <div class="main-container">
+                <div th:include="common/navbar"></div>
+                <!--내용 작성하는 div-->
+            <div class="my-style">
+                <div class="graph">
+                <div class="backGround">
+                    <div class="on">
+                        <img src="/img/Back.png" class="back">
+                        <p class="text">내역 조회</p>
+                        <form action="/sale/search" method="post" class="top">
+                            <input type="text" class="search" name="search" placeholder="검색 내용">
+                            <select name="category" class="option">
+                                <option value="">전체 조회</option>
+                                <option value="month">월별</option>
+                                <option value="name">이름</option>
+                            </select>
+                            <button type="submit" class="searchButton">검색</button>
+                        </form>
+                    </div>
+                    <hr class="hr1">
+                    <div class="title">
+                        <p class="img"></p>
+                        <p class="userName">이름</p>
+                        <p class="userId">판매 번호</p>
+                        <p class="price2">이용권</p>
+                        <p class="userPhone">이용권 기간</p>
+                        <p class="price2">판매 금액</p>
+                        <p class="userStaff">결제 방식</p>
+                    </div>
+                    <hr class="hr2">
+                    <div class="zxc">
+                        <div class="userList" th:each="user:${userList}">
+                            <p class="img"><img th:src="${user.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/></p>
+                            <p class="userName" th:text="${user.userDTO.userName}"></p>
+                            <p class="userId" th:text="${user.passQualDTO.pqCode}"></p>
+                            <p  class="price2" th:text="${user.passQualDTO.pqName}"></p>
+                            <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')
+                                 + ' ~'
+                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                            <p class="price" th:text="${user.passQualDTO.pqPrice}"></p>
+                            <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>
+                        </div>
+                    </div>
+                </div>
+                    <div class="graph2">
+                            <div class="pieG" id="pie"></div>
+
+                            <div class="barG" id="bar"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!--내용 작성하는 div-->
+            <!--footer-->
+            <div th:include="common/footer"></div>
+    </div>
+        </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectElement = document.querySelector('.option');
+        selectElement.addEventListener('change', function() {
+            // 현재 선택된 옵션의 값 가져오기
+            var selectedOption = selectElement.value;
+            // 검색 input 요소 가져오기
+            var searchInput = document.querySelector('.search');
+
+            // 선택된 옵션에 따라 placeholder 설정
+            switch (selectedOption) {
+                case 'month':
+                    searchInput.placeholder = '월별 검색 ex) 6';
+                    break;
+                case 'name':
+                    searchInput.placeholder = '이름 검색 ex) 홍길동';
+                    break;
+                case 'id':
+                    searchInput.placeholder = '분기 조회 ex) 3';
+                    break;
+                default:
+                    searchInput.placeholder = '검색 내용';
+            }
+        });
+        var userList = document.querySelectorAll('.userList');
+        if (userList.length === 0 || userList === '') {
+            displayNoResultsMessage();
+        }
+    });
+    function displayNoResultsMessage() {
+
+        var messageDiv = document.createElement('div');
+        messageDiv.textContent = '검색 결과가 없습니다.';
+        messageDiv.style.color = 'red';
+        messageDiv.style.textAlign ='center';
+        messageDiv.style.marginTop='10px'
+
+        var contentContainer = document.querySelector('.zxc');
+        contentContainer.appendChild(messageDiv);
+    }
+</script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectElement = document.querySelector('.option');
+        var searchInput = document.querySelector('.search');
+
+        // 옵션을 선택했을 때 입력 상자에 초점을 맞춤
+        selectElement.addEventListener('change', function() {
+            searchInput.focus();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var userListSize = $(".userList").length;
+        for (var i = 0; i < userListSize - 1; i++) {
+            var userList = $(".userList:eq(" + i + ")");
+            userList.after("<div>");
+            var hrDiv = userList.next();
+            hrDiv.append("<div><hr class='hr3'></div>");
+        }
+
+        $(".deleteButton").click(function() {
+            $(this).siblings(".modalContainer").show();
+        });
+
+        $(".cancelButton").click(function() {
+            $(this).closest(".modalContainer").hide();
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var prices = document.querySelectorAll('.price');
+        prices.forEach(function(price) {
+            var value = price.textContent.trim();
+            var formattedValue = Number(value).toLocaleString('en');
+            price.textContent = formattedValue + '원';
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var dom = document.getElementById('pie');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+
+    function fetchDataForPieChart() {
+        fetch('/sale/passDataPie')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('파이 차트 데이터를 가져오지 못했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var PT = data.ptCount;
+                var GX = data.gxCount;
+                var GP = data.gpCount;
+                var SUM = PT + GX + GP;
+                if (SUM === 0) {
+                    throw new Error('파이 차트를 위한 데이터가 없습니다.');
+                }
+                var result = (PT / SUM) * 100;
+                var result2 = (GX / SUM) * 100;
+                var result3 = (GP / SUM) * 100;
+
+                var option = {
+                    title: {
+                        text: '이용권 현황',
+                        left: 'center',
+                        top: 10,
+                        textStyle: {
+                            fontSize: 18,
+                            fontWeight: 'bold'}
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        top: '92%',
+                        left: 'center',
+                    },
+                    series: [
+                        {
+                            name: '이용권',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            seriesLayoutBy: 'row',
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: true,
+                                position: 'middle',
+                                formatter: function(params) {
+                                    var dataName = params.data.name;
+                                    var dataValue = params.data.value;
+                                    var percent = params.percent.toFixed(2);
+                                    var PT = data.ptCount;
+                                    var GX = data.gxCount;
+                                    var GP = data.gpCount;
+                                    if (dataName === 'PT') {
+                                        return percent + '%';
+                                    } else if (dataName === 'GX') {
+                                        return  percent + '%';
+                                    } else if (dataName === '일반') {
+                                        return percent + '%';
+                                    }
+                                }
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: true,
+                            },
+                            data: [
+                                { value: data.ptCount, name: 'PT' },
+                                { value: data.gxCount, name: 'GX' },
+                                { value: data.gpCount, name: '일반' }
+                            ]
+                        }
+                    ]
+                };
+                console.log(data)
+                myChart.setOption(option);
+            })
+            .catch(error => {
+                console.error('파이 차트 데이터를 가져오는 중 오류 발생:', error.message);
+            });
+    }
+    fetchDataForPieChart();
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    var dom = document.getElementById('bar');
+    var myChart2 = echarts.init(dom, null, {
+        renderer: 'canvas2',
+        useDirtyRect: false
+    });
+
+    function fetchDataForBarChart() {
+        fetch('/sale/passDataBar')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('월별 매출 데이터를 가져오지 못했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var monthData = data.map(item => item.month);
+                var totalData = data.map(item => item.total);
+
+                var option = {
+                    title: {
+                        text: '매출 현황',
+                        left: 'center',
+                        top: 10,
+                        textStyle: {
+                            fontSize: 18,
+                            fontWeight: 'bold'}
+                    },
+                    grid: {
+                        left: '10px',
+                        right: '10px',
+                        bottom: '10px',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: monthData,
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 30
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (value) {
+                                if (value >= 10000) {
+                                    return (value / 10000) + '만';
+                                } else {
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        data: totalData,
+                        type: 'bar',
+                        label: {
+                            show: false,
+                            position: 'top',
+                            color: '#000'
+                        }
+                    }]
+                };
+                myChart2.setOption(option);
+            })
+            .catch(error => {
+                console.error('월별 매출 데이터를 가져오는 중 오류가 발생했습니다:', error);
+            });
+    }
+
+    fetchDataForBarChart();
+    window.addEventListener('resize', () => {
+        myChart2.resize();
+    });
+</script>
+
+</body>
+</html>

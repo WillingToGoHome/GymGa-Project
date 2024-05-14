@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.pass.model.dao.PassMapper">
+    <resultMap id="userResultMap" type="com.willingtogohome.gymga.pass.model.dto.UserDTO">
+        <id property="userCode" column="USER_CODE"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userPhone" column="USER_PHONE"/>
+        <result property="userRole" column="USER_ROLE"/>
+        <result property="userPic" column="USER_PIC"/>
+        <result property="userGender" column="USER_GENDER"/>
+        <result property="userBirth" column="USER_BIRTH"/>
+        <result property="userAddress" column="USER_ADDRESS"/>
+        <result property="userEtc" column="USER_ETC"/>
+        <result property="userStaff" column="USER_STAFF"/>
+    </resultMap>
+
+    <select id="selectAllEmp" resultMap="userResultMap">
+        SELECT
+            USER_CODE
+            , USER_ID
+            , USER_PWD
+            , USER_NAME
+            , USER_PHONE
+            , USER_ROLE
+            , USER_PIC
+            , USER_GENDER
+            , USER_BIRTH
+            , USER_ADDRESS
+            , USER_ETC
+            , USER_STAFF
+        FROM USERDB
+        WHERE USER_ROLE = '직원'
+        ORDER BY USER_NAME
+    </select>
+</mapper>

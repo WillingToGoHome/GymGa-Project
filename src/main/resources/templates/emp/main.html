@@ -25,11 +25,11 @@
             </div>
             <div>
                 <div class="bigButton" onClick="location.href='/emp/regist'">
-                    <img src="/uploadFiles/emp-regist.png" style="width: 150px"><br>
+                    <img src="/emp/images/emp-regist.png" style="width: 150px"><br>
                     신규 직원 등록
                 </div>
                 <div class="bigButton" onClick="location.href='/emp/search'">
-                    <img src="/uploadFiles/emp-search.png" style="width: 150px"><br>
+                    <img src="/emp/images/emp-search.png" style="width: 150px"><br>
                     직원 조회 및 정보 수정
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="scheduleBox">
             <span class="topic" id="today1"></span>
             <span class="date" id="today2"></span>
-            <span class="moreSche" onclick="location.href='/sche/'">더보기</span><br>
+            <span class="moreSche" onclick="location.href='/schedule/schedulemain'">더보기</span><br>
             <table class="cal">
                 <tr>
                     <th class="none">일</th>
@@ -49,8 +49,8 @@
                     <th class="none">토</th>
                 </tr>
                 <tr>
-                    <td id="mon" class="none"></td>
                     <td id="sun" class="none"></td>
+                    <td id="mon" class="none"></td>
                     <td id="tue" class="none"></td>
                     <td id="wed" class="none"></td>
                     <td id="thu" class="none"></td>
@@ -115,9 +115,8 @@
     </div>
 
     <script>
-
         var d = new Date();
-        const a = new Date();
+        var a = new Date();
         let day = document.getElementById("today1");
         let date = document.getElementById("today2");
         let sun = document.getElementById("sun");
@@ -196,7 +195,7 @@
                     fri.innerHTML = a.getDate();
                     a.setDate(d.getDate() + 3)
                     sat.innerHTML = a.getDate();
-                break;
+                    break;
             case 4: day.innerHTML = '오늘, 목요일';
                     thu.className = "today";
                     a.setDate(d.getDate() - 4);
@@ -252,8 +251,6 @@
 
         date.innerHTML = d.getFullYear() + '.' + ((d.getMonth() + 1) < 10? '0' + (d.getMonth() + 1) : (d.getMonth() + 1)) + '.' + (d.getDate() < 10? '0' + d.getDate() : d.getDate());
 
-        console.log(d);
-        console.log(d.getHours());
         switch (d.getHours()) {
             case 8 : case 9: document.getElementById("pointer1").className = "pointerTime";
                              document.getElementById("time1").className = "scheTime"; break;

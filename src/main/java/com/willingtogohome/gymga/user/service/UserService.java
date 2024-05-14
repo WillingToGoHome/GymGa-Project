@@ -13,9 +13,9 @@ public class UserService {
     private final UserMapper userMapper;
     @Autowired
     public UserService(UserMapper userMapper) { this.userMapper = userMapper; }
-    public List<UserDTO> AllUser() {
+    public List<UserAndEmpDTO> allUser() {
 
-        return userMapper.AllUser();
+        return userMapper.allUser();
     }
 
     @Transactional
@@ -26,10 +26,11 @@ public class UserService {
         userMapper.physicalUser(code);
         userMapper.scheduleUser(code);
         userMapper.validateUser(code);
+        userMapper.salesUser(code);
         userMapper.deleteUser(code);
     }
 
-    public List<UserDTO> searchedUser(SearchCriteria criteria) {
+    public List<UserAndEmpDTO> searchedUser(SearchCriteria criteria) {
         return userMapper.searchedUser(criteria);
     }
 
@@ -47,5 +48,15 @@ public class UserService {
 
     public List<UserTotDTO> selectDetail(int code) {
         return userMapper.selectDetail(code);
+    }
+
+    public List<UserDTO> findAllTeacher() {
+
+        return userMapper.findAllTeacher();
+    }
+
+    public List<UserDTO> selectAllUserID() {
+
+        return userMapper.selectAllUserID();
     }
 }
