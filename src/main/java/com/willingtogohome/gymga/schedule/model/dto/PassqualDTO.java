@@ -7,10 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
-
-    private int memberCode;
-    private String memberName;
-    private String memberPhone;
-
+public class PassqualDTO {
+    private String pqCode;
+    private String pqName;
 }

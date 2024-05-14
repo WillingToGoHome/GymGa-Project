@@ -43,7 +43,30 @@ public class UserController {
     }
 
     @GetMapping("/selectDetail")
-    public void detailPage() {
+    public void detailPage(@RequestParam("code") String userCode, HttpSession session, Model model) {
+
+        int code = (int) session.getAttribute(userCode);
+        String text = Integer.toString(code);
+
+//        UserTotDTO user = userService.searchBy(new SearchCriteria("code", text));
+//        List<UserDTO> userList = userService.selectAllUser();
+//
+//        String pic = user.getPic();
+//        String url = (String) session.getAttribute(pic);
+//
+//        if (url != null) {
+//            user.setPic(url);
+//        }
+//
+//        for (UserDTO user : userList) {
+//
+//            String path = user.getUserPic();
+//            String temp = (String) session.getAttribute(path);
+//
+//            if (temp != null) {
+//                user.setUserPic(temp);
+//            }
+//        }
     }
 
     @PostMapping("/selectDetail")
@@ -78,13 +101,13 @@ public class UserController {
         criteria.setText(search);
         criteria.setCondition(category);
 
-        List<UserDTO> userList = userService.searchedUser(criteria);
+        List<UserAndEmpDTO> userList = userService.searchedUser(criteria);
 
         session.setAttribute("searchedUser", userList);
 
         model.addAttribute("userList", userList);
 
-        for (UserDTO user : userList) {
+        for (UserAndEmpDTO user : userList) {
             System.out.println("user = " + user);
         }
 
@@ -101,14 +124,23 @@ public class UserController {
     }
 
     @GetMapping("/regist")
-    public String registPage() {
+    public String registPage(Model model) {
+
+        List<UserDTO> userIDList = userService.selectAllUserID();
+
+        String[] idList = new String[userIDList.size()];
+
+        model.addAttribute("idList", idList);
 
         return "user/regist";
     }
 
     @PostMapping("/regist")
-    public String registUser(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") UserDTO newUser, PhysicalDTO physical,
-                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam MultipartFile picFile) {
+    public String registUser(HttpSession session,
+                             @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
+                             UserDTO newUser, PhysicalDTO physical,
+                             @RequestParam String userAddress1, @RequestParam String userAddress2, @RequestParam String urlAddress,
+                             @RequestParam MultipartFile picFile) {
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -126,6 +158,7 @@ public class UserController {
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
                 newUser.setUserPic("/uploadFiles/" + savedName);
+                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,6 +167,10 @@ public class UserController {
         }
 
         int code = userService.findLastCode();
+
+        if (newUser.getUserBirth() == null) {
+            newUser.setUserBirth(java.sql.Date.valueOf("2000-01-01"));
+        }
 
         newUser.setUserCode(code + 1);
         newUser.setUserRole("회원");

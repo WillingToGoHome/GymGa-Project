@@ -68,6 +68,7 @@ public class FacController {
         return facService.findAllFac();
     }
 
+
     @PostMapping("/regist")
     public String registFac(FacDTO newFac, RedirectAttributes rttr) {
 

@@ -4,6 +4,7 @@ package com.willingtogohome.gymga.schedule.model.dto;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -14,7 +15,7 @@ import java.time.LocalTime;
 public class ScheduleAndClassAndUserAndPassDTO {
     private int scheCode;
     private ClassDTO classCategory;
-    private Date scheRegDate;
+    private LocalDateTime scheRegDate;
     private Date scheRunDate;
     private LocalTime scheStartTime;
     private LocalTime scheEndTime;
@@ -22,6 +23,7 @@ public class ScheduleAndClassAndUserAndPassDTO {
     private String scheAtten;
     private EmpDTO empCategory;
     private MemberDTO userCategory;
+    private PassqualDTO passqualCategory;
     private PassTotalDTO passTotalCategory;
     private PassUseDTO passUseCategory;
 

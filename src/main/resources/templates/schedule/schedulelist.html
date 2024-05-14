@@ -18,6 +18,8 @@
             <th>SCHE_ATTEN</th>
             <th>EMP_NAME</th>
             <th>MEMBER_NAME</th>
+            <th>연락처</th>
+            <th>이용권명</th>
             <th>PASS_TOTAL</th>
             <th>PASS_USE</th>
         </tr>
@@ -34,6 +36,8 @@
             <td th:text="${all.scheAtten}"></td>
             <td th:text="${all.empCategory.empName}"></td>
             <td th:text="${all.userCategory.memberName}"></td>
+            <td th:text="${all.userCategory.memberPhone}"></td>
+            <td th:text="${all.passqualCategory != null ? all.passqualCategory.pqName : ''}"></td>
             <td th:text="${all.passTotalCategory != null ? all.passTotalCategory.passTotal : ''}"></td>
             <td th:text="${all.passUseCategory != null ? all.passUseCategory.passUse : ''}"></td>
         </tr>

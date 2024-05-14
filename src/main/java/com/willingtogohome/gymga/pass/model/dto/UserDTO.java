@@ -1,14 +1,15 @@
-package com.willingtogohome.gymga.user.model.dto;
+package com.willingtogohome.gymga.pass.model.dto;
 
 import lombok.*;
 
 import java.sql.Date;
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @ToString
-public class UserAndEmpDTO {
+public class UserDTO {
 
     private int userCode;
     private String userId;
@@ -22,5 +23,4 @@ public class UserAndEmpDTO {
     private String userAddress;
     private String userEtc;
     private int userStaff;
-    private String staffName;
 }

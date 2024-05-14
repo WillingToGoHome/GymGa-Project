@@ -138,9 +138,9 @@ public class EmpController {
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
+//        System.out.println("empDTO = " + empDTO);
+//        System.out.println("physicalDTO = " + physicalDTO);
+//        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
@@ -305,16 +305,16 @@ public class EmpController {
         physicalDTO.setCode(code);
         employeeDTO.setCode(code);
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
+//        System.out.println("empDTO = " + empDTO);
+//        System.out.println("physicalDTO = " + physicalDTO);
+//        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.updateEmp(empDTO, physicalDTO, employeeDTO);
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        System.out.println("urlAddress = " + urlAddress);
+//        System.out.println("urlAddress = " + urlAddress);
 
         for (EmpDTO user : empList) {
 
