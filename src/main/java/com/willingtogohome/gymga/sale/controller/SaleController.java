@@ -143,4 +143,26 @@ public class SaleController {
         return "sale/search";
     }
 
+    @GetMapping("/detail")
+    public void detailPage(){
+    }
+
+    @PostMapping("/detail")
+    public String detail(Model model, @RequestParam String search, @RequestParam String category, HttpSession session){
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> userList = saleService.searchedUser(criteria);
+
+        session.setAttribute("searchedUser", userList);
+
+        model.addAttribute("userList", userList);
+
+        for (PassAndPassQualDTO user : userList) {
+//            System.out.println("user = " + user);
+        }
+        return "sale/detail";
+    }
+
 }

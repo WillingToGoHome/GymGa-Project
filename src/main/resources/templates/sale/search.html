@@ -34,8 +34,12 @@
                                 <option value="">전체 조회</option>
                                 <option value="month">월별</option>
                                 <option value="name">이름</option>
+                                <option value="quarter1">1분기</option>
+                                <option value="quarter2">2분기</option>
+                                <option value="quarter3">3분기</option>
+                                <option value="quarter4">4분기</option>
                             </select>
-                            <button type="submit" class="searchButton">검색</button>
+                            <button id="button" type="submit" class="searchButton">검색</button>
                         </form>
                     </div>
                     <hr class="hr1">
@@ -94,8 +98,17 @@
                 case 'name':
                     searchInput.placeholder = '이름 검색 ex) 홍길동';
                     break;
-                case 'id':
-                    searchInput.placeholder = '분기 조회 ex) 3';
+                case 'quarter1':
+                    searchInput.placeholder = '1분기 조회';
+                    break;
+                case 'quarter2':
+                    searchInput.placeholder = '2분기 조회';
+                    break;
+                case 'quarter3':
+                    searchInput.placeholder = '3분기 조회';
+                    break;
+                case 'quarter4':
+                    searchInput.placeholder = '4분기 조회';
                     break;
                 default:
                     searchInput.placeholder = '검색 내용';
