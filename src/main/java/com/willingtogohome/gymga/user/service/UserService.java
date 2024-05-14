@@ -26,10 +26,11 @@ public class UserService {
         userMapper.physicalUser(code);
         userMapper.scheduleUser(code);
         userMapper.validateUser(code);
+        userMapper.salesUser(code);
         userMapper.deleteUser(code);
     }
 
-    public List<UserDTO> searchedUser(SearchCriteria criteria) {
+    public List<UserAndEmpDTO> searchedUser(SearchCriteria criteria) {
         return userMapper.searchedUser(criteria);
     }
 
@@ -52,5 +53,10 @@ public class UserService {
     public List<UserDTO> findAllTeacher() {
 
         return userMapper.findAllTeacher();
+    }
+
+    public List<UserDTO> selectAllUserID() {
+
+        return userMapper.selectAllUserID();
     }
 }

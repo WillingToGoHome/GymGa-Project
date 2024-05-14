@@ -22,5 +22,5 @@ public class UserAndEmpDTO {
     private String userAddress;
     private String userEtc;
     private int userStaff;
-    private User2DTO empCategory;
+    private String staffName;
 }
