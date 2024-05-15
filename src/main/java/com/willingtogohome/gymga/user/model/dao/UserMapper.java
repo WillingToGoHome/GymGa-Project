@@ -30,9 +30,9 @@ public interface UserMapper {
 
     int findLastCode();
 
-    List<UserTotDTO> selectDetail(int code);
-
     List<UserDTO> findAllTeacher();
 
     List<UserDTO> selectAllUserID();
+
+    UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO);
 }

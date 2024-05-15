@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.user.controller;
 import com.willingtogohome.gymga.user.model.dto.*;
 import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -42,47 +43,9 @@ public class UserController {
         return "user/selectAll";
     }
 
-    @GetMapping("/selectDetail")
-    public void detailPage(@RequestParam("code") String userCode, HttpSession session, Model model) {
-
-        int code = (int) session.getAttribute(userCode);
-        String text = Integer.toString(code);
-
-//        UserTotDTO user = userService.searchBy(new SearchCriteria("code", text));
-//        List<UserDTO> userList = userService.selectAllUser();
-//
-//        String pic = user.getPic();
-//        String url = (String) session.getAttribute(pic);
-//
-//        if (url != null) {
-//            user.setPic(url);
-//        }
-//
-//        for (UserDTO user : userList) {
-//
-//            String path = user.getUserPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setUserPic(temp);
-//            }
-//        }
-    }
-
-    @PostMapping("/selectDetail")
-    public String selectDetail(@RequestParam("code") String userCode, Model model) {
-
-        int code = Integer.parseInt(userCode);
-
-        List<UserTotDTO> userList = userService.selectDetail(code);
-
-        model.addAttribute("userList", userList);
-
-        return "user/selectDetail";
-    }
-
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("code") String userCode) {
+
 
         int code = Integer.parseInt(userCode);
         userService.deleteUser(code);
@@ -180,5 +143,27 @@ public class UserController {
         userService.registUser(newUser, physical);
 
         return "redirect:/user/selectAll";
+    }
+
+    @GetMapping("/selectDetail")
+    public void selectDetail() {}
+
+    @PostMapping("/selectDetail")
+    public String selectDetail(HttpSession session,
+                               @RequestParam("code") String userCode, Model model,
+                               UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+
+        userDTO.setUserCode(code);
+        physicalDTO.setUserCode(code);
+
+        model.addAttribute("user", user);
+
+        return "user/selectDetail";
     }
 }
