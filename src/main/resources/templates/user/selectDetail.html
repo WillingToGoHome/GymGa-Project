@@ -98,7 +98,7 @@
                                     </div>
                                         <form id="updateForm" action="/user/update" method="post">
                                                 <input type="hidden" name="code" th:value="${user.userCode}">
-                                                <button class="submitButton" type="submit" name="submit" id="submit">수정</button>
+                                                <input class="submitButton" type="submit" value="수정">
                                         </form>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="sideBox">
                     <div class="painBox">
-                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px" onClick="location.href='/user/pain'">
+                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
                         <p class="painText">통증등록</p>
                     </div>
                 </div>

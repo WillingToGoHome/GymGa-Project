@@ -257,4 +257,131 @@
         WHERE A.USER_CODE = #{ code }
     </select>
 
+    <select id="updatePage" resultMap="userTotResultMap">
+        SELECT
+            A.USER_CODE
+            , A.USER_ID
+            , A.USER_PWD
+            , A.USER_NAME
+            , A.USER_PHONE
+            , A.USER_ROLE
+            , A.USER_PIC
+            , A.USER_GENDER
+            , A.USER_BIRTH
+            , A.USER_ADDRESS
+            , A.USER_ETC
+            , A.USER_STAFF
+            , B.PHY_HEIGHT
+            , B.PHY_WEIGHT
+            , B.PHY_BMI
+        FROM USERDB A
+        LEFT JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        WHERE A.USER_CODE = #{ code }
+    </select>
+
+    <update id="updateUser" parameterType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        UPDATE USERDB
+        <set>
+            USER_CODE = #{ userCode }
+            <if test="userId != ''">
+                , USER_ID = #{ userId }
+            </if>
+            <if test="userPwd != ''">
+                , USER_PWD = #{ userPwd }
+            </if>
+            <if test="userName != ''">
+                , USER_NAME = #{ userName }
+            </if>
+            <if test="userPhone != ''">
+                , USER_PHONE = #{ userPhone }
+            </if>
+            <if test="userPic != null">
+                , USER_PIC = #{ userPic }
+            </if>
+            <if test="userGender != null">
+                , USER_GENDER = #{ userGender }
+            </if>
+            <if test="userBirth != ''">
+                , USER_BIRTH = #{ userBirth }
+            </if>
+            <if test="userAddress != null">
+                , USER_ADDRESS = #{ userAddress }
+            </if>
+            <if test="userEtc != ''">
+                , USER_ETC = #{ userEtc }
+            </if>
+            <if test="userStaff != ''">
+                , USER_STAFF = #{ userStaff }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ userCode }
+    </update>
+
+    <update id="updatePhy" parameterType="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
+        UPDATE PHYSICALDB
+        <set>
+            USER_CODE = #{ userCode }
+            <if test="height != ''">
+                , PHY_HEIGHT = #{ height }
+            </if>
+            <if test="weight != ''">
+                , PHY_WEIGHT = #{ weight }
+            </if>
+            <if test="bmi != ''">
+                , PHY_BMI = #{ bmi }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ userCode }
+    </update>
+
+<!--    <update id="update" parameterType="com.willingtogohome.gymga.user.model.dto.UserTotDTO">-->
+<!--        UPDATE USERDB A-->
+<!--        LEFT JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE-->
+<!--        <set>-->
+<!--            <if test="userId != ''">-->
+<!--                , A.USER_ID = #{ userId }-->
+<!--            </if>-->
+<!--            <if test="userPwd != ''">-->
+<!--                , A.USER_PWD = #{ userPwd }-->
+<!--            </if>-->
+<!--            <if test="userName != ''">-->
+<!--                , A.USER_NAME = #{ userName }-->
+<!--            </if>-->
+<!--            <if test="userPhone != ''">-->
+<!--                , A.USER_PHONE = #{ userPhone }-->
+<!--            </if>-->
+<!--            <if test="userRole != ''">-->
+<!--                , A.USER_ROLE = #{ userRole }-->
+<!--            </if>-->
+<!--            <if test="userPic != ''">-->
+<!--                , A.USER_PIC = #{ userPic }-->
+<!--            </if>-->
+<!--            <if test="userGender != ''">-->
+<!--                , A.USER_GENDER = #{ userGender }-->
+<!--            </if>-->
+<!--            <if test="userBirth != ''">-->
+<!--                , A.USER_BIRTH = #{ userBirth }-->
+<!--            </if>-->
+<!--            <if test="userAddress != ''">-->
+<!--                , A.USER_ADDRESS = #{ userAddress }-->
+<!--            </if>-->
+<!--            <if test="userEtc != ''">-->
+<!--                , A.USER_ETC = #{ userEtc }-->
+<!--            </if>-->
+<!--            <if test="userStaff != ''">-->
+<!--                , A.USER_STAFF = #{ userStaff }-->
+<!--            </if>-->
+<!--            <if test="physicalDTO.height != ''">-->
+<!--                , B.PHY_HEIGHT = #{ physicalDTO.height }-->
+<!--            </if>-->
+<!--            <if test="physicalDTO.weight != ''">-->
+<!--                , B.PHY_WEIGHT = #{ physicalDTO.weight }-->
+<!--            </if>-->
+<!--            <if test="physicalDTO.bmi != ''">-->
+<!--                , B.PHY_BMI = #{ physicalDTO.bmi }-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        WHERE A.USER_CODE = #{ userCode };-->
+<!--    </update>-->
+
 </mapper>

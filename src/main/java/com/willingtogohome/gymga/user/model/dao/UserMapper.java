@@ -35,4 +35,12 @@ public interface UserMapper {
     List<UserDTO> selectAllUserID();
 
     UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO);
+
+    UserTotDTO updatePage(int code, UserDTO userDTO, PhysicalDTO physicalDTO);
+
+    void updateUser(UserDTO userDTO);
+
+    void updatePhy(PhysicalDTO physicalDTO);
+
+//    void update(UserTotDTO userTotDTO);
 }

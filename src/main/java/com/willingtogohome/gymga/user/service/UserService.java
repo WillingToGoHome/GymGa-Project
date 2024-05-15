@@ -59,4 +59,21 @@ public class UserService {
 
         return userMapper.getUserDetailByCode(code, userDTO, physicalDTO);
     }
+
+    public UserTotDTO updatePage(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        return userMapper.updatePage(code, userDTO, physicalDTO);
+    }
+    @Transactional
+    public void update(UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        userMapper.updateUser(userDTO);
+        userMapper.updatePhy(physicalDTO);
+    }
+
+//    @Transactional
+//    public void update(UserTotDTO userTotDTO) {
+//
+//        userMapper.update(userTotDTO);
+//    }
 }

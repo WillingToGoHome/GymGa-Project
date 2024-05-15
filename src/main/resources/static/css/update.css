@@ -62,21 +62,13 @@
     color: black;
 }
 
-.userText {
-    width: 120px;
-    height: 30px;
-    font-size: 16px;
-    font-weight: normal;
-    color: black;
-}
-
 .signupBox {
     width: 712px;
     height: 300px;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 50px;
-    padding-left: 70px;
+    padding-top: 20px;
+    padding-left: 15px;
 }
 
 .previewBox {
@@ -94,7 +86,7 @@
 
 .infoBox {
     float: left;
-    padding-left: 50px;
+    padding-left: 20px;
 }
 
 .fileBox label {
@@ -146,19 +138,24 @@
 }
 
 .leftIn{
+    padding-left: 11px;
+    padding-top: 5px;
     line-height: 45px;
+}
+
+.leftIn2{
+    padding-left: 15px;
 }
 
 .right {
     margin-right: 10px;
     float: left;
-    padding-top: 25px;
 }
 
 .right2 {
     margin-right: 10px;
     float: left;
-    line-height: 27px;
+    line-height: 40px;
     padding-top: 5px;
 }
 
@@ -202,10 +199,9 @@ select {
 
 .submitButton {
     height: 50px;
-    margin-left: 423px;
+    margin-left: 237px;
     border: rgba(75, 130, 216, 1);
     border-radius: 10px;
-    margin-top: 52px;
     background-color: rgba(75, 130, 216, 1);
     font-size: 16px;
     color: #ffffff;
@@ -247,20 +243,17 @@ select {
     margin-top: 40px;
 }
 
-.etcText {
-    padding-top: 45px;
-    width: 550px;
-    font-size: 16px;
-    font-weight: normal;
-    color: black;
+.highlightSpan {
+    vertical-align: super;
+    color: red;
 }
 
-.etcAndButton {
-    margin-left: 65px;
+.pwdCheckFalse {
+    background-color: red;
+    font-weight: bold;
 }
 
-
-
-
-
-
+.pwdCheckTrue {
+    background-color: lightseagreen;
+    font-weight: bold;
+}
