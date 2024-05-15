@@ -295,16 +295,16 @@
             <if test="userPhone != ''">
                 , USER_PHONE = #{ userPhone }
             </if>
-            <if test="userPic != null">
+            <if test="userPic != ''">
                 , USER_PIC = #{ userPic }
             </if>
-            <if test="userGender != null">
+            <if test="userGender != ''">
                 , USER_GENDER = #{ userGender }
             </if>
             <if test="userBirth != ''">
                 , USER_BIRTH = #{ userBirth }
             </if>
-            <if test="userAddress != null">
+            <if test="userAddress != ''">
                 , USER_ADDRESS = #{ userAddress }
             </if>
             <if test="userEtc != ''">
