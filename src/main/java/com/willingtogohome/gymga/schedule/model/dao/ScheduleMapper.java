@@ -7,6 +7,7 @@ import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -44,4 +45,8 @@ public interface ScheduleMapper {
 
 
     List<ScheduleAndClassAndUserAndPassDTO> findByClassCode(String classCode);
+
+    ScheduleAndClassAndUserAndPassDTO findGxList(int scheCode);
+
+    List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate);
 }

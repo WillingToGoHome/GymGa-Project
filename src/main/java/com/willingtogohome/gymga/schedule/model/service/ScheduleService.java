@@ -8,6 +8,8 @@ import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -101,5 +103,13 @@ public class ScheduleService {
 
     public List<ScheduleAndClassAndUserAndPassDTO> findByClassCode(String classCode) {
         return scheduleMapper.findByClassCode(classCode);
+    }
+
+    public ScheduleAndClassAndUserAndPassDTO findGxList(int scheCode) {
+        return scheduleMapper.findGxList(scheCode);
+    }
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate) {
+        return scheduleMapper.findGxByRegDate(scheRegDate);
     }
 }

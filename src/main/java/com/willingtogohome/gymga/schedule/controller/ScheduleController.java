@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ScheduleController {
@@ -115,7 +119,7 @@ public class ScheduleController {
     public String findByScheduleCode(@PathVariable("scheCode") int scheCode, Model model) {
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheCode(scheCode);
         model.addAttribute("selectOneSchedule", scheduleAndClassAndUserAndPassDTO);
-        System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);
+        System.out.println("변경할데이터조회 = " + scheduleAndClassAndUserAndPassDTO);
 
         return "schedule/scheduledetail";
     }
@@ -128,6 +132,30 @@ public class ScheduleController {
 //
 //        return "schedule/scheduledetailgx";
 //    }
+
+    // GX 상세페이지로 데이터 보내기(일단 전체)
+//    @GetMapping("/schedule/scheduleGx")
+//    public String findGxSchedule(Model model) {
+//        List<ScheduleAndClassAndUserAndPassDTO> gxList = scheduleService.findGxList();
+//        model.addAttribute("findGxList", gxList);
+//        return "schedule/scheduledetailgx";
+//    }
+
+    // GX 특정페이지로 보내기(regDate 참조?)
+    @GetMapping("/schedule/scheduleGx/{scheCode}/{scheRegDate}")
+    public String findGxByRegDate(@PathVariable("scheCode") int scheCode,
+                                  @PathVariable("scheRegDate") LocalDateTime scheRegDate,
+                                  Model model) {
+
+        ScheduleAndClassAndUserAndPassDTO gxList = scheduleService.findGxList(scheCode);
+        model.addAttribute("findGxList", gxList);
+
+        List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate = scheduleService.findGxByRegDate(scheRegDate);
+        model.addAttribute("findGxByRegDate", findGxByRegDate);
+        System.out.println("findGxByRegDate = " + findGxByRegDate);
+
+        return "schedule/scheduledetailgx";
+    }
 
 //    @GetMapping("/schedule/scheduleupdate")
 //    public void updatePage(){}

@@ -239,15 +239,15 @@
                             </tr>
                             <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}" >
                                 <td>
-                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>
-<!--                                    <a th:switch="${scheduleByRunDate.classCategory.className}">-->
-<!--                                        <span th:case="'PT01'">-->
-<!--                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulePtlist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>-->
-<!--                                        </span>-->
-<!--                                        <span th:case="*">-->
-<!--                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/scheduleGxlist/${scheduleByRunDate.classCategory.classCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>-->
-<!--                                        </span>-->
-<!--                                    </a>-->
+<!--                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>-->
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                        <span th:case="'1:1 PT'">
+                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                        <span th:case="*">
+                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                    </a>
                                 </td>
                                 <td>
                                     <a th:text="${scheduleByRunDate.empCategory.empName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>

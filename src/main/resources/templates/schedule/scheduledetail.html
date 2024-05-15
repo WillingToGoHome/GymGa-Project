@@ -46,7 +46,6 @@
                             <button class="change" onclick="location.href='/schedule/schedulemain'">변경</button>
                             <button class="cancel" id="cancelBtn">취소</button>
                         </div>
-                        <!--시간까지 나오도록 수정해야함-->
                         <div class="class-info-top">
                             <p>수업정보</p>
                             <span class="regist-info">생성일 : </span>&nbsp;
@@ -65,7 +64,7 @@
                                 </tr>
                                 <tr>
                                     <td th:text="${selectOneSchedule.classCategory.className}"></td>
-                                    <td th:text="${#dates.format(selectOneSchedule.scheRunDate, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${selectOneSchedule.scheRunDate}"></td>
                                     <td>
                                         <span th:text="${selectOneSchedule.scheStartTime}"></span> ~ <span th:text="${selectOneSchedule.scheEndTime}"></span>
                                     </td>
