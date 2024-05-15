@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scheduledetailgx 짬통</title>
+</head>
+<body>
+
+
+<script th:inline="javascript">
+    let scheCode = /*[[${selectOneSchedule.scheCode}]]*/ null;
+    let cancelBtn = document.getElementById("cancelBtn");
+
+    // fetch 요청 보내기
+    fetch(`/schedule/scheatten/${scheCode}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const scheAttenValue = data.scheAtten;
+            console.log(scheAttenValue);
+
+            if (scheAttenValue === "예약") {
+                console.log("작동하니?")
+                cancelBtn.disabled = true;
+                cancelBtn.classList.add("disabled");
+            } else {
+                cancelBtn.disabled = false;
+                cancelBtn.classList.remove("disabled");
+            }
+
+        });
+</script>
+<script th:inline="javascript">
+    attenBtn.onclick = function () {
+        // fetch 요청을 통해 현재 scheatten 상태를 가져옴
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue === "출석") {
+                    alert("이미 출석처리가 되어 있습니다.");
+                } else if (scheAttenValue === "결석") {
+                    alert("이미 결석처리가 되어 있습니다.");
+                } else {
+                    // 출석 모달 열기
+                    attenModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    absentBtn.onclick = function () {
+        // fetch 요청을 통해 현재 scheatten 상태를 가져옴
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue === "결석") {
+                    alert("이미 결석처리가 되어 있습니다.");
+                } else if (scheAttenValue === "출석") {
+                    alert("이미 출석처리가 되어 있습니다.");
+                } else {
+                    // 출석 모달 열기
+                    absentModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    updateScheduleBtn.onclick = function () {
+        fetch(`/schedule/scheatten/${scheCode}`)
+            .then(res => res.json())
+            .then(data => {
+                const scheAttenValue = data.scheAtten;
+
+                // scheatten 상태가 출석이면 경고창을 표시
+                if (scheAttenValue !== "예약대기") {
+                    alert("일정변경이 불가능합니다.");
+                } else {
+                    updateScheduleModal.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script>
+<script>
+    // 모달 요소 가져오기
+    let attenModal = document.getElementById("attenModal");
+    let absentModal = document.getElementById("absentModal");
+    let cancelModal = document.getElementById("cancelModal");
+    let updateScheduleModal = document.getElementById("updateScheduleModal");
+
+
+    // 출석 버튼 가져오기
+    let attenBtn = document.getElementById("attenBtn");
+    // 결석 버튼 가져오기
+    let absentBtn = document.getElementById("absentBtn");
+    // 모달 닫기 버튼 가져오기
+    let closeBtns = document.getElementsByClassName("close");
+    // 확인 버튼 가져오기
+    let confirmBtn = document.getElementById("confirmBtn");
+    // 일정변경 버튼 가져오기
+    let updateScheduleBtn = document.getElementById("scheduleUpdateBtn");
+    // 일정변경의 뒤로가기 버튼
+    let changeBackBtn = document.getElementById("changeBack");
+    // 멤버 선택 버튼
+    let selectMemberBtn = document.getElementById("selectMember");
+
+    selectMemberBtn.onclick = function () {
+        console.log("멤버선택");
+    }
+
+    // 취소 버튼 클릭 시 모달 열기
+    cancelBtn.onclick = function () {
+        cancelModal.style.display = "block";
+    }
+
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function () {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+            cancelModal.style.display = "none";
+            updateScheduleModal.style.display = "none";
+        }
+    }
+
+
+    // 사용자가 모달 외부를 클릭할 경우 모달 닫기
+    window.onclick = function (event) {
+        console.log("외부클릭 이벤트 발생함", event.target)
+        if (event.target == modal || event.target == modal) {
+            attenModal.style.display = "none";
+            absentModal.style.display = "none";
+            cancelModal.style.display = "none";
+        }
+    }
+
+    // 확인 버튼 클릭 시 출석 처리
+    confirmBtn.onclick = function () {
+        attenModal.style.display = "none";
+        absentModal.style.display = "none";
+        cancelModal.style.display = "none";
+    }
+</script>
+</body>
+</html>
