@@ -22,6 +22,7 @@ public class ScheduleAndClassAndUserAndPassDTO {
     private Date scheRunDate;
     private LocalTime scheStartTime;
     private LocalTime scheEndTime;
+    private int registrationCount;
     private int scheParticipate;
     private String scheAtten;
     private EmpDTO empCategory;
