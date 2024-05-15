@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/headerStyle.css">
+    <link rel="stylesheet" href="../styles/navbarStyle.css">
+    <link rel="stylesheet" href="../styles/myStyle.css">
+    <link rel="stylesheet" href="../styles/footerStyle.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/footerStyle.css">
-    <link rel="stylesheet" href="../css/headerStyle.css">
-    <link rel="stylesheet" href="../css/navbarStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+
     <style>
         .dropdown {
             position: relative;
@@ -38,71 +42,16 @@
             display: block;
         }
 
-        /*.ul2 {*/
-        /*    width: 250px;*/
-        /*    height: 250px;*/
-        /*    background-color:#86AFEF;*/
-        /*    margin: 100px;*/
-        /*    border-radius: 25px/50px;*/
-        /*    padding-left: 15px;*/
-        /*    position: relative;*/
-        /*}*/
-
-        /*.container {*/
-
-        /*}*/
-
-        /*.row {*/
-        /*    display: flex;*/
-        /*    flex-wrap: nowrap; !* 한 행에 모든 요소가 들어가도록 설정 *!*/
-        /*    margin-bottom: 10px; !* 각 행 사이에 여백 추가 *!*/
-        /*}*/
-
-        /*.item:last-child {*/
-        /*    margin-right: 0; !* 마지막 요소의 오른쪽 여백 제거 *!*/
-        /*}*/
-
-        /*.item {*/
-        /*    width: 100px;*/
-        /*    height: 100px;*/
-        /*    background-color:#8DD0F6;*/
-        /*    border-radius: 20px;*/
-        /*    list-style: none;*/
-        /*    margin: 10px;*/
-        /*    cursor: pointer;*/
-        /*}*/
-
-        /*p {*/
-        /*    font-size: 7px;*/
-        /*    margin-top: 10px;*/
-        /*    margin-bottom: 10px;*/
-        /*    text-align: left;*/
-        /*    text-indent: 10px;*/
-        /*}*/
-
-        /*b {*/
-        /*    text-align: center;*/
-        /*    margin-left: 10px;*/
-        /*    flex: 1; !* 동일한 너비로 요소를 채우기 위해 유연한 공간 할당 *!*/
-        /*    max-width: calc(12.5% - 10px); !* 8개의 요소가 한 행에 들어가도록 설정 *!*/
-        /*}*/
-
-        /*.red-text {*/
-        /*    color: #F82626;*/
-        /*}*/
-
-        /*.blue-text {*/
-        /*    color: #4041C5;*/
-        /*}*/
-
-        /*a {*/
-        /*    margin-left: 20px;*/
-        /*}*/
+        .dropdown {
+            float: right;
+            margin-right: 100px;
+        }
 
         .container {
             display: grid;
             grid-template-columns: repeat(8, 1fr); /* 8 columns with equal width */
-            gap: 10px; /* Space between columns */
+            width: 1440px;
+            min-height: 610px;
         }
 
         .fac-item {
@@ -113,12 +62,15 @@
             list-style: none;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
 
         }
 
         .facCodeLink {
             font-size: 18px;
             margin-left: 10px;
+            color: black;
+
         }
 
         .facStatus {
@@ -126,6 +78,7 @@
             position: relative;
             top: -20px;
             right: -50px;
+            color: black;
         }
 
         .userCode,
@@ -137,125 +90,52 @@
             text-indent: -10px;
             margin-bottom: 10px;
             margin-top: -10px;
+            color: black;
 
+        }
+
+        .modal-title {
+            color: black;
+        }
+
+        label{
+            color: black;
         }
     </style>
 </head>
 <body>
-<div id="main">
-    <div id="app_area">
-        <div id="window">
-            <!--header-->
-            <div th:include="common/header"></div>
-            <!--navbar-->
-            <div class="mid-container">
-                <div th:include="common/navbar"></div>
-                <!--내용 작성하는 div-->
-                <!-- 내용입니다.-->
-                <!--내용 작성하는 div-->
 
 
 
-<!--<h1>사물함 관리</h1>-->
-<!--&lt;!&ndash; 조회 버튼과 드롭다운 메뉴 &ndash;&gt;-->
-<!--<div class="dropdown">-->
-<!--    <button class="dropbtn">조회</button>-->
-<!--    <div class="dropdown-content">-->
-<!--        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>-->
-<!--        <a href="/fac/select/expired">만료조회</a>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
 
-<!--<div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="personalModalLabel">개인 조회</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <label>사물함 번호: </label>-->
-<!--                <select name="facCode" id="facCode"></select>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
-<!--                <button onclick=window.location.href="/fac/select/personal" class="btn btn-primary" data-dismiss="modal">확인</button>-->
-<!--                &lt;!&ndash; 다른 작업을 추가하려면 여기에 버튼을 추가하십시오. &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
 
+                <div class="container">
+                    <div th:each="facs: ${facList}" class="fac-item" href="#" data-toggle="modal" data-target="#facActionModal">
+                        <!-- Locker Code -->
+                        <span th:text="${facs.facCode}" class="facCodeLink"></span>
+                        <!-- Locker Status -->
+                        <span class="facStatus" th:text="${facs.facStatus}"></span>
+                        <!-- User Code -->
+                        <span class="userCode" th:text="${facs.userCode}"></span>
+                        <!-- Start Date -->
+                        <span class="facStart" th:text="${facs.facStart}"></span>
+                        <!-- End Date -->
+                        <span class="facEnd" th:text="${facs.facEnd}"></span>
+                    </div>
+                </div>
 
-<!--<button class="btn btn-primary" data-toggle="modal" data-target="#personalModal2">사물함 등록,수정 및 삭제</button>-->
-
-<!--<div class="modal fade" id="personalModal2" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel2" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="personalModalLabel2">사물함 등록,수정 및 삭제</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <a class="btn btn-secondary" href="/fac/regist">등록</a>-->
-<!--                <a class="btn btn-secondary" href="/fac/update">수정</a>-->
-<!--                <a class="btn btn-secondary" href="/fac/delete">삭제</a>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
-<!--                &lt;!&ndash; 다른 작업을 추가하려면 여기에 버튼을 추가하십시오. &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
-
-<!--<script>-->
-<!--    fetch("/fac/fac")-->
-<!--        .then(res=>res.json())-->
-<!--        .then(data=> {-->
-<!--            const $facCode=document.getElementById("facCode");-->
-
-<!--            for(let index in data) {-->
-<!--                const $option=document.createElement('option');-->
-<!--                $option.text=data[index].facCode;-->
-
-
-
-<!--                $facCode.appendChild($option);-->
-<!--            }-->
-<!--        })-->
-<!--</script>-->
-
-<!--<table align="center" border="1">-->
-
-<!--    <tr>-->
-<!--        <th>사물함 번호</th>-->
-<!--        <th>사물함 상태</th>-->
-<!--        <th>시작 기간</th>-->
-<!--        <th>회원 번호</th>-->
-<!--        <th>만료 기간</th>-->
-
-<!--    </tr>-->
-<!--    <tr th:each="facs: ${facList}">-->
-<!--        <td th:text="${facs.facCode}"></td>-->
-<!--        <td th:text="${facs.facStatus}"></td>-->
-<!--        <td th:text="${facs.facStart}"></td>-->
-<!--        <td th:text="${facs.userCode}"></td>-->
-<!--        <td th:text="${facs.facEnd}"></td>-->
-<!--    </tr>-->
-<!--</table>-->
-
-<h1>사물함 관리</h1>
-
-<!-- 조회 버튼과 드롭다운 메뉴 -->
 <div class="dropdown">
     <button class="dropbtn">조회</button>
     <div class="dropdown-content">
@@ -309,301 +189,6 @@
             }
         })
 </script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!--<div class="container">-->
-<!--    <div class="row" href="#" data-toggle="modal"  data-target="#facActionModal">-->
-<!--        <div class="item">-->
-<!--            <b>1</b>-->
-<!--            <a><span class="blue-text">사용중</span></a>-->
-<!--            <p>회원 코드:1</p>-->
-<!--            <p>시작 기간:2024-05-23</p>-->
-<!--            <p>만료 기간:2024-06-23</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>2</b>-->
-<!--            <a><span class="red-text">만료</span></a>-->
-<!--            <p>회원 코드:2</p>-->
-<!--            <p>시작 기간:2024-04-21</p>-->
-<!--            <p>만료 기간:2024-05-21</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>3</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>4</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>5</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>6</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>7</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>8</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--        <div class="row">-->
-<!--            <div class="item">-->
-<!--                <b>9</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>10</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>11</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>12</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>13</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>14</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>15</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>16</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--    </div>-->
-
-<!--    <div class="row">-->
-<!--        <div class="item">-->
-<!--            <b>17</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>18</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--            <div class="item">-->
-<!--                <b>19</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>20</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>21</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>22</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>23</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>24</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--    </div>-->
-
-<!--    <div class="row">-->
-<!--        <div class="item">-->
-<!--            <b>25</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>26</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>27</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>28</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--            <div class="item">-->
-<!--                <b>29</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>30</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>31</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>32</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--    </div>-->
-
-<!--    <div class="row">-->
-<!--        <div class="item">-->
-<!--            <b>33</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>34</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>35</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>36</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>37</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <b>38</b>-->
-<!--            <p>회원 코드:</p>-->
-<!--            <p>시작 기간:</p>-->
-<!--            <p>만료 기간:</p>-->
-<!--        </div>-->
-<!--            <div class="item">-->
-<!--                <b>39</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <b>40</b>-->
-<!--                <p>회원 코드:</p>-->
-<!--                <p>시작 기간:</p>-->
-<!--                <p>만료 기간:</p>-->
-<!--            </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<div class="container">
-    <div th:each="facs: ${facList}" class="fac-item">
-        <!-- Locker Code -->
-        <span th:text="${facs.facCode}" class="facCodeLink" href="#" data-toggle="modal" data-target="#facActionModal"></span>
-        <!-- Locker Status -->
-        <span class="facStatus" th:text="${facs.facStatus}"></span>
-        <!-- User Code -->
-        <span class="userCode">회원 번호: <span th:text="${facs.userCode}"></span></span>
-        <!-- Start Date -->
-        <span class="facStart" th:text="${facs.facStart}"></span>
-        <!-- End Date -->
-        <span class="facEnd" span th:text="${facs.facEnd}"></span>
-    </div>
-</div>
-
-
-
-<!--<div class="container" th:style="'display: flex; justify-content: space-between;'">-->
-<!--    <div class="row" th:each="facs: ${facList}">-->
-<!--        <div class="item" href="#" data-toggle="modal"  data-target="#facActionModal">-->
-<!--            <span class="facCodeLink" th:text="${facs.facCode}"></span>-->
-<!--            <span class="facStatus" th:text="${facs.facStatus}"></span>-->
-<!--            <span>회원 번호:</span>-->
-<!--            <span  class="userCode" th:text="${facs.userCode}" style="margin-left: 7px;"></span>-->
-<!--            <span>시작 기간:</span>-->
-<!--            <span class="facStart" th:text="${facs.facStart}" style="margin-left: 7px;"></span>-->
-<!--            <span >만료 기간:</span>-->
-<!--            <span class="facEnd" th:text="${facs.facEnd}" style="margin-left: 7px;"></span>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 
@@ -704,11 +289,11 @@
 <script th:inline="javascript">
     $(document).ready(function () {
         // 클릭한 번호를 input 상자에 보여주는 함수
-        $('.facCodeLink').click(function() {
+        $('.fac-item').click(function() {
             // 클릭한 번호 가져오기
             var facCode = $(this).text(); // 링크의 텍스트를 가져옴
-            var $ul = $(this).closest('ul');
-            var userCode = $ul.find('.userCode').text();
+            var $div = $(this).closest('div');
+            var userCode = $div.find('.userCode').text();
 
             // data-faccode 속성에 번호 설정
             $('#facActionModal').attr('data-facCode', facCode);
@@ -919,14 +504,24 @@
                 $facCode.appendChild($option);
             }
         })
+
+
 </script>
-
             </div>
-
-            <!--footer-->
-            <div th:include="common/footer"></div>
+            <!--개인 작업 종료-->
         </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
