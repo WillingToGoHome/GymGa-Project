@@ -220,7 +220,7 @@
     line-height: 30px;
 }
 .userName2 {
-    width: 60px;
+    width: 200px;
     height: 30px;
     font-size: 16px;
     color: black;
@@ -237,6 +237,16 @@
     margin-left: 15px;
     text-align: center;
     line-height: 30px;
+}
+.img2 {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+
 }
 
 .userId {
@@ -310,7 +320,7 @@
     text-align: center;
 }
 .price2{
-    width: 150px;
+    width: 500px;
     text-align: center;
 }
 
@@ -429,9 +439,12 @@
 }
 .zxc2 {
     /*overflow-y: scroll;*/
+    display: flex;
     height: 580px;
     width: 725px;
-    /*text-align: center;*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around
 }
 .backGround2 {
     background-color: white;
