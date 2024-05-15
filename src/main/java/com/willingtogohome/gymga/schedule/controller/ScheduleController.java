@@ -10,7 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -55,7 +56,7 @@ public class ScheduleController {
 
     // 일정으로 페이지 가기 ?
     @GetMapping("schedule/test/{scheRunDate}")
-    public String findByScheRunDate(@PathVariable("scheRunDate")Date scheRunDate, Model model) {
+    public String findByScheRunDate(@PathVariable("scheRunDate") LocalDate scheRunDate, Model model) {
         List<ScheduleAndClassAndUserAndPassDTO> scheduleListByRunDate = scheduleService.findByScheRunDate(scheRunDate);
         model.addAttribute("scheduleListByRunDate", scheduleListByRunDate);
         System.out.println("scheduleListByRunDate = " + scheduleListByRunDate);

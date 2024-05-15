@@ -7,6 +7,7 @@ import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface ScheduleMapper {
     List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate();
 
 
-    List<ScheduleAndClassAndUserAndPassDTO> findAllByScheRunDate(Date scheRunDate);
+    List<ScheduleAndClassAndUserAndPassDTO> findAllByScheRunDate(LocalDate scheRunDate);
 
     List<ClassDTO> findAllClassName();
 

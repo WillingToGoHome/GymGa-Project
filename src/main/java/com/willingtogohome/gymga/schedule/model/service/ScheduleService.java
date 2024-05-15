@@ -91,7 +91,7 @@ public class ScheduleService {
     }
 
 
-    public List<ScheduleAndClassAndUserAndPassDTO> findByScheRunDate(Date scheRunDate) {
+    public List<ScheduleAndClassAndUserAndPassDTO> findByScheRunDate(LocalDate scheRunDate) {
 
         return scheduleMapper.findAllByScheRunDate(scheRunDate);
     }
