@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.util.List;
@@ -83,9 +82,7 @@ public class EmpController {
     }
 
     @PostMapping("/regist")
-    public String empRegist(HttpSession session,
-                            @RequestParam MultipartFile picFile,
-                            @RequestParam String urlAddress,
+    public String empRegist(@RequestParam MultipartFile picFile,
                             EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
                             @RequestParam String address1, @RequestParam String address2,
                             @RequestParam String qualWrite) {
@@ -109,7 +106,6 @@ public class EmpController {
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
                 empDTO.setPic(savedName);
-//                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -118,10 +114,6 @@ public class EmpController {
         }
 
         int code = empService.findLastCode();
-
-        if (empDTO.getBirth().isEmpty()) {
-            empDTO.setBirth("2000-01-01");
-        }
 
         if (!qualWrite.isEmpty()) {
             if (employeeDTO.getQual() != null) {
@@ -134,17 +126,26 @@ public class EmpController {
             employeeDTO.setQual("");
         }
 
+        if (!address1.isEmpty()) {
+            if (!address2.isEmpty()) {
+                empDTO.setAddress(address1 + " " + address2);
+            } else {
+                empDTO.setAddress(address1);
+            }
+        } else {
+            empDTO.setAddress("");
+        }
+
         empDTO.setRole("직원");
-        empDTO.setAddress(address1 + " " + address2);
         empDTO.setCode(code + 1);
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
 
-//        System.out.println("empDTO = " + empDTO);
-//        System.out.println("physicalDTO = " + physicalDTO);
+        System.out.println("empDTO = " + empDTO);
+        System.out.println("physicalDTO = " + physicalDTO);
         System.out.println("employeeDTO = " + employeeDTO);
 
-        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
+//        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
         return "redirect:/emp/main";
     }

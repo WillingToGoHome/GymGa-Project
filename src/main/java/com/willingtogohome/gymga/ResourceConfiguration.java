@@ -13,7 +13,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/images/**")
+        registry.addResourceHandler("/imageFile/**")
                 .addResourceLocations("file:///D:/Lecture/GymGa-Project/src/main/resources/static/uploadFiles/")
                 .setCacheControl(CacheControl.maxAge(1, TimeUnit.MINUTES));
     }

@@ -3,179 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <title>직원 정보 수정</title>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-    <div class="outerDiv">
-        <div class="mainBox">
-            <div>
-                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/detail'"/>
-                <div class="main">
-                    <span class="titleText">직원 정보 수정</span>
-                </div>
-                <div class="searchBox">
-                    <form action="/emp/result" method="get">
-                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                            <option value="name">강사명</option>
-                        </select>
-                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
-                    </form>
-                </div>
-                <hr class="line" style="width: 950px">
-            </div>
-            <div th:object="${ emp }">
-                <form action="/emp/detail" method="post" enctype="multipart/form-data">
-                    <div class="userInfoBox">
-                        <div class="previewBox">
-                            <img id="preview" th:src="|/images/${ emp.pic }|"><br>
-                            <div class="fileBox">
-                                <label for="picFile">사진변경</label>
-                                <input type="file" id="picFile" name="picFile" onchange="chooseImage(this)"/><br>
-                                <input id="urlAddress" name="urlAddress" hidden="hidden">
-                            </div>
-                        </div>
-                        <div style="float: left">
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
+
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+                        <div class="mainBox">
                             <div>
-                                <div style="float: left; margin-right: 26.48px">
-                                    <div class="spanTagBoxWOSup" style="margin-right: 26.49px">
-                                        <span>아이디</span><br>
-                                        <span>비밀번호</span><br>
-                                        <span>비밀번호 확인</span><br>
-                                        <span id="pwdCheckResult">확인 전</span>
-                                    </div>
-                                    <div style="margin-right: 20px; float: left">
-                                        <div class="spanTagBoxWOSup" style="height: 43px">
-                                            <span th:text="*{ id }"></span>
-                                            <input class="hiddenInputBox" name="id" th:value="*{ id }">
-                                        </div>
-                                        <div>
-                                            <input type="password" name="pwd" id="pwd" onchange="pwdChanged(this)"><br>
-                                            <input type="password" id="confirm"><br>
-                                            <button type="button" id="button-confirm" class="pwdCheckFalse" autofocus onclick="pwdCheck()">비밀번호 확인</button>
-                                        </div>
-                                    </div>
+                                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/detail'"/>
+                                <div class="main">
+                                    <span class="titleText">직원 정보 수정</span>
                                 </div>
-                                <div style="float: left">
-                                    <div class="spanTagBoxWOSup" style="margin-right: 26.49px">
-                                        <span>이름</span><br>
-                                        <span>전화번호</span><br>
-                                        <span>생년월일</span><br>
-                                        <span>성별</span>
-                                    </div>
-                                    <div class="spanTagBoxWOSup" style="margin-left: 30px">
-                                        <input type="text" id="name" name="name" th:placeholder="*{ name }"><br>
-                                        <input type="text" id="phone" name="phone" th:placeholder="*{ phone }"><br>
-                                        <input type="date" name="birth"><br>
-                                        <select name="gender">
-                                            <option id="male" value="남">남</option>
-                                            <option id="female" value="여">여</option>
-                                        </select><br>
-                                    </div>
+                                <div class="searchBox">
+                                    <form action="/emp/result" method="get">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                            <option value="name">강사명</option>
+                                        </select>
+                                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                    </form>
                                 </div>
+                                <hr class="line" style="width: 700px">
                             </div>
-                            <div style="clear: left">
-                                <div class="spanTagBoxWOSup">
-                                    <span>주소</span>
-                                </div>
-                                <div style="margin-left: 68px; float: left">
-                                    <div>
-                                        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px">
-                                        <button type="button" onclick="sample4_execDaumPostcode()" style="width: 80px; line-height: 10px">찾기</button><br>
+                            <div th:object="${ emp }">
+                                <form action="/emp/detail" method="post" enctype="multipart/form-data">
+                                    <div class="userInfoBox">
+                                        <div class="previewBox">
+                                            <img id="preview" th:src="|/imageFile/${ emp.pic }|"><br>
+                                            <div class="fileBox">
+                                                <label for="picFile">사진변경</label>
+                                                <input type="file" id="picFile" name="picFile" onchange="chooseImage(this)"/><br>
+                                                <input id="urlAddress" name="urlAddress" hidden="hidden">
+                                            </div>
+                                        </div>
+                                        <div style="float: left">
+                                            <div>
+                                                <div style="float: left; margin-right: 26.48px">
+                                                    <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                                        <span>아이디</span><br>
+                                                        <span>비밀번호</span><br>
+                                                        <span>비밀번호 확인</span><br>
+                                                        <span id="pwdCheckResult">확인 전</span>
+                                                    </div>
+                                                    <div style="margin-right: 20px; float: left">
+                                                        <div class="spanTagBoxWOSup">
+                                                            <span th:text="*{ id }"></span>
+                                                            <input class="hiddenInputBox" name="id" th:value="*{ id }">
+                                                        </div>
+                                                        <div>
+                                                            <input type="password" name="pwd" id="pwd" onchange="pwdChanged(this)"><br>
+                                                            <input type="password" id="confirm"><br>
+                                                            <button type="button" id="button-confirm" class="pwdCheckFalse" autofocus onclick="pwdCheck()">비밀번호 확인</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="float: left">
+                                                    <div class="spanTagBoxWOSup" style="margin-right: 31px">
+                                                        <span>이름</span><br>
+                                                        <span>전화번호</span><br>
+                                                        <span>생년월일</span><br>
+                                                        <span>성별</span>
+                                                    </div>
+                                                    <div class="spanTagBoxWOSup">
+                                                        <input type="text" id="name" name="name" th:placeholder="*{ name }"><br>
+                                                        <input type="text" id="phone" name="phone" th:placeholder="*{ phone }"><br>
+                                                        <input type="date" name="birth"><br>
+                                                        <select name="gender">
+                                                            <option id="male" value="남">남</option>
+                                                            <option id="female" value="여">여</option>
+                                                        </select><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: left">
+                                                <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                                    <span>주소</span>
+                                                </div>
+                                                <div style="margin-left: 60px; float: left">
+                                                    <div>
+                                                        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px">
+                                                        <button type="button" onclick="sample4_execDaumPostcode()" style="width: 80px">찾기</button><br>
+                                                    </div>
+                                                    <input type="text" id="sample4_roadAddress" th:placeholder="*{ address }" name="address1" style="width: 390px"><br>
+                                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 390px">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input type="text" id="sample4_roadAddress" th:placeholder="*{ address }" name="address1" style="width: 480px"><br>
-                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 480px">
-                                </div>
+                                    <div class="detailBox">
+                                        <div style="float: left; margin-left: 50px; margin-right: 50px">
+                                            <div>
+                                                <h4>신체조건</h4>
+                                                <div class="spanTagBoxWOSup">
+                                                    <span>키</span><br>
+                                                    <span>체중</span><br>
+                                                    <span>BMI</span>
+                                                </div>
+                                                <div style="float: left; margin-right: 20px">
+                                                    <input type="text" name="height" th:placeholder="*{ physicalDTO.height }"><br>
+                                                    <input type="text" name="weight" th:placeholder="*{ physicalDTO.weight }"><br>
+                                                    <input id=type="text" name="bmi" th:placeholder="*{ physicalDTO.bmi }"><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="float: left; margin-right: 60px">
+                                            <h4>자격 사항</h4>
+                                            <div style="margin-right: 20px; float: left">
+                                                <input type="checkbox" id="qual1" name="qual" value="생활체육지도자" style="width: 25px; height: 25px"><br>
+                                                <input type="checkbox" id="qual2" name="qual" value="건강운동관리사" style="width: 25px; height: 25px"><br>
+                                                <input type="checkbox" id="qual3" name="qual" value="운동사" style="width: 25px; height: 25px"><br>
+                                            </div>
+                                            <div class="spanTagBoxWOSup">
+                                                <label for="qual1">생활체육지도자</label><br>
+                                                <label for="qual2">건강운동관리사</label><br>
+                                                <label for="qual3">운동사(사설)</label><br>
+                                                <input type="text" id="qualWrite" name="qualWrite" placeholder="추가: 직접 입력"><br>
+                                                <input type="hidden" id="qualEtc" name="qualEtc"></input>
+                                            </div>
+                                        </div>
+                                        <div style="float: left">
+                                            <h4>경력 사항</h4>
+                                            <div class="spanTagBoxWOSup">
+                                                <span style="margin-left: 8px">근무지</span><br>
+                                                <span style="margin-left: 8px">기간</span><br>
+                                                <span style="margin-left: 8px">전체 경력</span><br>
+                                                <span style="margin-left: 8px">기본급</span>
+                                            </div>
+                                            <div style="float: left">
+                                                <input type="text" name="location" th:placeholder="*{ employeeDTO.location }"><br>
+                                                <input type="text" name="year" style="width: 30px" th:placeholder="*{ employeeDTO.year }">년 <input type="text" name="month" style="width: 30px" th:placeholder="*{ employeeDTO.month }">개월 <br>
+                                                <input type="text" name="totalYear" style="width: 30px" th:placeholder="*{ employeeDTO.totalYear }">년 <input type="text" name="totalMonth" style="width: 30px" th:placeholder="*{ employeeDTO.totalMonth }">개월 <br>
+                                                <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
+                                            </div>
+                                        </div>
+                                        <div style="clear: left; margin-left: 50px; padding-top: 10px">
+                                            <div class="spanTagBoxWOSup">
+                                                <span>기타</span>
+                                            </div>
+                                            <div style="float: left">
+                                                <input type="text" name="etc" th:placeholder="*{ etc }">
+                                            </div>
+                                            <button class="submitButton" type="submit" id="submit" name="submit" style="float: right; margin-right: 300px">수정</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="detailBox">
-                        <div style="float: left; margin-left: 130px; margin-right: 35px">
+                        <div class="sideBox">
                             <div>
-                                <h4>신체조건</h4>
-                                <div class="spanTagBoxWOSup">
-                                    <span>키</span><br>
-                                    <span>체중</span><br>
-                                    <span>BMI</span>
+                                <div class="main" style="margin-bottom: 25px">
+                                    <span class="titleText" style="margin-left: 30px">직원 리스트</span>
                                 </div>
-                                <div style="float: left; margin-right: 20px">
-                                    <input type="text" name="height" th:placeholder="*{ physicalDTO.height }"><br>
-                                    <input type="text" name="weight" th:placeholder="*{ physicalDTO.weight }"><br>
-                                    <input id=type="text" name="bmi" th:placeholder="*{ physicalDTO.bmi }"><br>
+                                <hr class="line" style="width: 300px">
+                            </div>
+                            <div class="sideEmpList">
+                                <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                    <div class="empBlockLeft">
+                                        <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                                    </div>
+                                    <div class="empBlockRight">
+                                        <p class="empName" th:text="${ emp.name }"></p>
+                                        <p class="empRole" th:text="${ emp.role }"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div style="float: left; margin-right: 35px">
-                            <h4>자격 사항</h4>
-                            <div class="right">
-                                <input type="checkbox" id="qual1" name="qual" value="생활체육지도자" style="width: 34px; height: 34px"><br>
-                                <input type="checkbox" id="qual2" name="qual" value="건강운동관리사" style="width: 34px; height: 34px"><br>
-                                <input type="checkbox" id="qual3" name="qual" value="운동사" style="width: 34px; height: 34px"><br>
-                            </div>
-                            <div class="spanTagBoxWOSup">
-                                <label for="qual1">생활체육지도자</label><br>
-                                <label for="qual2">건강운동관리사</label><br>
-                                <label for="qual3">운동사(사설)</label><br>
-                                <input type="text" id="qualWrite" name="qualWrite" placeholder="추가: 직접 입력"><br>
-                                <input type="hidden" id="qualEtc" name="qualEtc"></input>
-                            </div>
-                        </div>
-                        <div style="float: left">
-                            <h4>경력 사항</h4>
-                            <div class="spanTagBoxWOSup" style="margin-right: 26.48px">
-                                <span>근무지</span><br>
-                                <span>기간</span><br>
-                                <span>전체 경력</span><br>
-                                <span>기본급</span>
-                            </div>
-                            <div style="float: left">
-                                <input type="text" name="location" th:placeholder="*{ employeeDTO.location }"><br>
-                                <input type="text" name="year" style="width: 50px" th:placeholder="*{ employeeDTO.year }">년 <input type="text" name="month" style="width: 50px" th:placeholder="*{ employeeDTO.month }">개월 <br>
-                                <input type="text" name="totalYear" style="width: 50px" th:placeholder="*{ employeeDTO.totalYear }">년 <input type="text" name="totalMonth" style="width: 50px" th:placeholder="*{ employeeDTO.totalMonth }">개월 <br>
-                                <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
-                            </div>
-                        </div>
-                        <div style="clear: left; margin-left: 130px; padding-top: 30px">
-                            <div class="spanTagBoxWOSup">
-                                <span>기타</span>
-                            </div>
-                            <div style="float: left">
-                                <input type="text" name="etc" style="width: 420px" th:placeholder="*{ etc }">
-                            </div>
-                            <button class="submitButton" type="submit" id="submit" name="submit" style="float: right; margin-right: 120px">등록</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="sideBox">
-            <div>
-                <div class="main" style="margin-bottom: 20px">
-                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
-                </div>
-                <hr class="line" style="width: 410px">
-            </div>
-            <div class="sideEmpList">
-                <div class="sideEmpBlock" th:each="emp : ${ empList }">
-                    <div class="empBlockLeft">
-                        <img class="empImg" th:src="|/images/${ emp.pic }|">
-                    </div>
-                    <div class="empBlockRight">
-                        <p class="empName" th:text="${ emp.name }"></p>
-                        <p class="empRole" th:text="${ emp.role }"></p>
                     </div>
                 </div>
+                <!--개인 작업 종료-->
             </div>
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
         </div>
     </div>
 
     <script>
-
         let pwdChecked = false;
 
         function chooseImage(obj) {
