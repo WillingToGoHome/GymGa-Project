@@ -132,7 +132,7 @@ public class UserController {
         int code = userService.findLastCode();
 
         if (newUser.getUserBirth() == null) {
-            newUser.setUserBirth(java.sql.Date.valueOf("2000-01-01"));
+            newUser.setUserBirth("2000-01-01");
         }
 
         newUser.setUserCode(code + 1);
@@ -157,13 +157,62 @@ public class UserController {
 
         session.setAttribute("userCode", code);
 
-        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
-
         userDTO.setUserCode(code);
         physicalDTO.setUserCode(code);
+
+        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
 
         model.addAttribute("user", user);
 
         return "user/selectDetail";
+    }
+
+    @GetMapping("/update")
+    public void updateUser() {}
+
+    @PostMapping("/update")
+    public String updateUser(HttpSession session,
+                             @RequestParam("code") String userCode, Model model,
+                             UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        userDTO.setUserCode(code);
+        physicalDTO.setUserCode(code);
+
+        UserTotDTO user = userService.updatePage(code, userDTO, physicalDTO);
+
+        model.addAttribute("user", user);
+
+        return "/user/update";
+    }
+
+    @GetMapping("/updateUser")
+    public void update() {}
+
+    @PostMapping("/updateUser")
+    public String update(HttpSession session,
+                         @RequestParam("code") String userCode, Model model,
+                         @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
+                         UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        userDTO.setUserCode(code);
+        userDTO.setUserRole("회원");
+
+        userService.update(userDTO, physicalDTO);
+
+        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+
+        model.addAttribute("user", user);
+
+        System.out.println(user.getPhysicalDTO().getHeight());
+
+        return "/user/selectDetail";
     }
 }

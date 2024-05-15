@@ -19,10 +19,10 @@ public class UserTotDTO {
     private String userRole;
     private String userPic;
     private String userGender;
-    private Date userBirth;
+    private String userBirth;
     private String userAddress;
     private String userEtc;
     private int userStaff;
     private String staffName;
-    private PhysicalDTO PhysicalDTO;
+    private PhysicalDTO physicalDTO;
 }
