@@ -46,24 +46,24 @@
                     <div class="title">
                         <p class="img"></p>
                         <p class="userName">이름</p>
-                        <p class="userId">판매 번호</p>
+                        <p class="userId">회원 아이디</p>
                         <p class="price2">이용권</p>
                         <p class="userPhone">이용권 기간</p>
                         <p class="price2">판매 금액</p>
-                        <p class="userStaff">결제 방식</p>
+<!--                        <p class="userStaff">결제 방식</p>-->
                     </div>
                     <hr class="hr2">
                     <div class="zxc">
                         <div class="userList" th:each="user:${userList}">
                             <p class="img"><img th:src="${user.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/></p>
                             <p class="userName" th:text="${user.userDTO.userName}"></p>
-                            <p class="userId" th:text="${user.passQualDTO.pqCode}"></p>
+                            <p class="userId" th:text="${user.userDTO.userId}"></p>
                             <p  class="price2" th:text="${user.passQualDTO.pqName}"></p>
                             <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')
                                  + ' ~'
                                  + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
                             <p class="price" th:text="${user.passQualDTO.pqPrice}"></p>
-                            <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>
+<!--                            <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>-->
                         </div>
                     </div>
                 </div>
@@ -80,6 +80,22 @@
             <div th:include="common/footer"></div>
     </div>
         </div>
+<!--<script>-->
+<!--    function redirectToUserDetail(userId) {-->
+<!--        window.location.href = "/sale/detail?userId=" + userId;-->
+<!--    }-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        var userListElements = document.querySelectorAll('.userList');-->
+
+<!--        userListElements.forEach(function(userElement) {-->
+<!--            userElement.addEventListener('click', function() {-->
+
+<!--                var userId = userElement.querySelector('.userId').textContent;-->
+<!--                redirectToUserDetail(userId);-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
