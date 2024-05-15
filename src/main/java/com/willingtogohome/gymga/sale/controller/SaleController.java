@@ -172,6 +172,8 @@ public class SaleController {
 
         return "sale/detail";
     }
+
+
     @GetMapping("/detail/{userId}")
     public String findByScheduleCode(@PathVariable("userId") String userId, Model model) {
         PassAndPassQualDTO passAndPassQualDTO = saleService.findByUserId(userId);
@@ -180,6 +182,7 @@ public class SaleController {
 
         return "sale/detail";
     }
+
 
 
 //    @GetMapping("/detail")
