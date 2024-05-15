@@ -11,31 +11,39 @@
     <link rel="stylesheet" href="../styles/footerStyle.css">
     <link rel="stylesheet" href="../fac/facSelect.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<!--        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">-->
-    <script src="fac/fac.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script src="../templates/fac/fac.js"></script>
 </head>
 <body>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 
-<!--<div class="container">-->
-<!--    <div class="app-area">-->
-<!--        &lt;!&ndash;Heade Start&ndash;&gt;-->
-<!--        <div th:include="common/header"></div>-->
-<!--        &lt;!&ndash;Header End&ndash;&gt;-->
 
-<!--        &lt;!&ndash;Main Start&ndash;&gt;-->
-<!--        <div class="main-container">-->
-<!--            &lt;!&ndash;Navbar Start&ndash;&gt;-->
-<!--            <div th:include="common/navbar"></div>-->
-<!--            &lt;!&ndash;Navbar End&ndash;&gt;-->
-<!--            &lt;!&ndash;개인 작업 시작&ndash;&gt;-->
-<!--            <div class="my-style">-->
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
 
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
+
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                <div class="dropdown">
+                    <button class="dropbtn">조회</button>
+                    <div class="dropdown-content">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
+                        <a href="/fac/select/expired">만료조회</a>
+                    </div>
+                </div>
 <div class="container">
     <div th:each="facs: ${facList}" class="fac-item">
         <!-- Locker Code -->
@@ -50,7 +58,22 @@
         <span class="facEnd" th:text="${facs.facEnd}"></span>
     </div>
 </div>
+                <script th:inline="javascript">
+                    // Wait for the DOM content to be loaded
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get all elements with the class 'facStart'
+                        var facStartElements = document.querySelectorAll('.facStart');
 
+                        // Loop through each element
+                        facStartElements.forEach(function(element) {
+                            // Check if the textContent of the element is not null or empty
+                            if (element.textContent.trim() !== '') {
+                                // If not empty, add the '~' symbol after the text
+                                element.textContent += ' ~';
+                            }
+                        });
+                    });
+                </script>
 <!--<div class="container">-->
 <!--    <ul class="fac-list">-->
 <!--        <th:block th:each="facs: ${facList}">-->
@@ -69,7 +92,35 @@
 <!--        </th:block>-->
 <!--    </ul>-->
 <!--</div>-->
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // 사용자 정보 배열
+                    var users = [
+                        '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
+                        '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
+                        '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
+                        '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
+                        '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
+                        '강시우(7777)', '조예은(3333)', '홍길동(5678)'
+                    ];
 
+                    // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
+                    document.querySelectorAll(".userCode").forEach(function(element) {
+                        var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
+
+                        // userCode가 3인 경우 "김진용"으로 변경
+                        if (userCode === "1") {
+                            element.textContent = "남효정(0000)";
+                        } else {
+                            // userCode와 일치하는 사용자 이름을 가져와서 표시
+                            var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
+                            if (userName) {
+                                element.textContent = userName;
+                            }
+                        }
+                    });
+                });
+            </script>
 
 <script th:inline="javascript">
     function setFacStatusColor() {
@@ -80,10 +131,14 @@
                 color = "#4041C5";
             } else if (selectedValue === "만료") {
                 color = "#F82626";
-            } else {
-                color = "black"; // 기본 색상
+                element.style.right = "-80px";
+            } else if (selectedValue === "") {
+                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
+                color = "rgba(64, 65, 197, 0.5)";
+                element.style.right = "-50px";// Set color to "#4041C5" with 50% opacity
             }
-            element.style.color = color;
+            element.textContent = selectedValue; // Update the text content
+            element.style.color = color; // Apply the color
         });
     }
 
@@ -129,13 +184,7 @@
 </script>
 
 
-<div class="dropdown">
-    <button class="dropbtn">조회</button>
-    <div class="dropdown-content">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
-        <a href="/fac/select/expired">만료조회</a>
-    </div>
-</div>
+
 
 <!-- 개인 조회 모달 -->
 <div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
@@ -292,17 +341,16 @@
 </div>
 
 
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
 
-<!--            </div>-->
-<!--            &lt;!&ndash;개인 작업 종료&ndash;&gt;-->
-<!--        </div>-->
-<!--        &lt;!&ndash;Main End&ndash;&gt;-->
-
-<!--        &lt;!&ndash;Footer Start&ndash;&gt;-->
-<!--        <div th:include="common/footer"></div>-->
-<!--        &lt;!&ndash;Footer End&ndash;&gt;-->
-<!--    </div>-->
-<!--</div>-->
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
 
 </body>
 </html>
