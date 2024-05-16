@@ -71,6 +71,12 @@ public class UserService {
         userMapper.updatePhy(physicalDTO);
     }
 
+    public void selectDetail(UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        userMapper.selectDetailUser(userDTO);
+        userMapper.selectDetailPhy(physicalDTO);
+    }
+
 //    @Transactional
 //    public void update(UserTotDTO userTotDTO) {
 //
