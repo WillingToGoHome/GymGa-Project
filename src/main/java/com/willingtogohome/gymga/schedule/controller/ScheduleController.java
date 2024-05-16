@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.schedule.controller;
 
+import com.willingtogohome.gymga.schedule.model.dto.ClassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
@@ -8,7 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ScheduleController {
@@ -46,6 +54,15 @@ public class ScheduleController {
         return scheduleService.findAllScheRunDate();
     }
 
+    // 일정으로 페이지 가기 ?
+    @GetMapping("schedule/test/{scheRunDate}")
+    public String findByScheRunDate(@PathVariable("scheRunDate") LocalDate scheRunDate, Model model) {
+        List<ScheduleAndClassAndUserAndPassDTO> scheduleListByRunDate = scheduleService.findByScheRunDate(scheRunDate);
+        model.addAttribute("scheduleListByRunDate", scheduleListByRunDate);
+        System.out.println("scheduleListByRunDate = " + scheduleListByRunDate);
+        return "schedule/schedulemain";
+    }
+
     @GetMapping("/schedule/scheduleregist")
     public void registPage() {
     }
@@ -58,14 +75,32 @@ public class ScheduleController {
 
         return scheduleService.findAllTeacher();
     }
-    @PostMapping("/schedule/scheduleregist")
-    public String registSchedule(ScheduleDTO newSchedule, RedirectAttributes redirectAttributes) {
 
-        scheduleService.registNewSchedule(newSchedule);
+    @GetMapping(value ="/schedule/className", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<ClassDTO> findClassNameList() {
+        scheduleService.findAllClassName().forEach(System.out::println);
+        return scheduleService.findAllClassName();
+    }
+
+    @PostMapping("/schedule/scheduleregistPt")
+    public String registNewPtSchedule(ScheduleDTO newSchedule, RedirectAttributes redirectAttributes) {
+
+        scheduleService.registNewPtSchedule(newSchedule);
 
         redirectAttributes.addFlashAttribute("successMessage", "일정 등록 성공");
 
-        return "redirect:/schedule/schedulemain";
+        return "schedule/schedulemain";
+    }
+
+    @PostMapping("/schedule/scheduleregistGx")
+    public String registNewGxSchedule(ScheduleDTO newSchedule, RedirectAttributes redirectAttributes) {
+
+        scheduleService.registNewGxSchedule(newSchedule);
+
+        redirectAttributes.addFlashAttribute("successMessage", "일정 등록 성공");
+
+        return "schedule/schedulemain";
     }
 
 
@@ -76,18 +111,51 @@ public class ScheduleController {
         model.addAttribute("allList", allList);
         System.out.println("allList = " + allList);
 
-        return "schedule/schedulelist";
+        return "schedule/schedulemain";
         // return 변경 예정
     }
 
-    // 상세페이지(scheCode로 선택)
+    // PT 상세페이지(scheCode로 선택)
     @GetMapping("/schedule/schedulelist/{scheCode}")
     public String findByScheduleCode(@PathVariable("scheCode") int scheCode, Model model) {
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheCode(scheCode);
         model.addAttribute("selectOneSchedule", scheduleAndClassAndUserAndPassDTO);
-        System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);
+        System.out.println("변경할데이터조회 = " + scheduleAndClassAndUserAndPassDTO);
 
         return "schedule/scheduledetail";
+    }
+
+    // GX 상세페이지(classCode로 선택) ??
+//    @GetMapping("/schedule/scheduleGxlist/{classCode}")
+//    public String findByClassCode(@PathVariable("classCode") String classCode, Model model) {
+//        List<ScheduleAndClassAndUserAndPassDTO> classCodeList = scheduleService.findByClassCode(classCode);
+//        model.addAttribute("findByClassCode", classCodeList);
+//
+//        return "schedule/scheduledetailgx";
+//    }
+
+    // GX 상세페이지로 데이터 보내기(일단 전체)
+//    @GetMapping("/schedule/scheduleGx")
+//    public String findGxSchedule(Model model) {
+//        List<ScheduleAndClassAndUserAndPassDTO> gxList = scheduleService.findGxList();
+//        model.addAttribute("findGxList", gxList);
+//        return "schedule/scheduledetailgx";
+//    }
+
+    // GX 특정페이지로 보내기(regDate 참조?)
+    @GetMapping("/schedule/scheduleGx/{scheCode}/{scheRegDate}")
+    public String findGxByRegDate(@PathVariable("scheCode") int scheCode,
+                                  @PathVariable("scheRegDate") LocalDateTime scheRegDate,
+                                  Model model) {
+
+        ScheduleAndClassAndUserAndPassDTO gxList = scheduleService.findGxList(scheCode);
+        model.addAttribute("findGxList", gxList);
+
+        List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate = scheduleService.findGxByRegDate(scheRegDate);
+        model.addAttribute("findGxByRegDate", findGxByRegDate);
+        System.out.println("findGxByRegDate = " + findGxByRegDate);
+
+        return "schedule/scheduledetailgx";
     }
 
 //    @GetMapping("/schedule/scheduleupdate")

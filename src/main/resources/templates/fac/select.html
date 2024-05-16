@@ -1,195 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/headerStyle.css">
+    <link rel="stylesheet" href="../styles/navbarStyle.css">
+    <link rel="stylesheet" href="../styles/myStyle.css">
+    <link rel="stylesheet" href="../styles/footerStyle.css">
+    <link rel="stylesheet" href="../fac/facSelect.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /*.ul2 {*/
-        /*    width: 250px;*/
-        /*    height: 250px;*/
-        /*    background-color:#86AFEF;*/
-        /*    margin: 100px;*/
-        /*    border-radius: 25px/50px;*/
-        /*    padding-left: 15px;*/
-        /*    position: relative;*/
-        /*}*/
-
-        .facCodeLink {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            width: 200px;
-            height: 200px;
-            background-color:#8DD0F6;
-            margin: 100px;
-            border-radius: 25px/50px;
-            padding-left: 15px;
-            font-size:24px;
-            font-weight: bold;
-        }
-
-        .label {
-            font-size: 24px;
-            margin-bottom: 500px;
-            margin-left: 200px;
-            position: relative;
-            list-style: none;
-            font-weight: bold;
-
-        }
-        .userCode {
-            list-style: none;
-            font-size:16px;
-            margin-left: 7px;
-        }
-
-        .facStart,
-        .facEnd {
-            margin-left: 200px;
-            list-style: none;
-            font-size:16px;
-        }
-    </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script src="../templates/fac/fac.js"></script>
 </head>
 <body>
-<!--<h1>사물함 관리</h1>-->
-<!--&lt;!&ndash; 조회 버튼과 드롭다운 메뉴 &ndash;&gt;-->
-<!--<div class="dropdown">-->
-<!--    <button class="dropbtn">조회</button>-->
-<!--    <div class="dropdown-content">-->
-<!--        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>-->
-<!--        <a href="/fac/select/expired">만료조회</a>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="personalModalLabel">개인 조회</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <label>사물함 번호: </label>-->
-<!--                <select name="facCode" id="facCode"></select>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
-<!--                <button onclick=window.location.href="/fac/select/personal" class="btn btn-primary" data-dismiss="modal">확인</button>-->
-<!--                &lt;!&ndash; 다른 작업을 추가하려면 여기에 버튼을 추가하십시오. &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--<button class="btn btn-primary" data-toggle="modal" data-target="#personalModal2">사물함 등록,수정 및 삭제</button>-->
-
-<!--<div class="modal fade" id="personalModal2" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel2" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="personalModalLabel2">사물함 등록,수정 및 삭제</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <a class="btn btn-secondary" href="/fac/regist">등록</a>-->
-<!--                <a class="btn btn-secondary" href="/fac/update">수정</a>-->
-<!--                <a class="btn btn-secondary" href="/fac/delete">삭제</a>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
-<!--                &lt;!&ndash; 다른 작업을 추가하려면 여기에 버튼을 추가하십시오. &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
-
-<!--<script>-->
-<!--    fetch("/fac/fac")-->
-<!--        .then(res=>res.json())-->
-<!--        .then(data=> {-->
-<!--            const $facCode=document.getElementById("facCode");-->
-
-<!--            for(let index in data) {-->
-<!--                const $option=document.createElement('option');-->
-<!--                $option.text=data[index].facCode;-->
 
 
 
-<!--                $facCode.appendChild($option);-->
-<!--            }-->
-<!--        })-->
-<!--</script>-->
 
-<!--<table align="center" border="1">-->
 
-<!--    <tr>-->
-<!--        <th>사물함 번호</th>-->
-<!--        <th>사물함 상태</th>-->
-<!--        <th>시작 기간</th>-->
-<!--        <th>회원 번호</th>-->
-<!--        <th>만료 기간</th>-->
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
 
-<!--    </tr>-->
-<!--    <tr th:each="facs: ${facList}">-->
-<!--        <td th:text="${facs.facCode}"></td>-->
-<!--        <td th:text="${facs.facStatus}"></td>-->
-<!--        <td th:text="${facs.facStart}"></td>-->
-<!--        <td th:text="${facs.userCode}"></td>-->
-<!--        <td th:text="${facs.facEnd}"></td>-->
-<!--    </tr>-->
-<!--</table>-->
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
 
-<h1>사물함 관리</h1>
-
-<!-- 조회 버튼과 드롭다운 메뉴 -->
-<div class="dropdown">
-    <button class="dropbtn">조회</button>
-    <div class="dropdown-content">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
-        <a href="/fac/select/expired">만료조회</a>
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                <div class="dropdown">
+                    <button class="dropbtn">조회</button>
+                    <div class="dropdown-content">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
+                        <a href="/fac/select/expired">만료조회</a>
+                    </div>
+                </div>
+<div class="container">
+    <div th:each="facs: ${facList}" class="fac-item">
+        <!-- Locker Code -->
+        <span class="facCodeLink" th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></span>
+        <!-- Locker Status -->
+        <span class="facStatus" th:text="${facs.facStatus}"></span>
+        <!-- User Code -->
+        <span class="userCode" th:text="${facs.userCode}"></span>
+        <!-- Start Date -->
+        <span class="facStart" th:text="${facs.facStart}"></span>
+        <!-- End Date -->
+        <span class="facEnd" th:text="${facs.facEnd}"></span>
     </div>
 </div>
+                <script th:inline="javascript">
+                    // Wait for the DOM content to be loaded
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get all elements with the class 'facStart'
+                        var facStartElements = document.querySelectorAll('.facStart');
+
+                        // Loop through each element
+                        facStartElements.forEach(function(element) {
+                            // Check if the textContent of the element is not null or empty
+                            if (element.textContent.trim() !== '') {
+                                // If not empty, add the '~' symbol after the text
+                                element.textContent += ' ~';
+                            }
+                        });
+                    });
+                </script>
+<!--<div class="container">-->
+<!--    <ul class="fac-list">-->
+<!--        <th:block th:each="facs: ${facList}">-->
+<!--            <li class="fac-item">-->
+<!--                &lt;!&ndash; Locker Code &ndash;&gt;-->
+<!--                <span class="facCodeLink" th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></span>-->
+<!--                &lt;!&ndash; Locker Status &ndash;&gt;-->
+<!--                <span class="facStatus" th:text="${facs.facStatus}"></span>-->
+<!--                &lt;!&ndash; User Code &ndash;&gt;-->
+<!--                <span class="userCode" th:text="${facs.userCode}"></span>-->
+<!--                &lt;!&ndash; Start Date &ndash;&gt;-->
+<!--                <span class="facStart" th:text="${facs.facStart}"></span>-->
+<!--                &lt;!&ndash; End Date &ndash;&gt;-->
+<!--                <span class="facEnd" th:text="${facs.facEnd}"></span>-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<!--</div>-->
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // 사용자 정보 배열
+                    var users = [
+                        '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
+                        '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
+                        '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
+                        '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
+                        '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
+                        '강시우(7777)', '조예은(3333)', '홍길동(5678)'
+                    ];
+
+                    // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
+                    document.querySelectorAll(".userCode").forEach(function(element) {
+                        var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
+
+                        // userCode가 3인 경우 "김진용"으로 변경
+                        if (userCode === "1") {
+                            element.textContent = "남효정(0000)";
+                        } else {
+                            // userCode와 일치하는 사용자 이름을 가져와서 표시
+                            var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
+                            if (userName) {
+                                element.textContent = userName;
+                            }
+                        }
+                    });
+                });
+            </script>
+
+<script th:inline="javascript">
+    function setFacStatusColor() {
+        document.querySelectorAll(".facStatus").forEach(function (element) {
+            var selectedValue = element.textContent.trim();
+            var color = "";
+            if (selectedValue === "사용중") {
+                color = "#4041C5";
+            } else if (selectedValue === "만료") {
+                color = "#F82626";
+                element.style.right = "-80px";
+            } else if (selectedValue === "") {
+                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
+                color = "rgba(64, 65, 197, 0.5)";
+                element.style.right = "-50px";// Set color to "#4041C5" with 50% opacity
+            }
+            element.textContent = selectedValue; // Update the text content
+            element.style.color = color; // Apply the color
+        });
+    }
+
+    // 페이지 로드 시 호출하여 초기 색상 설정
+    setFacStatusColor();
+
+    // 클릭한 번호를 input 상자에 보여주는 함수
+    $('.facCodeLink').click(function() {
+        // 클릭한 번호 가져오기
+        var facCode = $(this).text(); // 링크의 텍스트를 가져옴
+        var userCode = $(this).siblings('.userCode').text(); // userCode를 가져오기 위해 형제 요소를 찾음
+
+        // data-faccode 속성에 번호 설정
+        $('#facActionModal').attr('data-facCode', facCode);
+        // input 상자에 번호 표시
+        $('#clickedFacCodeInput1').val(facCode);
+        $('#clickedFacCodeInput2').val(facCode);
+        $('#clickedFacCodeInput3').val(facCode);
+        $('#clickedUserCodeInput').val(userCode);
+        $('#facCode').val(facCode);
+        $('#userCode3').val(userCode);
+        $('.facActionModalFacCode4').val(userCode);
+
+
+        // 변경된 데이터에 따라 스타일 다시 설정
+        setFacStatusColor();
+    });
+</script>
+<script>
+
+    fetch("/fac/user")
+        .then(res=>res.json())
+        .then(data=> {
+            const $userCode=document.getElementById("userCode");
+
+            for(let index in data) {
+                const $option=document.createElement('option');
+                $option.text=data[index].userCode;
+                $userCode.appendChild($option);
+            }
+        })
+
+</script>
+
+
+
 
 <!-- 개인 조회 모달 -->
 <div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
@@ -212,84 +207,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function sendRequest() {
-        // 선택된 회원 코드 가져오기
-        const selectedFacCode = document.getElementById("facCode").value;
-        // userCode 파라미터를 포함하여 URL로 이동
-        window.location.href = "/fac/select/personal?facCode=" + selectedFacCode;
-    }
-</script>
-
-<script>
-    fetch("/fac/fac")
-        .then(res=>res.json())
-        .then(data=> {
-            const $facCode=document.getElementById("facCode");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].facCode;
-                $option.value=data[index].facCode;
-                $facCode.appendChild($option);
-            }
-        })
-</script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div th:each="facs: ${facList}">
-    <ul>
-        <li th:text="${facs.facCode}" style="font-size:24px;" class="facCodeLink" data-toggle="modal" data-target="#facActionModal"></li>
-        <li class="label" th:text="${facs.facStatus}"></li>
-        <li class="userCode">
-            <span>회원 번호:</span>
-            <span class="userCode" th:text="${facs.userCode}"></span>
-        </li>
-        <li class="facStart">
-            <span>시작 기간:</span>
-            <span th:text="${facs.facStart}"></span>
-        </li>
-        <li class="facEnd">
-            <span>만료 기간:</span>
-            <span th:text="${facs.facEnd}"></span>
-        </li>
-    </ul>
-    </div>
-
-
-
-
-
-
-<!--<div th:fragment="select" class="facList">-->
-<!--    <ul th:each="facs: ${facList}" >-->
-<!--        <li th:text="${facs.facCode}" style="font-size:24px;" href="#" data-toggle="modal" class="facCodeLink" data-target="#facActionModal">-->
-<!--        </li>-->
-<!--        <li class="label" th:text="${facs.facStatus}" style="position: absolute; margin-left: 7px; margin-top: 20px; margin-right: 20px; top: 0;-->
-<!--        right: 0; font-size:24px;">-->
-<!--        </li>-->
-<!--        <li style="margin-left: 7px;">-->
-<!--        </li>-->
-<!--        <li th:text="${facs.facStart}" style="margin-left: 7px;">-->
-<!--        </li>-->
-<!--        <li th:text="${facs.facEnd}" style="margin-left: 7px;">-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <ul th:each="facs: ${facList}" style="font-size:24px;" class="facCodeLink">-->
-<!--        <li th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></li>-->
-<!--        <li th:text="${facs.facStatus}"></li>-->
-<!--        <li><span>회원 번호:</span><span class="userCode" th:text="${facs.userCode}"></span></li>-->
-<!--        <li><span>시작 기간:</span><span th:text="${facs.facStart}"></span></li>-->
-<!--        <li><span>만료 기간:</span><span th:text="${facs.facEnd}"></span></li>-->
-<!--    </ul>-->
-<!--</div>-->
-
 
 
 
@@ -319,7 +236,7 @@
         </div>
     </div>
 </div>
-
+<!-- 사물함 등록 -->
 <div class="modal fade" id="facActionModal2" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -329,10 +246,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form id="registForm" onsubmit="submitForm()">
                     <label>사물함 번호: </label>
-                    <input type="text" name="facCode" id="clickedFacCodeInput" readonly><br>
+                    <input type="text" name="facCode" id="clickedFacCodeInput1" readonly><br>
+<!--                    <label>회원 코드: </label>-->
+<!--                    <input type="text" name="userCode" id="userCode"><br>-->
                     <label>회원 코드: </label>
                     <select name="userCode" id="userCode"></select><br>
                     <label>사용 가능 상태: </label>
@@ -345,7 +265,6 @@
                     <input type="date" name="facStart" id="facStart"><br>
                     <label>사용 만료 기간: </label>
                     <input type="date" name="facEnd" id="facEnd"><br>
-
                 </form>
             </div>
             <div class="modal-footer">
@@ -355,75 +274,7 @@
         </div>
     </div>
 </div>
-
-<script>
-    function submitForm() {
-
-// 폼 데이터 가져오기
-        const formData = new FormData(document.getElementById("registForm"))
-
-
-// POST 요청 보내기
-        fetch("/fac/regist", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => {
-                if (response.ok) {
-// 성공적으로 처리된 경우 모달 닫기
-                    $('#facActionModal').modal('hide');
-                    window.location.href = "/fac/select";
-
-
-                } else {
-// 실패한 경우 오류 메시지 표시
-                    console.error('등록 실패');
-                }
-            })
-            .catch(error => console.error('에러 발생:', error));
-    }
-</script>
-
-
-
-<script th:inline="javascript">
-    $(document).ready(function () {
-        // 클릭한 번호를 input 상자에 보여주는 함수
-        $('.facCodeLink').click(function() {
-            // 클릭한 번호 가져오기
-            var facCode = $(this).text(); // 링크의 텍스트를 가져옴
-            var $ul = $(this).closest('ul');
-            var userCode = $ul.find('.userCode').text();
-
-            // data-faccode 속성에 번호 설정
-            $('#facActionModal').attr('data-facCode', facCode);
-            // input 상자에 번호 표시
-            $('#clickedFacCodeInput').val(facCode);
-            $('#clickedFacCodeInput2').val(facCode);
-            $('#clickedFacCodeInput3').val(facCode);
-            $('#clickedUserCodeInput').val(userCode);
-        });
-    });
-</script>
-
-<script>
-    fetch("/fac/user")
-        .then(res=>res.json())
-        .then(data=> {
-            const $userCode=document.getElementById("userCode");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].userCode;
-                $userCode.appendChild($option);
-            }
-        })
-</script>
-
-
-
-
-
+<!-- 사물함 수정 -->
 <div class="modal fade" id="facActionModal3" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel3" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -436,11 +287,11 @@
             <div class="modal-body">
                 <form id="updateForm" onsubmit="submitForm2()">
                     <label>사물함 번호: </label>
-                    <input type="text" name="facCode" id="clickedFacCodeInput2"><br>
+                    <input type="text" name="facCode" id="clickedFacCodeInput2" readonly><br>
                     <label>회원 코드: </label>
-                    <input type="text" name="userCode" id="clickedUserCodeInput" ><br>
-                    <!--                    <label>회원 코드: </label>-->
-                    <!--                    <select name="userCode" id="userCode3"></select><br>-->
+                    <input type="text" name="userCode" id="userCode3" ><br>
+<!--                    <label>회원 코드: </label>-->
+<!--                    <select name="userCode" id="userCode3"></select><br>-->
                     <label>사용 가능 상태: </label>
                     <select name="facStatus" id="facStatus3">
                         <option value=""></option>
@@ -458,65 +309,8 @@
         </div>
     </div>
 </div>
-<script>
-    function submitForm2() {
 
-// 폼 데이터 가져오기
-        const formData = new FormData(document.getElementById("updateForm"));
-
-// POST 요청 보내기
-        fetch("/fac/update", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => {
-                if (response.ok) {
-// 성공적으로 처리된 경우 모달 닫기
-                    $('#updateModal').modal('hide');
-                    $('#facActionModal').modal('hide');
-                    window.location.href = "/fac/select";
-
-                } else {
-// 실패한 경우 오류 메시지 표시
-                    console.error('등록 실패');
-                }
-            })
-            .catch(error => console.error('에러 발생:', error));
-    }
-
-</script>
-
-
-<script>
-    fetch("/fac/user")
-        .then(res=>res.json())
-        .then(data=> {
-            const $userCode=document.getElementById("userCode3");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].userCode;
-                $userCode.appendChild($option);
-            }
-        })
-</script>
-
-<script>
-    fetch("/fac/fac")
-        .then(res=>res.json())
-        .then(data=> {
-            const $facCode=document.getElementById("facActionModalFacCode3");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].facCode;
-                $option.value=data[index].facCode;
-                $facCode.appendChild($option);
-            }
-        })
-</script>
-
-
+<!-- 사물함 삭제 -->
 <div class="modal fade" id="facActionModal4" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel4" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -547,64 +341,16 @@
 </div>
 
 
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
 
-<script>
-    function submitForm3() {
-
-// 폼 데이터 가져오기
-        const formData = new FormData(document.getElementById("deleteForm"));
-
-// POST 요청 보내기
-        fetch("/fac/delete", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => {
-                if (response.ok) {
-// 성공적으로 처리된 경우 모달 닫기
-                    $('#facActionModal').modal('hide');
-                    window.location.href = "/fac/select";
-
-                } else {
-// 실패한 경우 오류 메시지 표시
-                    console.error('등록 실패');
-                }
-            })
-            .catch(error => console.error('에러 발생:', error));
-    }
-
-</script>
-
-
-
-<script>
-    fetch("/fac/user")
-        .then(res=>res.json())
-        .then(data=> {
-            const $userCode=document.getElementById("userCode4");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].userCode;
-                $userCode.appendChild($option);
-            }
-        })
-</script>
-
-<script>
-    fetch("/fac/fac")
-        .then(res=>res.json())
-        .then(data=> {
-            const $facCode=document.getElementById("facActionModalFacCode4");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].facCode;
-                $option.value=data[index].facCode;
-                $facCode.appendChild($option);
-            }
-        })
-</script>
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
 
 </body>
 </html>

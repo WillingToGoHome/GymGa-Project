@@ -32,9 +32,11 @@ public class FacController {
         return "fac/select";
     }
 
+
     @GetMapping("/select/expired")
     public String findExpList(Model model) {
         List<FacDTO> facList=facService.findAllExp();
+
 
         for(FacDTO facs:facList) {
             System.out.println("facs = " + facs);
@@ -55,6 +57,8 @@ public class FacController {
 
         return "fac/select";
     }
+
+
 
     @GetMapping(value = "user", produces = "application/json; charset=UTF-8")
     @ResponseBody

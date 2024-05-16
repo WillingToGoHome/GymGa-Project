@@ -70,7 +70,7 @@
 }
 
 .class-info-top .regist-info {
-    margin-left: 635px;
+    margin-left: 720px;
     font-size: 15px;
     color: #ababab;
     display: flex;
@@ -142,7 +142,21 @@
     font-weight: bold;
     display: flex;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.join-gxmember-container {
+    width: 703px;
+    height: 225px;
+    border-radius: 7.5px;
+    border: 0.75px solid #D9D9D9;
+    background-color: #FFFFFF;
+    margin: auto;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .join-member-container .join-member-info {
@@ -151,7 +165,30 @@
     border-radius: 7.5px;
     border: 0.75px solid #D9D9D9;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.join-member-container .join-gxmember-info {
+    width: 345px;
+    height: 112.5px;
+    border-radius: 7.5px;
+    border: 0.75px solid #D9D9D9;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    font-size:18px;
+}
+
+.join-member-container .join-gxmember-info:hover {
+    width: 345px;
+    height: 112.5px;
+    border-radius: 7.5px;
+    border: 0.75px solid #D9D9D9;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background: #4B82D8;
+    color: #ffffff;
+    font-weight: bold;
+    font-size:18px;
 }
 
 .member-change-name {
@@ -162,9 +199,22 @@
     margin-left: 37px;
 }
 
+.gxmember-change-name {
+    width: 345px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
 .member-change-info {
     display: flex;
     line-height: 40px;
+}
+
+.gxmember-change-info {
+    display: flex;
+    line-height: 25px;
 }
 
 .phone-passname-use,
@@ -176,10 +226,33 @@
     color: #bababa;
 }
 
+.gxmember-change-info .phone-passname-use,
+.gxmember-change-info .atten-total {
+    margin-left: 20px;
+    margin-right: 5px;
+    width: 60px;
+    text-align: left;
+    color: #bababa;
+    font-size: 11.25px;
+
+}
+
 .th-phone-passname-use,
 .th-atten-total {
     width: 187.5px;
     text-align: left;
+}
+
+.gxmember-change-info .th-phone-passname-use {
+    width: 140px;
+    text-align: left;
+    font-size: 11.25px;
+}
+
+.gxmember-change-info .th-atten-total {
+    width: 60px;
+    text-align: left;
+    font-size:11.25px;
 }
 
 .atten-container {
@@ -189,6 +262,8 @@
 
 .atten-button-container {
     height: 112.5px;
+    display: flex;
+    justify-content: center;
 }
 
 .atten-button-container button {
@@ -219,6 +294,8 @@
 
 .member-detail-container {
     height: 112.5px;
+    display: flex;
+    justify-content: center;
 }
 
 .member-detail-container button{

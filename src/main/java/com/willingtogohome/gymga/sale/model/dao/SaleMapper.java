@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassDataDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
+import com.willingtogohome.gymga.pass.model.dto.UserDTO;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,4 +36,11 @@ public interface SaleMapper {
     List<PassMonthDTO> getPassDataForPieChart();
 
     List<PassAndPassQualDTO> searchedUser(SearchCriteria criteria);
+
+    List<PassAndPassQualDTO> searchedUserTest(SearchCriteria criteria);
+
+    PassAndPassQualDTO findByUserId(String userId);
+
+//    PassAndPassQualDTO getUserDetails(String userId);
+
 }

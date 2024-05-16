@@ -2,20 +2,19 @@ package com.willingtogohome.gymga.sale.controller;
 
 import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
+import com.willingtogohome.gymga.pass.model.dto.UserDTO;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.service.SaleService;
+import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.HashMap;
@@ -78,7 +77,7 @@ public class SaleController {
     }
 
     @PostMapping("/main")
-    public String saleMainP(Model model){
+    public String saleMainP(){
         return "redirect:/sale/main";
         }
 
@@ -103,7 +102,7 @@ public class SaleController {
 //        }
 //    }
     @GetMapping("/search")
-    public void searchPage() {
+    public void searchUsers() {
     }
 
     @PostMapping("/search")
@@ -142,5 +141,61 @@ public class SaleController {
 
         return "sale/search";
     }
+
+//    @GetMapping("/detail")
+//    public String detail(Model model, @RequestParam String userId){
+//        // userId를 사용하여 사용자 정보를 조회
+////        PassAndPassQualDTO userDetail = saleService.getUserDetail(userId);
+////
+////        // 조회된 사용자 정보를 모델에 추가
+////        model.addAttribute("userDetail", userDetail);
+//
+//        return "sale/detail"; // 사용자 정보가 담긴 뷰로 이동
+//    }
+    @GetMapping("/detail")
+    public void detail(){}
+
+
+    @PostMapping("/detail")
+    public String detail(Model model, @RequestParam String search, @RequestParam String category, HttpSession session){
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> detailList = saleService.searchedUserTest(criteria);
+        session.setAttribute("detailList", detailList);
+        model.addAttribute("detailList", detailList);
+
+        for (PassAndPassQualDTO detail : detailList) {
+//            System.out.println("detail = " + detail);
+        }
+
+        return "sale/detail";
+    }
+
+
+    @GetMapping("/detail/{userId}")
+    public String findByScheduleCode(@PathVariable("userId") String userId, Model model) {
+        PassAndPassQualDTO passAndPassQualDTO = saleService.findByUserId(userId);
+        model.addAttribute("selectOneUserId", passAndPassQualDTO);
+        System.out.println("selectOneUserId = " + passAndPassQualDTO);
+
+        return "sale/detail";
+    }
+
+
+
+//    @GetMapping("/detail")
+//    public String getUserDetails(Model model, @RequestParam("userId") String userId) {
+//        // userId를 사용하여 해당 사용자의 상세 정보를 조회
+//        PassAndPassQualDTO userDetails = saleService.getUserDetails(userId);
+//
+//        // 조회된 사용자 상세 정보를 모델에 추가
+//        model.addAttribute("userDetails", userDetails);
+//
+//        // 사용자 상세 정보를 표시하는 뷰로 이동
+//        return "sale/detail";
+//    }
+
 
 }
