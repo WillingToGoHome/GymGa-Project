@@ -46,7 +46,7 @@
                                 <hr class="line" style="width: 700px">
                             </div>
                             <div th:object="${ emp }">
-                                <form action="/emp/detail" method="post" enctype="multipart/form-data">
+                                <form action="/emp/detail" method="post" enctype="multipart/form-data" onsubmit="return isValid()">
                                     <div class="userInfoBox">
                                         <div class="previewBox">
                                             <img id="preview" th:src="|/imageFile/${ emp.pic }|"><br>
@@ -194,7 +194,9 @@
     </div>
 
     <script>
-        let pwdChecked = false;
+        const pwd = document.getElementById("pwd");
+
+        let pwdChecked = true;
 
         function chooseImage(obj) {
             let reader = new FileReader();
@@ -209,10 +211,14 @@
         }
 
         function pwdChanged() {
-            document.getElementById("confirm").value = '';
-            pwdChecked = false;
-            document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
-            $('#confirm').focus();
+            if (pwd.value != '') {
+                document.getElementById("confirm").value = '';
+                pwdChecked = false;
+                document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                $('#confirm').focus();
+            } else if (pwd.value == '') {
+                pwdChecked = true;
+            }
         }
 
         function pwdCheck() {
@@ -240,6 +246,15 @@
                     $('#pwd').focus();
                 }
             }
+        }
+
+        function isValid() {
+
+            if (!pwdChecked) {
+                alert('비밀번호가 입력되어있습니다.');
+            }
+
+            return pwdChecked;
         }
     </script>
 

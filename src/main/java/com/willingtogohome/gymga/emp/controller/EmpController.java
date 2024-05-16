@@ -110,7 +110,7 @@ public class EmpController {
                 e.printStackTrace();
             }
         } else {
-            empDTO.setPic("/uploadFiles/default-user.png");
+            empDTO.setPic("default-user.png");
         }
 
         int code = empService.findLastCode();
