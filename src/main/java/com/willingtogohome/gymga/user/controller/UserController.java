@@ -203,7 +203,7 @@ public class UserController {
         session.setAttribute("userCode", code);
 
         userDTO.setUserCode(code);
-        userDTO.setUserRole("회원");
+        userDTO.setUserRole("MEMBER");
 
         userService.update(userDTO, physicalDTO);
 

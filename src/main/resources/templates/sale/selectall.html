@@ -48,20 +48,20 @@
                             <p class="userName">이름</p>
                             <p class="userId">회원 아이디</p>
                             <p class="price2">이용권</p>
-                            <p class="userPhone">이용권 기간</p>
+<!--                            <p class="userPhone">이용권 기간</p>-->
                             <p class="price2">판매 금액</p>
 <!--                            <p class="userStaff">결제 방식</p>-->
                         </div>
                         <hr class="hr2">
                         <div class="zxc">
                             <div class="userList" th:each="user:${userList}" >
-                                <p class="img"><img th:src="${user.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/></p>
+                                <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/></p>
                                 <p class="userName" th:text="${user.userDTO.userName}"></p>
                                 <p class="userId" th:text="${user.userDTO.userId}"></p>
                                 <p class="price2" th:text="${user.passQualDTO.pqName}"></p>
-                                <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')
-                                 + ' ~'
-                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+<!--                                <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')-->
+<!--                                 + ' ~'-->
+<!--                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>-->
                                 <p class="price" th:text="${user.passQualDTO.pqPrice}"></p>
 <!--                                <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>-->
                             </div>

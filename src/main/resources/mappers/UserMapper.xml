@@ -72,7 +72,7 @@
          LEFT JOIN
               USERDB B ON A.USER_STAFF = B.USER_CODE
         WHERE
-              A.USER_ROLE = '회원'
+              A.USER_ROLE = 'MEMBER'
         ORDER BY
               A.USER_CODE;
     </select>
@@ -154,7 +154,7 @@
             <if test="condition == 'id'">
                 AND A.USER_ID Like CONCAT('%', #{ text }, '%')
             </if>
-            AND A.USER_ROLE = '회원'
+            AND A.USER_ROLE = 'MEMBER'
         </where>
         ORDER BY
               A.USER_CODE;
@@ -177,7 +177,7 @@
          FROM
               USERDB
         WHERE
-              USER_ROLE = '직원'
+              USER_ROLE = 'ADMIN' or 'USER'
         ORDER BY
               USER_CODE
     </select>
