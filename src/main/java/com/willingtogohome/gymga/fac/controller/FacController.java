@@ -46,6 +46,34 @@ public class FacController {
         return "fac/select";
     }
 
+    @GetMapping("/select/inUse")
+    public String findInUseList(Model model) {
+        List<FacDTO> facList=facService.findAllInUse();
+
+
+        for(FacDTO facs:facList) {
+            System.out.println("facs = " + facs);
+        }
+        model.addAttribute("facList",facList);
+
+        return "fac/select";
+    }
+
+    @GetMapping("/select/available")
+    public String findAvailableList(Model model) {
+        List<FacDTO> facList=facService.findAllAvailable();
+
+
+        for(FacDTO facs:facList) {
+            System.out.println("facs = " + facs);
+        }
+        model.addAttribute("facList",facList);
+
+        return "fac/select";
+    }
+
+
+
     @GetMapping("/select/personal")
     public String findPerList(@RequestParam int facCode, Model model) {
         FacDTO facList=facService.findAllPer(facCode);

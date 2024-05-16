@@ -25,6 +25,8 @@ public interface FacMapper {
     FacDTO findAllPer(int facCode);
 
 
+    List<FacDTO> findAllInUse();
 
+    List<FacDTO> findAllAvailable();
 }
 

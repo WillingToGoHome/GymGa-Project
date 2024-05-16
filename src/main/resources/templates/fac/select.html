@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="../styles/mainStyle.css">
-    <link rel="stylesheet" href="../styles/headerStyle.css">
-    <link rel="stylesheet" href="../styles/navbarStyle.css">
-    <link rel="stylesheet" href="../styles/myStyle.css">
-    <link rel="stylesheet" href="../styles/footerStyle.css">
-    <link rel="stylesheet" href="../fac/facSelect.css">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/fac/facSelect.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -19,7 +19,6 @@
         <!--Heade Start-->
         <div th:include="common/header"></div>
         <!--Header End-->
-
         <!--Main Start-->
         <div class="main-container">
             <!--Navbar Start-->
@@ -27,17 +26,38 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style">
-
                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <div class="dropdown">
-                    <button class="dropbtn">조회</button>
-                    <div class="dropdown-content">
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
-                        <a href="/fac/select/expired">만료조회</a>
+<!--                <div class="dropdown">-->
+<!--                    <button class="dropbtn">조회</button>-->
+<!--                    <div class="dropdown-content">-->
+<!--                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>-->
+<!--                        <a href="/fac/select/expired">만료조회</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="query-options">
+                    <div class="all">
+                        <a href="/fac/select" class="btn btn-secondary">전체 조회</a>
+                    </div>
+
+                    <div class="personal">
+                        <a class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개별 조회</a>
+                    </div>
+
+                    <div class="expired">
+                        <a href="/fac/select/expired" class="btn btn-secondary">만료</a>
+                    </div>
+
+                    <div class="inUse">
+                        <a href="/fac/select/inUse" class="btn btn-secondary">사용중</a>
+                    </div>
+
+                    <div class="available">
+                        <a href="/fac/select/available" class="btn btn-secondary">사용가능 </a>
                     </div>
                 </div>
+
 
                 <!-- 개인 조회 모달 -->
                 <div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
@@ -75,9 +95,9 @@
 
 
                 <div class="facList">
-                    <div th:each="facs: ${facList}" class="fac-item">
+                    <div th:each="facs: ${facList}" class="fac-item" href="#" data-toggle="modal" data-target="#facActionModal">
                         <!-- Locker Code -->
-                        <span class="facCodeLink" th:text="${facs.facCode}" href="#" data-toggle="modal" data-target="#facActionModal"></span>
+                        <span class="facCodeLink" th:text="${facs.facCode}"></span>
                         <!-- Locker Status -->
                         <span class="facStatus" th:text="${facs.facStatus}"></span>
                         <!-- User Code -->
@@ -228,18 +248,17 @@
                     setFacStatusColor();
 
                     // 클릭한 번호를 input 상자에 보여주는 함수
-                    $('.facCodeLink').click(function() {
-                        // 클릭한 번호 가져오기
-                        var facCode = $(this).text(); // 링크의 텍스트를 가져옴
-                        var userCode = $(this).siblings('.userCode').text();
+                    $('.fac-item').click(function() {
+                        // 클릭한 사물함 번호 가져오기
+                        var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
 
                         // data-faccode 속성에 번호 설정
                         $('#facActionModal').attr('data-facCode', facCode);
                         // input 상자에 번호 표시
-                        $('#clickedFacCodeInput').val(facCode);//사물함 등록 번호 id
-                        $('#clickedFacCodeInput2').val(facCode);//사물함 수정 번호 id
-                        $('#clickedFacCodeInput3').val(facCode);//사물함 삭제 번호 id
-                        $('#clickedUserCodeInput').val(userCode);//회원 수정 번호 id
+                        $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
+                        $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
+                        $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
+                        $('#clickedUserCodeInput').val(''); // 회원 수정 번호 id 초기화 (원하지 않는 경우)
 
 
 
@@ -475,8 +494,6 @@
                         });
                     });
                 </script>
-
-
             </div>
             <!--개인 작업 종료-->
         </div>
