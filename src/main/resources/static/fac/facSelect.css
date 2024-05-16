@@ -1,46 +1,85 @@
+/*.dropdown {*/
+/*    position: relative;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.dropdown-content {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    background-color: #f9f9f9;*/
+/*    min-width: 160px;*/
+/*    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.dropdown-content a {*/
+/*    color: black;*/
+/*    padding: 12px 16px;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*}*/
+
+/*.dropdown-content a:hover {*/
+/*    background-color: #f1f1f1;*/
+/*}*/
+
+/*.dropdown:hover .dropdown-content {*/
+/*    display: block;*/
+/*}*/
+
+/*.dropdown {*/
+/*    float: right;*/
+/*    margin-right: 15px;*/
+/*    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);*/
+
+/*}*/
 
 
+ .query-options {
+     display: flex;
+     gap: 10px; /* 버튼 사이 간격을 10px로 설정 */
+     float: right;
+     margin-right: 15px;
+     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+     margin-top: -10px;
+     margin-bottom: 5px;
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
+ }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
+.expired a{
     background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+        color: black;
+        text-decoration: none;
+        display: block;
+
 }
 
-.dropdown-content a {
+.inUse a{
+    background-color: #f9f9f9;
     color: black;
-    padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
+.available a{
+    background-color: #f9f9f9;
+    color: black;
+    text-decoration: none;
     display: block;
 }
 
-.dropdown {
-    float: right;
-    margin-right: 15px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-
+.personal a{
+    background-color: #f9f9f9;
+    color: black;
+    text-decoration: none;
+    display: block;
 }
 
-.dropbtn{
-    width: 100px;
-    background-color: white;
-    border-radius: 10px;
+.all a{
+    background-color: #f9f9f9;
+    color: black;
+    text-decoration: none;
+    display: block;
 }
 
 .facList {
@@ -72,7 +111,6 @@
     margin-left: 10px;
     color: black;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .facStatus {
@@ -82,6 +120,7 @@
     right: -65px;
     color: black;
     font-weight: bold;
+
 }
 
 
