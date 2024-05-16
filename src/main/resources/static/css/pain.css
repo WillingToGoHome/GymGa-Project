@@ -6,6 +6,8 @@
     margin: auto;
     margin-top: 23px;
     background-color: #FFFFFF;
+    margin-right: 25px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 }
 
 .on {
@@ -47,210 +49,137 @@
     border: 1px solid #D9D9D9;;
 }
 
-.inputText {
-    width: 30px;
-    height: 23px;
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
+.allBox {
+    display: flex;
 }
 
-.userText {
+.painImg {
+    width: 300px;
+    height: 500px;
+    margin-top: 25px;
+    margin-left: 30px;
+}
+
+.middleBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.painCategoryBox{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    margin-top: 25px;
+}
+
+.painPosBox {
     width: 120px;
-    height: 30px;
-    font-size: 16px;
-    font-weight: normal;
-    color: black;
-}
-
-.signupBox {
-    width: 712px;
-    height: 300px;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 50px;
-    padding-left: 70px;
-}
-
-.previewBox {
-    width: 95px;
-    text-align: center;
-    float: left;
-    padding-left: 10px;
-}
-
-#preview {
-    width: 110px;
-    height: 110px;
-    border-radius: 150px;
-}
-
-.infoBox {
-    float: left;
-    padding-left: 50px;
-}
-
-.fileBox label {
-    padding: 10px 7px;
-    margin-left: 15px;
-    background-color: rgba(75, 130, 216, 1);
-    border: 0;
-    border-radius: 10px;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.fileBox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
-
-.infoBox1 {
-    float: left;
-    padding-left: 17px;
-    display: flex;
-}
-
-.infoBox2 {
-    float: left;
-    display: flex;
-}
-
-.infoBox3 {
-    clear: left;
-    margin-left: 17px;
-}
-
-.infoBox4 {
-    float: left;
-    padding-left: 17px;
-}
-
-.left {
-    line-height: 40px;
-    margin-right: 10px;
-    float: left;
-}
-
-.leftIn{
-    line-height: 45px;
-}
-
-.right {
-    margin-right: 10px;
-    float: left;
-    padding-top: 25px;
-}
-
-.right2 {
-    margin-right: 10px;
-    float: left;
-    line-height: 27px;
-    padding-top: 5px;
-}
-
-span {
-    width: 100px;
-    height: 30px;
-}
-
-input {
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
-    margin-bottom: 10px;
-}
-
-button {
-    border: rgba(75, 130, 216, 1);
-    background-color: rgba(75, 130, 216, 1);
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-select {
-    border-radius: 5px;
-    width: 150px;
-    height: 30px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.detailBox {
-    width: 712px;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-}
-
-.submitButton {
-    height: 50px;
-    margin-left: 423px;
-    border: rgba(75, 130, 216, 1);
-    border-radius: 10px;
-    margin-top: 52px;
-    background-color: rgba(75, 130, 216, 1);
-    font-size: 16px;
+    height: 35px;
+    background-color: #4B82D8;
     color: #ffffff;
-    cursor: pointer;
-}
-
-.sideBox {
-    background-color: white;
     border-radius: 10px;
-    width: 480px;
-    height: 637px;
-    float: left;
-}
-
-.line2 {
-    width: 95%;
-    align-content: center;
-    margin: 0 auto;
-    margin-top: 14px;
-    border: 1px solid #D9D9D9;;
-}
-
-.agreement {
-    width: 370px;
-    height: 467px;
-    margin: auto;
-    margin-top: 15px;
-    overflow-y: auto;
-}
-
-.painBox {
     text-align: center;
+    line-height: 35px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.posText {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.painPosRegistBox {
+    width: 50px;
+    height: 35px;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 10px;
+    line-height: 35px;
+    text-align: center;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.painDetail {
+    width: 480px;
+    height: 440px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.painExplainText{
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .painText {
-    color: #656565;
-    font-weight: bold;
-    font-size: 24px;
-    margin-top: 40px;
-}
-
-.etcText {
-    padding-top: 45px;
-    width: 550px;
+    color: #ABABAB;
+    font-weight: lighter;
     font-size: 16px;
-    font-weight: normal;
-    color: black;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
-.etcAndButton {
-    margin-left: 65px;
+.line2 {
+    width: 100%;
+    align-content: center;
+    border: 1px solid #D9D9D9;
+    margin-top: 20px;
 }
+
+.rightBox {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+.registButton {
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #4B82D8;
+    color: #ffffff;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    border: 1px solid #4B82D8;
+    float: right;
+    font-weight: bold;
+}
+
+.painStrBox {
+    width: 300px;
+    height: 440px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.painStrCategoryBox {
+    display: flex;
+    height: 43px;
+}
+
+.plusButton {
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 12px;
+    margin-left: 176px;
+}
+
+
+
+
+
+
+
+
+
 
 
 
