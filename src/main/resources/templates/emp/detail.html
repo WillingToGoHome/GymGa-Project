@@ -3,153 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <title>직원 조회</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-    <div class="outerDiv">
-        <div class="mainBox">
-            <div>
-                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
-                <div class="main">
-                    <span class="titleText">직원 조회</span>
-                </div>
-                <div class="searchBox">
-                    <form action="/emp/result" method="get">
-                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                            <option value="name">강사명</option>
-                        </select>
-                        <button type="submit"style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
-                    </form>
-                </div>
-                <hr class="line" style="width: 950px">
-            </div>
-            <div>
-                <div th:object="${ emp }">
-                    <div class="userInfoBox">
-                        <div class="previewBox">
-                            <img th:src="*{ pic }">
-                        </div>
-                        <div style="float: left">
-                            <div>
-                                <div style="float: left;">
-                                    <div class="spanTagBoxWOSup" style="width: 118.36px">
-                                        <span>사용자 번호</span><br>
-                                        <span>아이디</span><br>
-                                        <span>직급</span>
-                                    </div>
-                                    <div class="spanTagBoxWOSup" style="width: 156.97px">
-                                        <span th:text="|*{ code }|"></span><br>
-                                        <span th:text="|*{ id }|"></span><br>
-                                        <span th:text="|*{ role }|"></span>
-                                    </div>
-                                </div>
-                                <div style="float: left">
-                                    <div class="spanTagBoxWOSup">
-                                        <span>이름</span><br>
-                                        <span>전화번호</span><br>
-                                        <span>생년월일</span><br>
-                                        <span>성별</span>
-                                    </div>
-                                    <div class="spanTagBoxWOSup" style="margin-left: 30px">
-                                        <span th:text="|*{ name }|"></span><br>
-                                        <span th:text="|*{ phone }|"></span><br>
-                                        <span th:text="|*{ birth }|"></span><br>
-                                        <span th:text="|*{ gender }|"></span>
-                                    </div>
-                                </div>
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
+                <div class="outerDiv">
+                    <div class="mainBox">
+                        <div>
+                            <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
+                            <div class="main">
+                                <span class="titleText">직원 조회</span>
                             </div>
-                            <div style="clear: left">
-                                <div class="spanTagBoxWOSup">
-                                    <span>주소</span>
+                            <div class="searchBox">
+                                <form action="/emp/result" method="get">
+                                    <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                    <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <option value="name">강사명</option>
+                                    </select>
+                                    <button type="submit"style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                </form>
+                            </div>
+                            <hr class="line" style="width: 700px">
+                        </div>
+                        <div>
+                            <div th:object="${ emp }">
+                                <div class="userInfoBox">
+                                    <div class="previewBox">
+                                        <img th:src="|/imageFile/${ emp.pic }|">
+                                    </div>
+                                    <div style="float: left">
+                                        <div>
+                                            <div style="float: left;">
+                                                <div class="spanTagBoxWOSup" style="margin-left: 10px; width: 111.84px">
+                                                    <span>사용자 번호</span><br>
+                                                    <span>아이디</span><br>
+                                                    <span>직급</span>
+                                                </div>
+                                                <div class="spanTagBoxWOSup" style="width: 126.99px">
+                                                    <span th:text="|*{ code }|"></span><br>
+                                                    <span th:text="|*{ id }|"></span><br>
+                                                    <span th:text="|*{ role }|"></span>
+                                                </div>
+                                            </div>
+                                            <div style="float: left; margin-left: 10px">
+                                                <div class="spanTagBoxWOSup">
+                                                    <span>이름</span><br>
+                                                    <span>전화번호</span><br>
+                                                    <span>생년월일</span><br>
+                                                    <span>성별</span>
+                                                </div>
+                                                <div class="spanTagBoxWOSup" style="margin-left: 30px">
+                                                    <span th:text="|*{ name }|"></span><br>
+                                                    <span th:text="|*{ phone }|"></span><br>
+                                                    <span th:text="|*{ birth }|"></span><br>
+                                                    <span th:text="|*{ gender }|"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="clear: left">
+                                            <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                                <span>주소</span>
+                                            </div>
+                                            <div class="spanTagBoxWOSup" style="margin-left: 88px">
+                                                <span th:text="|*{ address }|"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="spanTagBoxWOSup" style="margin-left: 68px">
-                                    <span th:text="|*{ address }|"></span>
+                                <div class="detailBox">
+                                    <div style="float: left; margin-left: 50px; margin-right: 50px">
+                                        <div>
+                                            <h4>신체조건</h4>
+                                            <div class="spanTagBoxWOSup">
+                                                <span>키</span><br>
+                                                <span>체중</span><br>
+                                                <span>BMI</span>
+                                            </div>
+                                            <div class="spanTagBoxWOSup" style="width: 120px">
+                                                <span th:text="|*{ physicalDTO.height } cm|"></span><br>
+                                                <span th:text="|*{ physicalDTO.weight } kg|"></span><br>
+                                                <span th:text="|*{ physicalDTO.bmi }|"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin-right: 60px">
+                                        <h4>자격 사항</h4>
+                                        <div class="spanTagBoxWOSup" style="width: 165px">
+                                            <span th:text="|*{ employeeDTO.qual }|"></span>
+                                        </div>
+                                    </div>
+                                    <div style="float: left">
+                                        <h4>경력 사항</h4>
+                                        <div class="spanTagBoxWOSup" style="margin-left: 8px">
+                                            <span>근무지</span><br>
+                                            <span>기간</span><br>
+                                            <span>전체 사항</span><br>
+                                            <span>기본급</span><br>
+                                        </div>
+                                        <div class="spanTagBoxWOSup">
+                                            <span th:text="|*{ employeeDTO.location }|"></span><br>
+                                            <span th:text="|*{ employeeDTO.year }년 *{ employeeDTO.month }개월|"></span><br>
+                                            <span th:text="|*{ employeeDTO.totalYear }년 *{ employeeDTO.totalMonth }개월|"></span><br>
+                                            <span th:text="|*{ employeeDTO.salary } 원|"></span>
+                                        </div>
+                                    </div>
+                                    <div style="clear: left; margin-left: 50px; padding-top: 10px">
+                                        <div class="spanTagBoxWOSup">
+                                            <span>기타</span>
+                                        </div>
+                                        <div class="spanTagBoxWOSup">
+                                            <span th:text="|*{ etc }|"></span>
+                                        </div>
+                                        <div style="float: right; margin-right: 300px">
+                                            <div style="float: left; margin-right: 10px">
+                                                <form action="/emp/remove" method="post">
+                                                    <button class="submitButton" type="submit" style="background-color: white; border: 1px solid rgba(75, 130, 216, 1); color: rgba(75, 130, 216, 1)">삭제</button>
+                                                </form>
+                                            </div>
+                                            <div style="float: left">
+                                                <button class="submitButton" onClick="location.href='/emp/update'">수정</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="detailBox">
-                        <div style="float: left; margin-left: 130px; margin-right: 35px">
-                            <div>
-                                <h4>신체조건</h4>
-                                <div class="spanTagBoxWOSup">
-                                    <span>키</span><br>
-                                    <span>체중</span><br>
-                                    <span>BMI</span>
-                                </div>
-                                <div class="spanTagBoxWOSup" style="width: 156.98px">
-                                    <span th:text="|*{ physicalDTO.height } cm|"></span><br>
-                                    <span th:text="|*{ physicalDTO.weight } kg|"></span><br>
-                                    <span th:text="|*{ physicalDTO.bmi }|"></span>
-                                </div>
+                    <div class="sideBox">
+                        <div>
+                            <div class="main" style="margin-bottom: 25px">
+                                <span class="titleText" style="margin-left: 40px">직원 리스트</span>
                             </div>
+                            <hr class="line" style="width: 300px">
                         </div>
-                        <div style="float: left; margin-right: 35px">
-                            <h4>자격 사항</h4>
-                            <div class="spanTagBoxWOSup" style="width: 230.95px">
-                                <span th:text="|*{ employeeDTO.qual }|"></span>
-                            </div>
-                        </div>
-                        <div style="float: left">
-                            <h4>경력 사항</h4>
-                            <div class="spanTagBoxWOSup">
-                                <span>근무지</span><br>
-                                <span>기간</span><br>
-                                <span>전체 사항</span><br>
-                                <span>기본급</span><br>
-                            </div>
-                            <div class="spanTagBoxWOSup">
-                                <span th:text="|*{ employeeDTO.location }|"></span><br>
-                                <span th:text="|*{ employeeDTO.year }년 *{ employeeDTO.month }개월|"></span><br>
-                                <span th:text="|*{ employeeDTO.totalYear }년 *{ employeeDTO.totalMonth }개월|"></span><br>
-                                <span th:text="|*{ employeeDTO.salary } 원|"></span>
-                            </div>
-                        </div>
-                        <div style="clear: left; margin-left: 130px; padding-top: 30px">
-                            <div class="spanTagBoxWOSup">
-                                <span>기타</span>
-                            </div>
-                            <div class="spanTagBoxWOSup">
-                                <span th:text="|*{ etc }|"></span>
-                            </div>
-                            <div style="float: right; margin-right: 120px">
-                                <div style="float: left; margin-right: 10px">
-                                    <form action="/emp/remove" method="post">
-                                        <button class="submitButton" type="submit" style="background-color: white; border: 1px solid rgba(75, 130, 216, 1); color: rgba(75, 130, 216, 1)">삭제</button>
-                                    </form>
+                        <div class="sideEmpList">
+                            <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                <div class="empBlockLeft">
+                                    <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
                                 </div>
-                                <div style="float: left">
-                                    <button class="submitButton" onClick="location.href='/emp/update'">수정</button>
+                                <div class="empBlockRight">
+                                    <p class="empName" th:text="${ emp.name }"></p>
+                                    <p class="empRole" th:text="${ emp.role }"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--개인 작업 종료-->
         </div>
-        <div class="sideBox">
-            <div>
-                <div class="main" style="margin-bottom: 20px">
-                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
-                </div>
-                <hr class="line" style="width: 410px">
-            </div>
-            <div class="sideEmpList">
-                <div class="sideEmpBlock" th:each="emp : ${ empList }">
-                    <div class="empBlockLeft">
-                        <img class="empImg" th:src="${ emp.pic }">
-                    </div>
-                    <div class="empBlockRight">
-                        <p class="empName" th:text="${ emp.name }"></p>
-                        <p class="empRole" th:text="${ emp.role }"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
     </div>
+</div>
 </body>
 </html>

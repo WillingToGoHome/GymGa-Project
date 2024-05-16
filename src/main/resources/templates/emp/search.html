@@ -3,55 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>직원 조회</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-    <div class="outerDiv">
-        <div class="mainBox">
-            <div>
-                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
-                <div class="main">
-                    <span class="titleText">직원 조회</span>
-                </div>
-                <div class="searchBox">
-                    <form action="/emp/result" method="get">
-                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                            <option value="name">강사명</option>
-                        </select>
-                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
-                    </form>
-                </div>
-                <hr class="line" style="width: 950px">
-            </div>
-            <div style="text-align: center">
-                <div style="padding-top: 220px">
-                    <img src="/emp/images/list-is-empty.png"><br>
-                    <span style="font-size: 24px; font-weight: bold">이름으로 검색해주세요</span>
-                </div>
-            </div>
-        </div>
-        <div class="sideBox">
-            <div>
-                <div class="main" style="margin-bottom: 20px">
-                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
-                </div>
-                <hr class="line" style="width: 410px">
-            </div>
-            <div class="sideEmpList">
-                <div class="sideEmpBlock" th:each="emp : ${ empList }">
-                    <div class="empBlockLeft">
-                        <img class="empImg" th:src="${ emp.pic }">
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
+
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+                        <div class="mainBox">
+                            <div>
+                                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
+                                <div class="main">
+                                    <span class="titleText">직원 조회</span>
+                                </div>
+                                <div class="searchBox">
+                                    <form action="/emp/result" method="get">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                            <option value="name">강사명</option>
+                                        </select>
+                                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                    </form>
+                                </div>
+                                <hr class="line" style="width: 700px">
+                            </div>
+                            <div style="text-align: center">
+                                <div style="padding-top: 160px">
+                                    <img src="/emp/images/list-is-empty.png" style="width: 150px"><br>
+                                    <span style="font-size: 24px; font-weight: bold">이름으로 검색해주세요</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sideBox">
+                            <div>
+                                <div class="main" style="margin-bottom: 25px">
+                                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
+                                </div>
+                                <hr class="line" style="width: 300px">
+                            </div>
+                            <div class="sideEmpList">
+                                <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                    <div class="empBlockLeft">
+                                        <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                                    </div>
+                                    <div class="empBlockRight">
+                                        <p class="empName" th:text="${ emp.name }"></p>
+                                        <p class="empRole" th:text="${ emp.role }"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="empBlockRight">
-                        <p class="empName" th:text="${ emp.name }"></p>
-                        <p class="empRole" th:text="${ emp.role }"></p>
-                    </div>
                 </div>
+                <!--개인 작업 종료-->
             </div>
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
         </div>
     </div>
 </body>
