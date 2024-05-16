@@ -113,7 +113,7 @@ public class ScheduleService {
         return scheduleMapper.findGxByRegDate(scheRegDate);
     }
 
-    public void updateGxAtten(int scheCode) {
-        scheduleMapper.updateGxAtten(scheCode);
+    public void updateGxAtten(LocalDateTime scheRegDate) {
+        scheduleMapper.updateGxAtten(scheRegDate);
     }
 }

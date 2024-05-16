@@ -183,8 +183,12 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
-    // 출결변경(출석버튼)-G.X
-
+    // 출결변경(출석버튼)-G.X redirect:에 scheRegDate를 넣어줘야함
+    @GetMapping("/schedule/gxattenupdate/{scheCode}")
+    public String updateAttenGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAtten(scheCode);
+        return "redirect:/schedule/schedulelist/{scheCode}";
+    }
 
     // 출결변경(결석버튼)
     @GetMapping("/schedule/absentupdate/{scheCode}")
