@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/pain.css}">
+    <link rel="stylesheet" th:href="@{/styles/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbarStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/myStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/footerStyle.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+</head>
+<body>
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="contents">
+                <div class="on">
+                    <img src="/img/Back.png" onClick="location.href='/user/selectDetail'" class="back">
+                    <p class="topic" th:text="${pain.userName}"></p>
+                </div>
+                <hr class="line1">
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+            <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
+
+</body>
+</html>
