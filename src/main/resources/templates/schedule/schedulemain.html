@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/navbarStyle.css">
     <link rel="stylesheet" href="/styles/myStyle.css">
     <link rel="stylesheet" href="/styles/schedule/calendarStyle.css">
+    <link rel="stylesheet" href="/styles/schedule/modalStyle.css">
     <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -29,30 +30,191 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style" style="display: flex">
-                <!--달력-->
-                <div class="left">
-                    <table class="calendar" id="calendar">
-                        <thead>
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>
-                        </thead>
-                        <tbody id="calendar-body">
-                        </tbody>
-                    </table>
+                <!--기본달력-->
+<!--                <div class="left">-->
+<!--                    <table class="calendar" id="calendar">-->
+<!--                    <div class="month">-->
+<!--                    </div>-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Sun</th>-->
+<!--                        <th>Mon</th>-->
+<!--                        <th>Tue</th>-->
+<!--                        <th>Wed</th>-->
+<!--                        <th>Thu</th>-->
+<!--                        <th>Fri</th>-->
+<!--                        <th>Sat</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody id="calendar-body">-->
+<!--                    </tbody>-->
+
+<!--                </table>-->
+                <!--기본달력-->
+                <!-- New 달력 -->
+                <div class="calendar">
+                    <div class="month">
+                        <div class="month-box">
+                            <i class="fa fa-angle-left prev"></i>
+                            <div class="date"></div>
+                            <i class="fa fa-angle-right next"></i>
+                        </div>
+                        <button type="button" class="makeschedule" id="makeschedule">+ 일정 추가</button>
+                        <!-- MODAL SECTION START -->
+                        <!--일정생성 모달-->
+                        <div id="registScheModal" class="modal">
+                            <div class="regist-modal-content">
+                                <div class="regist-modal-content-text">
+                                    <p class="text-1">일정 생성</p>
+                                    <p class="text-2">일정을 생성해 주세요</p>
+                                </div>
+                                <div class="regist-modal-content-button">
+                                    <button class="pt" id="registPtBtn">
+                                        <p class="regist-big-font">개인 수업</p>
+                                        <p class="regist-small-font">일정을 생성해 주세요.</p>
+                                        <img src="/images/개인수업버튼.png">
+                                    </button>
+                                    <button class="gx" id="registGxBtn">
+                                        <p class="regist-big-font">그룹 수업</p>
+                                        <p class="regist-small-font">일정을 생성해 주세요.</p>
+                                        <img src="/images/그룹수업버튼.png">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--일정생성 모달 끝-->
+                        <!-- 개인수업 등록 모달 -->
+                        <div id="registPtModal" class="modal">
+                            <div class="updatePt-modal-content">
+                                <div class="updatePt-modal-header">
+                                    <button class="close" id="changeBack">
+                                        <img src="/images/back.png">
+                                    </button>
+                                    <p>일정 생성</p>
+                                </div>
+                                <p class="pt-or-gx">개인 수업</p>
+                                <form action="/schedule/scheduleregistPt" method="post">
+                                    <label>담당 강사 선택</label><br>
+                                    <select name="empCode" id="empSelectCode"></select><br>
+                                    <label>일자 선택</label><br>
+                                    <input type="date" name="scheRunDate"/><br>
+                                    <label>시간 선택</label><br>
+                                    <div class="time-choice">
+                                    <input type="time" name="scheStartTime" id="scheStartTime2" step="1800">
+                                    <p>~</p>
+                                    <input type="time" name="scheEndTime" id="scheEndTime2" step="1800">
+                                    </div>
+                                    <button class="check" type="submit">확인</button>
+                                </form>
+                                <!-- 강사선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/teacher")
+                                        .then(res =>res.json())
+                                        .then(data => {
+                                            const $empCode = document.getElementById("empSelectCode");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].empCode;
+                                                $option.text = data[index].empName;
+
+                                                $empCode.appendChild($option);
+                                                document.getElementById("empSelectCode").value = data[index].empCode;
+                                            }
+                                        })
+                                </script>
+                                <button class="close">취소</button>
+                            </div>
+                        </div>
+                        <!-- 그룹수업 등록 모달 -->
+                        <div id="registGxModal" class="modal">
+                            <div class="updateGx-modal-content">
+                                <div class="updateGx-modal-header">
+                                    <button class="close" id="changeBack2">
+                                        <img src="/images/back.png">
+                                    </button>
+                                    <p>일정 생성</p>
+                                </div>
+                                <p class="pt-or-gx">그룹 수업</p>
+                                <form action="/schedule/scheduleregistGx" method="post">
+                                    <label>담당 강사 선택</label><br>
+                                    <select name="empCode" id="empSelectCode2"></select><br>
+                                    <div class="class-choice">
+                                        <label>강의종목</label>
+                                        <label class="margin">인원수*</label>
+                                    </div>
+                                    <div class="class-choice">
+                                        <select name="classCode" id="classSelectCode"></select>
+                                        <input type="number" name=scheParticipate min="2" max="4" value="2">
+                                    </div>
+                                    <label>일자 선택</label><br>
+                                    <input type="date" name="scheRunDate"/><br>
+                                    <label>시간 선택</label><br>
+                                    <div class="time-choice">
+                                        <input type="time" name="scheStartTime" id="scheStartTime" step="1800">
+                                        <p>~</p>
+                                        <input type="time" name="scheEndTime" id="scheEndTime" step="1800">
+                                    </div>
+                                    <button class="check" type="submit">확인</button>
+                                </form>
+                                <!-- 강사선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/teacher")
+                                        .then(res =>res.json())
+                                        .then(data => {
+                                            const $empCode = document.getElementById("empSelectCode2");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].empCode;
+                                                $option.text = data[index].empName;
+
+                                                $empCode.appendChild($option);
+                                                document.getElementById("empSelectCode").value = data[index].empCode;
+                                            }
+                                        })
+                                </script>
+                                <!-- 강의선택 스크립트 -->
+                                <script>
+                                    fetch("/schedule/className")
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            const $className = document.getElementById("classSelectCode");
+
+                                            for(let index in data) {
+                                                const $option = document.createElement('option');
+                                                $option.value = data[index].classCode;
+                                                $option.text = data[index].className;
+
+                                                $className.appendChild($option);
+                                                document.getElementById("classSelectCode").value = data[index].classCode;
+                                            }
+                                        })
+                                </script>
+                                <button class="close">취소</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="weekdays">
+                        <div>일</div>
+                        <div>월</div>
+                        <div>화</div>
+                        <div>수</div>
+                        <div>목</div>
+                        <div>금</div>
+                        <div>토</div>
+                    </div>
+                    <div class="days">
+                        <!-- js -->
+                    </div>
+                <!-- New 달력 -->
                 </div>
                 <!--Today-->
                 <div class="right">
                     <div class="right-container">
                         <div class="today-date">
-                            <div class="event-date">16 November 2024</div>
-                            <div class="event-day">Wed</div>
+                            <p th:text="${scheRunDate}"></p>
                         </div>
                         <div class="count-schedule">
                             <p>·총일정 : </p>
@@ -68,20 +230,44 @@
                         <!--DB 출력-->
                         <table>
                             <tr>
-                                <th>강의코드</th>
+                                <th>강의명</th>
                                 <th>강사명</th>
                                 <th>시작시간</th>
                                 <th>인원</th>
                                 <th>회원명</th>
                                 <th>출결</th>
                             </tr>
-                            <tr th:each="schedule : ${allList}">
-                                <td th:text="${schedule.classCategory.className}"></td>
-                                <td th:text="${schedule.empCategory.empName}"></td>
-                                <td th:text="${schedule.scheStartTime}"></td>
-                                <td th:text="${schedule.scheParticipate}"></td>
-                                <td th:text="${schedule.userCategory.memberName}"></td>
-                                <td th:text="${schedule.scheAtten}"></td>
+                            <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}" >
+                                <td>
+<!--                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>-->
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                        <span th:case="'1:1 PT'">
+                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                        <span th:case="*">
+                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:text="${scheduleByRunDate.empCategory.empName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                </td>
+                                <td>
+                                    <a th:text="${scheduleByRunDate.scheStartTime}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                </td>
+                                <td th:text="${scheduleByRunDate.registrationCount} + '/' + ${scheduleByRunDate.scheParticipate}">
+<!--                                    <a th:text="${scheduleByRunDate.scheParticipate}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>-->
+                                <td>
+                                    <a th:text="${scheduleByRunDate.userCategory.memberName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                </td>
+                                <td>
+                                    <a th:switch="${scheduleByRunDate.scheAtten}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration: none;">
+                                        <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
+                                        <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>
+                                        <span th:case="'예약'" style="color: #000000;">■ 예약</span>
+                                        <span th:case="'예약대기'" style="color: #ABABAB;">■ 예약대기</span>
+                                    </a>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -97,544 +283,507 @@
     </div>
 </div>
 
+<!--<script>-->
+<!--    // 기본 달력 생성 함수-->
+<!--    function generateCalendar(year, month) {-->
+<!--        const firstDay = new Date(year, month, 1);-->
+<!--        const lastDay = new Date(year, month + 1, 0);-->
+<!--        const daysInMonth = lastDay.getDate();-->
+
+<!--        const calendarBody = document.getElementById('calendar-body');-->
+<!--        calendarBody.innerHTML = '';-->
+
+<!--        let date = 1;-->
+<!--        for (let i = 0; i < 6; i++) {-->
+<!--            const row = document.createElement('tr');-->
+<!--            for (let j = 0; j < 7; j++) {-->
+<!--                if (i === 0 && j < firstDay.getDay()) {-->
+<!--                    const cell = document.createElement('td');-->
+<!--                    row.appendChild(cell);-->
+<!--                } else if (date > daysInMonth) {-->
+<!--                    break;-->
+<!--                } else {-->
+<!--                    const cell = document.createElement('td');-->
+<!--                    cell.innerText = date;-->
+<!--                    // 클릭 이벤트 추가-->
+<!--                    cell.addEventListener('click', function () {-->
+<!--                        const clickedDate = new Date(year, month, parseInt(this.innerText, 10) + 1);-->
+<!--                        const mysqlDate = clickedDate.toISOString().split('T')[0];-->
+<!--                        console.log('Clicked on ' + mysqlDate);-->
+
+<!--                        window.location.href = `/schedule/test/${mysqlDate}`;-->
+
+
+<!--                        fetch("/schedule/scherundate")-->
+<!--                            .then(res => res.json())-->
+<!--                            .then(data => {-->
+<!--                                console.log('data = ', data);-->
+<!--                                const matchingDate = data.find(item => item.scheRunDate === mysqlDate);-->
+<!--                                if (matchingDate) {-->
+<!--                                    console.log("matchingItem", matchingDate);-->
+<!--                                } else {-->
+<!--                                    console.log("No matching");-->
+<!--                                }-->
+<!--                            })-->
+<!--                            .catch(error => {-->
+<!--                                console.error("error", error);-->
+<!--                            });-->
+<!--                    });-->
+<!--                    row.appendChild(cell);-->
+<!--                    date++;-->
+<!--                }-->
+<!--            }-->
+<!--            calendarBody.appendChild(row);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // 현재 날짜 가져오기-->
+<!--    const today = new Date();-->
+<!--    const currentYear = today.getFullYear();-->
+<!--    const currentMonth = today.getMonth();-->
+
+<!--    // 달력 생성-->
+<!--    generateCalendar(currentYear, currentMonth);-->
+<!--</script>-->
+
+<!-- New 달력 스크립트 -->
 <script>
-    // 달력 생성 함수
-    function generateCalendar(year, month) {
+    const calendar = document.querySelector(".calendar"),
+        date = document.querySelector(".date"),
+        daysContainer = document.querySelector(".days"),
+        prev = document.querySelector(".prev"),
+        next = document.querySelector(".next"),
+        todayBtn = document.querySelector(".today-btn"),
+        gotoBtn = document.querySelector(".goto-btn"),
+        dateInput = document.querySelector(".date-input");
+    eventDay = document.querySelector(".event-day"),
+        eventDate = document.querySelector(".event-date"),
+        eventsContainer = document.querySelector(".events"),
+        addEventSubmit = document.querySelector(".add-event-btn");
+
+
+    let today = new Date();
+    let activeDay;
+    let month = today.getMonth();
+    let year = today.getFullYear();
+
+    const months = [
+        "1월",
+        "2월",
+        "3월",
+        "4월",
+        "5월",
+        "6월",
+        "7월",
+        "8월",
+        "9월",
+        "10월",
+        "11월",
+        "12월",
+    ];
+
+    //set a empty array
+    let eventsArr = [];
+
+    //function to add days
+
+    function initCalendar() {
+        //to get prev month days and current month all days and rem next month days
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
-        const daysInMonth = lastDay.getDate();
+        const prevLastDay = new Date(year, month, 0);
+        const prevDays = prevLastDay.getDate();
+        const lastDate = lastDay.getDate();
+        const day = firstDay.getDay();
+        const nextDays = 7 - lastDay.getDay() -1;
 
-        const calendarBody = document.getElementById('calendar-body');
-        calendarBody.innerHTML = '';
+        //update date top of calendar
+        date.innerHTML = months[month] + " " + year;
 
-        let date = 1;
-        for (let i = 0; i < 6; i++) {
-            const row = document.createElement('tr');
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay.getDay()) {
-                    const cell = document.createElement('td');
-                    row.appendChild(cell);
-                } else if (date > daysInMonth) {
-                    break;
+        //adding days on dom
+
+        let days = "";
+
+        // prev month days
+
+        for(let x = day; x > 0; x--) {
+            days += `<div class="day prev-date" >${prevDays -x + 1}</div>`;
+        }
+
+        // current month days
+        for(let i = 1; i <= lastDate; i++) {
+
+            // check if event present on current day
+            let event = false;
+            eventsArr.forEach((eventObj) => {
+                if(
+                    eventObj.day === i &&
+                    eventObj.month === month + 1 &&
+                    eventObj.year === year
+                ) {
+                    // if event found
+                    event = true;
+                }
+            });
+
+
+            // if day is today add class today
+            if(i === new Date().getDate() &&
+                year === new Date().getFullYear() &&
+                month === new Date().getMonth()
+            ) {
+
+                // activeDay = i;
+                // getActiveDay(i);
+                // updateEvents(i);
+
+                //if event found also add event class
+                if(event) {
+                    days += `<div class="day today active event" >${i}</div>`;
                 } else {
-                    const cell = document.createElement('td');
-                    cell.innerText = date;
-                    // 클릭 이벤트 추가
-                    cell.addEventListener('click', function () {
-                        const clickedDate = new Date(year, month, parseInt(this.innerText, 10) + 1);
-                        const mysqlDate = clickedDate.toISOString().split('T')[0];
-                        console.log('Clicked on ' + mysqlDate);
-
-                        fetch("/schedule/scherundate")
-                            .then(res => res.json())
-                            .then(data => {
-                                console.log('data = ', data);
-                                const matchingDate = data.find(item => item.scheRunDate === mysqlDate);
-                                if (matchingDate) {
-                                    console.log("matchingItem", matchingDate);
-                                } else {
-                                    console.log("No matching");
-                                }
-                            })
-                            .catch(error => {
-                                console.error("error", error);
-                            });
-                    });
-                    row.appendChild(cell);
-                    date++;
+                    days += `<div class="day today active">${i}</div>`;
                 }
             }
-            calendarBody.appendChild(row);
+            //add remaing as it is
+            else {
+                if(event) {
+                    days += `<div class="day event" >${i}</div>`;
+                } else {
+                    days += `<div class="day">${i}</div>`;
+                }
+            }
+        }
+
+        //next month days
+
+        for(let j = 1; j <= nextDays; j++) {
+            days += `<div class="day next-date" >${j}</div>`;
+        }
+        daysContainer.innerHTML = days;
+        //add listner after calendar initialized
+        addListner();
+    }
+
+    initCalendar();
+
+    //prev month
+    function prevMonth() {
+        month--;
+        if(month <0) {
+            month = 11;
+            year--;
+        }
+        initCalendar();
+    }
+
+    // next month
+
+    function nextMonth() {
+        month++;
+        if(month > 11) {
+            month = 0;
+            year++;
+        }
+        initCalendar();
+    }
+
+    // add eventlistner on prev and next
+
+    prev.addEventListener("click", prevMonth);
+    next.addEventListener("click", nextMonth);
+
+    //lets create function to add listner on days after rendered
+
+    function addListner() {
+        const days = document.querySelectorAll(".day")
+        days.forEach((day) => {
+            day.addEventListener("click", (e) => {
+                activeDay = Number(e.target.innerHTML);
+                const clickedDate = new Date(year, month, parseInt(e.target.innerText, 10)+1);
+                const mysqlDate = clickedDate.toISOString().split('T')[0];
+                console.log('Clicked on ' + mysqlDate);
+                window.location.href = `/schedule/test/${mysqlDate}`;
+
+                // remove active from already active day
+
+                days.forEach((day) => {
+
+                    day.classList.remove("active");
+
+                });
+                // if prev month day clicked goto prev month and add active
+
+                if(e.target.classList.contains("prev-date")) {
+                    prevMonth();
+
+                    setTimeout(() => {
+                        // select all days of that month
+                        const days = document.querySelector(".day");
+
+                        // after going to prev month add active to clicked
+                        days.forEach((day) => {
+                            if(
+                                !day.classList.contains("prev-date") &&
+                                day.innerHTML === e.target.innerHTML
+                            ) {
+                                day.classList.add("active");
+                            }
+                        });
+                    }, 100);
+                    // same with next month
+                } else if(e.target.classList.contains("next-date")) {
+                    nextMonth();
+
+                    setTimeout(() => {
+                        // select all days of that month
+                        const days = document.querySelector(".day");
+
+                        // after going to prev month add active to clicked
+                        days.forEach((day) => {
+                            if(
+                                !day.classList.contains("next-date") &&
+                                day.innerHTML === e.target.innerHTML
+                            ) {
+                                day.classList.add("active");
+                            }
+                        });
+                    }, 100);
+                } else {
+                    //remaing current month days
+                    e.target.classList.add("active");
+                }
+
+            });
+        });
+    }
+
+    // function to show events of that day
+    function updateEvents(date) {
+        let events = "";
+        eventsArr.forEach((event) => {
+            //get events of active day only
+            if (date === event.day &&
+                month + 1 === event.month &&
+                year === event.year) {
+                //then show event on document
+
+                event.events.forEach((event) => {
+                    events += `
+                    <div class="event">
+                        <div class="title">
+                            <i class="fas fa-circle"></i>
+                            <h3 class="event-title">${event.title}</h3>
+                        </div>
+                        <div class="event-time">
+                            <span class="event-time">${event.time}</span>
+                        </div>
+                    </div>
+                    `;
+                });
+            }
+        });
+
+        //if nothing found
+
+        if((events === "")) {
+            events = `<div class="no-event">
+                    <h3>No Event</h3>
+                  </div>`;
+        }
+        console.log(events);
+        eventsContainer.innerHTML = events;
+
+        //save events when new one added
+        saveEvents();
+
+    }
+
+    //lets store events in local storage get from there
+
+    function saveEvents() {
+        localStorage.setItem("events", JSON.stringify(eventsArr));
+    }
+
+    function getEvents() {
+        if(localStorage.getItem("events" === null)) {
+            return;
+        }
+        // eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    }
+</script>
+<script>
+    // 모달요소 가져오기
+    let registScheModal = document.getElementById("registScheModal");
+    let registPtModal = document.getElementById("registPtModal");
+    let registGxModal = document.getElementById("registGxModal");
+    // 일정생성 버튼 가져오기
+    let registscheBtn = document.getElementById("makeschedule");
+    let registPtBtn = document.getElementById("registPtBtn");
+    let registGxBtn = document.getElementById("registGxBtn");
+    let closeBtns = document.getElementsByClassName("close");
+
+
+    registscheBtn.onclick = function() {
+        registScheModal.style.display = "block";
+    }
+
+    registPtBtn.onclick = function() {
+        registPtModal.style.display = "block";
+    }
+
+    registGxBtn.onclick = function() {
+        registGxModal.style.display = "block";
+    }
+
+    for(let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+            registPtModal.style.display = "none";
+            registGxModal.style.display = "none";
         }
     }
 
-    // 현재 날짜 가져오기
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
+    // 모달 외부 클릭 시 모달 닫기
+    window.onclick = function(event) {
+        if(event.target == registScheModal || event.target == modal) {
+            console.log("외부클릭 이벤트 발생함", event.target)
+            registScheModal.style.display = "none";
+        }
+    }
+</script>
+<!-- Input type="time" 관련 스크립트 -->
+<script>
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
 
-    // 달력 생성
-    generateCalendar(currentYear, currentMonth);
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = start.getMinutes();
+            if (minutes < 30) {
+                start.setMinutes(0);
+            } else {
+                start.setMinutes(30);
+            }
+
+            // 시작 시간 입력 필드에 값 설정
+            this.value = start.toTimeString().substring(0, 5);
+        }
+    });
+
+    document.getElementById("scheStartTime2").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = start.getMinutes();
+            if (minutes < 30) {
+                start.setMinutes(0);
+            } else {
+                start.setMinutes(30);
+            }
+
+            // 시작 시간 입력 필드에 값 설정
+            this.value = start.toTimeString().substring(0, 5);
+        }
+    });
+
+    // 종료 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheEndTime").addEventListener("change", function() {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if(endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 종료 시간을 계산하여 1시간을 더함
+            var end = new Date(start.getTime() + (60 * 60 * 1000));
+
+            // 종료 시간의 시간과 분을 추출하여 문자열로 변환
+            var hours = ("0" + end.getHours()).slice(-2);
+            var minutes = ("0" + end.getMinutes()).slice(-2);
+
+            // 종료 시간 입력 필드에 값 설정
+            document.getElementById("scheEndTime").value = hours + ":" + minutes;
+        }
+    });
+    document.getElementById("scheEndTime").addEventListener("change", function() {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if(endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime2").addEventListener("change", function() {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if(startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 종료 시간을 계산하여 1시간을 더함
+            var end = new Date(start.getTime() + (60 * 60 * 1000));
+
+            // 종료 시간의 시간과 분을 추출하여 문자열로 변환
+            var hours = ("0" + end.getHours()).slice(-2);
+            var minutes = ("0" + end.getMinutes()).slice(-2);
+
+            // 종료 시간 입력 필드에 값 설정
+            document.getElementById("scheEndTime2").value = hours + ":" + minutes;
+        }
+    });
 </script>
 
-
-<!--<script>-->
-<!--    const calendar = document.querySelector(".calendar"),-->
-<!--        date = document.querySelector(".date"),-->
-<!--        daysContainer = document.querySelector(".days"),-->
-<!--        prev = document.querySelector(".prev"),-->
-<!--        next = document.querySelector(".next"),-->
-<!--        todayBtn = document.querySelector(".today-btn"),-->
-<!--        gotoBtn = document.querySelector(".goto-btn"),-->
-<!--        dateInput = document.querySelector(".date-input");-->
-
-
-<!--        addEventSubmit = document.querySelector(".add-event-btn");-->
-
-
-<!--    let today = new Date();-->
-<!--    let activeDay;-->
-<!--    let month = today.getMonth();-->
-<!--    let year = today.getFullYear();-->
-
-<!--    const months = [-->
-<!--        "01",-->
-<!--        "02",-->
-<!--        "03",-->
-<!--        "04",-->
-<!--        "05",-->
-<!--        "06",-->
-<!--        "07",-->
-<!--        "08",-->
-<!--        "09",-->
-<!--        "10",-->
-<!--        "11",-->
-<!--        "12",-->
-<!--    ];-->
-
-<!--    //set a empty array-->
-<!--    let eventsArr = [];-->
-
-<!--    // then call get-->
-<!--    // getEvents();-->
-
-<!--    //function to add days-->
-
-<!--    function initCalendar() {-->
-<!--        //to get prev month days and current month all days and rem next month days-->
-<!--        const firstDay = new Date(year, month, 1);-->
-<!--        const lastDay = new Date(year, month + 1, 0);-->
-<!--        const prevLastDay = new Date(year, month, 0);-->
-<!--        const prevDays = prevLastDay.getDate();-->
-<!--        const lastDate = lastDay.getDate();-->
-<!--        const day = firstDay.getDay();-->
-<!--        const nextDays = 7 - lastDay.getDay() - 1;-->
-
-<!--        //update date top of calendar-->
-<!--        date.innerHTML = year + "년 " + months[month] + "월";-->
-
-<!--        //adding days on dom-->
-
-<!--        let days = "";-->
-
-<!--        // prev month days-->
-
-<!--        for (let x = day; x > 0; x&#45;&#45;) {-->
-<!--            days += `<div class="day prev-date" >${prevDays - x + 1}</div>`;-->
-<!--        }-->
-
-<!--        // current month days-->
-<!--        for (let i = 1; i <= lastDate; i++) {-->
-
-<!--            // check if event present on current day-->
-<!--            let event = false;-->
-<!--            eventsArr.forEach((eventObj) => {-->
-<!--                if (-->
-<!--                    eventObj.day === i &&-->
-<!--                    eventObj.month === month + 1 &&-->
-<!--                    eventObj.year === year-->
-<!--                ) {-->
-<!--                    // if event found-->
-<!--                    event = true;-->
-<!--                }-->
-<!--            });-->
-
-
-<!--            // if day is today add class today-->
-<!--            if (i === new Date().getDate() &&-->
-<!--                year === new Date().getFullYear() &&-->
-<!--                month === new Date().getMonth()-->
-<!--            ) {-->
-
-<!--                activeDay = i;-->
-<!--                getActiveDay(i);-->
-<!--                console.log(getActiveDay(i));-->
-
-<!--                //if event found also add event class-->
-<!--                if (event) {-->
-<!--                    days += `<div class="day today active event" >${i}</div>`;-->
-<!--                } else {-->
-<!--                    days += `<div class="day today active">${i}</div>`;-->
-<!--                }-->
-<!--            }-->
-<!--            //add remaing as it is-->
-<!--            else {-->
-<!--                if (event) {-->
-<!--                    days += `<div class="day event" >${i}</div>`;-->
-<!--                } else {-->
-<!--                    days += `<div class="day" >${i}</div>`;-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-
-<!--        //next month days-->
-
-<!--        for (let j = 1; j <= nextDays; j++) {-->
-<!--            days += `<div class="day next-date" >${j}</div>`;-->
-<!--        }-->
-<!--        daysContainer.innerHTML = days;-->
-<!--        //add listner after calendar initialized-->
-<!--        addListner();-->
-<!--    }-->
-
-<!--    initCalendar();-->
-
-<!--    //prev month-->
-<!--    function prevMonth() {-->
-<!--        month&#45;&#45;;-->
-<!--        if (month < 0) {-->
-<!--            month = 11;-->
-<!--            year&#45;&#45;;-->
-<!--        }-->
-<!--        initCalendar();-->
-<!--    }-->
-
-<!--    // next month-->
-
-<!--    function nextMonth() {-->
-<!--        month++;-->
-<!--        if (month > 11) {-->
-<!--            month = 0;-->
-<!--            year++;-->
-<!--        }-->
-<!--        initCalendar();-->
-<!--    }-->
-
-<!--    // add eventlistner on prev and next-->
-
-<!--    prev.addEventListener("click", prevMonth);-->
-<!--    next.addEventListener("click", nextMonth);-->
-
-<!--    // our calendar is ready-->
-<!--    //lets add goto date and goto today functionality-->
-
-<!--    todayBtn.addEventListener("click", () => {-->
-<!--        today = new Date();-->
-<!--        month = today.getMonth();-->
-<!--        year = today.getFullYear();-->
-<!--        initCalendar();-->
-<!--    })-->
-
-<!--    // //lets create function to add listner on days after rendered-->
-<!--    function addListner() {-->
-<!--        const days = document.querySelectorAll(".day")-->
-<!--        days.forEach((day) => {-->
-<!--            day.addEventListener("click", (e) => {-->
-<!--                activeDay = Number(e.target.innerHTML);-->
-
-<!--                // call active day after click-->
-<!--                getActiveDay(e.target.innerHTML);-->
-<!--                // updateEvents(Number(e.target.innerHTML));-->
-
-<!--                // remove active from already active day-->
-
-<!--                days.forEach((day) => {-->
-<!--                    day.classList.remove("active");-->
-<!--                });-->
-
-<!--                // if prev month day clicked goto prev month and add active-->
-
-<!--                if (e.target.classList.contains("prev-date")) {-->
-<!--                    prevMonth();-->
-
-<!--                    setTimeout(() => {-->
-<!--                        // select all days of that month-->
-<!--                        const days = document.querySelector(".day");-->
-
-<!--                        // after going to prev month add active to clicked-->
-<!--                        days.forEach((day) => {-->
-<!--                            if (-->
-<!--                                !day.classList.contains("prev-date") &&-->
-<!--                                day.innerHTML === e.target.innerHTML-->
-<!--                            ) {-->
-<!--                                day.classList.add("active");-->
-<!--                            }-->
-<!--                        });-->
-<!--                    }, 100);-->
-<!--                    // same with next month-->
-<!--                } else if (e.target.classList.contains("next-date")) {-->
-<!--                    nextMonth();-->
-
-<!--                    setTimeout(() => {-->
-<!--                        // select all days of that month-->
-<!--                        const days = document.querySelector(".day");-->
-
-<!--                        // after going to prev month add active to clicked-->
-<!--                        days.forEach((day) => {-->
-<!--                            if (-->
-<!--                                !day.classList.contains("next-date") &&-->
-<!--                                day.innerHTML === e.target.innerHTML-->
-<!--                            ) {-->
-<!--                                day.classList.add("active");-->
-<!--                            }-->
-<!--                        });-->
-<!--                    }, 100);-->
-<!--                } else {-->
-<!--                    //remaing current month days-->
-<!--                    e.target.classList.add("active");-->
-<!--                }-->
-
-<!--            });-->
-<!--        });-->
-<!--    }-->
-
-<!--    // lets show active day events and date at top-->
-
-<!--    function getActiveDay(date) {-->
-<!--        const day = new Date(year, month, date);-->
-<!--        const dayName = day.toString().split(" ")[0];-->
-<!--        eventDay.innerHTML = "(" + dayName + ")";-->
-<!--        eventDate.innerHTML = year + ". " + months[month] + ". " + date-->
-<!--        console.log(eventDate);-->
-<!--    }-->
-<!--</script>-->
-
-<!--<script th:inline="javascript">-->
-<!--    fetch("/schedule/scherundate")-->
-<!--        .then(res => res.json())-->
-<!--        .then(data => {-->
-<!--            console.log('data = ', data);-->
-<!--        })-->
-
-
-<!--// function filterEventByDate(data) {-->
-<!--// const filteredEvents = [];-->
-<!--// eventsArr.forEach(schedule => {-->
-<!--// if (schedule.scheRunDate === date) {-->
-<!--// filteredEvents.push(schedule);-->
-<!--// }-->
-<!--// });-->
-<!--// }-->
-
-
-<!--// function updateEvents(date) {-->
-<!--// fetch("/schedule/schedulemain")-->
-<!--// .then(res => res.json())-->
-<!--// .then(data => {-->
-<!--// console.log(data)-->
-<!--// const scheRundate = data.scheRunDate;-->
-<!--// console.log(scheRundate);-->
-
-<!--// const filteredEvents = filterEventByDate(date);-->
-<!--// let eventsHTML = "";-->
-<!--// filteredEvents.forEach(data => {-->
-<!--// eventsHTML += `-->
-<!--//-->
-<!--// <table>-->
-<!--//     //-->
-<!--//     <tr>-->
-<!--//         //-->
-<!--//         <td>${data.</td>-->
-<!--//         //-->
-<!--//     </tr>-->
-<!--//     //-->
-<!--// </table>-->
-<!--// //-->
-<!--// // `-->
-<!--// // })-->
-
-
-<!--// })-->
-<!--// }-->
-
-
-<!--// function to show events of that day-->
-<!--// function updateEvents(date) {-->
-<!--// let events = "";-->
-<!--//-->
-<!--// eventsArr.forEach((event) => {-->
-<!--// //get events of active day only-->
-<!--// if (date === event.day &&-->
-<!--// month + 1 === event.month &&-->
-<!--// year === event.year) {-->
-<!--// //then show event on document-->
-<!--// event.events.forEach((schedule) => {-->
-<!--// console.log("당일일정테스트")-->
-<!--// if (schedule.scheRunDate == `${year}-${months[month]}-${date}`) {-->
-<!--// events += `-->
-<!--//-->
-<!--// <table>-->
-<!--//     //-->
-<!--//     <tr>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.classCategory.className}"></td>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.empCategory.empName}"></td>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.scheStartTime}"></td>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.scheParticipate}"></td>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.userCategory.memberName}"></td>-->
-<!--//         //-->
-<!--//         <td th:text="${schedule.scheAtten}"></td>-->
-<!--//         //-->
-<!--//     </tr>-->
-<!--//     //-->
-<!--// </table>-->
-<!--// `;-->
-<!--// }-->
-<!--// });-->
-<!--// }-->
-<!--// });-->
-<!--// //if nothing found-->
-<!--// if ((events === "")) {-->
-<!--// events = `-->
-<!--// <div class="no-event">-->
-<!--//     // <h3>No Event</h3>-->
-<!--//     //-->
-<!--// </div>-->
-<!--// `;-->
-<!--// }-->
-<!--// console.log(events);-->
-<!--// eventsContainer.innerHTML = events;-->
-<!--//-->
-<!--// //save events when new one added-->
-<!--// // saveEvents();-->
-<!--//-->
-<!--// }-->
-<!--//-->
-<!--// //lets create function to add events-->
-<!--// addEventSubmit.addEventListener("click", () => {-->
-<!--// const eventTitle = addEventTitle.value;-->
-<!--// const eventTimeFrom = addEventFrom.value;-->
-<!--// const eventTimeTo = addEventTo.value;-->
-<!--//-->
-<!--// // some validations-->
-<!--//-->
-<!--// if (eventTitle === "" ||-->
-<!--// eventTimeFrom === "" ||-->
-<!--// eventTimeTo === "") {-->
-<!--// alert("please fill all the fields");-->
-<!--// return;-->
-<!--// }-->
-<!--//-->
-<!--// const timeFromArr = eventTimeFrom.split(":");-->
-<!--// const timeToArr = eventTimeTo.split(":");-->
-<!--//-->
-<!--// if (-->
-<!--// timeFromArr.length !== 2 ||-->
-<!--// timeToArr.length !== 2 ||-->
-<!--// timeFromArr[0] > 23 ||-->
-<!--// timeFromArr[1] > 59 ||-->
-<!--// timeToArr[0] > 23 ||-->
-<!--// timeToArr[1] > 59-->
-<!--// ) {-->
-<!--// alert("Invalid Time Format");-->
-<!--// }-->
-<!--//-->
-<!--// const timeFrom = convertTime(eventTimeFrom);-->
-<!--// const timeTo = convertTime(eventTimeTo);-->
-<!--//-->
-<!--// const newEvent = {-->
-<!--// title: eventTitle,-->
-<!--// time: timeFrom + " - " + timeTo,-->
-<!--// };-->
-<!--//-->
-<!--// let eventAdded = false;-->
-<!--//-->
-<!--// //check if eventsarr not empty-->
-<!--// if (eventsArr.length > 0) {-->
-<!--// //check if current day has already and event then add to that-->
-<!--// eventsArr.forEach((item) => {-->
-<!--// if (-->
-<!--// item.day === activeDay &&-->
-<!--// item.month === month + 1 &&-->
-<!--// item.year === year-->
-<!--// ) {-->
-<!--// item.events.push(newEvent);-->
-<!--// eventAdded = true;-->
-<!--// }-->
-<!--// });-->
-<!--// }-->
-<!--//-->
-<!--// // if event array empty or current day has no event create new-->
-<!--// if (!eventAdded) {-->
-<!--// eventsArr.push({-->
-<!--// day: activeDay,-->
-<!--// month: month + 1,-->
-<!--// year: year,-->
-<!--// events: [newEvent],-->
-<!--// });-->
-<!--// }-->
-<!--//-->
-<!--// //remove active from add event form-->
-<!--// addEventContainer.classList.remove("active")-->
-<!--// //clear the fields-->
-<!--// addEventTitle.value = "";-->
-<!--// addEventFrom.value = "";-->
-<!--// addEventTo.value = "";-->
-<!--//-->
-<!--// // show current added event-->
-<!--// updateEvents(activeDay);-->
-<!--//-->
-<!--// // also add event class to newly added day if not already-->
-<!--//-->
-<!--// const activeDayElem = document.querySelector(".day.active");-->
-<!--// if (!activeDayElem.classList.contains("event")) {-->
-<!--// activeDayElem.classList.add("event");-->
-<!--// }-->
-<!--// });-->
-<!--//-->
-<!--// function convertTime(time) {-->
-<!--// let timeArr = time.split(":");-->
-<!--// let timeHour = timeArr[0];-->
-<!--// let timeMin = timeArr[1];-->
-<!--// let timeFormat = timeHour >= 12 ? "PM" : "AM";-->
-<!--// timeHour = timeHour % 12 || 12;-->
-<!--// time = timeHour + ":" + timeMin + " " + timeFormat;-->
-<!--// return time;-->
-<!--// }-->
-<!--//-->
-<!--// // lets create a function to remove events on click-->
-<!--// eventsContainer.addEventListener("click", (e) => {-->
-<!--// if (e.target.classList.contains("event")) {-->
-<!--// const eventTitle = e.target.children[0].children[1].innerHTML;-->
-<!--// // get the title of event than search in array by title and delete-->
-<!--// eventsArr.forEach((event) => {-->
-<!--// if (-->
-<!--// event.day === activeDay &&-->
-<!--// event.month === month + 1 &&-->
-<!--// event.year === year-->
-<!--// ) {-->
-<!--// event.events.forEach((item, index) => {-->
-<!--// if (item.title === eventTitle) {-->
-<!--// event.events.splice(index, 1);-->
-<!--// }-->
-<!--// });-->
-<!--//-->
-<!--// //ifno event remaining on that dat remove complete day-->
-<!--//-->
-<!--// if (event.events.length === 0) {-->
-<!--// eventsArr.splice(eventsArr.indexOf(event), 1);-->
-<!--// //after remove complete day also remove active class of that day-->
-<!--//-->
-<!--// const activeDayElem = document.querySelector(".day.active");-->
-<!--// if (activeDayElem.classList.contains("event")) {-->
-<!--// activeDayElem.classList.remove("event");-->
-<!--// }-->
-<!--// }-->
-<!--//-->
-<!--// }-->
-<!--// });-->
-<!--// //after removing from array update event-->
-<!--// updateEvents(activeDay);-->
-<!--// }-->
-<!--// })-->
-
-<!--//lets store events in local storage get from there-->
-
-<!--// function saveEvents() {-->
-<!--// localStorage.setItem("events", JSON.stringify(eventsArr));-->
-<!--// }-->
-<!--//-->
-<!--// function getEvents() {-->
-<!--// if (localStorage.getItem("events" === null)) {-->
-<!--// return;-->
-<!--// }-->
-<!--// // eventsArr.push(...JSON.parse(localStorage.getItem("events")));-->
-<!--// }-->
-<!--</script>-->
 
 </body>
 </html>
