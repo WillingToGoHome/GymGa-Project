@@ -89,14 +89,11 @@
                                             <div style="clear: left">
                                                 <div class="spanTagBoxWOSup" style="margin-left: 10px">
                                                     <span>주소</span>
+                                                    <button type="button" onclick="sample4_execDaumPostcode()" style="width: 60px; margin-left: 10px">찾기</button><br>
                                                 </div>
-                                                <div style="margin-left: 88px; float: left">
-                                                    <div>
-                                                        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px">
-                                                        <button type="button" onclick="sample4_execDaumPostcode()" style="width: 80px">찾기</button><br>
-                                                    </div>
-                                                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1" style="width: 390px"><br>
-                                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 390px">
+                                                <div style="margin-left: 14px; float: left">
+                                                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1" style="width: 250px; margin-right: 10px">
+                                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 120px">
                                                 </div>
                                             </div>
                                         </div>
@@ -108,12 +105,14 @@
                                                 <div class="spanTagBoxWOSup">
                                                     <span>키</span><br>
                                                     <span>체중</span><br>
-                                                    <span>BMI</span>
+                                                    <span>BMI</span><br>
+                                                    <span>기타</span>
                                                 </div>
                                                 <div style="float: left; margin-right: 20px">
                                                     <input type="text" id="height" name="height" placeholder="cm" onchange="bmiCal()"><br>
                                                     <input type="text" id="weight" name="weight" placeholder="kg" onchange="bmiCal()"><br>
                                                     <input type="text" id="bmi" name="bmi"><br>
+                                                    <input type="text" name="etc">
                                                 </div>
                                             </div>
                                         </div>
@@ -147,12 +146,6 @@
                                             </div>
                                         </div>
                                         <div style="clear: left; margin-left: 50px; padding-top: 10px">
-                                            <div class="spanTagBoxWOSup">
-                                                <span>기타</span>
-                                            </div>
-                                            <div style="float: left">
-                                                <input type="text" name="etc">
-                                            </div>
                                             <button class="submitButton" type="submit" id="submit" name="submit" style="float: right; margin-right: 300px">등록</button>
                                         </div>
                                     </div>
@@ -571,7 +564,7 @@
                     }
 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('sample4_postcode').value = data.zonecode;
+                    // document.getElementById('sample4_postcode').value = data.zonecode;
                     document.getElementById("sample4_roadAddress").value = roadAddr;
 
                     var guideTextBox = document.getElementById("guide");

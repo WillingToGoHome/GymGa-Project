@@ -34,11 +34,11 @@
                                 </div>
                                 <div class="searchBox">
                                     <form action="/emp/result" method="get">
-                                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
                                             <option value="name">강사명</option>
                                         </select>
-                                        <button type="submit"style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
                                     </form>
                                 </div>
                                 <hr class="line" style="width: 700px">
@@ -60,7 +60,7 @@
                                                     <div class="spanTagBoxWOSup" style="width: 126.99px">
                                                         <span th:text="|*{ code }|"></span><br>
                                                         <span th:text="|*{ id }|"></span><br>
-                                                        <span th:text="|*{ role }|"></span>
+                                                        <span th:text="*{ role == 'ADMIN'? '대표' : '직원' }"></span>
                                                     </div>
                                                 </div>
                                                 <div style="float: left; margin-left: 10px">
@@ -95,12 +95,15 @@
                                                 <div class="spanTagBoxWOSup">
                                                     <span>키</span><br>
                                                     <span>체중</span><br>
-                                                    <span>BMI</span>
+                                                    <span>BMI</span><br>
+                                                    <span>기타</span>
                                                 </div>
                                                 <div class="spanTagBoxWOSup" style="width: 120px">
                                                     <span th:text="|*{ physicalDTO.height } cm|"></span><br>
                                                     <span th:text="|*{ physicalDTO.weight } kg|"></span><br>
-                                                    <span th:text="|*{ physicalDTO.bmi }|"></span>
+                                                    <span th:text="|*{ physicalDTO.bmi }|"></span><br>
+                                                    <span th:text="|*{ etc }|"></span>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -126,12 +129,6 @@
                                             </div>
                                         </div>
                                         <div style="clear: left; margin-left: 50px; padding-top: 10px">
-                                            <div class="spanTagBoxWOSup">
-                                                <span>기타</span>
-                                            </div>
-                                            <div class="spanTagBoxWOSup">
-                                                <span th:text="|*{ etc }|"></span>
-                                            </div>
                                             <div style="float: right; margin-right: 300px">
                                                 <div style="float: left; margin-right: 10px">
                                                     <form action="/emp/remove" method="post">
@@ -161,7 +158,7 @@
                                     </div>
                                     <div class="empBlockRight">
                                         <p class="empName" th:text="${ emp.name }"></p>
-                                        <p class="empRole" th:text="${ emp.role }"></p>
+                                        <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
                                     </div>
                                 </div>
                             </div>

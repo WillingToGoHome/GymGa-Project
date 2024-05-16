@@ -136,7 +136,7 @@ public class EmpController {
             empDTO.setAddress("");
         }
 
-        empDTO.setRole("직원");
+        empDTO.setRole("USER");
         empDTO.setCode(code + 1);
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
@@ -145,7 +145,7 @@ public class EmpController {
         System.out.println("physicalDTO = " + physicalDTO);
         System.out.println("employeeDTO = " + employeeDTO);
 
-//        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
+        empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
         return "redirect:/emp/main";
     }

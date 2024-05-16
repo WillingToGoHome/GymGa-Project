@@ -34,11 +34,11 @@
                                 </div>
                                 <div class="searchBox">
                                     <form action="/emp/result" method="get">
-                                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
                                             <option value="name">강사명</option>
                                         </select>
-                                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
                                     </form>
                                 </div>
                                 <hr class="line" style="width: 700px">
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="empBlockRight">
                                         <p class="empName" th:text="${ emp.name }"></p>
-                                        <p class="empRole" th:text="${ emp.role }"></p>
+                                        <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
                                     </div>
                                 </div>
                             </div>

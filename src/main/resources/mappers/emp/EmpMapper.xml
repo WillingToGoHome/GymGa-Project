@@ -61,7 +61,7 @@
             , USER_ADDRESS
             , USER_ETC
         FROM USERDB
-        WHERE USER_ROLE = '직원'
+        WHERE USER_ROLE IN ('ADMIN', 'USER')
         ORDER BY USER_NAME
     </select>
 
