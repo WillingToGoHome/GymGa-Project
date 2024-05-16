@@ -223,6 +223,9 @@
                                 ·취소율: <span th:text="${totalSize != 0 ? (absentCount  * 100 / totalSize) : 0}"></span>%
                             </p>
                         </div>
+                        <div class="count-schedule" th:unless="${scheduleListByRunDate != null}">
+                            <p>날짜를 선택해주세요.</p>
+                        </div>
 
 
                         <div class="atten-classify">
