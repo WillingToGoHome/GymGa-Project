@@ -47,7 +47,9 @@
                                             </div>
                                             <div class="right2">
                                                 <p class="userText" th:text="${user.userId}"></p>
-                                                <p class="userText" th:text="${user.physicalDTO.height}" style="margin-top: 21px"></p>
+                                                <p class="userText" th:if="${user.physicalDTO.height != null}" style="margin-top: 12px">
+                                                    <span th:text="${user.physicalDTO.height}"></span>
+                                                </p>
                                                 <p class="userText" th:text="${user.physicalDTO.weight}" style="padding-top: 9px"></p>
                                                 <p class="userText" th:text="${user.physicalDTO.bmi}" style="padding-top: 20px"></p>
                                             </div>
