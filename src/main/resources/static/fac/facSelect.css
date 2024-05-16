@@ -1,3 +1,6 @@
+
+
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -29,7 +32,7 @@
 
 .dropdown {
     float: right;
-    margin-right: 30px;
+    margin-right: 15px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 
 }
@@ -40,14 +43,13 @@
     border-radius: 10px;
 }
 
-.container {
+.facList {
     display: grid;
     grid-template-columns: repeat(8, 1fr); /* 8 columns with equal width */
-    width: 1440px;
+    width: 1147px;
     min-height: 610px;
     background-color: #F0F0F0;
     gap: 20px;
-
 }
 
 .fac-item {
@@ -59,6 +61,8 @@
     display: flex;
     flex-direction: column;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
 }
 
 
@@ -67,8 +71,8 @@
     font-size: 18px;
     margin-left: 10px;
     color: black;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .facStatus {
