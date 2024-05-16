@@ -32,7 +32,7 @@
                 <div class="mainBox">
                     <div class="on">
                         <img class="back" onClick="location.href='/user/selectAll'" src="/img/Back.png">
-                        <p class="topic">신규 직원 등록</p>
+                        <p class="topic">신규회원 등록</p>
                     </div>
                         <hr class="line1">
                     <div>
@@ -80,7 +80,9 @@
                                                     <option value="남">남</option>
                                                     <option value="여">여</option>
                                                 </select><br>
-                                                <select name="userStaff" id="userStaff"></select>
+                                                <select name="userStaff" id="userStaff">
+                                                    <option value="0">없음</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +125,7 @@
                                             <span class="inputText">기타</span>
                                         </div>
                                         <div class="right">
-                                            <input type="text" name="etc" style="margin-top: 4px; width: 405px; height: 50px;">
+                                            <input type="text" name="userEtc" style="margin-top: 4px; width: 405px; height: 50px;">
                                         </div>
                                         <div class="infoBox3">
                                             <button class="submitButton" type="submit" name="submit" id="submit">등록</button>
