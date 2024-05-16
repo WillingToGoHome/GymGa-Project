@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassDataDTO;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
+import com.willingtogohome.gymga.pass.model.dto.UserDTO;
 import com.willingtogohome.gymga.sale.model.dao.SaleMapper;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
@@ -73,4 +74,21 @@ public class SaleService {
     public List<PassAndPassQualDTO> searchedUser(SearchCriteria criteria) {
         return saleMapper.searchedUser(criteria);
     }
+
+    public List<PassAndPassQualDTO> searchedUserTest(SearchCriteria criteria) {
+        return saleMapper.searchedUserTest(criteria);
+    }
+
+    public PassAndPassQualDTO findByUserId(String userId) {
+        return saleMapper.findByUserId(userId);
+    }
+
+//    public PassAndPassQualDTO getUserDetails(String userId) {
+//        return saleMapper.getUserDetails(userId);
+//    }
+
+
+//    public PassAndPassQualDTO getUserDetail(String userId) {
+//        return saleMapper.getUserDetail(userId);
+//    }
 }

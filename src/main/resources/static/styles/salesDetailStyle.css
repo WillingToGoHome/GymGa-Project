@@ -77,20 +77,20 @@
 /*    background-color: #FFFFFF;*/
 /*}*/
 
-.on {
+.onDetail {
     display: flex;
-    /*float: left;*/
+    /*float: right;*/
     margin-bottom: 10px;
     padding-top: 10px;
-    width: 660px;
+    width: 380px;
+    flex-direction: row-reverse;
 }
-
 .backGround{
     background-color: white;
-    width: 690px;
+    width: 400px;
     border-radius: 10px;
-    margin: 0 auto;
-    margin-right: 20px;
+    /*margin: 0 auto;*/
+    /*margin-right: 20px;*/
     padding: 5px;
     box-shadow: 1px 1px 1px 1px #BDBDBD;
 }
@@ -128,7 +128,7 @@
 }
 
 .hr1 {
-    width: 640px;
+    width: 360px;
     margin: 0 auto;
     margin-block-start: auto;
     margin-block-end: auto;
@@ -199,17 +199,28 @@
 }
 
 .userList {
-    width: 640px;
+    width: 360px;
     display: flex;
     /*float: left;*/
     /*justify-content: space-around;*/
     /*margin: auto;*/
     padding-top: 15px;
-
+    justify-content: space-around;
+    text-decoration: none;
+    color: inherit;
 }
 
 .userName {
     width: 100px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+.userName2 {
+    width: 200px;
     height: 30px;
     font-size: 16px;
     color: black;
@@ -227,9 +238,19 @@
     text-align: center;
     line-height: 30px;
 }
+.img2 {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+
+}
 
 .userId {
-    width: 130px;
+    width: 80px;
     height: 30px;
     font-size: 16px;
     color: black;
@@ -299,7 +320,7 @@
     text-align: center;
 }
 .price2{
-    width: 150px;
+    width: 500px;
     text-align: center;
 }
 
@@ -315,7 +336,7 @@
 }
 
 .hr3 {
-    width: 600px;
+    width: 340px;
     margin: 0 auto;
     margin-block-start: auto;
     margin-block-end: auto;
@@ -412,9 +433,39 @@
 
 .zxc {
     overflow-y: scroll;
-    height: 520px;
-    width: 660px;
-
+    height: 580px;
+    width: 380px;
     /*text-align: center;*/
 }
+.zxc2 {
+    /*overflow-y: scroll;*/
+    display: flex;
+    height: 580px;
+    width: 725px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around
+}
+.backGround2 {
+    background-color: white;
+    width: 840px;
+    border-radius: 10px;
+    /*margin: 0 auto;*/
+    margin-right: 20px;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 1px #BDBDBD;
+}
+.userList2 {
+    width: 400px;
+    display: flex;
+    /*float: left;*/
+    /*justify-content: space-around;*/
+    /*margin: auto;*/
+    padding-top: 15px;
+    flex-direction: column;
+}
 
+.test{
+    display: flex;
+
+}
