@@ -116,4 +116,8 @@ public class ScheduleService {
     public void updateGxAtten(LocalDateTime scheRegDate) {
         scheduleMapper.updateGxAtten(scheRegDate);
     }
+
+    public void updateGxSchedule(ScheduleDTO scheduleDTO) {
+        scheduleMapper.updateGxSchedule(scheduleDTO);
+    }
 }

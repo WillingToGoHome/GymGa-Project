@@ -172,7 +172,7 @@ public class ScheduleController {
     // GX 일정 변경 정보
     @PostMapping("/schedule/scheduleupdate/{scheCode}/{scheRegDate}")
     public String updateSchedule(ScheduleDTO scheduleDTO) {
-        scheduleService.updateSchedule(scheduleDTO);
+        scheduleService.updateGxSchedule(scheduleDTO);
 
         return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
     }
@@ -184,10 +184,10 @@ public class ScheduleController {
     }
 
     // 출결변경(출석버튼)-G.X redirect:에 scheRegDate를 넣어줘야함
-    @GetMapping("/schedule/gxattenupdate/{scheCode}")
+    @GetMapping("/schedule/gxattenupdate/{scheCode}/{scheRegDate}")
     public String updateAttenGx(@PathVariable("scheCode") int scheCode) {
         scheduleService.updateAtten(scheCode);
-        return "redirect:/schedule/schedulelist/{scheCode}";
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
     }
 
     // 출결변경(결석버튼)
@@ -197,12 +197,25 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
+    @GetMapping("/schedule/gxabsentupdate/{scheCode}/{scheRegDate}")
+    public String updateAbsentGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAbsent(scheCode);
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
+
     // 취소버튼(롤백개념)
     @GetMapping("/schedule/cancelupdate/{scheCode}")
     public String updateCancel(@PathVariable("scheCode") int scheCode){
         scheduleService.updateCancel(scheCode);
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
+
+    @GetMapping("/schedule/gxcancelupdate/{scheCode}/{scheRegDate}")
+    public String updateCancelGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateCancel(scheCode);
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
+
 
     // Sche_atten 값 찾기(출결상태 수정)
     @GetMapping(value = "/schedule/scheatten/{scheCode}", produces = "application/json; charset=UTF-8")

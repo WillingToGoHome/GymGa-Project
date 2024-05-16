@@ -52,4 +52,6 @@ public interface ScheduleMapper {
     List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate);
 
     void updateGxAtten(LocalDateTime scheRegDate);
+
+    void updateGxSchedule(ScheduleDTO scheduleDTO);
 }
