@@ -33,7 +33,7 @@
             , USER_ETC
             , USER_STAFF
         FROM USERDB
-        WHERE USER_ROLE = '직원'
+        WHERE USER_ROLE IN ('ADMIN', 'USER')
         ORDER BY USER_NAME
     </select>
 
@@ -52,7 +52,7 @@
         , USER_ETC
         , USER_STAFF
         FROM USERDB
-        WHERE USER_ROLE = '회원'
+        WHERE USER_ROLE = 'MEMBER'
         <if test="condition == 'name'">
             AND USER_NAME LIKE CONCAT('%', #{text}, '%')
         </if>

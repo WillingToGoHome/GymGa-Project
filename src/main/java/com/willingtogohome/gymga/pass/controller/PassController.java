@@ -87,4 +87,10 @@ public class PassController {
 
         return "redirect:/pass/main";
     }
+
+    @GetMapping("/search")
+    public String passSearch() {
+
+        return "/pass/search";
+    }
 }
