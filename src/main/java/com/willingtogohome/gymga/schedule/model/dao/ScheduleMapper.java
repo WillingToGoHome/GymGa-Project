@@ -50,4 +50,6 @@ public interface ScheduleMapper {
     ScheduleAndClassAndUserAndPassDTO findGxList(int scheCode);
 
     List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate);
+
+    void updateGxAtten(int scheCode);
 }

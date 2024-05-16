@@ -455,7 +455,7 @@
         A.SCHE_ATTEN,
         <!--               A.EMP_CODE,-->
         <!--               C.USER_CODE,-->
-        C.USER_CODE,
+        C.USER_CODE AS EMP_CODE,
         C.USER_NAME AS EMP_NAME,
         <!--               A.MEMBER_CODE,-->
         <!--               D.USER_CODE,-->

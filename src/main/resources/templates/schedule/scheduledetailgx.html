@@ -73,11 +73,11 @@
                         </div>
                         <div class="join-member-container">
                             <div class="join-gxmember-container">
-                                <div class="join-gxmember-info" th:each="member, iterStat : ${findGxByRegDate}"
-                                     id="selectMember" th:onclick="'logClick(' + ${iterStat.index} + ')'"
+                                <div th:class="'join-gxmember-info' + ${iterStat.index}" th:each="member, iterStat : ${findGxByRegDate}"
+                                     th:id="'selectMember' + ${iterStat.index}" th:onclick="'logClick(' + ${iterStat.index} + ')'"
                                      th:data-index="${iterStat.index}">
                                     <div class="gxmember-change-name">
-                                        <p th:text="${member.userCategory.memberName}"></p>
+                                        <p th:text="${member.userCategory != null ? member.userCategory.memberName : ''}"></p>
                                     </div>
                                     <div class="gxmember-change-info">
                                         <div class="phone-passname-use">
@@ -86,7 +86,7 @@
                                             <p>잔여횟수</p>
                                         </div>
                                         <div class="th-phone-passname-use">
-                                            <p th:text="${member.userCategory.memberPhone}"></p>
+                                            <p th:text="${member.userCategory != null ? member.userCategory.memberPhone : ''}"></p>
                                             <p th:text="${member.passqualCategory != null ? member.passqualCategory.pqName : ''}"></p>
                                             <span th:text="${member.passTotalCategory != null ? member.passTotalCategory.passTotal + '회' : ''}"></span>
                                         </div>
@@ -104,7 +104,7 @@
                             <div class="atten-container">
                                 <div class="atten-button-container">
                                     <button class="absent" id="absentBtn">결석</button>
-                                    <button class="atten" id="attenBtn">출석</button>
+                                    <button class="atten" id="attenBtn" onclick="updateAttendance()">출석</button>
                                 </div>
                                 <div class="member-detail-container">
                                     <button>회원상세</button>
@@ -125,7 +125,7 @@
 <!--                    <div class="modal-content-button">-->
 <!--                        <button class="close">취소</button>-->
 <!--                        <button class="confirm"-->
-<!--                                th:onclick="|location.href='/schedule/attenupdate/' + ${findGxList.scheCode}|">확인-->
+<!--                                th:onclick="|location.href='/schedule/gxattenupdate/' + ${findGxList.scheCode}|">확인-->
 <!--                        </button>-->
 <!--                    </div>-->
 <!--                </div>-->
@@ -220,25 +220,78 @@
 </div>
 <script th:inline="javascript">
 
-    let updateScheduleModal = document.getElementById("updateScheduleModal")
-    let updateScheduleBtn = document.getElementById("updateScheduleBtn")
+    let updateScheduleModal = document.getElementById("updateScheduleModal");
+    let updateScheduleBtn = document.getElementById("updateScheduleBtn");
     let closeBtns = document.getElementsByClassName("close");
+    let attenModal = document.getElementById("attenModal");
+    let attenBtn = document.getElementById("attenBtn");
 
     updateScheduleBtn.onclick = () => {
         updateScheduleModal.style.display = "block";
     }
 
-
+    attenBtn.onclick = () => {
+        attenModal.style.display = "block";
+    }
+    // 멤버 선택 관련 스크립트
 
     function logClick(memberIndex) {
         console.log("Member " + memberIndex + " clicked.");
+        let memberList = [[${findGxByRegDate}]];
+        console.log("memberList", memberList);
+        let memberData = memberList[memberIndex];
+        let scheCode = memberData.scheCode;
+        let scheRegDate = memberData.scheRegDate;
+        let memberCode = memberData.userCategory.memberCode;
+        console.log(memberData);
+        console.log("일정코드 : ", scheCode);
+        console.log("등록일자 : ", scheRegDate);
+        console.log("멤버코드 : ", memberCode);
+
+        let previousSelectedDiv = document.querySelector('.selected');
+        if (previousSelectedDiv) {
+            previousSelectedDiv.style.backgroundColor = "#ffffff";
+            previousSelectedDiv.classList.remove('selected');
+        }
+
+        let selectedDiv = document.getElementById('selectMember' + memberIndex);
+        if (selectedDiv) {
+            // 클릭한 div에 'selected' 클래스 추가하고 배경색 변경
+            selectedDiv.style.backgroundColor = "pink";
+            selectedDiv.classList.add('selected');
+        } else {
+            console.error("선택한 div를 찾을 수 없습니다.");
+        }
+
     }
 
+
+
+
+    // 모달창 닫기 활성화
     for (let i = 0; i < closeBtns.length; i++) {
         closeBtns[i].onclick = function() {
             updateScheduleModal.style.display = "none";
         }
     }
+
+    // updateScheduleBtn.onclick = function() {
+    //     fetch(`/schedule/scheatten/${scheCode}/${scheRunDate}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             const scheAttenValue = data.scheAtten;
+    //
+    //             // scheatten 상태가 출석이면 경고창을 표시
+    //             if (scheAttenValue !== "예약대기") {
+    //                 alert("일정변경이 불가능합니다.");
+    //             } else {
+    //                 updateScheduleModal.style.display = "block";
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
 
 </script>
 
