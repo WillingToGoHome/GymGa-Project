@@ -282,7 +282,7 @@
         let selectedDiv = document.getElementById('selectMember' + memberIndex);
         if (selectedDiv) {
             // 클릭한 div에 'selected' 클래스 추가하고 배경색 변경
-            selectedDiv.style.backgroundColor = "pink";
+            selectedDiv.style.backgroundColor = "#4B82D8";
             selectedDiv.classList.add('selected');
 
             // 선택된 상태를 세션 스토리지에 저장
@@ -300,7 +300,8 @@
         if (selectedMemberIndex !== null) {
             let selectedDiv = document.getElementById('selectMember' + selectedMemberIndex);
             if (selectedDiv) {
-                selectedDiv.style.backgroundColor = "pink";
+                selectedDiv.style.backgroundColor = "#4B82D8";
+                selectedDiv.style.color = "#ffffff";
                 selectedDiv.classList.add('selected');
             }
         }
