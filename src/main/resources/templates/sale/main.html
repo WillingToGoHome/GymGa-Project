@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr th:each="empAndUser:${employeeAndUserDTO}">
                                     <td>
-                                        <img th:src="${empAndUser.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/>
+                                        <img th:src="|/uploadFiles/${empAndUser.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
                                     </td>
                                     <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
                                     <td class="price" th:text="${empAndUser.total1}"></td>
@@ -55,22 +55,22 @@
                                     <th> </th>
                                     <th>이름</th>
                                     <th>이용권</th>
-                                    <th>유효 기간</th>
+<!--                                    <th>유효 기간</th>-->
                                     <th>결제 금액</th>
                                     <th>결제 방식</th>
                                     <th>시 간</th>
                                 </tr>
-                                <tr th:each="sale:${PAPQList}">
+                                <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}">
                                     <td >
-                                        <img th:src="${sale.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/>
+                                        <img th:src="|/uploadFiles/${sale.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
                                     </td>
                                     <td class="time" th:text="${sale.userDTO.userName}"></td>
                                     <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
-                                    <td class="date2" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+                          <!--          <td class="date2" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
                                  + ' ~'
-                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
+                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>-->
                                     <td class="price" th:text="${sale.passQualDTO.pqPrice}"></td>
-                                    <td class="time2" th:text="${sale.saleDTO.salesMethod}"></td>
+                                    <td class="time" th:text="${sale.saleDTO.salesMethod}"></td>
                                     <td class="time2" th:text="${#dates.format(sale.passStart, 'YY.MM.dd')}
                                  +${#dates.format(sale.saleDTO.salesDate, ' / a / HH:mm')}"></td>
                                 </tr>

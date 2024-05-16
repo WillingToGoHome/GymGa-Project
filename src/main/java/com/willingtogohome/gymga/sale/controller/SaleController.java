@@ -9,6 +9,7 @@ import com.willingtogohome.gymga.sale.model.service.SaleService;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
 import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,7 @@ public class SaleController {
 
     @GetMapping("/main")
     public String saleMain(Model model){
+
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
 
         for (PassAndPassQualDTO papq : PAPQList){
@@ -70,9 +72,9 @@ public class SaleController {
 //        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
 //        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
 
-        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
-
-        model.addAttribute("pieChartData", pieChartData);
+//        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
+//
+//        model.addAttribute("pieChartData", pieChartData);
         return "sale/main";
     }
 
@@ -81,11 +83,8 @@ public class SaleController {
         return "redirect:/sale/main";
         }
 
-    @GetMapping("/passDataPie")
-    public ResponseEntity<Map<String, Integer>> getPassData() {
-        Map<String, Integer> passData = saleService.getPassDataFromDatabase();
-        return new ResponseEntity<>(passData, HttpStatus.OK);
-    }
+
+
     @GetMapping("/passDataBar")
     public ResponseEntity<List<PassMonthDTO>> getPassDataBar() {
         List<PassMonthDTO> passDataForPieChart = saleService.getPassDataForPieChart();
@@ -101,6 +100,32 @@ public class SaleController {
 //            throw e;
 //        }
 //    }
+
+    @GetMapping("/passDataPie")
+    public ResponseEntity<Map<String, Integer>> getPassData(HttpSession session) {
+
+        SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
+//        System.out.println("searchCriteria = " + searchCriteria);
+//        System.out.println("passDataPie 호출");
+        session.invalidate();
+
+        Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
+        return new ResponseEntity<>(passData, HttpStatus.OK);
+    }
+//    @GetMapping("/passDataPie")
+//    public ResponseEntity<Map<String, Integer>> getPassData(@RequestParam String search, @RequestParam String category, HttpSession session) {
+//
+//        SearchCriteria criteria = new SearchCriteria();
+//        criteria.setText(search);
+//        criteria.setCondition(category);
+//
+//        SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
+//        System.out.println("searchCriteria = " + searchCriteria);
+//
+//        Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
+//        return new ResponseEntity<>(passData, HttpStatus.OK);
+//    }
+
     @GetMapping("/search")
     public void searchUsers() {
     }
@@ -115,6 +140,7 @@ public class SaleController {
         List<PassAndPassQualDTO> userList = saleService.searchedUser(criteria);
 
         session.setAttribute("searchedUser", userList);
+        session.setAttribute("Text", criteria);
 
         model.addAttribute("userList", userList);
 
@@ -134,10 +160,9 @@ public class SaleController {
 //
 //        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
 //        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
-
-        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
-
-        model.addAttribute("pieChartData", pieChartData);
+//
+//        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart(criteria);
+//        model.addAttribute("pieChartData", pieChartData);
 
         return "sale/search";
     }

@@ -25,8 +25,13 @@
             <div class="my-style">
                 <div class="test">
                     <div class="backGround2">
+                        <div class="on">
+                            <img src="/img/Back.png" class="back">
+                            <p class="text">내역 조회</p>
+                        </div>
+                            <hr class="hr2">
                             <div class="zxc2" th:if="${selectOneUserId != null}">
-                                <p class="img2"><img class="img2" th:src="${selectOneUserId.userDTO.userPic}"/></p>
+                                <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
                                 <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
                                 <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
                                 <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
@@ -34,11 +39,11 @@
                                 <p class="userPhone2" th:text="'유효 기간 : ' + ${#dates.format(selectOneUserId.passStart, 'yy-MM-dd')
                                  + ' ~ '
                                  + #dates.format(selectOneUserId.passEnd, 'yy-MM-dd')}"></p>
-                                <p class="price2" th:text="'이용권 이름 : '+${selectOneUserId.passQualDTO.pqName}"></p>
+                                <p class="price2" th:text="'이용권 : '+${selectOneUserId.passQualDTO.pqName}"></p>
                                 <p class="userStaff2" th:text="'결제 방식 : '+${selectOneUserId.saleDTO.salesMethod}"></p>
                                 <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
                                  +${#dates.format(selectOneUserId.saleDTO.salesDate, ' / a / HH:mm')}"></p>
-                                <p class="userName2" th:text="${selectOneUserId.empDTO.empName}"></p>
+                                <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
                             </div>
                     </div>
 
@@ -57,7 +62,7 @@
                         <div class="zxc">
                             <div class="top2" th:each="user:${detailList}">
                                 <a class="userList" th:href="@{|/sale/detail/${user.userDTO.userId}|}">
-                                    <p class="img"><img th:src="${user.userDTO.userPic}"
+                                    <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|"
                                                         style="max-width: 30px; max-height: 30px;"/></p>
                                     <p class="userId" th:text="${user.userDTO.userName}"></p>
                                     <p class="userName" th:text="${user.userDTO.userEtc}"></p>
