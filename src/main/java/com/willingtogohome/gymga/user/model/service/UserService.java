@@ -1,4 +1,4 @@
-package com.willingtogohome.gymga.user.service;
+package com.willingtogohome.gymga.user.model.service;
 
 import com.willingtogohome.gymga.user.model.dao.UserMapper;
 import com.willingtogohome.gymga.user.model.dto.*;

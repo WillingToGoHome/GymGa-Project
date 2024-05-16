@@ -1,9 +1,8 @@
 package com.willingtogohome.gymga.user.controller;
 
 import com.willingtogohome.gymga.user.model.dto.*;
-import com.willingtogohome.gymga.user.service.UserService;
+import com.willingtogohome.gymga.user.model.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -173,8 +169,6 @@ public class UserController {
         UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
 
         model.addAttribute("user", user);
-
-        System.out.println(user.getPhysicalDTO());
 
         return "user/selectDetail";
     }

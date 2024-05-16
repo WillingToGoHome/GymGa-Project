@@ -106,8 +106,12 @@
                 </div>
                 <div class="sideBox">
                     <div class="painBox">
-                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
-                        <p class="painText">통증등록</p>
+                        <form action="/user/pain" method="post">
+                            <input type="hidden" name="code" th:value="${user.userCode}">
+                            <input type="hidden" name="name" th:value="${user.userName}">
+                            <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
+                            <input type="submit" class="painText" value="통증등록">
+                        </form>
                     </div>
                 </div>
             </div>

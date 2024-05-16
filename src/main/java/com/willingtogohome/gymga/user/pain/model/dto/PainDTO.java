@@ -15,5 +15,6 @@ public class PainDTO {
     private String cause;
     private int str;
     private String etc;
-    private int code;
+    private int userCode;
+    private String userName;
 }
