@@ -73,8 +73,9 @@
                         </div>
                         <div class="join-member-container">
                             <div class="join-gxmember-container">
-                                <button class="join-gxmember-info" th:each="member : ${findGxByRegDate}"
-                                        id="selectMember">
+                                <div class="join-gxmember-info" th:each="member, iterStat : ${findGxByRegDate}"
+                                     id="selectMember" th:onclick="'logClick(' + ${iterStat.index} + ')'"
+                                     th:data-index="${iterStat.index}">
                                     <div class="gxmember-change-name">
                                         <p th:text="${member.userCategory.memberName}"></p>
                                     </div>
@@ -98,7 +99,7 @@
                                             <span th:text="${member.passUseCategory != null ? member.passUseCategory.passUse + '회' : ''}"></span>
                                         </div>
                                     </div>
-                                </button>
+                                </div>
                             </div>
                             <div class="atten-container">
                                 <div class="atten-button-container">
@@ -161,51 +162,51 @@
 <!--            </div>-->
 
             <!--일정변경 모달-->
-<!--            <div id="updateScheduleModal" class="modal">-->
-<!--                <div class="updatePt-modal-content">-->
-<!--                    <div class="updatePt-modal-header">-->
-<!--                        <button class="close" id="changeBack">-->
-<!--                            <img src="/images/back.png">-->
-<!--                        </button>-->
-<!--                        <p>일정 변경</p>-->
-<!--                    </div>-->
-<!--                    <p class="pt-or-gx">그룹 수업</p>-->
-<!--                    <form th:action="@{|/schedule/scheduleupdate/${findGxList.scheCode}/${findGxList.scheRegDate}|}"-->
-<!--                          method="post">-->
-<!--                        <input type="hidden" name="scheCode" th:value="${findGxList.scheCode}">-->
-<!--                        <label>담당 강사 선택</label><br>-->
-<!--                        <select name="empCode" id="empSelectCode"></select><br>-->
-<!--                        <label>일자 선택</label><br>-->
-<!--                        <input type="date" name="scheRunDate" th:value="${findGxList.scheRunDate}"><br>-->
-<!--                        <label>시간 선택</label><br>-->
-<!--                        <div class="time-choice">-->
-<!--                            <input type="time" name="scheStartTime" th:value="${findGxList.scheStartTime}">-->
-<!--                            <p>~</p>-->
-<!--                            <input class="endtime" type="time" name="scheEndTime"-->
-<!--                                   th:value="${findGxList.scheEndTime}"><br>-->
-<!--                        </div>-->
-<!--                        <button class="check" type="submit">확인</button>-->
-<!--                    </form>-->
-<!--                    &lt;!&ndash; 강사선택 스크립트 &ndash;&gt;-->
-<!--                    <script>-->
-<!--                        fetch("/schedule/teacher")-->
-<!--                            .then(res => res.json())-->
-<!--                            .then(data => {-->
-<!--                                const $empCode = document.getElementById("empSelectCode");-->
+            <div id="updateScheduleModal" class="modal">
+                <div class="updatePt-modal-content">
+                    <div class="updatePt-modal-header">
+                        <button class="close" id="changeBack">
+                            <img src="/images/back.png">
+                        </button>
+                        <p>일정 변경</p>
+                    </div>
+                    <p class="pt-or-gx">그룹 수업</p>
+                    <form th:action="@{|/schedule/scheduleupdate/${findGxList.scheCode}/${findGxList.scheRegDate}|}"
+                          method="post">
+                        <input type="hidden" name="scheCode" th:value="${findGxList.scheCode}">
+                        <label>담당 강사 선택</label><br>
+                        <select name="empCode" id="empSelectCode"></select><br>
+                        <label>일자 선택</label><br>
+                        <input type="date" name="scheRunDate" th:value="${findGxList.scheRunDate}"><br>
+                        <label>시간 선택</label><br>
+                        <div class="time-choice">
+                            <input type="time" name="scheStartTime" th:value="${findGxList.scheStartTime}">
+                            <p>~</p>
+                            <input class="endtime" type="time" name="scheEndTime"
+                                   th:value="${findGxList.scheEndTime}"><br>
+                        </div>
+                        <button class="check" type="submit">확인</button>
+                    </form>
+                    <!-- 강사선택 스크립트 -->
+                    <script>
+                        fetch("/schedule/teacher")
+                            .then(res => res.json())
+                            .then(data => {
+                                const $empCode = document.getElementById("empSelectCode");
 
-<!--                                for (let index in data) {-->
-<!--                                    const $option = document.createElement('option');-->
-<!--                                    $option.value = data[index].empCode;-->
-<!--                                    $option.text = data[index].empName;-->
+                                for (let index in data) {
+                                    const $option = document.createElement('option');
+                                    $option.value = data[index].empCode;
+                                    $option.text = data[index].empName;
 
-<!--                                    $empCode.appendChild($option);-->
-<!--                                    document.getElementById("empSelectCode").value = data[index].empCode;-->
-<!--                                }-->
-<!--                            })-->
-<!--                    </script>-->
-<!--                    <button class="close">취소</button>-->
-<!--                </div>-->
-<!--            </div>-->
+                                    $empCode.appendChild($option);
+                                    document.getElementById("empSelectCode").value = data[index].empCode;
+                                }
+                            })
+                    </script>
+                    <button class="close">취소</button>
+                </div>
+            </div>
             <!-- MODAL SECTION END -->
 
             <!--개인 작업 종료-->
@@ -217,7 +218,29 @@
         <!--Footer End-->
     </div>
 </div>
+<script th:inline="javascript">
 
+    let updateScheduleModal = document.getElementById("updateScheduleModal")
+    let updateScheduleBtn = document.getElementById("updateScheduleBtn")
+    let closeBtns = document.getElementsByClassName("close");
+
+    updateScheduleBtn.onclick = () => {
+        updateScheduleModal.style.display = "block";
+    }
+
+
+
+    function logClick(memberIndex) {
+        console.log("Member " + memberIndex + " clicked.");
+    }
+
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+            updateScheduleModal.style.display = "none";
+        }
+    }
+
+</script>
 
 
 

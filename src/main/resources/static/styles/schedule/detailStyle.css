@@ -312,3 +312,8 @@
 
 }
 
+.selected {
+    border: 2px solid blue; /* 선택된 요소에 스타일 추가 */
+    background-color: #f0f8ff;
+}
+

@@ -182,6 +182,13 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
+    // GX 일정 변경 정보
+    @PostMapping("/schedule/scheduleupdate/{scheCode}/{scheRegDate}")
+    public String updateSchedule(ScheduleDTO scheduleDTO) {
+        scheduleService.updateSchedule(scheduleDTO);
+
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
     // 출결변경(출석버튼)
     @GetMapping("/schedule/attenupdate/{scheCode}")
     public String updateAtten(@PathVariable("scheCode") int scheCode) {
