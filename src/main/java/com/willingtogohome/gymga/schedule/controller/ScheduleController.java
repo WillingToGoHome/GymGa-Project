@@ -5,6 +5,7 @@ import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import com.willingtogohome.gymga.schedule.model.service.ScheduleService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,10 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @GetMapping(value = {"/", "/main"})
-    public String main() {
-        return "main";
-    }
+//    @GetMapping(value = {"/", "/main"})
+//    public String main() {
+//        return "main";
+//    }
 
 //     일정 전체 조회
     @GetMapping(value = "/schedule/schedulemain")
@@ -92,7 +93,6 @@ public class ScheduleController {
 
         return "schedule/schedulemain";
     }
-
     @PostMapping("/schedule/scheduleregistGx")
     public String registNewGxSchedule(ScheduleDTO newSchedule, RedirectAttributes redirectAttributes) {
 

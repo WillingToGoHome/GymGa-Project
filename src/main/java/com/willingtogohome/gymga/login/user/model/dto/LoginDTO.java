@@ -1,6 +1,8 @@
 package com.willingtogohome.gymga.login.user.model.dto;
 
 import com.willingtogohome.gymga.login.common.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,20 +13,23 @@ public class LoginDTO {
     private String userId;
     private String userPwd;
     private String userName;
+    private String userPhone;
     private UserRole userRole;
 
     public LoginDTO(){}
 
-    public LoginDTO(int userCode, String userId, String userPwd, String userName, UserRole userRole) {
+    public LoginDTO(int userCode, String userId, String userPwd, String userName, String userPhone, UserRole userRole) {
         this.userCode = userCode;
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;
+        this.userPhone = userPhone;
         this.userRole = userRole;
     }
 
     public List<String> getRole(){
         if (this.userRole.getRole().length() > 0) {
+            System.out.println("4 UserRole" + userRole);
             return Arrays.asList(this.userRole.getRole().split(","));
         }
         return new ArrayList<>();
@@ -62,6 +67,14 @@ public class LoginDTO {
         this.userName = userName;
     }
 
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }
@@ -77,9 +90,8 @@ public class LoginDTO {
                 ", userId='" + userId + '\'' +
                 ", userPwd='" + userPwd + '\'' +
                 ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
                 ", userRole=" + userRole +
                 '}';
     }
-
-
 }

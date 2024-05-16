@@ -2,8 +2,8 @@ package com.willingtogohome.gymga.login.common;
 
 public enum UserRole {
 
-    ADMIN("대표"),
-    USER("직원");
+    ADMIN("ADMIN"),
+    USER("USER");
 
     private String role;
 
@@ -12,11 +12,8 @@ public enum UserRole {
     }
 
     public String getRole() {
+        System.out.println(role);
         return role;
-    }
-
-    public String getAuthority() {
-        return "ROLE_" + role.toUpperCase();
     }
 
     @Override
