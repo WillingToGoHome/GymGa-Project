@@ -14,9 +14,7 @@ import java.util.Date;
 public class FacAndUserDTO {
     private int facCode;
     private String facStatus;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd", timezone = "Asia/Seoul")
     private Date facStart;
     private UserDTO userDTO;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd", timezone = "Asia/Seoul")
     private Date facEnd;
 }
