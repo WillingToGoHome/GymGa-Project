@@ -66,5 +66,7 @@ public class LoginService {
         return result;
     }
 
-
+    public List<RegistDTO> idCheck() {
+        return loginMapper.idCheck();
+    }
 }

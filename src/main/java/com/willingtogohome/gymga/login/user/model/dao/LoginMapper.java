@@ -23,11 +23,6 @@ public interface LoginMapper {
     String find_pwd(String userId, String userPhone);
 
     /* 아이디 중복체크 */
-
-
-
-
-
-
+    List<RegistDTO> idCheck();
 
 }

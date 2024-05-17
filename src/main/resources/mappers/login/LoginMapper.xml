@@ -13,6 +13,7 @@
         <result property="userRole" column="USER_ROLE"/>
     </resultMap>
 
+
     <select id="findByUsername" resultMap="login">
         SELECT
         USER_CODE
@@ -51,7 +52,7 @@
     </insert>
 
     <!-- 아이디 중복체크 -->
-    <select id="check_id" resultType="boolean">
+    <select id="idCheck" resultType="String">
         SELECT USER_ID
         FROM USERDB
         WHERE USER_ID = #{userId}
