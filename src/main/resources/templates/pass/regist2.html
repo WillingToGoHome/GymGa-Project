@@ -47,27 +47,36 @@
 
                                 <form action="/pass/regist" method="post">
                                     <div class="subject">
-                                        <span style="margin-right: 101px; float: left">· 조회내역</span>
-                                        <table id="members" class="memberList">
-                                            <tr>
-                                                <th style="width: 100px">체크</th>
-                                                <th style="width: 100px">회원 번호</th>
-                                                <th style="width: 100px">이름</th>
-                                                <th style="width: 100px">성별</th>
-                                                <th style="width: 200px">연락처</th>
-                                                <!--                    <th>비고</th>-->
-                                            </tr>
-                                            <div style="overflow-y: auto">
-                                                <tr th:each="member: ${ memberList }">
-                                                    <td><input type="checkbox" name="memberCode" th:value="${ member.userCode }"></td>
-                                                    <td th:text="${ member.userCode }"></td>
-                                                    <td th:text="${ member.userName }"></td>
-                                                    <td th:text="${ member.userGender }"></td>
-                                                    <td th:text="${ member.userPhone }"></td>
-                                                    <!--                        <td th:text="${ member.userETC }"></td>-->
+                                        <div style="float: left">
+                                            <span style="margin-right: 101px; float: left">· 조회내역</span>
+                                        </div>
+                                        <div class="memberList" style="float: left; overflow-y: auto">
+                                            <table id="members" style="overflow-y: auto">
+                                                    <tr style="width: 40px">
+                                                        <th style="width: 100px">체크</th>
+                                                        <th style="width: 100px">회원 번호</th>
+                                                        <th style="width: 100px">이름</th>
+                                                        <th style="width: 100px">성별</th>
+                                                        <th style="width: 200px">연락처</th>
+                                                        <!--                    <th>비고</th>-->
+                                                    </tr>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <hr style="width: 560px; margin-left: 20px; background-color: rgba(101, 101, 101, 1)">
+                                                    </td>
                                                 </tr>
-                                            </div>
-                                        </table>
+                                                <div>
+                                                    <tr th:each="member: ${ memberList }">
+                                                        <td><input type="checkbox" name="memberCode" th:value="${ member.userCode }"></td>
+                                                        <td th:text="${ member.userCode }"></td>
+                                                        <td th:text="${ member.userName }"></td>
+                                                        <td th:text="${ member.userGender }"></td>
+                                                        <td th:text="${ member.userPhone }"></td>
+                                                        <!--                        <td th:text="${ member.userETC }"></td>-->
+                                                    </tr>
+                                                </div>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div style="float: right; margin-right: 469px">
                                         <button class="submitButton" type="button" onclick="location.href='/pass/main'" style="background-color: white; color: rgba(75, 130, 216, 1">취소</button>
