@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -22,12 +23,13 @@ public class FacController {
 
     @GetMapping("/select")
     public String findFacList(Model model) {
-        List<FacDTO> facList=facService.findAllFac();
+        List<FacDTO> facList = facService.findAllFac();
 
-        for(FacDTO facs:facList) {
+
+        for (FacDTO facs : facList) {
             System.out.println("facs = " + facs);
         }
-        model.addAttribute("facList",facList);
+        model.addAttribute("facList", facList);
 
         return "fac/select";
     }
@@ -62,7 +64,7 @@ public class FacController {
     @GetMapping("/select/available")
     public String findAvailableList(Model model) {
         List<FacDTO> facList=facService.findAllAvailable();
-
+        
 
         for(FacDTO facs:facList) {
             System.out.println("facs = " + facs);
@@ -77,7 +79,6 @@ public class FacController {
     @GetMapping("/select/personal")
     public String findPerList(@RequestParam int facCode, Model model) {
         FacDTO facList=facService.findAllPer(facCode);
-
 
         model.addAttribute("facList", facList);
         System.out.println("facList = " + facList);
