@@ -37,8 +37,8 @@ public class EmpController {
 
         System.out.println("get : /emp/ or /emp/main");
 
-        int code = (int) session.getAttribute("searched");
-        System.out.println("code = " + code);
+//        int code = (int) session.getAttribute("searched");
+//        System.out.println("code = " + code);
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
