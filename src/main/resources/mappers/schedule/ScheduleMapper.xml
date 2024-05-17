@@ -61,7 +61,7 @@
                user_etc,
                user_staff
           FROM userdb
-         WHERE user_role = '직원'
+         WHERE user_role = 'USER'
         ORDER BY user_code
     </select>
 
