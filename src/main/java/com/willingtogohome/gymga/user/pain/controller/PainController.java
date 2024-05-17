@@ -39,7 +39,22 @@ public class PainController {
         PainDTO pain = painService.selectPain(code, userName, painDTO);
 
         model.addAttribute("pain", pain);
+        model.addAttribute("userName", userName);
+        model.addAttribute("code", code);
 
         return "user/pain/pain";
+    }
+
+    @GetMapping("/pain/regist")
+    public void regist() {}
+
+    @PostMapping("/pain/regist")
+    public String regist(HttpSession session,
+                         @RequestParam("code") String userCode,@RequestParam("pos") int pos) {
+
+        System.out.println(userCode);
+        System.out.println(pos);
+
+        return null;
     }
 }
