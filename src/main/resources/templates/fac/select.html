@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="../styles/mainStyle.css">
-    <link rel="stylesheet" href="../styles/headerStyle.css">
-    <link rel="stylesheet" href="../styles/navbarStyle.css">
-    <link rel="stylesheet" href="../styles/myStyle.css">
-    <link rel="stylesheet" href="../styles/footerStyle.css">
-    <link rel="stylesheet" href="../fac/facSelect.css">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/fac/facSelect.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
-    <script src="../templates/fac/fac.js"></script>
 </head>
 <body>
-
-
-
-
-
 <div class="container">
     <div class="app-area">
         <!--Heade Start-->
         <div th:include="common/header"></div>
         <!--Header End-->
-
         <!--Main Start-->
         <div class="main-container">
             <!--Navbar Start-->
@@ -33,31 +26,428 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style">
-
                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <div class="dropdown">
-                    <button class="dropbtn">조회</button>
-                    <div class="dropdown-content">
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>
-                        <a href="/fac/select/expired">만료조회</a>
+<!--                <div class="dropdown">-->
+<!--                    <button class="dropbtn">조회</button>-->
+<!--                    <div class="dropdown-content">-->
+<!--                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개인조회</button>-->
+<!--                        <a href="/fac/select/expired">만료조회</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="query-options">
+                    <div class="all">
+                        <a href="/fac/select" class="btn btn-secondary">전체 조회</a>
+                    </div>
+
+                    <div class="personal">
+                        <a class="btn btn-secondary" data-toggle="modal" data-target="#personalModal">개별 조회</a>
+                    </div>
+
+                    <div class="expired">
+                        <a href="/fac/select/expired" class="btn btn-secondary">만료</a>
+                    </div>
+
+                    <div class="inUse">
+                        <a href="/fac/select/inUse" class="btn btn-secondary">사용중</a>
+                    </div>
+
+                    <div class="available">
+                        <a href="/fac/select/available" class="btn btn-secondary">사용가능 </a>
                     </div>
                 </div>
-<div class="container">
-    <div th:each="facs: ${facList}" class="fac-item">
-        <!-- Locker Code -->
-        <span class="facCodeLink" th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></span>
-        <!-- Locker Status -->
-        <span class="facStatus" th:text="${facs.facStatus}"></span>
-        <!-- User Code -->
-        <span class="userCode" th:text="${facs.userCode}"></span>
-        <!-- Start Date -->
-        <span class="facStart" th:text="${facs.facStart}"></span>
-        <!-- End Date -->
-        <span class="facEnd" th:text="${facs.facEnd}"></span>
-    </div>
-</div>
+
+
+                <!-- 개인 조회 모달 -->
+                <div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="personalModalLabel">개인 조회</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <label>사물함 번호: </label>
+                                <select name="facCode" id="facCode"></select><br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                <button onclick="sendRequest()" class="btn btn-primary" data-dismiss="modal">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function sendRequest() {
+                        // 선택된 회원 코드 가져오기
+                        const selectedFacCode = document.getElementById("facCode").value;
+                        // userCode 파라미터를 포함하여 URL로 이동
+                        window.location.href = "/fac/select/personal?facCode=" + selectedFacCode;
+                    }
+                </script>
+
+
+
+
+                <div class="facList">
+                    <div th:each="facs: ${facList}" class="fac-item" href="#" data-toggle="modal" data-target="#facActionModal">
+                        <!-- Locker Code -->
+                        <span class="facCodeLink" th:text="${facs.facCode}"></span>
+                        <!-- Locker Status -->
+                        <span class="facStatus" th:text="${facs.facStatus}"></span>
+                        <!-- User Code -->
+                        <span class="userCode" th:text="${facs.userCode}"></span>
+                        <!-- Start Date -->
+                        <span class="facStart" th:text="${facs.facStart}"></span>
+                        <!-- End Date -->
+                        <span class="facEnd" th:text="${facs.facEnd}"></span>
+                    </div>
+                </div>
+
+
+
+                <!--                <div class="container">-->
+                <!--                    <ul th:each="facs: ${facList}" class="fac-item" href="#" data-toggle="modal" data-target="#facActionModal">-->
+                <!--                        &lt;!&ndash; Locker Code &ndash;&gt;-->
+                <!--                        <li class="facCodeLink" th:text="${facs.facCode}" ></li>-->
+                <!--                        &lt;!&ndash; Locker Status &ndash;&gt;-->
+                <!--                        <li class="facStatus" th:text="${facs.facStatus}"></li>-->
+                <!--                        &lt;!&ndash; User Code &ndash;&gt;-->
+                <!--                        <li class="userCode" th:text="${facs.userCode}"></li>-->
+                <!--                        &lt;!&ndash; Start Date &ndash;&gt;-->
+                <!--                        <li class="facStart" th:text="${facs.facStart}"></li>-->
+                <!--                        &lt;!&ndash; End Date &ndash;&gt;-->
+                <!--                        <li class="facEnd" th:text="${facs.facEnd}"></li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
+
+                <!-- 사물함 등록, 수정, 삭제 모달 -->
+                <div class="modal fade" id="facActionModal" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="facActionModalLabel">사물함 등록, 수정 및 삭제</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- 등록, 수정, 삭제 버튼 -->
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal2">등록</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal3">수정</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal4">삭제</button>
+
+
+                                <!--                <a class="btn btn-secondary" href="/fac/update">수정</a>-->
+                                <!--                <a class="btn btn-secondary" href="/fac/delete">삭제</a>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 사물함 등록 -->
+                <div class="modal fade" id="facActionModal2" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="facActionModalLabel2" >사물함 등록</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+
+                            <div class="modal-body">
+                                <form id="registForm" onsubmit="submitForm()">
+                                    <label>사물함 번호: </label>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput" readonly><br>
+                                    <!--                    <label>회원 코드: </label>-->
+                                    <!--                    <input type="text" name="userCode" id="userCode"><br>-->
+                                    <label>회원 코드: </label>
+                                    <select name="userCode" id="userCode"></select><br>
+                                    <label>사용 가능 상태: </label>
+                                    <select name="facStatus" id="facStatus">
+                                        <option value=""></option>
+                                        <option value="사용중">사용 중</option>
+                                        <option value="만료">만료</option>
+                                    </select><br>
+                                    <label>사용 시작 기간: </label>
+                                    <input type="date" name="facStart" id="facStart"><br>
+                                    <label>사용 만료 기간: </label>
+                                    <input type="date" name="facEnd" id="facEnd"><br>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                <button onclick="submitForm()" class="btn btn-primary" data-dismiss="modal">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function submitForm() {
+
+                        // 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("registForm"))
+
+
+                        // POST 요청 보내기
+                        fetch("/fac/regist", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // 성공적으로 처리된 경우 모달 닫기
+                                    $('#facActionModal').modal('hide');
+                                    window.location.href = "/fac/select";
+
+
+                                } else {
+                                    // 실패한 경우 오류 메시지 표시
+                                    console.error('등록 실패');
+                                }
+                            })
+                            .catch(error => console.error('에러 발생:', error));
+                    }
+
+                </script>
+
+                <script th:inline="javascript">
+                    function setFacStatusColor() {
+                        document.querySelectorAll(".facStatus").forEach(function (element) {
+                            var selectedValue = element.textContent.trim();
+                            var color = "";
+                            if (selectedValue === "사용중") {
+                                color = "#4041C5";
+                            } else if (selectedValue === "만료") {
+                                color = "#F82626";
+                                element.style.right = "-80px";
+                            } else if (selectedValue === "") {
+                                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
+                                color = "rgba(64, 65, 197, 0.5)";
+                                element.style.right = "-50px"; // Set color to "#4041C5" with 50% opacity
+                            } else {
+                                // If selectedValue is anything else, set the color to match "사용가능"
+                                color = "rgba(64, 65, 197, 0.5)";
+                            }
+
+                            element.textContent = selectedValue; // Update the text content
+                            element.style.color = color; // Apply the color
+                        });
+                    }
+
+                    // 페이지 로드 시 호출하여 초기 색상 설정
+                    setFacStatusColor();
+
+                    // 클릭한 번호를 input 상자에 보여주는 함수
+                    $('.fac-item').click(function() {
+                        // 클릭한 사물함 번호 가져오기
+                        var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
+
+                        // data-faccode 속성에 번호 설정
+                        $('#facActionModal').attr('data-facCode', facCode);
+                        // input 상자에 번호 표시
+                        $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
+                        $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
+                        $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
+                        $('#clickedUserCodeInput').val(''); // 회원 수정 번호 id 초기화 (원하지 않는 경우)
+
+
+
+
+
+                        // 변경된 데이터에 따라 스타일 다시 설정
+                        setFacStatusColor();
+                    });
+                </script>
+
+                <script>
+                    // 사물함 데이터 가져오기
+                    fetch("/fac/fac")
+                        .then(res => res.json())
+                        .then(data => {
+                            const facCodeSelect = document.getElementById("facCode");//사물함 개인 조회 id
+
+
+                            data.forEach(item => {
+                                // 새로운 옵션 요소 생성
+                                const option1 = document.createElement('option');
+
+
+                                // 옵션 설정
+                                option1.text = item.facCode;
+                                option1.value = item.facCode;
+
+
+                                // 각각의 select 요소에 옵션 추가
+                                facCodeSelect.appendChild(option1);
+
+                            });
+                        });
+
+                    // 사용자 데이터 가져오기
+                    fetch("/fac/user")
+                        .then(res => res.json())
+                        .then(data => {
+                            const userCodeSelect = document.getElementById("userCode");//회원 등록 코드
+                            const userCodeModal3 = document.getElementById("clickedUserCodeInput");//회원 수정 코드
+
+
+                            data.forEach(item => {
+                                // 새로운 옵션 요소 생성
+                                const option1 = document.createElement('option');
+                                const option2 = document.createElement('option');
+
+
+                                // 옵션 설정
+                                option1.text = item.userCode;
+                                option1.value = item.userCode;
+                                option2.text = item.userCode;
+                                option2.value = item.userCode;
+
+
+                                // 각각의 select 요소에 옵션 추가
+                                userCodeSelect.appendChild(option1);
+                                userCodeModal3.appendChild(option2);
+
+                            });
+                        });
+                </script>
+
+
+
+
+                <!-- 사물함 수정 -->
+                <div class="modal fade" id="facActionModal3" tabindex="-1" role="dialog"
+                     aria-labelledby="facActionModalLabel3" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="facActionModalLabel3">사물함 수정</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateForm" onsubmit="submitForm2()">
+                                    <label>사물함 번호: </label>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput2" readonly><br>
+                                    <label>회원 이름: </label>
+                                    <input type="text" name="userCode" id="clickedUserCodeInput" ><br>
+                                    <!--                    <label>회원 코드: </label>-->
+                                    <!--                    <select name="userCode" id="userCode3"></select><br>-->
+                                    <label>사용 가능 상태: </label>
+                                    <select name="facStatus" id="facStatus3">
+                                        <option value=""></option>
+                                        <option value="사용중">사용 중</option>
+                                        <option value="만료">만료</option>
+                                    </select><br>
+                                    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
+                                    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                <button onclick="submitForm2()" class="btn btn-primary" data-dismiss="modal">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function submitForm2() {
+
+                        // 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("updateForm"));
+
+                        // POST 요청 보내기
+                        fetch("/fac/update", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // 성공적으로 처리된 경우 모달 닫기
+                                    $('#updateModal').modal('hide');
+                                    $('#facActionModal').modal('hide');
+                                    window.location.href = "/fac/select";
+
+                                } else {
+                                    // 실패한 경우 오류 메시지 표시
+                                    console.error('등록 실패');
+                                }
+                            })
+                            .catch(error => console.error('에러 발생:', error));
+                    }
+                </script>
+
+
+
+
+                <!-- 사물함 삭제 -->
+                <div class="modal fade" id="facActionModal4" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel4" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="facActionModalLabel4">사물함 삭제</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="deleteForm" onsubmit="submitForm3()">
+                                    <label>사물함 번호: </label>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput3" readonly><br>
+                                    <label>사용 가능 상태: </label>
+                                    <select name="facStatus" id="facStatus4">
+                                        <option value=""></option>
+                                        <option value="사용중">사용 중</option>
+                                        <option value="만료">만료</option>
+                                    </select><br>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                <button onclick="submitForm3()" class="btn btn-primary" data-dismiss="modal">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function submitForm3() {
+
+// 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("deleteForm"));
+
+// POST 요청 보내기
+                        fetch("/fac/delete", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+// 성공적으로 처리된 경우 모달 닫기
+                                    $('#facActionModal').modal('hide');
+                                    window.location.href = "/fac/select";
+
+                                } else {
+// 실패한 경우 오류 메시지 표시
+                                    console.error('등록 실패');
+                                }
+                            })
+                            .catch(error => console.error('에러 발생:', error));
+                    }
+                </script>
+
+
                 <script th:inline="javascript">
                     // Wait for the DOM content to be loaded
                     document.addEventListener("DOMContentLoaded", function() {
@@ -74,273 +464,36 @@
                         });
                     });
                 </script>
-<!--<div class="container">-->
-<!--    <ul class="fac-list">-->
-<!--        <th:block th:each="facs: ${facList}">-->
-<!--            <li class="fac-item">-->
-<!--                &lt;!&ndash; Locker Code &ndash;&gt;-->
-<!--                <span class="facCodeLink" th:text="${facs.facCode}" data-toggle="modal" data-target="#facActionModal"></span>-->
-<!--                &lt;!&ndash; Locker Status &ndash;&gt;-->
-<!--                <span class="facStatus" th:text="${facs.facStatus}"></span>-->
-<!--                &lt;!&ndash; User Code &ndash;&gt;-->
-<!--                <span class="userCode" th:text="${facs.userCode}"></span>-->
-<!--                &lt;!&ndash; Start Date &ndash;&gt;-->
-<!--                <span class="facStart" th:text="${facs.facStart}"></span>-->
-<!--                &lt;!&ndash; End Date &ndash;&gt;-->
-<!--                <span class="facEnd" th:text="${facs.facEnd}"></span>-->
-<!--            </li>-->
-<!--        </th:block>-->
-<!--    </ul>-->
-<!--</div>-->
+
                 <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    // 사용자 정보 배열
-                    var users = [
-                        '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
-                        '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
-                        '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
-                        '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
-                        '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
-                        '강시우(7777)', '조예은(3333)', '홍길동(5678)'
-                    ];
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // 사용자 정보 배열
+                        var users = [
+                            '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
+                            '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
+                            '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
+                            '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
+                            '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
+                            '강시우(7777)', '조예은(3333)', '홍길동(5678)'
+                        ];
 
-                    // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
-                    document.querySelectorAll(".userCode").forEach(function(element) {
-                        var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
+                        // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
+                        document.querySelectorAll(".userCode").forEach(function(element) {
+                            var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
 
-                        // userCode가 3인 경우 "김진용"으로 변경
-                        if (userCode === "1") {
-                            element.textContent = "남효정(0000)";
-                        } else {
-                            // userCode와 일치하는 사용자 이름을 가져와서 표시
-                            var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
-                            if (userName) {
-                                element.textContent = userName;
+                            // userCode가 3인 경우 "김진용"으로 변경
+                            if (userCode === "1") {
+                                element.textContent = "남효정(0000)";
+                            } else {
+                                // userCode와 일치하는 사용자 이름을 가져와서 표시
+                                var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
+                                if (userName) {
+                                    element.textContent = userName;
+                                }
                             }
-                        }
+                        });
                     });
-                });
-            </script>
-
-<script th:inline="javascript">
-    function setFacStatusColor() {
-        document.querySelectorAll(".facStatus").forEach(function (element) {
-            var selectedValue = element.textContent.trim();
-            var color = "";
-            if (selectedValue === "사용중") {
-                color = "#4041C5";
-            } else if (selectedValue === "만료") {
-                color = "#F82626";
-                element.style.right = "-80px";
-            } else if (selectedValue === "") {
-                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
-                color = "rgba(64, 65, 197, 0.5)";
-                element.style.right = "-50px";// Set color to "#4041C5" with 50% opacity
-            }
-            element.textContent = selectedValue; // Update the text content
-            element.style.color = color; // Apply the color
-        });
-    }
-
-    // 페이지 로드 시 호출하여 초기 색상 설정
-    setFacStatusColor();
-
-    // 클릭한 번호를 input 상자에 보여주는 함수
-    $('.facCodeLink').click(function() {
-        // 클릭한 번호 가져오기
-        var facCode = $(this).text(); // 링크의 텍스트를 가져옴
-        var userCode = $(this).siblings('.userCode').text(); // userCode를 가져오기 위해 형제 요소를 찾음
-
-        // data-faccode 속성에 번호 설정
-        $('#facActionModal').attr('data-facCode', facCode);
-        // input 상자에 번호 표시
-        $('#clickedFacCodeInput1').val(facCode);
-        $('#clickedFacCodeInput2').val(facCode);
-        $('#clickedFacCodeInput3').val(facCode);
-        $('#clickedUserCodeInput').val(userCode);
-        $('#facCode').val(facCode);
-        $('#userCode3').val(userCode);
-        $('.facActionModalFacCode4').val(userCode);
-
-
-        // 변경된 데이터에 따라 스타일 다시 설정
-        setFacStatusColor();
-    });
-</script>
-<script>
-
-    fetch("/fac/user")
-        .then(res=>res.json())
-        .then(data=> {
-            const $userCode=document.getElementById("userCode");
-
-            for(let index in data) {
-                const $option=document.createElement('option');
-                $option.text=data[index].userCode;
-                $userCode.appendChild($option);
-            }
-        })
-
-</script>
-
-
-
-
-<!-- 개인 조회 모달 -->
-<div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="personalModalLabel">개인 조회</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label>사물함 번호: </label>
-                <select name="facCode" id="facCode"></select><br>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button onclick="sendRequest()" class="btn btn-primary" data-dismiss="modal">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- 사물함 등록, 수정, 삭제 모달 -->
-<div class="modal fade" id="facActionModal" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="facActionModalLabel">사물함 등록, 수정 및 삭제</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- 등록, 수정, 삭제 버튼 -->
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal2">등록</button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal3">수정</button>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#facActionModal4">삭제</button>
-
-
-                <!--                <a class="btn btn-secondary" href="/fac/update">수정</a>-->
-                <!--                <a class="btn btn-secondary" href="/fac/delete">삭제</a>-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 사물함 등록 -->
-<div class="modal fade" id="facActionModal2" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel2" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="facActionModalLabel2" >사물함 등록</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <form id="registForm" onsubmit="submitForm()">
-                    <label>사물함 번호: </label>
-                    <input type="text" name="facCode" id="clickedFacCodeInput1" readonly><br>
-<!--                    <label>회원 코드: </label>-->
-<!--                    <input type="text" name="userCode" id="userCode"><br>-->
-                    <label>회원 코드: </label>
-                    <select name="userCode" id="userCode"></select><br>
-                    <label>사용 가능 상태: </label>
-                    <select name="facStatus" id="facStatus">
-                        <option value=""></option>
-                        <option value="사용중">사용 중</option>
-                        <option value="만료">만료</option>
-                    </select><br>
-                    <label>사용 시작 기간: </label>
-                    <input type="date" name="facStart" id="facStart"><br>
-                    <label>사용 만료 기간: </label>
-                    <input type="date" name="facEnd" id="facEnd"><br>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button onclick="submitForm()" class="btn btn-primary" data-dismiss="modal">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 사물함 수정 -->
-<div class="modal fade" id="facActionModal3" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel3" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="facActionModalLabel3">사물함 수정</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="updateForm" onsubmit="submitForm2()">
-                    <label>사물함 번호: </label>
-                    <input type="text" name="facCode" id="clickedFacCodeInput2" readonly><br>
-                    <label>회원 코드: </label>
-                    <input type="text" name="userCode" id="userCode3" ><br>
-<!--                    <label>회원 코드: </label>-->
-<!--                    <select name="userCode" id="userCode3"></select><br>-->
-                    <label>사용 가능 상태: </label>
-                    <select name="facStatus" id="facStatus3">
-                        <option value=""></option>
-                        <option value="사용중">사용 중</option>
-                        <option value="만료">만료</option>
-                    </select><br>
-                    <label>사용 시작 기간: </label><input type="date" name="facStart"><br>
-                    <label>사용 만료 기간: </label><input type="date" name="facEnd"><br>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button onclick="submitForm2()" class="btn btn-primary" data-dismiss="modal">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 사물함 삭제 -->
-<div class="modal fade" id="facActionModal4" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel4" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="facActionModalLabel4">사물함 삭제</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="deleteForm" onsubmit="submitForm3()">
-                    <label>사물함 번호: </label>
-                    <input type="text" name="facCode" id="clickedFacCodeInput3" readonly><br>
-                    <label>사용 가능 상태: </label>
-                    <select name="facStatus" id="facStatus4">
-                        <option value=""></option>
-                        <option value="사용중">사용 중</option>
-                        <option value="만료">만료</option>
-                    </select><br>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button onclick="submitForm3()" class="btn btn-primary" data-dismiss="modal">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+                </script>
             </div>
             <!--개인 작업 종료-->
         </div>

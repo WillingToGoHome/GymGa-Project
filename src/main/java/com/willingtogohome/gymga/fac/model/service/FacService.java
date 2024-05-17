@@ -54,5 +54,11 @@ public class FacService {
     }
 
 
+    public List<FacDTO> findAllInUse() {
+        return facMapper.findAllInUse();
+    }
 
+    public List<FacDTO> findAllAvailable() {
+        return facMapper.findAllAvailable();
+    }
 }
