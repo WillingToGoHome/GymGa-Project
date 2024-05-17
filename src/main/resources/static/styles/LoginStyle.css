@@ -1,36 +1,51 @@
-body {
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
-    margin: 0;
-    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e2e1dc;
 }
 
 #container {
+    position: relative;
+    width: 1440px;
+    min-height: 810px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 #box1 {
     margin: 0;
-    min-height: 100%;
-    width: 56%;
+    height: 810px;
+    width: 940px;
     background-color: #4B82D8;
     /*    background-color: #2D62EA;*/
-    background-size: 100% 100%;
 }
 
 #box2 {
     margin: 0;
-    min-height: 100%;
-    width: 44%;
+    height: 810px;
+    width: 500px;
 }
 
 #left {
-    margin-left: 13%;
+    margin-left: 60px;
 }
 
 #right {
-    margin-left: 30%;
-    margin-top: 35%;
+    margin-left: 150px;
+    margin-top: 250px;
 
 }
 
@@ -39,7 +54,7 @@ body {
 }
 
 .logo {
-    margin-top: 5%;
+    margin-top: 4%;
     display: flex;
 }
 
@@ -69,15 +84,15 @@ body {
 }
 
 .des1 {
-    margin-top: 0;
+    margin-top: -60px;
     margin-bottom: 1%;
-    font-size: 3vw;
+    font-size: 2.8vw;
     font-weight: bold;
     letter-spacing: 4px;
 }
 
 .des2, .des3 {
-    font-size: 1.2vw;
+    font-size: 1vw;
     font-weight: lighter;
 }
 
@@ -87,7 +102,7 @@ body {
 
 .des3 {
     margin-top: 0;
-    margin-bottom: 7.2%;
+
 }
 
 .login {
@@ -96,14 +111,13 @@ body {
 
 #userId {
     padding: 0;
-    width: 45%;
     height: 40px;
     font-size: 14px;
     color: #444;
     font-weight: normal;
     background-color: white;
     border: 0;
-!important; border-bottom: 1px solid #656565;
+!important; border-bottom: 1px solid #98989f;
 !important; vertical-align: middle;
     box-shadow: none;
 !important; outline: none;
@@ -112,14 +126,13 @@ body {
 
 #userPwd {
     padding: 0;
-    width: 45%;
     height: 40px;
     font-size: 14px;
     color: #444;
     font-weight: normal;
     background-color: white;
     border: 0;
-!important; border-bottom: 1px solid #656565;
+!important; border-bottom: 1px solid #98989f;
 !important; vertical-align: middle;
     box-shadow: none;
 !important; outline: none;
@@ -127,14 +140,14 @@ body {
 }
 
 #loginbtn {
-    width: 100px;
+    width: 80px;
     height: 40px;
     border-radius: 10px;
     color: #FFFFFF;
     border: 1px solid #FFFFFF;
     background-color: #4B82D8;
     float: right;
-    margin-right: 55%;
+    margin-right: 45%;
     cursor: pointer;
     font-weight: 500;
     font-size: 16px;
@@ -144,9 +157,8 @@ body {
     color: #656565;
     font-size: 12px;
     display: block;
-    margin-top: 1.5%;
-    width: 19%;
-    margin-bottom: 8%;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
 
 .joinBox {
@@ -166,6 +178,8 @@ body {
     font-size: 12px;
     margin-left: 3%;
     float: left;
+    color: #98989f;
+    margin-top: 11px;
 }
 
 /* 이용약관 모달창 */
@@ -196,14 +210,14 @@ body {
     left: 0;
     display: none;
     width: 100%;
-    height: 100vh;
+    height: 810px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modalContent {
     background-color: #FFFFFF;
     width: 50%;
-    height: 80%;
+    height: 600px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -258,6 +272,9 @@ div[id*="textBox"] {
     display: inline-block;
     position: relative;
     cursor: pointer;
+    color: #98989f;
+    font-size: 10pt;
+
 }
 
 .checks input[type="checkbox"] + label:before { /*가짜 체크박스*/
@@ -271,6 +288,7 @@ div[id*="textBox"] {
     border-radius: 50%;
     text-align: center;
     vertical-align: middle;
+    margin-bottom: 3px;
 }
 
 .checks input[type="checkbox"]:checked + label:before { /*체크박스를 체크했을 때*/
@@ -341,8 +359,8 @@ div[id*="textBox"] {
     height: 40px;
     display: flex;
     justify-content: space-around;
-    margin-top: 5%;
-    margin-left: 35%;
+    margin-top: 20px;
+    margin-left: 200px;
 }
 
 button:focus {
@@ -383,14 +401,14 @@ button:focus {
     left: 0;
     display: none;
     width: 100%;
-    height: 100vh;
+    height: 810px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modalContent2 {
     background-color: #FFFFFF;
     width: 50%;
-    height: 80%;
+    height: 600px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -403,8 +421,8 @@ button:focus {
     height: 40px;
     display: flex;
     justify-content: space-around;
-    margin-top: 9%;
-    margin-left: 18.6%;
+    margin-top: 20px;
+    margin-left: 78px;
 }
 
 .modalText2 {
@@ -450,7 +468,7 @@ button:focus {
 
 .regi_table tbody th {
     width: 130px;
-    line-height: 50px;
+    line-height: 40px;
     padding: 0;
     font-size: 14px;
     color: #2d2f43;
@@ -474,7 +492,6 @@ button:focus {
 
 input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .reg_input {
     padding: 0;
-    width: 35%;
     height: 40px;
     font-size: 14px;
     color: #444;
@@ -508,6 +525,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
     outline: none;
     margin-left: 1.5%;
     cursor: pointer;
+    margin-top: 5px;
 }
 
 .req_desc {
@@ -516,7 +534,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
     color: #2d2f43;
     font-weight: 500;
     height: 20px;
-    padding-left: 73%;
+    padding-left: 333px;
 }
 
 .req_desc:before {
@@ -566,14 +584,14 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
     left: 0;
     display: none;
     width: 100%;
-    height: 100vh;
+    height: 810px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modalContent3 {
     background-color: #FFFFFF;
     width: 50%;
-    height: 30%;
+    height: 600px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -582,7 +600,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
 }
 
 .desBox{
-    padding-top: 30px;
+    padding-top: 110px;
 }
 
 .des4 {
