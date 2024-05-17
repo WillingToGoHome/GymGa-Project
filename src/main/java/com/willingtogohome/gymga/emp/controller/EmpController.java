@@ -213,6 +213,23 @@ public class EmpController {
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
+        String sCode = Integer.toString(emp.getCode());
+        String role = emp.getRole();
+
+        if (role.equals("USER")) {
+                        List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(sCode, "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(sCode, "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(sCode, "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(sCode, "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(sCode, "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(sCode, "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        }
 
         String[] quals = emp.getEmployeeDTO().getQual().split(",");
 
