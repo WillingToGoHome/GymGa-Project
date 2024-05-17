@@ -15,7 +15,7 @@ spring:
   servlet:
     multipart:
 
-      location: C:\lecture\GymGa-Project
+      location: C:\lectrue\GymGaProject
 
 ## mybatis config
 mybatis:

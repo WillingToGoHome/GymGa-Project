@@ -19,13 +19,6 @@
         <result property="userStaff" column="user_staff"/>
     </resultMap>
 
-    <resultMap id="userPhyResultMap" type="com.willingtogohome.gymga.user.model.dto.PhysicalDTO">
-        <id property="userCode" column="user_code"/>
-        <result property="height" column="PHY_HEIGHT"/>
-        <result property="weight" column="PHY_WEIGHT"/>
-        <result property="bmi" column="PHY_BMI"/>
-    </resultMap>
-
     <resultMap id="userTotResultMap" type="com.willingtogohome.gymga.user.model.dto.UserTotDTO">
         <id property="userCode" column="user_code"/>
         <result property="userId" column="user_id"/>
@@ -184,7 +177,7 @@
          FROM
               USERDB
         WHERE
-              USER_ROLE IN ('ADMIN', 'USER')
+              USER_ROLE = 'ADMIN' or 'USER'
         ORDER BY
               USER_CODE
     </select>
@@ -264,38 +257,6 @@
         WHERE A.USER_CODE = #{ code }
     </select>
 
-    <select id="selectDetailUser" resultMap="userResultMap">
-        SELECT
-            USER_CODE
-            ,  USER_ID
-            ,  USER_PWD
-            ,  USER_NAME
-            ,  USER_PHONE
-            ,  USER_ROLE
-            ,  USER_PIC
-            ,  USER_GENDER
-            ,  USER_BIRTH
-            ,  USER_ADDRESS
-            ,  USER_ETC
-            ,  USER_STAFF
-        FROM
-            USERDB
-        WHERE
-            USER_CODE = #{ userCode };
-    </select>
-
-    <select id="selectDetailPhy" resultMap="userPhyResultMap">
-        SELECT
-            USER_CODE
-            , PHY_HEIGHT
-            , PHY_WEIGHT
-            , PHY_BMI
-        FROM
-            PHYSICALDB
-        WHERE
-            USER_CODE = #{ userCode };
-    </select>
-
     <select id="updatePage" resultMap="userTotResultMap">
         SELECT
             A.USER_CODE
@@ -322,6 +283,9 @@
         UPDATE USERDB
         <set>
             USER_CODE = #{ userCode }
+            <if test="userId != ''">
+                , USER_ID = #{ userId }
+            </if>
             <if test="userPwd != ''">
                 , USER_PWD = #{ userPwd }
             </if>
