@@ -68,14 +68,23 @@ public class LoginController {
         System.out.println(userPhone);
         return  result;
     }
+// 수빈님꺼 주석
+//    @GetMapping(value = "/login/idCheck", produces = "application/json; charset=UTF-8")
+//    @ResponseBody
+//    public List<RegistDTO> idCheck(){
+//
+//        loginService.idCheck().forEach(System.out::println);
+//
+//        return loginService.idCheck();
+//    }
 
-    @GetMapping(value = "/login/idCheck", produces = "application/json; charset=UTF-8")
+    /* 아이디 중복 체크 */
+    @RequestMapping(value = "/login/auth/idCheck")
     @ResponseBody
-    public List<RegistDTO> idCheck(){
+    public int idCheck(@RequestParam("id") String userId) {
+        int cnt = loginService.idCheck(userId);
 
-        loginService.idCheck().forEach(System.out::println);
-        
-        return loginService.idCheck();
+        return cnt;
     }
 
 

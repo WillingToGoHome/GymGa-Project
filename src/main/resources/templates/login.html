@@ -445,38 +445,30 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
     });
 </script>
 <!-- 아이디 중복확인 -->
-<script>
+<script type="text/javascript">
 
     var idCheck = function (){
-        fetch("/login/idCheck")
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                const idValue = data.idV;
-                console.log(idValue);
-            });
+        var id = $('#id').val();
+
+        $.ajax({
+            type:'POST',
+            url:"/login/auth/idCheck",
+            data: {"id": id},
+            success: function(cnt) {
+                console.log(cnt)
+                if (cnt !== 1) {
+                    result = "사용 가능한 아이디입니다.";
+                    $("#result_checkId").html(result).css("color", "blue");
+                    console.log("사용가능",id);
+                } else {
+                    result = "이미 사용중인 아이디입니다.";
+                    $("#result_checkId").html(result).css("color","red");
+                    console.log("이미사용중",id);
+                }
+            },
+            error : function (){alert("서버 요청 실패");}
+        });
     }
-    // var idCheck = function (){
-    //     var userId = $('#id').val();
-    //
-    //     $.ajax({
-    //         type:'POST',
-    //         url:"/login/idCheck",
-    //         data: {"userId": userId},
-    //         success: function (data) {
-    //             if (data == "N") {
-    //                 result = "사용 가능한 아이디입니다.";
-    //                 $("#result_checkId").html(result).css("color", "blue");
-    //                 console.log(userId);
-    //             } else {
-    //                 result = "이미 사용중인 아이디입니다.";
-    //                 $("#result_checkId").html(result).css("color","red");
-    //                 console.log(userId);
-    //             }
-    //         },
-    //         error : function (){alert("서버 요청 실패");}
-    //     });
-    // }
 </script>
 <!-- 비밀번호 중복확인 -->
 <script>
