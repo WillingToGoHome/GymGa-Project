@@ -61,7 +61,7 @@
                user_etc,
                user_staff
           FROM userdb
-         WHERE user_role = '직원'
+         WHERE user_role = 'USER'
         ORDER BY user_code
     </select>
 
@@ -324,9 +324,12 @@
 
     <select id="findScheAtten" resultMap="scheduleAndClassAndUserAndPassResultMap">
         SELECT
-               sche_code,
-               sche_atten
-          FROM scheduledb
+               A.sche_code,
+               A.sche_atten,
+               c.user_code,
+               C.user_name AS EMP_NAME
+          FROM scheduledb AS A
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
          WHERE sche_code = #{scheCode}
     </select>
 

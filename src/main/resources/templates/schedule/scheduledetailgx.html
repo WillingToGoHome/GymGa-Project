@@ -310,11 +310,17 @@
     let scheCode = /*[[${findGxList.scheCode}]]*/ null;
     let scheRegDate = /*[[${findGxList.scheRegDate}]]*/ null;
 
+
+
     updateScheduleBtn.onclick = function() {
         fetch(`/schedule/scheatten/${scheCode}/${scheRegDate}`)
             .then(res => res.json())
             .then(data => {
                 const scheAttenValue = data.scheAtten;
+                const scheEmpCode = data.empCategory.empCode;
+
+                console.log("scheEmpCode : ", scheEmpCode);
+
 
                 // scheatten 상태가 출석이면 경고창을 표시
                 if (scheAttenValue !== "예약대기") {
@@ -384,6 +390,49 @@
             absentModal.style.display = "none";
             attenModal.style.display = "none";
         }
+    }
+
+    // 로그인한 사용자 ID를 가져오는 함수
+    function getLoggedInUserId() {
+        return fetch('/api/loggedInUser')
+            .then(res => res.text())
+            .then(userId => {
+                console.log(userId);
+                return userId;
+            })
+            .catch(error => {
+                console.error('Error fetching logged in user:', error);
+            });
+    }
+
+    updateScheduleBtn.onclick = function() {
+        // 로그인한 사용자 ID를 가져옴
+        getLoggedInUserId().then(loggedInUserId => {
+            // 일정 정보를 가져옴
+            fetch(`/schedule/scheatten/${scheCode}`)
+                .then(res => res.json())
+                .then(data => {
+                    const scheAttenValue = data.scheAtten;
+                    const scheEmpName = data.empCategory.empName; // 강사의 ID
+                    console.log("loginID : ", loggedInUserId);
+                    console.log("scheEmpName : ", scheEmpName);
+
+                    // 로그인한 사용자의 ID와 강사의 ID를 비교하여 같은 경우에만 수정 가능하도록 처리
+                    if (loggedInUserId !== scheEmpName && loggedInUserId !== '남효정') {
+                        alert("수정 권한이 없습니다.");
+                        return;
+                    }
+                    // scheatten 상태가 출석이면 경고창을 표시
+                    if (scheAttenValue !== "예약대기") {
+                        alert("일정변경이 불가능합니다.");
+                    } else {
+                        updateScheduleModal.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
     }
 
 </script>
