@@ -87,6 +87,9 @@ public class SaleService {
         return saleMapper.findByUserId(userId);
     }
 
+    public List<PassAndPassQualDTO> searchByUserId(String userId) {
+        return saleMapper.searchByUserId(userId);
+    }
 
 
 //    public PassAndPassQualDTO getUserDetails(String userId) {

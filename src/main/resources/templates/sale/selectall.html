@@ -259,6 +259,11 @@
                                     var PT = data.ptCount;
                                     var GX = data.gxCount;
                                     var GP = data.gpCount;
+
+                                    if (percent === '0.00') {
+                                        return '';
+                                    }
+
                                     if (dataName === 'PT') {
                                         return percent + '%';
                                     } else if (dataName === 'GX') {
