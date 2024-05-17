@@ -1,7 +1,8 @@
 package com.willingtogohome.gymga.user.controller;
 
 import com.willingtogohome.gymga.user.model.dto.*;
-import com.willingtogohome.gymga.user.service.UserService;
+
+import com.willingtogohome.gymga.user.model.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
