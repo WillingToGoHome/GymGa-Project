@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.user.pain.model.dao.PainMapper">
+
+    <resultMap id="painResultMap" type="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userName" column="user_name"/>
+        <result property="pos" column="pain_pos"/>
+        <result property="type" column="pain_type"/>
+        <result property="dur" column="pain_dur"/>
+        <result property="cause" column="pain_cause"/>
+        <result property="str" column="pain_str"/>
+        <result property="etc" column="pain_etc"/>
+    </resultMap>
+
+    <select id="selectPain" resultMap="painResultMap">
+        SELECT
+            A.USER_CODE
+            , B.USER_NAME
+            , A.PAIN_POS
+            , A.PAIN_TYPE
+            , A.PAIN_DUR
+            , A.PAIN_CAUSE
+            , A.PAIN_STR
+            , A.PAIN_ETC
+        FROM
+           PAINDB A
+        JOIN
+            USERDB B ON A.USER_CODE = B.USER_CODE
+        WHERE
+            A.USER_CODE = #{ code };
+    </select>
+
+</mapper>

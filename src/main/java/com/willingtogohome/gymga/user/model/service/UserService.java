@@ -1,4 +1,4 @@
-package com.willingtogohome.gymga.user.service;
+package com.willingtogohome.gymga.user.model.service;
 
 import com.willingtogohome.gymga.user.model.dao.UserMapper;
 import com.willingtogohome.gymga.user.model.dto.*;
@@ -69,6 +69,12 @@ public class UserService {
 
         userMapper.updateUser(userDTO);
         userMapper.updatePhy(physicalDTO);
+    }
+
+    public void selectDetail(UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        userMapper.selectDetailUser(userDTO);
+        userMapper.selectDetailPhy(physicalDTO);
     }
 
 //    @Transactional

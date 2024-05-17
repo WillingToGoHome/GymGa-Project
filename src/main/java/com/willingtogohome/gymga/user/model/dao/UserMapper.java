@@ -42,5 +42,9 @@ public interface UserMapper {
 
     void updatePhy(PhysicalDTO physicalDTO);
 
+    void selectDetailUser(UserDTO userDTO);
+
+    void selectDetailPhy(PhysicalDTO physicalDTO);
+
 //    void update(UserTotDTO userTotDTO);
 }

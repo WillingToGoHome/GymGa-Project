@@ -32,7 +32,7 @@
                 <div class="mainBox">
                     <div class="on">
                         <img class="back" onClick="location.href='/user/selectAll'" src="/img/Back.png">
-                        <p class="topic">회원정보 수정</p>
+                        <p class="topic" th:text="${user.userName} + ' 회원님 정보수정'"></p>
                     </div>
                     <hr class="line1">
                     <div>
@@ -56,9 +56,9 @@
                                                 <span class="highlightSpan">* </span> <span class="inputText" id="pwdCheckResult">비밀번호 확인</span>
                                             </div>
                                             <div class="right2">
-                                                <input type="text" class="inputBox" name="userId" id="id" th:placeholder="${user.userId}" autofocus onchange="idCheck()"><br>
-                                                <input type="password" name="userPwd" id="pwd" th:placeholder="${user.userPwd}" autofocus onchange="pwdChanged(this)"><br>
-                                                <input type="password" id="confirm" th:placeholder="${user.userPwd}" autofocus><br>
+                                                <p class="idText" id="id" th:text="${user.userId}"></p><br>
+                                                <input type="password" name="userPwd" id="pwd"  autofocus onchange="pwdChanged(this)"><br>
+                                                <input type="password" id="confirm"  autofocus><br>
                                                 <button type="button" id="button-confirm" class="pwdCheckFalse" autofocus onclick="pwdCheck()">비밀번호 확인</button>
                                             </div>
                                         </div>
@@ -95,7 +95,7 @@
                                         <div class="right2" style="margin-left: 62px">
                                             <div style="display: flex; align-items: center">
                                                 <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px"><br>
-                                                <input type="button" onclick="sample4_execDaumPostcode()" value="찾기" style="width: 100px; background-color: rgba(75, 130, 216, 1); border: rgba(75, 130, 216, 1); color: white; cursor: pointer; margin-left: 5px"><br>
+                                                <input type="button" onclick="sample4_execDaumPostcode()" value="찾기" style="width: 100px; background-color: rgba(75, 130, 216, 1); border: rgba(75, 130, 216, 1); color: white; cursor: pointer; margin-left: 5px; font-weight: bold"><br>
                                             </div>
                                             <input type="text" id="sample4_roadAddress" th:placeholder="${user.userAddress}" name="userAddress1" style="width: 405px"><br>
                                             <!--        <span id="guide" style="color:#999;display:none"></span>-->
@@ -125,13 +125,11 @@
                                             <span class="inputText">기타</span>
                                         </div>
                                         <div class="right">
-                                            <input type="text" name="etc" th:placeholder="${user.userEtc}" style="margin-top: 4px; width: 405px; height: 50px;">
+                                            <input type="text" name="userEtc" th:placeholder="${user.userEtc}" style="margin-top: 4px; width: 405px; height: 50px;">
                                         </div>
                                         <div class="infoBox3">
-                                            <form id="updateUser" action="/user/updateUser" method="post">
-                                                <input type="hidden" name="code" th:value="${user.userCode}">
-                                                <input class="submitButton" type="submit" value="완료">
-                                            </form>
+                                            <input type="hidden" name="code" th:value="${user.userCode}">
+                                            <input class="submitButton" type="submit" value="완료">
                                         </div>
                                     </div>
                                 </div>
@@ -141,12 +139,14 @@
                 </div>
                 <div class="sideBox">
                     <div class="painBox">
-                        <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
-                        <p class="painText">통증등록</p>
+                        <form action="/user/pain" method="post">
+                            <input type="hidden" name="code" th:value="${user.userCode}, ${user.userName}">
+                            <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
+                            <input type="submit" class="painText" value="통증등록">
+                        </form>
                     </div>
                 </div>
             </div>
-
             <!--개인 작업 종료-->
         </div>
         <!--Main End-->
@@ -196,7 +196,7 @@
             if (check) {
                 alert("비밀번호가 일치합니다.");
                 pwdChecked = true;
-                document.getElementById("Button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
                 $('#name').focus();
             } else {
                 alert("비밀번호가 일치하지 않습니다.")
