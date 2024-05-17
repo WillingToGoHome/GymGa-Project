@@ -4,6 +4,8 @@ import com.willingtogohome.gymga.emp.model.dto.*;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,13 @@ import java.util.UUID;
 public class EmpController {
 
     private final EmpService empService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EmpController(EmpService empService) {
+    public EmpController(EmpService empService, PasswordEncoder passwordEncoder) {
 
         this.empService = empService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = {"/", "/main"})
@@ -33,17 +37,10 @@ public class EmpController {
 
         System.out.println("get : /emp/ or /emp/main");
 
+        int code = (int) session.getAttribute("searched");
+        System.out.println("code = " + code);
+
         List<EmpDTO> empList = empService.selectAllEmp();
-
-        for (EmpDTO emp : empList) {
-
-            String path = emp.getPic();
-            String temp = (String) session.getAttribute(path);
-
-            if (temp != null) {
-                emp.setPic(temp);
-            }
-        }
 
         List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
         List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("time", "10:00am"));
@@ -136,7 +133,11 @@ public class EmpController {
             empDTO.setAddress("");
         }
 
+        String originPwd = empDTO.getPwd();
+        String savedPwd = passwordEncoder.encode(originPwd);
+
         empDTO.setRole("USER");
+        empDTO.setPwd(savedPwd);
         empDTO.setCode(code + 1);
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
@@ -157,16 +158,6 @@ public class EmpController {
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
-//        for (EmpDTO emp : empList) {
-//
-//            String path = emp.getPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                emp.setPic(temp);
-//            }
-//        }
-
         model.addAttribute("empList", empList);
 
         return "/emp/search";
@@ -182,23 +173,6 @@ public class EmpController {
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
-
-//        String pic = emp.getPic();
-//        String url = (String) session.getAttribute(pic);
-//
-//        if (url != null) {
-//            emp.setPic(url);
-//        }
-//
-//        for (EmpDTO user : empList) {
-//
-//            String path = user.getPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setPic(temp);
-//            }
-//        }
 
         session.setAttribute("searched", emp.getCode());
 
@@ -219,24 +193,8 @@ public class EmpController {
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-//        String pic = emp.getPic();
-//        String url = (String) session.getAttribute(pic);
-//
-//        if (url != null) {
-//            emp.setPic(url);
-//        }
 
         String[] quals = emp.getEmployeeDTO().getQual().split(",");
-
-//        for (EmpDTO user : empList) {
-//
-//            String path = user.getPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setPic(temp);
-//            }
-//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("quals", quals);
@@ -248,13 +206,17 @@ public class EmpController {
     @PostMapping("detail")
     public String empDetail(HttpSession session,
                             @RequestParam MultipartFile picFile,
-                            @RequestParam String urlAddress,
                             EmpDTO empDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO,
                             @RequestParam String address1, @RequestParam String address2,
                             @RequestParam String qualEtc, @RequestParam String qualWrite,
                             Model model) {
 
         System.out.println("post : /emp/detail");
+
+        int code = (int) session.getAttribute("searched");
+        String text = Integer.toString(code);
+
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -272,15 +234,29 @@ public class EmpController {
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
+                String path = "C:/Lecture/GymGa-Project/src/main/resources/static/uploadFiles/";
+                System.out.println("path = " + path);
+                String originFile = emp.getPic();
+                System.out.println("originFile = " + originFile);
+//
+                File deleteFile = new File(path + originFile);
+
+                if (!originFile.equals("default-user.png")) {
+                    if (deleteFile.exists()) {
+                        deleteFile.delete();
+                        System.out.println("파일 삭제");
+                    } else {
+                        System.out.println("파일 없음");
+                    }
+                } else {
+                    System.out.println("기본 파일");
+                }
+
                 empDTO.setPic(savedName);
-//                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        int code = (int) session.getAttribute("searched");
-        String text = Integer.toString(code);
 
         if (!address1.isEmpty()) {
             empDTO.setAddress(address1 + " " + address2);
@@ -304,6 +280,14 @@ public class EmpController {
             }
         }
 
+        if (!empDTO.getPwd().isEmpty()) {
+
+            String originPwd = empDTO.getPwd();
+            String savedPwd = passwordEncoder.encode(originPwd);
+
+            empDTO.setPwd(savedPwd);
+        }
+
         empDTO.setCode(code);
         physicalDTO.setCode(code);
         employeeDTO.setCode(code);
@@ -314,20 +298,8 @@ public class EmpController {
 
         empService.updateEmp(empDTO, physicalDTO, employeeDTO);
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+
         List<EmpDTO> empList = empService.selectAllEmp();
-
-//        System.out.println("urlAddress = " + urlAddress);
-
-//        for (EmpDTO user : empList) {
-//
-//            String path = user.getPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setPic(temp);
-//            }
-//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
@@ -345,23 +317,6 @@ public class EmpController {
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
-
-//        String pic = emp.getPic();
-//        String url = (String) session.getAttribute(pic);
-//
-//        if (url != null) {
-//            emp.setPic(url);
-//        }
-//
-//        for (EmpDTO user : empList) {
-//
-//            String path = user.getPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setPic(temp);
-//            }
-//        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);

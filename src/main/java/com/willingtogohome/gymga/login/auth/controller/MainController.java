@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +24,12 @@ public class MainController {
     }
 
     @GetMapping(value = "/main")
-    public String main(){
+    public String main(SecurityContextHolder securityContextHolder) {
+
+        String logonName = securityContextHolder.getContext().getAuthentication().getName();
+
+        System.out.println("logonName = " + logonName);
+
         return "main";
     }
 
