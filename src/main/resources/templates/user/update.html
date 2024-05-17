@@ -31,7 +31,7 @@
             <div class="outerDiv">
                 <div class="mainBox">
                     <div class="on">
-                        <img class="back" onClick="location.href='/user/selectAll'" src="/img/Back.png">
+                        <img class="back" src="/img/Back.png" onClick="location.href='/user/selectAll'">
                         <p class="topic" th:text="${user.userName} + ' 회원님 정보수정'"></p>
                     </div>
                     <hr class="line1">
@@ -114,9 +114,9 @@
                                     </div>
                                     <div class="right">
                                         <br><br>
-                                        <input type="text" name="height" th:placeholder="${user.physicalDTO.height}"><br>
-                                        <input type="text" name="weight" th:placeholder="${user.physicalDTO.weight}"><br>
-                                        <input type="text" name="bmi" th:placeholder="${user.physicalDTO.bmi}"><br>
+                                        <input type="text" id="height" name="height" th:placeholder="${user.physicalDTO.height}" onchange="bmiCal()"><br>
+                                        <input type="text" id="weight" name="weight" th:placeholder="${user.physicalDTO.weight}" onchange="bmiCal()"><br>
+                                        <input type="text" id="bmi" name="bmi" th:placeholder="${user.physicalDTO.bmi}"><br>
                                     </div>
                                 </div>
                                 <div class="etcAndButton">
@@ -140,8 +140,9 @@
                 <div class="sideBox">
                     <div class="painBox">
                         <form action="/user/pain" method="post">
-                            <input type="hidden" name="code" th:value="${user.userCode}, ${user.userName}">
-                            <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
+                            <input type="hidden" name="code" th:value="${user.userCode}">
+                            <input type="hidden" name="name" th:value="${user.userName}">
+                            <img src="/images/painImg.png" style="width: 300px; margin-top: 140px;">
                             <input type="submit" class="painText" value="통증등록">
                         </form>
                     </div>
@@ -208,48 +209,48 @@
             }
         }
     }
-    // function isValidCode() {
-    //
-    //     let userId = document.getElementById("id");
-    //     let userName = document.getElementById("name");
-    //     let userPhone = document.getElementById("phone");
-    //     let userBirth = document.getElementById("birth");
-    //     let agreement = document.getElementById("agreement");
-    //
-    //     if (userId.value != '') {
-    //         if (pwdChecked) {
-    //             if (userName.value != '') {
-    //                 if (userPhone.value != '') {
-    //                     if (userBirth.value != '') {
-    //                         if (agreement.checked) {
-    //                             return true;
-    //                         } else {
-    //                             alert('약관에 동의해주세요.');
-    //                             $('#agreement').focus();
-    //                         }
-    //                     } else {
-    //                         alert('생년월일을 입력하세요.');
-    //                         $('#birth').focus();
-    //                     }
-    //                 } else {
-    //                     alert('연락처를 입력하세요.');
-    //                     $('#phone').focus();
-    //                 }
-    //             } else {
-    //                 alert('이름을 입력하세요.');
-    //                 $('#name').focus();
-    //             }
-    //         } else {
-    //             alert('비밀번호를 확인하세요.');
-    //             $('#pwd').focus();
-    //         }
-    //     } else {
-    //         alert('아이디를 입력하세요.');
-    //         $('#id').focus();
-    //     }
-    //
-    //     return false;
-    // }
+<!--    function isValidCode() {-->
+
+<!--        let userId = document.getElementById("id");-->
+<!--        let userName = document.getElementById("name");-->
+<!--        let userPhone = document.getElementById("phone");-->
+<!--        let userBirth = document.getElementById("birth");-->
+<!--        let agreement = document.getElementById("agreement");-->
+
+<!--        if (userId.value != '') {-->
+<!--            if (pwdChecked) {-->
+<!--                if (userName.value != '') {-->
+<!--                    if (userPhone.value != '') {-->
+<!--                        if (userBirth.value != '') {-->
+<!--                            if (agreement.checked) {-->
+<!--                                return true;-->
+<!--                            } else {-->
+<!--                                alert('약관에 동의해주세요.');-->
+<!--                                $('#agreement').focus();-->
+<!--                            }-->
+<!--                        } else {-->
+<!--                            alert('생년월일을 입력하세요.');-->
+<!--                            $('#birth').focus();-->
+<!--                        }-->
+<!--                    } else {-->
+<!--                        alert('연락처를 입력하세요.');-->
+<!--                        $('#phone').focus();-->
+<!--                    }-->
+<!--                } else {-->
+<!--                    alert('이름을 입력하세요.');-->
+<!--                    $('#name').focus();-->
+<!--                }-->
+<!--            } else {-->
+<!--                alert('비밀번호를 확인하세요.');-->
+<!--                $('#pwd').focus();-->
+<!--            }-->
+<!--        } else {-->
+<!--            alert('아이디를 입력하세요.');-->
+<!--            $('#id').focus();-->
+<!--        }-->
+
+<!--        return false;-->
+<!--    }-->
 </script>
 
 <script>
@@ -301,19 +302,19 @@
     }
 </script>
 
-<script th:inline="javascript">
-    var idListObject = [[${idList}]];
+<!--<script th:inline="javascript">-->
+<!--    var idListObject = [[${idList}]];-->
 
-    function idCheck() {
-        let id = document.getElementById("id");
+<!--    function idCheck() {-->
+<!--        let id = document.getElementById("id");-->
 
-        if (idListObject.indexOf(id.value) >= 0) {
-            alert("중복 아이디 입니다. 다른 아이디를 사용해주세요.");
-            id.value = '';
-            $('#userId').focus();
-        }
-    }
-</script>
+<!--        if (idListObject.indexOf(id.value) >= 0) {-->
+<!--            alert("중복 아이디 입니다. 다른 아이디를 사용해주세요.");-->
+<!--            id.value = '';-->
+<!--            $('#userId').focus();-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 
 <script>
     fetch("/user/teacher")
@@ -329,6 +330,27 @@
                 $userCode.appendChild($option);
             }
         })
+</script>
+
+<script th:inline="javascript">
+    function bmiCal() {
+        if (weight.value != '' && height.value != '') {
+            let bmiValue = Math.round(Number(weight.value) / (Number(height.value) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else if (weight.value != '') {
+            let bmiValue = Math.round(Number(weight.value) / (Number(heightObject) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else if (height.value != '') {
+            let bmiValue = Math.round(Number(weightObject) / (Number(height.value) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else {
+            bmi.value = '';
+            bmi.placeholder = bmiObject;
+        }
+    }
 </script>
 
 </body>

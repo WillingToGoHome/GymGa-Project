@@ -114,9 +114,9 @@
                                     </div>
                                     <div class="right">
                                         <br><br>
-                                        <input type="text" name="height"><br>
-                                        <input type="text" name="weight"><br>
-                                        <input id=type="text" name="bmi"><br>
+                                        <input type="text" id="height" name="height" onchange="bmiCal()"><br>
+                                        <input type="text" id="weight" name="weight" onchange="bmiCal()"><br>
+                                        <input type="text" id="bmi" name="bmi"><br>
                                     </div>
                                 </div>
                                 <div class="etcAndButton">
@@ -550,7 +550,7 @@
         if (idListObject.indexOf(id.value) >= 0) {
             alert("중복 아이디 입니다. 다른 아이디를 사용해주세요.");
             id.value = '';
-            $('#userId').focus();
+            $('#id').focus();
         }
     }
 </script>
@@ -569,6 +569,27 @@
                 $userCode.appendChild($option);
             }
         })
+</script>
+
+<script th:inline="javascript">
+    function bmiCal() {
+        if (weight.value != '' && height.value != '') {
+            let bmiValue = Math.round(Number(weight.value) / (Number(height.value) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else if (weight.value != '') {
+            let bmiValue = Math.round(Number(weight.value) / (Number(heightObject) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else if (height.value != '') {
+            let bmiValue = Math.round(Number(weightObject) / (Number(height.value) ** 2) * 1000000) / 100;
+
+            bmi.value = bmiValue;
+        } else {
+            bmi.value = '';
+            bmi.placeholder = bmiObject;
+        }
+    }
 </script>
 
 </body>

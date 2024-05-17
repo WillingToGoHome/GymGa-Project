@@ -137,7 +137,7 @@ public class UserController {
         }
 
         newUser.setUserCode(code + 1);
-        newUser.setUserRole("회원");
+        newUser.setUserRole("MEMBER");
         newUser.setUserAddress(userAddress1 + " " + userAddress2);
         physical.setUserCode(code + 1);
 
@@ -196,6 +196,7 @@ public class UserController {
     @PostMapping("/updateUser")
     public String update(HttpSession session,
                          @RequestParam("code") String userCode, Model model,
+                         @RequestParam String userAddress1, @RequestParam String userAddress2,
                          @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
                          UserDTO userDTO, PhysicalDTO physicalDTO) {
 
@@ -204,15 +205,24 @@ public class UserController {
         session.setAttribute("userCode", code);
 
         userDTO.setUserCode(code);
+        physicalDTO.setUserCode(code);
         userDTO.setUserRole("MEMBER");
+
+        if (!userAddress1.isEmpty()) {
+            if (!userAddress2.isEmpty()) {
+                userDTO.setUserAddress(userAddress1 + " " + userAddress2);
+            } else {
+                userDTO.setUserAddress(userAddress1);
+            }
+        } else {
+            userDTO.setUserAddress("");
+        }
 
         userService.update(userDTO, physicalDTO);
 
         UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
 
         model.addAttribute("user", user);
-
-        System.out.println(user.getPhysicalDTO().getHeight());
 
         return "/user/selectDetail";
     }

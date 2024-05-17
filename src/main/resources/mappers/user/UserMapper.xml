@@ -283,9 +283,6 @@
         UPDATE USERDB
         <set>
             USER_CODE = #{ userCode }
-            <if test="userId != ''">
-                , USER_ID = #{ userId }
-            </if>
             <if test="userPwd != ''">
                 , USER_PWD = #{ userPwd }
             </if>
