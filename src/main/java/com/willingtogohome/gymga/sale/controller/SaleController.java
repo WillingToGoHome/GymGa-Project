@@ -37,18 +37,7 @@ public class SaleController {
 //        return saleService.sumPassData();
 //    }
 
-    @GetMapping("/selectall")
-    public String UserAllList(Model model) {
 
-        List<PassAndPassQualDTO> userList = saleService.findAllList();
-
-        for (PassAndPassQualDTO passAndPassQualDTO : userList){
-//            System.out.println("passAndPassQualDTO = " + passAndPassQualDTO);
-        }
-        model.addAttribute("userList", userList);
-
-        return "sale/selectall";
-    }
 
     @GetMapping("/main")
     public String saleMain(Model model){
@@ -107,8 +96,8 @@ public class SaleController {
         SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
 //        System.out.println("searchCriteria = " + searchCriteria);
 //        System.out.println("passDataPie 호출");
-        session.invalidate();
-
+//        session.invalidate();
+        session.removeAttribute("passDataPie");
         Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
         return new ResponseEntity<>(passData, HttpStatus.OK);
     }
@@ -125,6 +114,19 @@ public class SaleController {
 //        Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
 //        return new ResponseEntity<>(passData, HttpStatus.OK);
 //    }
+
+    @GetMapping("/selectall")
+    public String UserAllList(Model model) {
+
+        List<PassAndPassQualDTO> userList = saleService.findAllList();
+
+        for (PassAndPassQualDTO passAndPassQualDTO : userList){
+//            System.out.println("passAndPassQualDTO = " + passAndPassQualDTO);
+        }
+        model.addAttribute("userList", userList);
+
+        return "sale/selectall";
+    }
 
     @GetMapping("/search")
     public void searchUsers() {
@@ -178,7 +180,12 @@ public class SaleController {
 //        return "sale/detail"; // 사용자 정보가 담긴 뷰로 이동
 //    }
     @GetMapping("/detail")
-    public void detail(){}
+    public String detail(Model model){
+        List<PassAndPassQualDTO> detailList = saleService.findAllList();
+        model.addAttribute("detailList", detailList);
+
+        return "sale/detail";
+    }
 
 
     @PostMapping("/detail")
@@ -188,7 +195,7 @@ public class SaleController {
         criteria.setCondition(category);
 
         List<PassAndPassQualDTO> detailList = saleService.searchedUserTest(criteria);
-        session.setAttribute("detailList", detailList);
+        session.setAttribute("detailList2", detailList);
         model.addAttribute("detailList", detailList);
 
         for (PassAndPassQualDTO detail : detailList) {
@@ -201,11 +208,20 @@ public class SaleController {
 
     @GetMapping("/detail/{userId}")
     public String findByScheduleCode(@PathVariable("userId") String userId, Model model) {
+        System.out.println("userId = " + userId);
+//        List<PassAndPassQualDTO> detailList = saleService.findAllList();
+//        model.addAttribute("detailList", detailList);
+        List<PassAndPassQualDTO> userList = saleService.searchByUserId(userId);
+        model.addAttribute("userList", userList);
+        System.out.println("userList = " + userList);
+
         PassAndPassQualDTO passAndPassQualDTO = saleService.findByUserId(userId);
         model.addAttribute("selectOneUserId", passAndPassQualDTO);
-        System.out.println("selectOneUserId = " + passAndPassQualDTO);
 
-        return "sale/detail";
+
+
+
+        return "sale/searchdetail";
     }
 
 

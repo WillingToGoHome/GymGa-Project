@@ -475,5 +475,23 @@
 
 .test{
     display: flex;
+}
 
+.zxc span {
+    font-size: 14px;
+}
+
+.zxc::-webkit-scrollbar {
+    width: 10px;
+}
+
+.zxc::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.zxc::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
 }

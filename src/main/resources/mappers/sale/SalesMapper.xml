@@ -347,6 +347,16 @@
         order by C.pass_start desc , D.sales_date desc
     </select>
 
+    <select id="searchByUserId" resultMap="passResultMap">
+        select
+            user_pic,
+            user_id,
+            user_name,
+            user_etc
+        from userdb
+        where user_id = #{userId}
+    </select>
+
 
 
 <!--    <update id="updatePassData" parameterMap="passDataResultMap">-->
