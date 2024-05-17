@@ -154,7 +154,15 @@
                                                 <input type="text" name="location" th:placeholder="*{ employeeDTO.location }"><br>
                                                 <input type="text" name="year" style="width: 30px" th:placeholder="*{ employeeDTO.year }">년 <input type="text" name="month" style="width: 30px" th:placeholder="*{ employeeDTO.month }">개월 <br>
                                                 <input type="text" name="totalYear" style="width: 30px" th:placeholder="*{ employeeDTO.totalYear }">년 <input type="text" name="totalMonth" style="width: 30px" th:placeholder="*{ employeeDTO.totalMonth }">개월 <br>
-                                                <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
+                                                <div sec:authorize="hasAnyAuthority('USER')">
+                                                    <div class="spanTagBoxWOSup">
+                                                        <span th:text="*{ employeeDTO.salary }"></span>
+                                                        <input class="hiddenInputBox" name="salary" th:value="*{ employeeDTO.salary }">
+                                                    </div>
+                                                </div>
+                                                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                                    <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style="clear: left; margin-left: 50px; padding-top: 30px">
