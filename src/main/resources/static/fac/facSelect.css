@@ -34,53 +34,63 @@
 
 /*}*/
 
-
- .query-options {
-     display: flex;
-     gap: 10px; /* 버튼 사이 간격을 10px로 설정 */
-     float: right;
-     margin-right: 15px;
-     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-     margin-top: -10px;
-     margin-bottom: 5px;
-
- }
-
-.expired a{
-    background-color: #f9f9f9;
-        color: black;
-        text-decoration: none;
-        display: block;
-
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
 }
 
-.inUse a{
-    background-color: #f9f9f9;
-    color: black;
-    text-decoration: none;
-    display: block;
+.modal-content {
+    margin: auto;
 }
 
-.available a{
-    background-color: #f9f9f9;
-    color: black;
-    text-decoration: none;
-    display: block;
-}
 
-.personal a{
-    background-color: #f9f9f9;
-    color: black;
-    text-decoration: none;
-    display: block;
-}
+ /*.query-options {*/
+ /*    display: flex;*/
+ /*    gap: 10px; !* 버튼 사이 간격을 10px로 설정 *!*/
+ /*    float: right;*/
+ /*    margin-right: 15px;*/
+ /*    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);*/
+ /*    margin-top: -10px;*/
+ /*    margin-bottom: 5px;*/
 
-.all a{
-    background-color: #f9f9f9;
-    color: black;
-    text-decoration: none;
-    display: block;
-}
+ /*}*/
+
+/*.expired a{*/
+/*    background-color: #f9f9f9;*/
+/*        color: black;*/
+/*        text-decoration: none;*/
+/*        display: block;*/
+
+/*}*/
+
+/*.inUse a{*/
+/*    background-color: #f9f9f9;*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*}*/
+
+/*.available a{*/
+/*    background-color: #f9f9f9;*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*}*/
+
+/*.personal a{*/
+/*    background-color: #f9f9f9;*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*}*/
+
+/*.all a{*/
+/*    background-color: #f9f9f9;*/
+/*    color: black;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*}*/
 
 .facList {
     display: grid;
@@ -93,7 +103,7 @@
 
 .fac-item {
     width: 120px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    height: 111px; /* Adjust as needed */
     background-color: #8DD0F6;
     border-radius: 20px;
     list-style: none;
@@ -103,6 +113,8 @@
     cursor: pointer;
 
 }
+
+
 
 
 
@@ -125,13 +137,13 @@
 
 
 .userCode{
-    font-size: 12px;
+    font-size: 13px;
     font-weight: normal; /* 기본 폰트 굵기 */
     /*text-align: center;*/
     /*text-indent: -40px;*/
     text-indent: 5px;
-    margin-bottom: 20px;
-    margin-top: -20px;
+    margin-bottom: 15px;
+    margin-top: -15px;
     color: black;
     top: 20px;
 
@@ -140,11 +152,11 @@
 
 .facStart,
 .facEnd {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: normal;
     text-indent: 5px;
-    margin-bottom: 20px;
-    margin-top: -20px;
+    margin-bottom: 15px;
+    margin-top: -15px;
     color: black;
 
 
