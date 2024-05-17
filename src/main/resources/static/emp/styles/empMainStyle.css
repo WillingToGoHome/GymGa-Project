@@ -11,7 +11,7 @@ body {
     color: black;
 }
 
-.mainBox {
+.empBox {
     float: left;
 }
 
@@ -101,7 +101,7 @@ body {
 
 .empBlockRight {
     /*width: 330px;*/
-    width: 250px;
+    width: 240px;
     /*height: 60px;*/
     height: 50px;
     float: left;
@@ -216,6 +216,10 @@ table {
     font-weight: bold;
     color: rgba(171, 171, 171, 1);
     float: left;
+}
+
+.scheBox span {
+    font-size: 14px;
 }
 
 .timeLine {

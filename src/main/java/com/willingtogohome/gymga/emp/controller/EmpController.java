@@ -33,12 +33,14 @@ public class EmpController {
     }
 
     @GetMapping(value = {"/", "/main"})
-    public String empMain(HttpSession session, Model model) {
+    public String empMain(HttpSession session, Model model, SecurityContextHolder securityContextHolder) {
 
         System.out.println("get : /emp/ or /emp/main");
 
-//        int code = (int) session.getAttribute("searched");
-//        System.out.println("code = " + code);
+        String name = securityContextHolder.getContext().getAuthentication().getName();
+
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("name", name));
+        System.out.println("emp = " + emp);
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
@@ -49,6 +51,7 @@ public class EmpController {
         List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("time", "16:00pm"));
         List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("time", "18:00pm"));
 
+        model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
         model.addAttribute("scheList1", scheList1);
         model.addAttribute("scheList2", scheList2);
