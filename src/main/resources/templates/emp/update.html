@@ -155,7 +155,7 @@
                                                 <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
                                             </div>
                                         </div>
-                                        <div style="clear: left; margin-left: 50px; padding-top: 10px">
+                                        <div style="clear: left; margin-left: 50px; padding-top: 30px">
                                             <button class="submitButton" type="submit" id="submit" name="submit" style="float: right; margin-right: 300px">수정</button>
                                         </div>
                                     </div>
@@ -170,13 +170,15 @@
                                 <hr class="line" style="width: 300px">
                             </div>
                             <div class="sideEmpList">
-                                <div class="sideEmpBlock" th:each="emp : ${ empList }">
-                                    <div class="empBlockLeft">
-                                        <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
-                                    </div>
-                                    <div class="empBlockRight">
-                                        <p class="empName" th:text="${ emp.name }"></p>
-                                        <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
+                                <div class="sideList">
+                                    <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                        <div class="empBlockLeft">
+                                            <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                                        </div>
+                                        <div class="empBlockRight">
+                                            <p class="empName" th:text="${ emp.name }"></p>
+                                            <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
