@@ -1,8 +1,9 @@
 package com.willingtogohome.gymga.user.controller;
 
 import com.willingtogohome.gymga.user.model.dto.*;
-import com.willingtogohome.gymga.user.model.service.UserService;
+import com.willingtogohome.gymga.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -132,16 +136,8 @@ public class UserController {
         }
 
         newUser.setUserCode(code + 1);
-        newUser.setUserRole("MEMBER");
-        if (!userAddress1.isEmpty()) {
-            if (!userAddress2.isEmpty()) {
-                newUser.setUserAddress(userAddress1 + " " + userAddress2);
-            } else {
-                newUser.setUserAddress(userAddress1);
-            }
-        } else {
-            newUser.setUserAddress("");
-        }
+        newUser.setUserRole("회원");
+        newUser.setUserAddress(userAddress1 + " " + userAddress2);
         physical.setUserCode(code + 1);
 
         userService.registUser(newUser, physical);
@@ -163,8 +159,6 @@ public class UserController {
 
         userDTO.setUserCode(code);
         physicalDTO.setUserCode(code);
-
-        userService.selectDetail(userDTO, physicalDTO);
 
         UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
 
@@ -201,7 +195,6 @@ public class UserController {
     @PostMapping("/updateUser")
     public String update(HttpSession session,
                          @RequestParam("code") String userCode, Model model,
-                         @RequestParam String userAddress1, @RequestParam String userAddress2,
                          @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
                          UserDTO userDTO, PhysicalDTO physicalDTO) {
 
@@ -210,18 +203,7 @@ public class UserController {
         session.setAttribute("userCode", code);
 
         userDTO.setUserCode(code);
-        physicalDTO.setUserCode(code);
         userDTO.setUserRole("MEMBER");
-
-        if (!userAddress1.isEmpty()) {
-            if (!userAddress2.isEmpty()) {
-                userDTO.setUserAddress(userAddress1 + " " + userAddress2);
-            } else {
-                userDTO.setUserAddress(userAddress1);
-            }
-        } else {
-            userDTO.setUserAddress("");
-        }
 
         userService.update(userDTO, physicalDTO);
 
@@ -229,6 +211,8 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        return "user/selectDetail";
+        System.out.println(user.getPhysicalDTO().getHeight());
+
+        return "/user/selectDetail";
     }
 }

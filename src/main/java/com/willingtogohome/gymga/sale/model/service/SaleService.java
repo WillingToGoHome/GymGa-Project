@@ -8,6 +8,7 @@ import com.willingtogohome.gymga.pass.model.dto.UserDTO;
 import com.willingtogohome.gymga.sale.model.dao.SaleMapper;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,22 +46,25 @@ public class SaleService {
         return saleMapper.empAndUser();
     }
 
-    public List<Map<String, Object>> getDataForPieChart() {
+//    public List<Map<String, Object>> getDataForPieChart(SearchCriteria criteria) {
+//
+//        return saleMapper.getData(criteria);
+//    }
 
-        return saleMapper.getData();
-    }
 
-
-    public Map<String, Integer> getPassDataFromDatabase() {
+    public Map<String, Integer> getPassDataFromDatabase(SearchCriteria searchCriteria) {
             Map<String, Integer> passData = new HashMap<>();
 
             try {
                 saleMapper = sqlSession.getMapper(SaleMapper.class);
-                PassDataDTO passDataDTO = saleMapper.getPassDataDTO();
-
-                passData.put("ptCount", passDataDTO.getPtCount());
-                passData.put("gxCount", passDataDTO.getGxCount());
-                passData.put("gpCount", passDataDTO.getGpCount());
+                PassDataDTO passDataDTO = saleMapper.getPassDataDTO(searchCriteria);
+                if(passDataDTO != null) {
+                    passData.put("ptCount", passDataDTO.getPtCount());
+                    passData.put("gxCount", passDataDTO.getGxCount());
+                    passData.put("gpCount", passDataDTO.getGpCount());
+                }else {
+                    System.out.println("정보없음");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,6 +86,8 @@ public class SaleService {
     public PassAndPassQualDTO findByUserId(String userId) {
         return saleMapper.findByUserId(userId);
     }
+
+
 
 //    public PassAndPassQualDTO getUserDetails(String userId) {
 //        return saleMapper.getUserDetails(userId);

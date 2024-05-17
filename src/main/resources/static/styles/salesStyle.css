@@ -37,7 +37,7 @@
     /*max-width: 22vw;*/
     /*min-height: 25vh;*/
     /*max-height: 30vh;*/
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 
@@ -62,7 +62,7 @@
     font-size: 16px;
     /*font-weight: bold;*/
     float:left;;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     height: 305px;
     width: 820px;
     box-shadow: 1px 1px 1px 1px #BDBDBD;
@@ -74,7 +74,7 @@
     border-bottom: 1px black;
 }
 .price{
-    width: 150px;
+    width: 130px;
     height: 50px;
     border-bottom: 1px black;
 }
@@ -84,11 +84,11 @@
 }
 
 .time{
-    width: 110px;
+    width: 100px;
     height: 50px;
 }
 .time2{
-    width: 90px;
+    width: 150px;
     height: 50px;
     font-size: 14px;
 }
