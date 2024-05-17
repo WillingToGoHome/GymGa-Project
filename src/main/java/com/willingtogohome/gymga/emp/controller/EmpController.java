@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -37,8 +39,11 @@ public class EmpController {
 
         System.out.println("get : /emp/ or /emp/main");
 
-//        int code = (int) session.getAttribute("searched");
-//        System.out.println("code = " + code);
+        Map<String, String> loginInfo = (Map<String, String>) session.getAttribute("info");
+        System.out.println("loginInfo = " + loginInfo);
+        System.out.println(loginInfo.get("name"));
+        System.out.println(loginInfo.get("role"));
+        System.out.println(loginInfo.get("pic"));
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
