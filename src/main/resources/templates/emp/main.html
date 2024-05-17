@@ -32,14 +32,16 @@
                                 <div style="margin-top: 3px; margin-bottom: 22px">
                                     <span class="topic">직원 목록</span>
                                 </div>
-                                    <hr class="line1">
-                                <div class="empBlock" th:each="emp : ${ empList }">
-                                    <div class="empBlockLeft">
-                                        <img class="empImg" th:src="|/imageFile/${ emp.pic }|"/>
-                                    </div>
-                                    <div class="empBlockRight">
-                                        <span class="empName" th:text="${ emp.name }"></span><br>
-                                        <span class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></span>
+                                <hr class="line1">
+                                <div class="list">
+                                    <div class="empBlock" th:each="emp : ${ empList }">
+                                        <div class="empBlockLeft">
+                                            <img class="empImg" th:src="|/imageFile/${ emp.pic }|"/>
+                                        </div>
+                                        <div class="empBlockRight">
+                                            <span class="empName" th:text="${ emp.name }"></span><br>
+                                            <span class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -50,8 +50,8 @@
                         <p class="userName">이름</p>
                         <p class="userId">회원 아이디</p>
                         <p class="price2">이용권</p>
+                        <p class="price3">판매 금액</p>
 <!--                        <p class="userPhone">이용권 기간</p>-->
-                        <p class="price2">판매 금액</p>
 <!--                        <p class="userStaff">결제 방식</p>-->
                     </div>
                     <hr class="hr2">
@@ -259,6 +259,11 @@
                                     var PT = data.ptCount;
                                     var GX = data.gxCount;
                                     var GP = data.gpCount;
+
+                                    if (percent === '0.00') {
+                                        return '';
+                                    }
+
                                     if (dataName === 'PT') {
                                         return percent + '%';
                                     } else if (dataName === 'GX') {

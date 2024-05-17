@@ -5,6 +5,7 @@ import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,11 @@ import java.util.List;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @GetMapping("/login/admin/regist")
     public String regist(){
@@ -64,6 +68,16 @@ public class LoginController {
         System.out.println(userPhone);
         return  result;
     }
+
+    @GetMapping(value = "/login/idCheck", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<RegistDTO> idCheck(){
+
+        loginService.idCheck().forEach(System.out::println);
+        
+        return loginService.idCheck();
+    }
+
 
 
 

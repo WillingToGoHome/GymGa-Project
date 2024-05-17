@@ -215,7 +215,7 @@
     color: black;
     margin: 0;
     text-align: center;
-    line-height: 30px;
+    /*line-height: 30px;*/
 }
 .img {
     width: 30px;
@@ -235,7 +235,7 @@
     color: black;
     margin: 0;
     text-align: center;
-    line-height: 30px;
+    /*line-height: 30px;*/
 }
 
 .userGender {
@@ -300,6 +300,10 @@
 }
 .price2{
     width: 180px;
+    text-align: center;
+}
+.price3{
+    width: 150px;
     text-align: center;
 }
 
@@ -418,3 +422,22 @@
     /*text-align: center;*/
 }
 
+
+.zxc span {
+    font-size: 14px;
+}
+
+.zxc::-webkit-scrollbar {
+    width: 10px;
+}
+
+.zxc::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.zxc::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}

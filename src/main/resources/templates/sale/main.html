@@ -25,11 +25,11 @@
 
                 <div class="my-style">
 
-                    <div class="pieG" id="pie"></div>
+                    <div class="pieG" id="pie" onclick="location.href='/sale/selectall'"></div>
 
-                    <div class="barG" id="bar"></div>
+                    <div class="barG" id="bar" onclick="location.href='/sale/selectall'"></div>
 
-                    <div class="memberSale" id="pie2">
+                    <div class="memberSale" id="pie2" onclick="location.href='/sale/selectall'">
                             <table>
                                 <tr>
                                     <p style="font-size: 18px; font-weight: bold; margin-top: 10px">직원 매출</p>
@@ -60,11 +60,11 @@
                                     <th>결제 방식</th>
                                     <th>시 간</th>
                                 </tr>
-                                <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}">
+                                <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}" >
                                     <td >
                                         <img th:src="|/uploadFiles/${sale.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
                                     </td>
-                                    <td class="time" th:text="${sale.userDTO.userName}"></td>
+                                    <td class="time" th:text="${sale.userDTO.userName}" onclick="location.href='/sale/detail'"></td>
                                     <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
                           <!--          <td class="date2" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
                                  + ' ~'
@@ -162,6 +162,11 @@
                                     var PT = data.ptCount;
                                     var GX = data.gxCount;
                                     var GP = data.gpCount;
+
+                                    if (percent === '0.00') {
+                                        return '';
+                                    }
+
                                     if (dataName === 'PT') {
                                         return percent + '%';
                                     } else if (dataName === 'GX') {

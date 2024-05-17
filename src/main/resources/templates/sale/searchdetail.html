@@ -29,40 +29,40 @@
                             <img src="/img/Back.png" class="back">
                             <p class="text">상세 조회</p>
                         </div>
-                            <hr class="hr2">
-                            <div class="zxc2" th:if="${selectOneUserId != null}">
-                                <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
-                                <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
-                                <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
-                                <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
-                                <p class="price4" th:text="${selectOneUserId.passQualDTO.pqPrice}"></p>
-                                <p class="userPhone2" th:text="'유효 기간 : ' + ${#dates.format(selectOneUserId.passStart, 'yy-MM-dd')
+                        <hr class="hr2">
+                        <div class="zxc2" th:if="${selectOneUserId != null}">
+                            <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
+                            <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
+                            <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
+                            <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
+                            <p class="price4" th:text="${selectOneUserId.passQualDTO.pqPrice}"></p>
+                            <p class="userPhone2" th:text="'유효 기간 : ' + ${#dates.format(selectOneUserId.passStart, 'yy-MM-dd')
                                  + ' ~ '
                                  + #dates.format(selectOneUserId.passEnd, 'yy-MM-dd')}"></p>
-                                <p class="price2" th:text="'이용권 : '+${selectOneUserId.passQualDTO.pqName}"></p>
-                                <p class="userStaff2" th:text="'결제 방식 : '+${selectOneUserId.saleDTO.salesMethod}"></p>
-                                <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
+                            <p class="price2" th:text="'이용권 : '+${selectOneUserId.passQualDTO.pqName}"></p>
+                            <p class="userStaff2" th:text="'결제 방식 : '+${selectOneUserId.saleDTO.salesMethod}"></p>
+                            <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
                                  +${#dates.format(selectOneUserId.saleDTO.salesDate, ' / a / HH:mm')}"></p>
-                                <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
-                            </div>
+                            <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
+                        </div>
                     </div>
 
                     <div class="backGround">
                         <div class="onDetail">
                             <form action="/sale/detail" method="post" class="top">
                                 <div>
-                                <input type="text" class="search" name="search" placeholder="검색 내용">
-                                <select name="category" class="option">
-                                    <option value="">전체 조회</option>
-                                    <option value="name">이름</option>
-                                </select>
-                                <button type="submit" class="searchButton">검색</button>
+                                    <input type="text" class="search" name="search" placeholder="검색 내용">
+                                    <select name="category" class="option">
+                                        <option value="">전체 조회</option>
+                                        <option value="name">이름</option>
+                                    </select>
+                                    <button type="submit" class="searchButton">검색</button>
                                 </div>
                             </form>
                         </div>
                         <hr class="hr1">
                         <div class="zxc">
-                            <div class="top2" th:each="user:${detailList}">
+                            <div class="top2" th:each="user:${userList}">
                                 <a class="userList" th:href="@{|/sale/detail/${user.userDTO.userId}|}">
                                     <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|"
                                                         style="max-width: 30px; max-height: 30px;"/></p>

@@ -54,4 +54,5 @@ public interface ScheduleMapper {
     void updateGxAtten(LocalDateTime scheRegDate);
 
     void updateGxSchedule(ScheduleDTO scheduleDTO);
+
 }

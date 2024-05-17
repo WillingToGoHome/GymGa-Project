@@ -6,6 +6,7 @@ import com.willingtogohome.gymga.login.config.handler.AuthSuccessHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +44,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .requestMatchers("/fonts/**","/img/**","/css/**","/images/**","/styles/**", "/emp/**","/fac/**","/pass/**","/uploadFiles/**");
+                .requestMatchers("/fonts/**","/img/**","/css/**","/images/**","/styles/**", "/static/emp/**","/static/fac/**","/static/pass/**","/uploadFiles/**","/imageFile/**");
     }
 
     @Bean
@@ -51,9 +52,9 @@ public class SecurityConfig {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/login", "/login/admin/regist", "/", "/main", "/login/auth/*").permitAll();
-            auth.requestMatchers("/main", "/emp/**", "/fac/**","/pass/**","/sale/**","/schedule/**","/user/**").hasAnyAuthority(UserRole.ADMIN.getRole(),UserRole.USER.getRole());
+            auth.requestMatchers("/main", "/emp/**", "/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
 //            auth.requestMatchers("/main").hasAnyAuthority(UserRole.USER.getRole());
-            auth.anyRequest().authenticated();
+//            auth.anyRequest().authenticated();
 
         }).formLogin( login -> {
             login.loginPage("/login");
@@ -70,8 +71,9 @@ public class SecurityConfig {
             logout.logoutSuccessUrl("/login");
 
         }).sessionManagement( session -> {
-            session.maximumSessions(1);
+            session.maximumSessions(2);
             session.invalidSessionUrl("/");
+
 
         }).csrf( csrf -> csrf.disable());
 

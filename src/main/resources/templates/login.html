@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to GymGa</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link rel="stylesheet" href="/styles/LoginStyle.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 </head>
 <body>
@@ -56,8 +57,8 @@
                         <form name="fregister" id="fregister" action="/" method="post" autocomplete="off">
                             <div class="checks2" id="textBox0">
                                 <input type="checkbox" id="chk_all" value="1" name="chk_all">
-                                <label for="chk_all">전체 약관 동의</label>
-                                <hr style="margin-top: 0; margin-left: 0; width: 612px">
+                                <label for="chk_all" style="color: #98989f; font-size: 12pt;">전체 약관 동의</label>
+                                <hr style="margin-top: 0; margin-left: 0; width: 437px">
                             </div>
                             <section class="term">
                                 <div class="checks" id="textBox1">
@@ -230,7 +231,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="text" name="userId" value id="id" required class="userId" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자." style="padding: 0; width: 35%; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
+                                                <input type="text" name="userId" id="id" required class="userId" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자." style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
                                                 <input type="button" class="btn_frmline" name="userId" id="reg_userId_chk" value="중복체크" onclick="idCheck()">
                                                 <div><span id="result_checkId" style="font-size: 12px"></span></div>
                                             </td>
@@ -242,7 +243,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="userPwd" minlength="4" maxlength="20" style="padding: 0; width: 35%; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
+                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="userPwd" minlength="4" maxlength="20" style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -285,7 +286,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="date" name="userBirth" value id="reg_userBirth" required class="reg_input">
+                                                <input type="date" name="userBirth" value id="reg_userBirth" required class="reg_input" style="width: 187px;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -310,7 +311,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="file" name="userEtc" value id="reg_userEtc" class="reg_input" placeholder="jgp,png,pdf파일 형식으로 입력해주세요.">
+                                                <input type="file" name="userEtc" value id="reg_userEtc" class="reg_input" placeholder="jgp,png,pdf파일 형식으로 입력해주세요." style="width: 187px; padding-top: 10px;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -320,7 +321,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <select name="role" id="reg_role" class="reg_input" required>
+                                                <select name="role" id="reg_role" class="reg_input" required style="width: 187px;">
                                                     <option value="ADMIN">대표</option>
                                                     <option value="USER">직원</option>
                                                 </select>
@@ -360,8 +361,6 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         </div>
     </div>
 </div>
-
-
 
 <!-- 계정만들기 클릭 시 나타나는 모달 창 -->
 <script>
@@ -434,86 +433,6 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
 </script>
 <!-- 이용약관 클릭 스크립트 -->
 <script>
-    // function fregister_submit(f)
-    // {
-    //     if (!f.chk.checked) {
-    //         alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
-    //         f.chk.focus();
-    //         return false;
-    //     }
-    //     if (!f.chk2.checked) {
-    //         alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
-    //         f.chk2.focus();
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    // const form = document.querySelector('#fregister');
-    // const checkAll = document.querySelector('.checks2');
-    // const checkBoxes = document.querySelectorAll('.checks input');
-    // const submitBtn = document.querySelector('.nextButton');
-    //
-    // const agreements = {
-    //     chk_1 : false,
-    //     chk_2 : false,
-    //     chk_3 : false,
-    // };
-    //
-    // form.addEventListener('submit', (e) => e.preventDefault());
-    //
-    // checkBoxes.forEach((item) => item.addEventListener('input', toggleCheckbox));
-    //
-    // function toggleCheckbox(e){
-    //     const  {checked, id} = e.target;
-    //     agreements[id] = checked;
-    //     this.parentNode.classList.toggle('active');
-    //     checkAllStatus();
-    //     toggleSubmitButton();
-    // }
-    //
-    // function checkAllStatus() {
-    //     const {chk_1, chk_2, chk_3} = agreements;
-    //     if (chk_1 && chk_2 && chk_3) {
-    //         checkAll.checked = true;
-    //     } else {
-    //         checkAll.checked = false;
-    //     }
-    // }
-    //
-    // function toggleSubmitButton(){
-    //     const {chk_1, chk_2, chk_3} = agreements;
-    //     if (chk_1 && chk_2) {
-    //         submitBtn.disabled = false;
-    //     } else if (chk_1){
-    //         submitBtn.disabled = true;
-    //     } else if (chk_1 && chk_3){
-    //         submitBtn.disabled = true;
-    //     } else if(!chk_1 || !chk_2 || !chk_3) {
-    //         submitBtn.disabled = true;
-    //     } else {
-    //         submitBtn.disabled = true;
-    //     }
-    // }
-    //
-    // checkAll.addEventListener('click', (e) => {
-    //     const {checked} = e.target;
-    //     if (checked) {
-    //         checkBoxes.forEach((item) => {
-    //             item.checked = true;
-    //             agreements[item.id] = true;
-    //             item.parentNode.classList.add('active');
-    //         });
-    //     } else {
-    //         checkBoxes.forEach((item) => {
-    //             item.checked = false;
-    //             agreements[item.id] = false;
-    //             item.parentNode.classList.remove('active');
-    //         });
-    //     }
-    //     checkAllStatus();
-    //     toggleSubmitButton();
-    // });
-
     jQuery(function ($){
         // 모두선택
         $("input[name=chk_all]").click(function (){
@@ -526,29 +445,38 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
     });
 </script>
 <!-- 아이디 중복확인 -->
-<script >
+<script>
+
     var idCheck = function (){
-        var userId = $('#id').val();
-
-        $.ajax({
-            type:'POST',
-            url:"/login/idCheck",
-            data: {"userId": userId},
-            success: function (data) {
-                if (data == 0) {
-                    result = "사용 가능한 아이디입니다.";
-                    $("#result_checkId").html(result).css("color", "blue");
-                    console.log(userId)
-                } else {
-                    result = "이미 사용중인 아이디입니다.";
-                    $("#result_checkId").html(result).css("color","red");
-                    console.log(userId);
-                }
-            },
-            error : function (){alert("서버 요청 실패");}
-        });
+        fetch("/login/idCheck")
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const idValue = data.idV;
+                console.log(idValue);
+            });
     }
-
+    // var idCheck = function (){
+    //     var userId = $('#id').val();
+    //
+    //     $.ajax({
+    //         type:'POST',
+    //         url:"/login/idCheck",
+    //         data: {"userId": userId},
+    //         success: function (data) {
+    //             if (data == "N") {
+    //                 result = "사용 가능한 아이디입니다.";
+    //                 $("#result_checkId").html(result).css("color", "blue");
+    //                 console.log(userId);
+    //             } else {
+    //                 result = "이미 사용중인 아이디입니다.";
+    //                 $("#result_checkId").html(result).css("color","red");
+    //                 console.log(userId);
+    //             }
+    //         },
+    //         error : function (){alert("서버 요청 실패");}
+    //     });
+    // }
 </script>
 <!-- 비밀번호 중복확인 -->
 <script>
