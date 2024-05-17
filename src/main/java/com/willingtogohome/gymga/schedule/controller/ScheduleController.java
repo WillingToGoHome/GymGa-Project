@@ -11,12 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class ScheduleController {
@@ -55,7 +51,7 @@ public class ScheduleController {
     }
 
     // 일정으로 페이지 가기 ?
-    @GetMapping("schedule/test/{scheRunDate}")
+    @GetMapping("schedule/list/{scheRunDate}")
     public String findByScheRunDate(@PathVariable("scheRunDate") LocalDate scheRunDate, Model model) {
         List<ScheduleAndClassAndUserAndPassDTO> scheduleListByRunDate = scheduleService.findByScheRunDate(scheRunDate);
         model.addAttribute("scheduleListByRunDate", scheduleListByRunDate);
@@ -125,23 +121,6 @@ public class ScheduleController {
         return "schedule/scheduledetail";
     }
 
-    // GX 상세페이지(classCode로 선택) ??
-//    @GetMapping("/schedule/scheduleGxlist/{classCode}")
-//    public String findByClassCode(@PathVariable("classCode") String classCode, Model model) {
-//        List<ScheduleAndClassAndUserAndPassDTO> classCodeList = scheduleService.findByClassCode(classCode);
-//        model.addAttribute("findByClassCode", classCodeList);
-//
-//        return "schedule/scheduledetailgx";
-//    }
-
-    // GX 상세페이지로 데이터 보내기(일단 전체)
-//    @GetMapping("/schedule/scheduleGx")
-//    public String findGxSchedule(Model model) {
-//        List<ScheduleAndClassAndUserAndPassDTO> gxList = scheduleService.findGxList();
-//        model.addAttribute("findGxList", gxList);
-//        return "schedule/scheduledetailgx";
-//    }
-
     // GX 특정페이지로 보내기(regDate 참조?)
     @GetMapping("/schedule/scheduleGx/{scheCode}/{scheRegDate}")
     public String findGxByRegDate(@PathVariable("scheCode") int scheCode,
@@ -157,6 +136,14 @@ public class ScheduleController {
 
         return "schedule/scheduledetailgx";
     }
+
+//    @GetMapping("schedule/list/{scheRunDate}")
+//    public String findByScheRunDate(@PathVariable("scheRunDate") LocalDate scheRunDate, Model model) {
+//        List<ScheduleAndClassAndUserAndPassDTO> scheduleListByRunDate = scheduleService.findByScheRunDate(scheRunDate);
+//        model.addAttribute("scheduleListByRunDate", scheduleListByRunDate);
+//        System.out.println("scheduleListByRunDate = " + scheduleListByRunDate);
+//        return "schedule/schedulemain";
+//    }
 
 //    @GetMapping("/schedule/scheduleupdate")
 //    public void updatePage(){}
@@ -182,11 +169,25 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
-    // 출결변경(출석버튼)
+    // GX 일정 변경 정보
+    @PostMapping("/schedule/scheduleupdate/{scheCode}/{scheRegDate}")
+    public String updateSchedule(ScheduleDTO scheduleDTO) {
+        scheduleService.updateGxSchedule(scheduleDTO);
+
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
+    // 출결변경(출석버튼)-P.T
     @GetMapping("/schedule/attenupdate/{scheCode}")
     public String updateAtten(@PathVariable("scheCode") int scheCode) {
         scheduleService.updateAtten(scheCode);
         return "redirect:/schedule/schedulelist/{scheCode}";
+    }
+
+    // 출결변경(출석버튼)-G.X redirect:에 scheRegDate를 넣어줘야함
+    @GetMapping("/schedule/gxattenupdate/{scheCode}/{scheRegDate}")
+    public String updateAttenGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAtten(scheCode);
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
     }
 
     // 출결변경(결석버튼)
@@ -196,6 +197,12 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
+    @GetMapping("/schedule/gxabsentupdate/{scheCode}/{scheRegDate}")
+    public String updateAbsentGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateAbsent(scheCode);
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
+
     // 취소버튼(롤백개념)
     @GetMapping("/schedule/cancelupdate/{scheCode}")
     public String updateCancel(@PathVariable("scheCode") int scheCode){
@@ -203,10 +210,27 @@ public class ScheduleController {
         return "redirect:/schedule/schedulelist/{scheCode}";
     }
 
+    @GetMapping("/schedule/gxcancelupdate/{scheCode}/{scheRegDate}")
+    public String updateCancelGx(@PathVariable("scheCode") int scheCode) {
+        scheduleService.updateCancel(scheCode);
+        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+    }
+
+
     // Sche_atten 값 찾기(출결상태 수정)
     @GetMapping(value = "/schedule/scheatten/{scheCode}", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ScheduleAndClassAndUserAndPassDTO findScheAtten(@PathVariable int scheCode) {
+
+        ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findScheAtten(scheCode);
+        System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);
+
+        return scheduleAndClassAndUserAndPassDTO;
+    }
+
+    @GetMapping(value = "/schedule/scheatten/{scheCode}/{scheRegDate}", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ScheduleAndClassAndUserAndPassDTO findGxScheAtten(@PathVariable int scheCode) {
 
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findScheAtten(scheCode);
         System.out.println("scheduleAndClassAndUserAndPassDTO = " + scheduleAndClassAndUserAndPassDTO);

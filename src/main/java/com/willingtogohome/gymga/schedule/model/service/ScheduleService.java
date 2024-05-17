@@ -112,4 +112,12 @@ public class ScheduleService {
     public List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate) {
         return scheduleMapper.findGxByRegDate(scheRegDate);
     }
+
+    public void updateGxAtten(LocalDateTime scheRegDate) {
+        scheduleMapper.updateGxAtten(scheRegDate);
+    }
+
+    public void updateGxSchedule(ScheduleDTO scheduleDTO) {
+        scheduleMapper.updateGxSchedule(scheduleDTO);
+    }
 }

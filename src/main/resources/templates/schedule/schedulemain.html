@@ -216,11 +216,18 @@
                         <div class="today-date">
                             <p th:text="${scheRunDate}"></p>
                         </div>
-                        <div class="count-schedule">
-                            <p>·총일정 : </p>
-                            <p>·취소 일정 : </p>
-                            <p>·취소율 : </p>
+                        <div class="count-schedule" th:if="${scheduleListByRunDate != null}">
+                            <p>·총일정: <span th:text="${#lists.size(scheduleListByRunDate)}"></span></p>
+                            <p>·취소 일정: <span th:text="${#lists.size(scheduleListByRunDate.?[scheAtten == '결석'])}"></span></p>
+                            <p th:with="totalSize=${#lists.size(scheduleListByRunDate)}, absentCount=${#lists.size(scheduleListByRunDate.?[scheAtten == '결석'])}">
+                                ·취소율: <span th:text="${totalSize != 0 ? (absentCount  * 100 / totalSize) : 0}"></span>%
+                            </p>
                         </div>
+                        <div class="count-schedule" th:unless="${scheduleListByRunDate != null}">
+                            <p>날짜를 선택해주세요.</p>
+                        </div>
+
+
                         <div class="atten-classify">
                             <p style="color: #4041c5">■ 출석</p>
                             <p style="color: #ff0000">■ 결석</p>
@@ -282,69 +289,6 @@
         <!--Footer End-->
     </div>
 </div>
-
-<!--<script>-->
-<!--    // 기본 달력 생성 함수-->
-<!--    function generateCalendar(year, month) {-->
-<!--        const firstDay = new Date(year, month, 1);-->
-<!--        const lastDay = new Date(year, month + 1, 0);-->
-<!--        const daysInMonth = lastDay.getDate();-->
-
-<!--        const calendarBody = document.getElementById('calendar-body');-->
-<!--        calendarBody.innerHTML = '';-->
-
-<!--        let date = 1;-->
-<!--        for (let i = 0; i < 6; i++) {-->
-<!--            const row = document.createElement('tr');-->
-<!--            for (let j = 0; j < 7; j++) {-->
-<!--                if (i === 0 && j < firstDay.getDay()) {-->
-<!--                    const cell = document.createElement('td');-->
-<!--                    row.appendChild(cell);-->
-<!--                } else if (date > daysInMonth) {-->
-<!--                    break;-->
-<!--                } else {-->
-<!--                    const cell = document.createElement('td');-->
-<!--                    cell.innerText = date;-->
-<!--                    // 클릭 이벤트 추가-->
-<!--                    cell.addEventListener('click', function () {-->
-<!--                        const clickedDate = new Date(year, month, parseInt(this.innerText, 10) + 1);-->
-<!--                        const mysqlDate = clickedDate.toISOString().split('T')[0];-->
-<!--                        console.log('Clicked on ' + mysqlDate);-->
-
-<!--                        window.location.href = `/schedule/test/${mysqlDate}`;-->
-
-
-<!--                        fetch("/schedule/scherundate")-->
-<!--                            .then(res => res.json())-->
-<!--                            .then(data => {-->
-<!--                                console.log('data = ', data);-->
-<!--                                const matchingDate = data.find(item => item.scheRunDate === mysqlDate);-->
-<!--                                if (matchingDate) {-->
-<!--                                    console.log("matchingItem", matchingDate);-->
-<!--                                } else {-->
-<!--                                    console.log("No matching");-->
-<!--                                }-->
-<!--                            })-->
-<!--                            .catch(error => {-->
-<!--                                console.error("error", error);-->
-<!--                            });-->
-<!--                    });-->
-<!--                    row.appendChild(cell);-->
-<!--                    date++;-->
-<!--                }-->
-<!--            }-->
-<!--            calendarBody.appendChild(row);-->
-<!--        }-->
-<!--    }-->
-
-<!--    // 현재 날짜 가져오기-->
-<!--    const today = new Date();-->
-<!--    const currentYear = today.getFullYear();-->
-<!--    const currentMonth = today.getMonth();-->
-
-<!--    // 달력 생성-->
-<!--    generateCalendar(currentYear, currentMonth);-->
-<!--</script>-->
 
 <!-- New 달력 스크립트 -->
 <script>
@@ -502,7 +446,10 @@
                 const clickedDate = new Date(year, month, parseInt(e.target.innerText, 10)+1);
                 const mysqlDate = clickedDate.toISOString().split('T')[0];
                 console.log('Clicked on ' + mysqlDate);
-                window.location.href = `/schedule/test/${mysqlDate}`;
+
+                //선택된 날짜 저장
+
+                window.location.href = `/schedule/list/${mysqlDate}`;
 
                 // remove active from already active day
 

@@ -224,6 +224,16 @@
                EMP_CODE = #{empCode}
         WHERE sche_code = #{scheCode};
     </update>
+    <!-- Gx 일정 변경 -->
+    <update id="updateGxSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        UPDATE scheduledb
+        SET sche_run_date = #{scheRunDate},
+        sche_start_time = #{scheStartTime},
+        sche_end_time = #{scheEndTime},
+        sche_participate = #{scheParticipate},
+        EMP_CODE = #{empCode}
+        WHERE sche_code = #{scheCode};
+    </update>
 
     <!-- 출석 눌렀을 때-->
     <update id="updateAtten" parameterType="int">
@@ -455,7 +465,7 @@
         A.SCHE_ATTEN,
         <!--               A.EMP_CODE,-->
         <!--               C.USER_CODE,-->
-        C.USER_CODE,
+        C.USER_CODE AS EMP_CODE,
         C.USER_NAME AS EMP_NAME,
         <!--               A.MEMBER_CODE,-->
         <!--               D.USER_CODE,-->
