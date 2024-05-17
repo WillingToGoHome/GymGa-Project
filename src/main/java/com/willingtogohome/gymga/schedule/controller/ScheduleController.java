@@ -5,6 +5,9 @@ import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import com.willingtogohome.gymga.schedule.model.service.ScheduleService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -112,9 +115,12 @@ public class ScheduleController {
 
     // PT 상세페이지(scheCode로 선택)
     @GetMapping("/schedule/schedulelist/{scheCode}")
-    public String findByScheduleCode(@PathVariable("scheCode") int scheCode, Model model) {
+    public String findByScheduleCode(@PathVariable("scheCode") int scheCode, Model model, SecurityContextHolder securityContextHolder) {
         ScheduleAndClassAndUserAndPassDTO scheduleAndClassAndUserAndPassDTO = scheduleService.findByScheCode(scheCode);
         model.addAttribute("selectOneSchedule", scheduleAndClassAndUserAndPassDTO);
+        System.out.println(securityContextHolder.getContext());
+        System.out.println(securityContextHolder.getContext().getAuthentication());
+        System.out.println(securityContextHolder.getContext().getAuthentication().getName());
         System.out.println("변경할데이터조회 = " + scheduleAndClassAndUserAndPassDTO);
 
         return "schedule/scheduledetail";
@@ -236,6 +242,22 @@ public class ScheduleController {
 
         return scheduleAndClassAndUserAndPassDTO;
     }
+
+    @GetMapping("/api/loggedInUser")
+    public ResponseEntity<String> getLoggedInUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        return ResponseEntity.ok(username);
+    }
+
+
 
 
 

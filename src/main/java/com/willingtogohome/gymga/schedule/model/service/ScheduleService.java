@@ -120,4 +120,6 @@ public class ScheduleService {
     public void updateGxSchedule(ScheduleDTO scheduleDTO) {
         scheduleMapper.updateGxSchedule(scheduleDTO);
     }
+
+
 }
