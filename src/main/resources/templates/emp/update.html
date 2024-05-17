@@ -36,17 +36,17 @@
                                 </div>
                                 <div class="searchBox">
                                     <form action="/emp/result" method="get">
-                                        <input type="search" name="search" placeholder="검색 내용" style="width: 200px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
-                                        <select name="category" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold; margin-right: 10px">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
                                             <option value="name">강사명</option>
                                         </select>
-                                        <button type="submit" style="width: 100px; height: 50px; border-radius: 10px; font-weight: bold">검색</button>
+                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
                                     </form>
                                 </div>
                                 <hr class="line" style="width: 700px">
                             </div>
                             <div th:object="${ emp }">
-                                <form action="/emp/detail" method="post" enctype="multipart/form-data">
+                                <form action="/emp/detail" method="post" enctype="multipart/form-data" onsubmit="return isValid()">
                                     <div class="userInfoBox">
                                         <div class="previewBox">
                                             <img id="preview" th:src="|/imageFile/${ emp.pic }|"><br>
@@ -59,11 +59,11 @@
                                         <div style="float: left">
                                             <div>
                                                 <div style="float: left; margin-right: 26.48px">
-                                                    <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                                    <div class="spanTagBoxWOSup" style="margin-left: 10px; margin-right: 20px">
                                                         <span>아이디</span><br>
                                                         <span>비밀번호</span><br>
-                                                        <span>비밀번호 확인</span><br>
-                                                        <span id="pwdCheckResult">확인 전</span>
+                                                        <span>비밀번호 재입력</span><br>
+                                                        <span id="pwdCheckResult">비밀번호 확인</span>
                                                     </div>
                                                     <div style="margin-right: 20px; float: left">
                                                         <div class="spanTagBoxWOSup">
@@ -87,7 +87,7 @@
                                                     <div class="spanTagBoxWOSup">
                                                         <input type="text" id="name" name="name" th:placeholder="*{ name }"><br>
                                                         <input type="text" id="phone" name="phone" th:placeholder="*{ phone }"><br>
-                                                        <input type="date" name="birth"><br>
+                                                        <input type="date" id="birth" name="birth"><br>
                                                         <select name="gender">
                                                             <option id="male" value="남">남</option>
                                                             <option id="female" value="여">여</option>
@@ -98,14 +98,11 @@
                                             <div style="clear: left">
                                                 <div class="spanTagBoxWOSup" style="margin-left: 10px">
                                                     <span>주소</span>
+                                                    <button type="button" onclick="sample4_execDaumPostcode()" style="width: 60px; margin-left: 10px">찾기</button><br>
                                                 </div>
-                                                <div style="margin-left: 60px; float: left">
-                                                    <div>
-                                                        <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px">
-                                                        <button type="button" onclick="sample4_execDaumPostcode()" style="width: 80px">찾기</button><br>
-                                                    </div>
-                                                    <input type="text" id="sample4_roadAddress" th:placeholder="*{ address }" name="address1" style="width: 390px"><br>
-                                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 390px">
+                                                <div style="margin-left: 14px; float: left">
+                                                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1" style="width: 250px; margin-right: 10px">
+                                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 120px">
                                                 </div>
                                             </div>
                                         </div>
@@ -117,12 +114,14 @@
                                                 <div class="spanTagBoxWOSup">
                                                     <span>키</span><br>
                                                     <span>체중</span><br>
-                                                    <span>BMI</span>
+                                                    <span>BMI</span><br>
+                                                    <span>기타</span>
                                                 </div>
                                                 <div style="float: left; margin-right: 20px">
-                                                    <input type="text" name="height" th:placeholder="*{ physicalDTO.height }"><br>
-                                                    <input type="text" name="weight" th:placeholder="*{ physicalDTO.weight }"><br>
-                                                    <input id=type="text" name="bmi" th:placeholder="*{ physicalDTO.bmi }"><br>
+                                                    <input type="text" id="height" name="height" th:placeholder="*{ physicalDTO.height }" onchange="bmiCal()"><br>
+                                                    <input type="text" id="weight" name="weight" th:placeholder="*{ physicalDTO.weight }" onchange="bmiCal()"><br>
+                                                    <input type="text" id="bmi" name="bmi" th:placeholder="*{ physicalDTO.bmi }"><br>
+                                                    <input type="text" name="etc" th:placeholder="*{ etc }">
                                                 </div>
                                             </div>
                                         </div>
@@ -157,12 +156,6 @@
                                             </div>
                                         </div>
                                         <div style="clear: left; margin-left: 50px; padding-top: 10px">
-                                            <div class="spanTagBoxWOSup">
-                                                <span>기타</span>
-                                            </div>
-                                            <div style="float: left">
-                                                <input type="text" name="etc" th:placeholder="*{ etc }">
-                                            </div>
                                             <button class="submitButton" type="submit" id="submit" name="submit" style="float: right; margin-right: 300px">수정</button>
                                         </div>
                                     </div>
@@ -183,7 +176,7 @@
                                     </div>
                                     <div class="empBlockRight">
                                         <p class="empName" th:text="${ emp.name }"></p>
-                                        <p class="empRole" th:text="${ emp.role }"></p>
+                                        <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +194,9 @@
     </div>
 
     <script>
-        let pwdChecked = false;
+        const pwd = document.getElementById("pwd");
+
+        let pwdChecked = true;
 
         function chooseImage(obj) {
             let reader = new FileReader();
@@ -216,10 +211,14 @@
         }
 
         function pwdChanged() {
-            document.getElementById("confirm").value = '';
-            pwdChecked = false;
-            document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
-            $('#confirm').focus();
+            if (pwd.value != '') {
+                document.getElementById("confirm").value = '';
+                pwdChecked = false;
+                document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                $('#confirm').focus();
+            } else if (pwd.value == '') {
+                pwdChecked = true;
+            }
         }
 
         function pwdCheck() {
@@ -247,6 +246,15 @@
                     $('#pwd').focus();
                 }
             }
+        }
+
+        function isValid() {
+
+            if (!pwdChecked) {
+                alert('비밀번호가 입력되어있습니다.');
+            }
+
+            return pwdChecked;
         }
     </script>
 
@@ -276,7 +284,6 @@
                     }
 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('sample4_postcode').value = data.zonecode;
                     document.getElementById("sample4_roadAddress").value = roadAddr;
 
                     var guideTextBox = document.getElementById("guide");
@@ -301,10 +308,20 @@
 
     <script th:inline="javascript">
         var genderObject = [[${emp.gender}]];
-        var female = document.getElementById("female");
-
+        var birthObject = [[${emp.birth}]];
+        var heightObject = [[${emp.physicalDTO.height}]];
+        var weightObject = [[${emp.physicalDTO.weight}]];
+        var bmiObject = [[${emp.physicalDTO.bmi}]];
         var qualObject = [[${quals}]];
+
+        var female = document.getElementById("female");
+        var birth = document.getElementById("birth");
+        var height = document.getElementById("height");
+        var weight = document.getElementById("weight");
+        var bmi = document.getElementById("bmi");
         var qualEtc = '';
+
+        birth.defaultValue = birthObject;
 
         genderObject == '여'? female.defaultSelected = true: female.defaultSelected = false;
 
@@ -317,6 +334,25 @@
                 qualEtc = qualObject[i];
                 document.getElementById("qualWrite").placeholder = '수정: ' + qualEtc + ' 외 입력';
                 document.getElementById("qualEtc").value = qualEtc;
+            }
+        }
+
+        function bmiCal() {
+            if (weight.value != '' && height.value != '') {
+                let bmiValue = Math.round(Number(weight.value) / (Number(height.value) ** 2) * 1000000) / 100;
+
+                bmi.value = bmiValue;
+            } else if (weight.value != '') {
+                let bmiValue = Math.round(Number(weight.value) / (Number(heightObject) ** 2) * 1000000) / 100;
+
+                bmi.value = bmiValue;
+            } else if (height.value != '') {
+                let bmiValue = Math.round(Number(weightObject) / (Number(height.value) ** 2) * 1000000) / 100;
+
+                bmi.value = bmiValue;
+            } else {
+                bmi.value = '';
+                bmi.placeholder = bmiObject;
             }
         }
     </script>

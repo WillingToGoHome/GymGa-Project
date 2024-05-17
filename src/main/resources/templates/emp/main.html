@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="empBlockRight">
                                         <span class="empName" th:text="${ emp.name }"></span><br>
-                                        <span class="empRole" th:text="${ emp.role }"></span>
+                                        <span class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></span>
                                     </div>
                                 </div>
                             </div>
