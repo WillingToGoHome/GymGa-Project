@@ -9,18 +9,20 @@
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
+        <result property="userPhone" column="USER_PHONE"/>
         <result property="userRole" column="USER_ROLE"/>
     </resultMap>
 
-    <select id="findByUserId" resultMap="login">
+    <select id="findByUsername" resultMap="login">
         SELECT
-            USER_CODE
+        USER_CODE
         ,   USER_ID
         ,   USER_PWD
         ,   USER_NAME
+        ,   USER_PHONE
         ,   USER_ROLE
         FROM    USERDB
-        WHERE USER_ID = #{ userId }
+        WHERE USER_ID = #{ username }
     </select>
 
     <insert id="regist" parameterType="com.willingtogohome.gymga.login.user.model.dto.RegistDTO">
@@ -48,10 +50,24 @@
         )
     </insert>
 
-    <!-- 아이디 중복 체크 -->
-    <select id="idCheck" resultType="int">
-        SELECT COUNT(*)
-        FROM   USERDB
-        WHERE  USER_ID = #{ userId }
+    <!-- 아이디 중복체크 -->
+    <select id="check_id" resultType="boolean">
+        SELECT USER_ID
+        FROM USERDB
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!-- 아이디 찾기 -->
+    <select id="find_id" resultType="String">
+        SELECT USER_ID
+        FROM USERDB
+        WHERE USER_NAME = #{userName} and USER_PHONE = #{userPhone}
+    </select>
+
+    <!-- 비밀번호 찾기 -->
+    <select id="find_pwd" resultType="String">
+        SELECT USER_PWD
+        FROM USERDB
+        WHERE USER_ID = #{userId} and USER_PHONE = #{userPhone}
     </select>
 </mapper>
