@@ -1,11 +1,15 @@
 package com.willingtogohome.gymga.schedule.model.service;
 
 import com.willingtogohome.gymga.schedule.model.dao.ScheduleMapper;
+import com.willingtogohome.gymga.schedule.model.dto.ClassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,10 +42,13 @@ public class ScheduleService {
     }
 
     // 일정 추가하기
-    public void registNewSchedule(ScheduleDTO newSchedule) {
-        scheduleMapper.registNewSchedule(newSchedule);
+    public void registNewPtSchedule(ScheduleDTO newSchedule) {
+        scheduleMapper.registNewPtSchedule(newSchedule);
     }
 
+    public void registNewGxSchedule(ScheduleDTO newSchedule) {
+        scheduleMapper.registNewGxSchedule(newSchedule);
+    }
 
     public List<ScheduleAndClassAndUserAndPassDTO> findAll() {
 
@@ -81,5 +88,36 @@ public class ScheduleService {
 
     public List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate() {
         return scheduleMapper.findAllScheRunDate();
+    }
+
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findByScheRunDate(LocalDate scheRunDate) {
+
+        return scheduleMapper.findAllByScheRunDate(scheRunDate);
+    }
+
+    public List<ClassDTO> findAllClassName() {
+        return scheduleMapper.findAllClassName();
+    }
+
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findByClassCode(String classCode) {
+        return scheduleMapper.findByClassCode(classCode);
+    }
+
+    public ScheduleAndClassAndUserAndPassDTO findGxList(int scheCode) {
+        return scheduleMapper.findGxList(scheCode);
+    }
+
+    public List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate) {
+        return scheduleMapper.findGxByRegDate(scheRegDate);
+    }
+
+    public void updateGxAtten(LocalDateTime scheRegDate) {
+        scheduleMapper.updateGxAtten(scheRegDate);
+    }
+
+    public void updateGxSchedule(ScheduleDTO scheduleDTO) {
+        scheduleMapper.updateGxSchedule(scheduleDTO);
     }
 }

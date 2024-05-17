@@ -34,32 +34,36 @@
                                     <option value="">전체 조회</option>
                                     <option value="month">월별</option>
                                     <option value="name">이름</option>
+                                    <option value="quarter1">1분기</option>
+                                    <option value="quarter2">2분기</option>
+                                    <option value="quarter3">3분기</option>
+                                    <option value="quarter4">4분기</option>
                                 </select>
-                                <button type="submit" class="searchButton">검색</button>
+                                <button id="button" type="submit" class="searchButton">검색</button>
                             </form>
                         </div>
                         <hr class="hr1">
                         <div class="title">
                             <p class="img"></p>
                             <p class="userName">이름</p>
-                            <p class="userId">판매 번호</p>
+                            <p class="userId">회원 아이디</p>
                             <p class="price2">이용권</p>
-                            <p class="userPhone">이용권 기간</p>
+<!--                            <p class="userPhone">이용권 기간</p>-->
                             <p class="price2">판매 금액</p>
-                            <p class="userStaff">결제 방식</p>
+<!--                            <p class="userStaff">결제 방식</p>-->
                         </div>
                         <hr class="hr2">
                         <div class="zxc">
-                            <div class="userList" th:each="user:${userList}">
-                                <p class="img"><img th:src="${user.userDTO.userPic}" style="max-width: 30px; max-height: 30px;"/></p>
+                            <div class="userList" th:each="user:${userList}" >
+                                <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/></p>
                                 <p class="userName" th:text="${user.userDTO.userName}"></p>
-                                <p class="userId" th:text="${user.passQualDTO.pqCode}"></p>
-                                <p  class="price2" th:text="${user.passQualDTO.pqName}"></p>
-                                <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')
-                                 + ' ~'
-                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                                <p class="userId" th:text="${user.userDTO.userId}"></p>
+                                <p class="price2" th:text="${user.passQualDTO.pqName}"></p>
+<!--                                <p class="userPhone" th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')-->
+<!--                                 + ' ~'-->
+<!--                                 + #dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>-->
                                 <p class="price" th:text="${user.passQualDTO.pqPrice}"></p>
-                                <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>
+<!--                                <p class="userStaff" th:text="${user.saleDTO.salesMethod}"></p>-->
                             </div>
                         </div>
                     </div>
@@ -78,6 +82,23 @@
 </div>
 
 <script>
+    function redirectToUserDetail(userId) {
+        window.location.href = "/sale/detail?userId=" + userId;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var userListElements = document.querySelectorAll('.userList');
+
+        userListElements.forEach(function(userElement) {
+            userElement.addEventListener('click', function() {
+
+                var userId = userElement.querySelector('.userId').textContent;
+                redirectToUserDetail(userId);
+            });
+        });
+    });
+</script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         var selectElement = document.querySelector('.option');
         selectElement.addEventListener('change', function() {
@@ -94,8 +115,17 @@
                 case 'name':
                     searchInput.placeholder = '이름 검색 ex) 홍길동';
                     break;
-                case 'id':
-                    searchInput.placeholder = '분기 조회 ex) 3';
+                case 'quarter1':
+                    searchInput.placeholder = '1분기 조회';
+                    break;
+                case 'quarter2':
+                    searchInput.placeholder = '2분기 조회';
+                    break;
+                case 'quarter3':
+                    searchInput.placeholder = '3분기 조회';
+                    break;
+                case 'quarter4':
+                    searchInput.placeholder = '4분기 조회';
                     break;
                 default:
                     searchInput.placeholder = '검색 내용';
@@ -119,6 +149,8 @@
     }
 </script>
 
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var selectElement = document.querySelector('.option');
@@ -130,7 +162,6 @@
         });
     });
 </script>
-
 
 <script>
     $(document).ready(function() {
@@ -181,6 +212,7 @@
                 var PT = data.ptCount;
                 var GX = data.gxCount;
                 var GP = data.gpCount;
+
                 var SUM = PT + GX + GP;
                 if (SUM === 0) {
                     throw new Error('파이 차트를 위한 데이터가 없습니다.');

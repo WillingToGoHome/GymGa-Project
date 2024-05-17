@@ -2,6 +2,10 @@ body {
     font-family: "Noto Sans KR", sans-serif;
 }
 
+h4 {
+    margin-bottom: 10px;
+}
+
 span {
     /*color: rgba(171, 171, 171, 1);*/
     font-size: 16px;
@@ -9,8 +13,10 @@ span {
 }
 
 input {
-    width: 150px;
-    height: 30px;
+    /*width: 150px;*/
+    width: 120px;
+    /*height: 30px;*/
+    height: 25px;
     border: 1px solid rgba(171, 171, 171, 1);
     border-radius: 5px;
     /*color: rgba(171, 171, 171, 1);*/
@@ -19,8 +25,10 @@ input {
 }
 
 label {
-    width: 150px;
-    height: 30px;
+    /*width: 150px;*/
+    width: 120px;
+    /*height: 30px;*/
+    height: 25px;
     /*color: rgba(171, 171, 171, 1);*/
     font-size: 16px;
     margin: 5px 0;
@@ -28,8 +36,8 @@ label {
 }
 
 select {
-    width: 56.98px;
-    height: 34.97px;
+    width: 50px;
+    height: 25px;
     border: 1px solid rgba(171, 171, 171, 1);
     border-radius: 5px;
     /*color: rgba(171, 171, 171, 1);*/
@@ -39,8 +47,8 @@ select {
 }
 
 button {
-    width: 156.98px;
-    height: 34.97px;
+    width: 127px;
+    height: 25px;
     background-color: rgba(75, 130, 216, 1);
     border: 0;
     border-radius: 5px;
@@ -58,7 +66,7 @@ input[type='checkbox'] {
     border-radius: 5px;
     outline: 0;
     position: relative;
-    margin: 3.5px 0;
+    margin: 3px 0;
     cursor: pointer;
 }
 
@@ -93,19 +101,26 @@ input[type='checkbox']:checked::after {
 }
 
 .outerDiv {
-    width: 1560px;
-    height: 850px;
+    /*width: 1560px;*/
+    width: 1170px;
+    /*height: 850px;*/
+    height: 637px;
     background-color: rgba(240, 240, 240, 1);
+    color: black;
 }
 
 .mainBox {
-    width: 1020px;
-    height: 850px;
+    /*width: 1020px;*/
+    width: 760px;
+    /*height: 850px;*/
+    height: 637px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     float: left;
-    margin-right: 30px;
+    /*margin-right: 30px;*/
+    margin-right: 20px;
 }
 
 .back {
@@ -114,7 +129,7 @@ input[type='checkbox']:checked::after {
 }
 
 .main {
-    padding-top: 25px;
+    padding-top: 20px;
     float: left;
 }
 
@@ -124,7 +139,7 @@ input[type='checkbox']:checked::after {
 }
 
 .searchBox {
-    margin-top: 15px;
+    margin-top: 20px;
     margin-right: 35px;
     font-size: 16px;
     font-weight: bold;
@@ -133,38 +148,48 @@ input[type='checkbox']:checked::after {
 
 .line {
     clear: left;
-    align-content: center;
+    /*align-content: center;*/
     background-color: rgba(217, 217, 217, 1);
+    margin-left: 30px;
 }
 
 .userInfoBox {
-    width: 1020px;
-    height: 300px;
-    padding-top: 40px;
+    /*width: 1020px;*/
+    width: 760px;
+    /*height: 300px;*/
+    height: 250px;
+    padding-top: 50px;
 }
 
 .previewBox {
-    width: 200px;
+    /*width: 200px;*/
+    width: 130px;
     text-align: center;
-    margin-left: 100px;
-    padding-top: 33px;
+    /*margin-left: 100px;*/
+    padding-top: 20px;
+    margin: 0 30px;
     float: left;
 }
 
 .previewBox img {
-    width: 150px;
-    height: 150px;
-    border-radius: 150px;
+    /*width: 150px;*/
+    width: 100px;
+    /*height: 150px;*/
+    height: 100px;
+    border-radius: 100px;
     margin-bottom: 10px;
 }
 
 .fileBox label {
-    padding: 9px 27px;
+    /*padding: 9px 27px;*/
+    padding: 3.76px 30.48px;
     background-color: rgba(75, 130, 216, 1);
     border: 0;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    border-radius: 5px;
     color: white;
-    font-size: 24px;
+    /*font-size: 24px;*/
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -178,20 +203,8 @@ input[type='checkbox']:checked::after {
     border: 0;
 }
 
-.infoBox1 {
-    float: left;
-}
-
-.infoBox2 {
-    float: left;
-}
-
-.infoBox3 {
-    clear: left;
-}
-
 .spanTagBoxWSup {
-    line-height: 36px;
+    line-height: 28px;
     margin-right: 20px;
     font-weight: bold;
     float: left;
@@ -203,8 +216,8 @@ input[type='checkbox']:checked::after {
 }
 
 .spanTagBoxWOSup {
-    line-height: 44px;
-    margin-right: 20px;
+    line-height: 35px;
+    margin-right: 10px;
     font-weight: bold;
     float: left;
 }
@@ -228,18 +241,6 @@ input[type='checkbox']:checked::after {
     border: 0;
 }
 
-.left {
-    line-height: 42px;
-    margin-right: 20px;
-    float: left;
-}
-
-.right {
-    margin-right: 20px;
-    float: left;
-}
-
-
 .detailBox {
     width: 1020px;
     /*font-size: 16px;*/
@@ -254,22 +255,29 @@ input[type='checkbox']:checked::after {
 }
 
 .sideBox {
-    width: 480px;
-    height: 850px;
+    /*width: 480px;*/
+    width: 360px;
+    /*height: 850px;*/
+    height: 637px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     float: left;
 }
 
 .agreement {
-    width: 410px;
-    height: 600px;
+    width: 300px;
+    height: 390px;
     border: 1px solid rgba(171, 171, 171, 1);
     border-radius: 10px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 50px;
     overflow-y: scroll;
+}
+
+.agreement span {
+    font-size: 14px;
 }
 
 .agreement::-webkit-scrollbar {
@@ -288,44 +296,59 @@ input[type='checkbox']:checked::after {
 }
 
 .sideEmpList {
-    width: 410px;
+    width: 300px;
     margin: auto
 }
 
 .sideEmpBlock {
-    width: 410px;
-    height: 70px;
+    /*width: 400px;*/
+    width: 300px;
+    /*height: 70px;*/
+    height: 50px;
     float: left;
-    margin: 15px 0;
+    /*margin-left: 55px;*/
+    /*margin-right: 55px;*/
+    /*margin-top: 15px;*/
+    /*margin-bottom: 15px;*/
+    margin: 10px 0;
 }
 
 .empBlockLeft {
-    width: 70px;
-    height: 70px;
+    /*width: 70px;*/
+    width: 50px;
+    /*height: 70px;*/
+    height: 50px;
     float: left;
-    margin-right: 20px
 }
 
 .empImg {
-    width: 70px;
-    height: 70px;
-    border-radius: 70px;
+    /*width: 70px;*/
+    width: 50px;
+    /*height: 70px;*/
+    height: 50px;
+    /*border-radius: 70px;*/
+    border-radius: 50px;
 }
 
 .empBlockRight {
-    height: 60px;
+    /*width: 330px;*/
+    width: 250px;
+    /*height: 60px;*/
+    height: 50px;
     float: left;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
+    padding-top: 4px;
 }
 
 .empName {
     font-size: 16px;
     font-weight: bold;
-    margin-top: -4px;
+    margin-left: 10px;
 }
 
 .empRole {
     font-size: 14px;
     font-weight: bold;
+    margin-left: 10px;
     color: rgba(171, 171, 171, 1);
 }

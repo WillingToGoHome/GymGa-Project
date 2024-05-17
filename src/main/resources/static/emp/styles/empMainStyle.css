@@ -1,0 +1,263 @@
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.outerDiv {
+    background: rgba(240, 240, 240, 1);
+    /*width: 1560px;*/
+    width: 1170px;
+    /*height: 850px;*/
+    height: 637px;
+    color: black;
+}
+
+.mainBox {
+    float: left;
+}
+
+.empList {
+    background: white;
+    border-radius: 10px;
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    /*width: 1020px;*/
+    width: 760px;
+    /*height: 470px;*/
+    height: 357px;
+    /*margin-right: 30px;*/
+    margin-right: 20px;
+    /*margin-bottom: 30px;*/
+    margin-bottom: 20px;
+    /*padding-top: 30px;*/
+    padding-top: 20px;
+}
+
+.topic {
+    font-size: 24px;
+    font-weight: bold;
+    /*margin-left: 40px;*/
+    margin-left: 30px;
+}
+
+.line1 {
+    /*width: 950px;*/
+    width: 700px;
+    background-color: rgba(217, 217, 217, 1);
+    margin-left: 30px;
+}
+
+.empBlock {
+    /*width: 400px;*/
+    width: 300px;
+    /*height: 70px;*/
+    height: 50px;
+    float: left;
+    /*margin-left: 55px;*/
+    /*margin-right: 55px;*/
+    /*margin-top: 15px;*/
+    /*margin-bottom: 15px;*/
+    margin: 10px 40px;
+}
+
+.empBlockLeft {
+    /*width: 70px;*/
+    width: 50px;
+    /*height: 70px;*/
+    height: 50px;
+    float: left;
+}
+
+.empImg {
+    /*width: 70px;*/
+    width: 50px;
+    /*height: 70px;*/
+    height: 50px;
+    /*border-radius: 70px;*/
+    border-radius: 50px;
+}
+
+.empBlockRight {
+    /*width: 330px;*/
+    width: 250px;
+    /*height: 60px;*/
+    height: 50px;
+    float: left;
+    /*padding-top: 10px;*/
+    padding-top: 4px;
+}
+
+.empName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.empRole {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: rgba(171, 171, 171, 1);
+}
+
+.bigButton {
+    background: white;
+    border-radius: 10px;
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    /*width: 495px;*/
+    width: 370px;
+    /*height: 320px;*/
+    height: 260px;
+    /*margin-right: 30px;*/
+    margin-right: 20px;
+    float: left;
+    cursor: pointer;
+    align-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(101, 101, 101, 1);
+}
+
+.scheduleBox {
+    background: white;
+    border-radius: 10px;
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    /*width: 480px;*/
+    width: 360px;
+    /*height: 820px;*/
+    height: 637px;
+    /*padding-top: 30px;*/
+    padding-top: 20px;
+    float: left;
+}
+
+.date {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(205, 205, 205, 1);
+    margin-left: 10px;
+}
+
+.moreSche {
+    font-size: 16px;
+    font-weight: bold;
+    collapse: rgba(101, 101, 101, 1);
+    text-decoration: underline;
+    cursor: pointer;
+    /*margin-left: 110px;*/
+    margin-left: 35px;
+}
+
+table {
+    /*margin-top: 20px;*/
+    /*margin-left: 70px;*/
+    /*margin-right: 70px;*/
+    margin: 15px 60px;
+    /*width: 340px;*/
+    width: 240px;
+    /*height: 100px;*/
+    height: 70px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.none {
+    /*width: 45px;*/
+    width: 32px;
+}
+
+.today {
+    background-color: rgba(75, 130, 216, 1);
+    color: white;
+    /*width: 45px;*/
+    width: 32px;
+    border-radius: 100%;
+}
+
+.line2 {
+    /*width: 410px;*/
+    width: 300px;
+    margin-left: 30px;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.scheBox {
+    /*width: 410px;*/
+    width: 300px;
+    /*margin-left: 35px;*/
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(171, 171, 171, 1);
+    float: left;
+}
+
+.timeLine {
+    /*width: 20px;*/
+    width: 20px;
+    float: left;
+    /*padding-top: 3px;*/
+    padding-top: 6px;
+}
+
+.pointer {
+    background-color: rgba(217, 217, 217, 1);
+    /*width: 15px;*/
+    width: 10px;
+    /*height: 15px;*/
+    height: 10px;
+    /*border-radius: 15px;*/
+    border-radius: 10px;
+    margin: auto;
+}
+
+.pointerTime {
+    background-color: rgba(75, 130, 216, 1);
+    /*width: 15px;*/
+    width: 10px;
+    /*height: 15px;*/
+    height: 10px;
+    /*border-radius: 15px;*/
+    border-radius: 10px;
+    margin: auto;
+}
+
+.verticalLine {
+    background-color: rgba(217, 217, 217, 1);
+    width: 1px;
+    /*height: 74px;*/
+    height: 55px;
+    /*margin-right: 10.5px;*/
+    /*margin-bottom: -5px;*/
+    margin: auto;
+}
+
+.scheTime {
+    color: black;
+}
+
+.scheList {
+    /*width: 390px;*/
+    width: 280px;
+    /*height: 64px;*/
+    height: 45px;
+    overflow-y: auto;
+}
+
+.scheList::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scheList::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.scheList::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}

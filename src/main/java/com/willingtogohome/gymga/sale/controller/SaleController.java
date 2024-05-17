@@ -2,20 +2,20 @@ package com.willingtogohome.gymga.sale.controller;
 
 import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
+import com.willingtogohome.gymga.pass.model.dto.UserDTO;
 import com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO;
 import com.willingtogohome.gymga.sale.model.dto.SaleDTO;
 import com.willingtogohome.gymga.sale.model.service.SaleService;
+import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
 import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.HashMap;
@@ -52,6 +52,7 @@ public class SaleController {
 
     @GetMapping("/main")
     public String saleMain(Model model){
+
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
 
         for (PassAndPassQualDTO papq : PAPQList){
@@ -71,22 +72,19 @@ public class SaleController {
 //        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
 //        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
 
-        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
-
-        model.addAttribute("pieChartData", pieChartData);
+//        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
+//
+//        model.addAttribute("pieChartData", pieChartData);
         return "sale/main";
     }
 
     @PostMapping("/main")
-    public String saleMainP(Model model){
+    public String saleMainP(){
         return "redirect:/sale/main";
         }
 
-    @GetMapping("/passDataPie")
-    public ResponseEntity<Map<String, Integer>> getPassData() {
-        Map<String, Integer> passData = saleService.getPassDataFromDatabase();
-        return new ResponseEntity<>(passData, HttpStatus.OK);
-    }
+
+
     @GetMapping("/passDataBar")
     public ResponseEntity<List<PassMonthDTO>> getPassDataBar() {
         List<PassMonthDTO> passDataForPieChart = saleService.getPassDataForPieChart();
@@ -102,8 +100,34 @@ public class SaleController {
 //            throw e;
 //        }
 //    }
+
+    @GetMapping("/passDataPie")
+    public ResponseEntity<Map<String, Integer>> getPassData(HttpSession session) {
+
+        SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
+//        System.out.println("searchCriteria = " + searchCriteria);
+//        System.out.println("passDataPie 호출");
+        session.invalidate();
+
+        Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
+        return new ResponseEntity<>(passData, HttpStatus.OK);
+    }
+//    @GetMapping("/passDataPie")
+//    public ResponseEntity<Map<String, Integer>> getPassData(@RequestParam String search, @RequestParam String category, HttpSession session) {
+//
+//        SearchCriteria criteria = new SearchCriteria();
+//        criteria.setText(search);
+//        criteria.setCondition(category);
+//
+//        SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
+//        System.out.println("searchCriteria = " + searchCriteria);
+//
+//        Map<String, Integer> passData = saleService.getPassDataFromDatabase(searchCriteria);
+//        return new ResponseEntity<>(passData, HttpStatus.OK);
+//    }
+
     @GetMapping("/search")
-    public void searchPage() {
+    public void searchUsers() {
     }
 
     @PostMapping("/search")
@@ -116,6 +140,7 @@ public class SaleController {
         List<PassAndPassQualDTO> userList = saleService.searchedUser(criteria);
 
         session.setAttribute("searchedUser", userList);
+        session.setAttribute("Text", criteria);
 
         model.addAttribute("userList", userList);
 
@@ -135,12 +160,67 @@ public class SaleController {
 //
 //        List<EmployeeAndUserDTO> employeeAndUserDTOs = saleService.sumPassPrice();
 //        model.addAttribute("employeeAndUserDTOs", employeeAndUserDTOs);
-
-        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart();
-
-        model.addAttribute("pieChartData", pieChartData);
+//
+//        List<Map<String, Object>> pieChartData = saleService.getDataForPieChart(criteria);
+//        model.addAttribute("pieChartData", pieChartData);
 
         return "sale/search";
     }
+
+//    @GetMapping("/detail")
+//    public String detail(Model model, @RequestParam String userId){
+//        // userId를 사용하여 사용자 정보를 조회
+////        PassAndPassQualDTO userDetail = saleService.getUserDetail(userId);
+////
+////        // 조회된 사용자 정보를 모델에 추가
+////        model.addAttribute("userDetail", userDetail);
+//
+//        return "sale/detail"; // 사용자 정보가 담긴 뷰로 이동
+//    }
+    @GetMapping("/detail")
+    public void detail(){}
+
+
+    @PostMapping("/detail")
+    public String detail(Model model, @RequestParam String search, @RequestParam String category, HttpSession session){
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> detailList = saleService.searchedUserTest(criteria);
+        session.setAttribute("detailList", detailList);
+        model.addAttribute("detailList", detailList);
+
+        for (PassAndPassQualDTO detail : detailList) {
+//            System.out.println("detail = " + detail);
+        }
+
+        return "sale/detail";
+    }
+
+
+    @GetMapping("/detail/{userId}")
+    public String findByScheduleCode(@PathVariable("userId") String userId, Model model) {
+        PassAndPassQualDTO passAndPassQualDTO = saleService.findByUserId(userId);
+        model.addAttribute("selectOneUserId", passAndPassQualDTO);
+        System.out.println("selectOneUserId = " + passAndPassQualDTO);
+
+        return "sale/detail";
+    }
+
+
+
+//    @GetMapping("/detail")
+//    public String getUserDetails(Model model, @RequestParam("userId") String userId) {
+//        // userId를 사용하여 해당 사용자의 상세 정보를 조회
+//        PassAndPassQualDTO userDetails = saleService.getUserDetails(userId);
+//
+//        // 조회된 사용자 상세 정보를 모델에 추가
+//        model.addAttribute("userDetails", userDetails);
+//
+//        // 사용자 상세 정보를 표시하는 뷰로 이동
+//        return "sale/detail";
+//    }
+
 
 }

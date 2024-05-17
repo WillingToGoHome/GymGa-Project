@@ -2,9 +2,334 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>신규 직원 등록</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link rel="stylesheet" th:href="@{/css/update.css}">
+    <link rel="stylesheet" th:href="@{/styles/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/navbarStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/myStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/footerStyle.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
+
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="outerDiv">
+                <div class="mainBox">
+                    <div class="on">
+                        <img class="back" onClick="location.href='/user/selectAll'" src="/img/Back.png">
+                        <p class="topic" th:text="${user.userName} + ' 회원님 정보수정'"></p>
+                    </div>
+                    <hr class="line1">
+                    <div>
+                        <form action="/user/updateUser" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
+                            <div class="signupBox">
+                                <div class="previewBox">
+                                    <img id="preview" th:src="${user.userPic}"><br>
+                                    <div class="fileBox">
+                                        <label for="picFile">사진등록</label>
+                                        <input type="file" id="picFile" name="picFile" onchange="chooseImage(this)"/><br>
+                                        <input id="urlAddress" name="urlAddress" hidden="hidden">
+                                    </div>
+                                </div>
+                                <div class="infoBox">
+                                    <div>
+                                        <div class="infoBox1">
+                                            <div class="left">
+                                                <span class="highlightSpan">* </span> <span class="inputText">아이디</span><br>
+                                                <span class="highlightSpan">* </span> <span class="inputText">비밀번호</span><br>
+                                                <span class="highlightSpan">* </span> <span class="inputText">비밀번호 재입력</span><br>
+                                                <span class="highlightSpan">* </span> <span class="inputText" id="pwdCheckResult">비밀번호 확인</span>
+                                            </div>
+                                            <div class="right2">
+                                                <p class="idText" id="id" th:text="${user.userId}"></p><br>
+                                                <input type="password" name="userPwd" id="pwd"  autofocus onchange="pwdChanged(this)"><br>
+                                                <input type="password" id="confirm"  autofocus><br>
+                                                <button type="button" id="button-confirm" class="pwdCheckFalse" autofocus onclick="pwdCheck()">비밀번호 확인</button>
+                                            </div>
+                                        </div>
+                                        <div class="infoBox2">
+                                            <div class="left">
+                                                <span class="highlightSpan">* </span> <span class="inputText">이름</span><br>
+                                                <span class="highlightSpan">* </span> <span class="inputText">전화번호</span><br>
+                                                <span class="highlightSpan">* </span> <span class="inputText">생년월일</span><br>
+                                                <div class="leftIn">
+                                                    <span class="inputText">성별</span><br>
+                                                    <span class="inputText">담당강사</span>
+                                                </div>
+                                            </div>
+                                            <div class="right2" style="margin-left: 30px">
+                                                <input type="text" name="userName" id="name" th:placeholder="${user.userName}" autofocus><br>
+                                                <input type="text" name="userPhone" id="phone" th:placeholder="${user.userPhone}" autofocus><br>
+                                                <input type="date" name="userBirth" id="birth" autofocus><br>
+                                                <select name="userGender">
+                                                    <option value="남">남</option>
+                                                    <option value="여">여</option>
+                                                </select><br>
+                                                <select name="userStaff" id="userStaff">
+                                                    <option value="0">없음</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="infoBox3">
+                                        <div class="left">
+                                            <div class="leftIn2">
+                                                <span class="inputText">주소</span>
+                                            </div>
+                                        </div>
+                                        <div class="right2" style="margin-left: 62px">
+                                            <div style="display: flex; align-items: center">
+                                                <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 100px"><br>
+                                                <input type="button" onclick="sample4_execDaumPostcode()" value="찾기" style="width: 100px; background-color: rgba(75, 130, 216, 1); border: rgba(75, 130, 216, 1); color: white; cursor: pointer; margin-left: 5px; font-weight: bold"><br>
+                                            </div>
+                                            <input type="text" id="sample4_roadAddress" th:placeholder="${user.userAddress}" name="userAddress1" style="width: 405px"><br>
+                                            <!--        <span id="guide" style="color:#999;display:none"></span>-->
+                                            <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="userAddress2" style="width: 405px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detailBox">
+                                <div class="infoBox1" style="margin-left: 30px; display: flex">
+                                    <div class="left" style="width: 60px">
+                                        <span class="inputText">신체조건</span><br>
+                                        <span class="inputText">키</span><br>
+                                        <span class="inputText">체중</span><br>
+                                        <span class="inputText">BMI</span>
+                                    </div>
+                                    <div class="right">
+                                        <br><br>
+                                        <input type="text" name="height" th:placeholder="${user.physicalDTO.height}"><br>
+                                        <input type="text" name="weight" th:placeholder="${user.physicalDTO.weight}"><br>
+                                        <input type="text" name="bmi" th:placeholder="${user.physicalDTO.bmi}"><br>
+                                    </div>
+                                </div>
+                                <div class="etcAndButton">
+                                    <div class="infoBox4">
+                                        <div class="left">
+                                            <span class="inputText">기타</span>
+                                        </div>
+                                        <div class="right">
+                                            <input type="text" name="userEtc" th:placeholder="${user.userEtc}" style="margin-top: 4px; width: 405px; height: 50px;">
+                                        </div>
+                                        <div class="infoBox3">
+                                            <input type="hidden" name="code" th:value="${user.userCode}">
+                                            <input class="submitButton" type="submit" value="완료">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sideBox">
+                    <div class="painBox">
+                        <form action="/user/pain" method="post">
+                            <input type="hidden" name="code" th:value="${user.userCode}, ${user.userName}">
+                            <img src="/images/painImg.png" style="width: 300px; margin-top: 140px; cursor: pointer">
+                            <input type="submit" class="painText" value="통증등록">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
+
+<script>
+
+    let pwdChecked = false;
+
+    function chooseImage(obj) {
+        let reader = new FileReader();
+
+        reader.readAsDataURL(obj.files[0]);
+
+        reader.onload = function (e) {
+            // $('#preview')[0].src = e.target.result;
+            document.getElementById("preview").src = e.target.result;
+            document.getElementById("urlAddress").value = e.target.result;
+        }
+    }
+
+    function pwdChanged() {
+        document.getElementById("confirm").value = '';
+        pwdChecked = false;
+        document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+        $('#confirm').focus();
+    }
+
+    function pwdCheck() {
+
+        let first = document.getElementById("pwd");
+        let second = document.getElementById("confirm");
+        let check = document.getElementById("pwd").value == document.getElementById("confirm").value? true : false;
+
+
+        if (first.value == null || first.value == '') {
+            alert("비밀번호를 입력하세요.");
+            pwdChecked = false;
+            document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+            $('#pwd').focus();
+        } else {
+            if (check) {
+                alert("비밀번호가 일치합니다.");
+                pwdChecked = true;
+                document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                $('#name').focus();
+            } else {
+                alert("비밀번호가 일치하지 않습니다.")
+                first.value = '';
+                second.value = '';
+                pwdChecked = false;
+                document.getElementById("button-confirm").className = pwdChecked? 'pwdCheckTrue' : 'pwdCheckFalse';
+                $('#pwd').focus();
+            }
+        }
+    }
+    // function isValidCode() {
+    //
+    //     let userId = document.getElementById("id");
+    //     let userName = document.getElementById("name");
+    //     let userPhone = document.getElementById("phone");
+    //     let userBirth = document.getElementById("birth");
+    //     let agreement = document.getElementById("agreement");
+    //
+    //     if (userId.value != '') {
+    //         if (pwdChecked) {
+    //             if (userName.value != '') {
+    //                 if (userPhone.value != '') {
+    //                     if (userBirth.value != '') {
+    //                         if (agreement.checked) {
+    //                             return true;
+    //                         } else {
+    //                             alert('약관에 동의해주세요.');
+    //                             $('#agreement').focus();
+    //                         }
+    //                     } else {
+    //                         alert('생년월일을 입력하세요.');
+    //                         $('#birth').focus();
+    //                     }
+    //                 } else {
+    //                     alert('연락처를 입력하세요.');
+    //                     $('#phone').focus();
+    //                 }
+    //             } else {
+    //                 alert('이름을 입력하세요.');
+    //                 $('#name').focus();
+    //             }
+    //         } else {
+    //             alert('비밀번호를 확인하세요.');
+    //             $('#pwd').focus();
+    //         }
+    //     } else {
+    //         alert('아이디를 입력하세요.');
+    //         $('#id').focus();
+    //     }
+    //
+    //     return false;
+    // }
+</script>
+
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    // guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    // guideTextBox.style.display = 'block';
+                } else {
+                    // guideTextBox.innerHTML = '';
+                    // guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
+
+<script th:inline="javascript">
+    var idListObject = [[${idList}]];
+
+    function idCheck() {
+        let id = document.getElementById("id");
+
+        if (idListObject.indexOf(id.value) >= 0) {
+            alert("중복 아이디 입니다. 다른 아이디를 사용해주세요.");
+            id.value = '';
+            $('#userId').focus();
+        }
+    }
+</script>
+
+<script>
+    fetch("/user/teacher")
+        .then(res =>res.json())
+        .then(data => {
+            const $userCode = document.getElementById("userStaff");
+
+            for(let index in data) {
+                const $option = document.createElement('option');
+                $option.value = data[index].userCode;
+                $option.text = data[index].userName;
+
+                $userCode.appendChild($option);
+            }
+        })
+</script>
 
 </body>
 </html>

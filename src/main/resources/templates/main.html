@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
@@ -25,7 +25,12 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style">
-                작업공간
+                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                    <h1>대표페이지</h1>
+                </div>
+                <div sec:authorize="hasAnyAuthority('USER')">
+                    <h1>직원페이지</h1>
+                </div>
             </div>
             <!--개인 작업 종료-->
         </div>

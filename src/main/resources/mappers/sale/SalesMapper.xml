@@ -55,7 +55,12 @@
         <result property="salesMethod" column="sales_method"/>
         <result property="salesDate" column="sales_date"/>
     </association>
+        <association property="empDTO" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
+            <id property="empCode" column="emp_code"/>
+            <result property="empName" column="emp_name"/>
+        </association>
     </resultMap>
+
 <resultMap id="empAndUserResultMap" type="com.willingtogohome.gymga.sale.model.dto.EmployeeAndUserDTO">
         <id property="total1" column="total1"/>
         <association property="userDTO" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
@@ -119,8 +124,8 @@
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
         LEFT JOIN salesdb D ON D.user_code = A.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
-        WHERE A.user_role = '회원'
-        order by user_code
+        WHERE A.user_role = 'MEMBER'
+        order by C.pass_start desc , D.sales_date desc;
     </select>
 
     <select id="findPassAndPassQualList" resultMap="passResultMap">
@@ -149,17 +154,36 @@
 
     <select id="getData" resultMap="passResultMap">
         SELECT
-            SUM(CASE WHEN pq_code LIKE 'PT%' THEN 1 ELSE 0 END) as ptCount,
-            SUM(CASE WHEN pq_code LIKE 'GX%' THEN 1 ELSE 0 END) as gxCount,
-            SUM(CASE WHEN pq_code LIKE 'GP%' THEN 1 ELSE 0 END) as gpCount
-        FROM passdb;
+        SUM(CASE WHEN pq_code LIKE 'PT%' THEN 1 ELSE 0 END) as ptCount,
+        SUM(CASE WHEN pq_code LIKE 'GX%' THEN 1 ELSE 0 END) as gxCount,
+        SUM(CASE WHEN pq_code LIKE 'GP%' THEN 1 ELSE 0 END) as gpCount
+        FROM PASSDB
+        <where>
+            <if test="condition == 'string'">
+                AND A.USER_NAME Like CONCAT('%', #{ text }, '%')
+            </if>
+            <if test="condition == 'quarter1'">
+            and QUARTER(pass_start) = 1;
+            </if>
+            <if test="condition == 'quarter2'">
+            and QUARTER(pass_start) = 2;
+            </if>
+            <if test="condition == 'quarter3'">
+            and QUARTER(pass_start) = 3;
+            </if>
+            <if test="condition == 'quarter4'">
+            and QUARTER(pass_start) = 4;
+            </if>
+        </where>
     </select>
+
 
     <select id="empAndUser" resultMap="empAndUserResultMap">
         SELECT
         A.user_pic,
         A.user_name,
-        SUM(CASE WHEN A.user_code = 1 or A.user_code = 2 or A.user_code = 3 or A.user_code = 4 THEN D.pq_price ELSE 0 END) AS total1
+        A.user_role,
+        SUM(CASE WHEN A.user_role = 'ADMIN' or A.user_role = 'USER' THEN D.pq_price ELSE 0 END) AS total1
         from userdb A
         join employeedb B on A.user_code=B.user_code
         left join passdb C on C.user_code=B.user_code
@@ -205,7 +229,8 @@
         C.pass_end,
         B.pq_price,
         D.sales_date,
-        D.sales_method
+        D.sales_method,
+        A.user_etc
         FROM USERDB A
         LEFT JOIN validatedb E ON E.user_code = A.user_code
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
@@ -219,14 +244,107 @@
                 AND A.USER_ID Like CONCAT('%', #{ text }, '%')
             </if>
             <if test="condition == 'month'">
-                AND DATE_FORMAT(C.pass_start, '%m'||'%m월') = LPAD(#{text}, 2, '0')
+                AND DATE_FORMAT(C.pass_start, '%m') = LPAD(#{text}, 2, '0')
             </if>
             <if test="condition == 'string'">
                 AND A.USER_NAME Like CONCAT('%', #{ text }, '%')
             </if>
-            AND A.USER_ROLE = '회원'
+            <if test="condition == 'quarter1'">
+                AND QUARTER(C.pass_start) = 1
+            </if>
+            <if test="condition == 'quarter2'">
+                AND QUARTER(C.pass_start) = 2
+            </if>
+            <if test="condition == 'quarter3'">
+                AND QUARTER(C.pass_start) = 3
+            </if>
+            <if test="condition == 'quarter4'">
+                AND QUARTER(C.pass_start) = 4
+            </if>
+            AND A.USER_ROLE = 'MEMBER'
         </where>
         order by C.pass_start desc , D.sales_date desc;
+    </select>
+
+    <select id="searchedUserTest" resultMap="passResultMap">
+        SELECT
+        F.user_code,
+        E.USER_CODE as emp_code,
+        F.USER_NAME,
+        F.USER_ID,
+        E.user_pic,
+        B.pq_code,
+        B.pq_name,
+        C.pass_start,
+        C.pass_end,
+        B.pq_price,
+        D.sales_date,
+        D.sales_method,
+        E.user_etc,
+        E.user_name as emp_name
+        FROM validatedb A
+        LEFT JOIN passdb C ON C.pass_code = A.pass_code
+        LEFT JOIN userdb E ON E.user_code = C.user_code
+        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        left join userdb F on F.user_code = D.user_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        <where>
+            <if test="condition == 'name'">
+                AND F.USER_NAME Like CONCAT('%', #{ text }, '%')
+            </if>
+        </where>
+        order by C.pass_start desc , D.sales_date desc;
+    </select>
+
+    <select id="getUserDetails" resultMap="passResultMap">
+        SELECT
+        F.user_code,
+        E.USER_CODE as emp_code,
+        F.USER_NAME,
+        F.USER_ID,
+        E.user_pic,
+        B.pq_code,
+        B.pq_name,
+        C.pass_start,
+        C.pass_end,
+        B.pq_price,
+        D.sales_date,
+        D.sales_method,
+        E.user_etc,
+        E.user_name as emp_name
+        FROM validatedb A
+        LEFT JOIN passdb C ON C.pass_code = A.pass_code
+        LEFT JOIN userdb E ON E.user_code = C.user_code
+        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        left join userdb F on F.user_code = D.user_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        order by C.pass_start desc , D.sales_date desc;
+    </select>
+
+    <select id="findByUserId" resultMap="passResultMap">
+        SELECT
+        F.user_code,
+        E.USER_CODE as emp_code,
+        F.USER_NAME,
+        F.USER_ID,
+        E.user_pic,
+        B.pq_code,
+        B.pq_name,
+        C.pass_start,
+        C.pass_end,
+        B.pq_price,
+        D.sales_date,
+        D.sales_method,
+        E.user_etc,
+        E.user_name as emp_name
+        FROM validatedb A
+        LEFT JOIN passdb C ON C.pass_code = A.pass_code
+        LEFT JOIN userdb E ON E.user_code = C.user_code
+        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        left join userdb F on F.user_code = D.user_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        where F.user_id = #{userId}
+        order by C.pass_start desc , D.sales_date desc
     </select>
 
 

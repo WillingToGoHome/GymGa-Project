@@ -1,8 +1,10 @@
 package com.willingtogohome.gymga.user.controller;
 
 import com.willingtogohome.gymga.user.model.dto.*;
-import com.willingtogohome.gymga.user.service.UserService;
+
+import com.willingtogohome.gymga.user.model.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -42,47 +44,9 @@ public class UserController {
         return "user/selectAll";
     }
 
-    @GetMapping("/selectDetail")
-    public void detailPage(@RequestParam("code") String userCode, HttpSession session, Model model) {
-
-        int code = (int) session.getAttribute(userCode);
-        String text = Integer.toString(code);
-
-//        UserTotDTO user = userService.searchBy(new SearchCriteria("code", text));
-//        List<UserDTO> userList = userService.selectAllUser();
-//
-//        String pic = user.getPic();
-//        String url = (String) session.getAttribute(pic);
-//
-//        if (url != null) {
-//            user.setPic(url);
-//        }
-//
-//        for (UserDTO user : userList) {
-//
-//            String path = user.getUserPic();
-//            String temp = (String) session.getAttribute(path);
-//
-//            if (temp != null) {
-//                user.setUserPic(temp);
-//            }
-//        }
-    }
-
-    @PostMapping("/selectDetail")
-    public String selectDetail(@RequestParam("code") String userCode, Model model) {
-
-        int code = Integer.parseInt(userCode);
-
-        List<UserTotDTO> userList = userService.selectDetail(code);
-
-        model.addAttribute("userList", userList);
-
-        return "user/selectDetail";
-    }
-
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("code") String userCode) {
+
 
         int code = Integer.parseInt(userCode);
         userService.deleteUser(code);
@@ -169,7 +133,7 @@ public class UserController {
         int code = userService.findLastCode();
 
         if (newUser.getUserBirth() == null) {
-            newUser.setUserBirth(java.sql.Date.valueOf("2000-01-01"));
+            newUser.setUserBirth("2000-01-01");
         }
 
         newUser.setUserCode(code + 1);
@@ -180,5 +144,76 @@ public class UserController {
         userService.registUser(newUser, physical);
 
         return "redirect:/user/selectAll";
+    }
+
+    @GetMapping("/selectDetail")
+    public void selectDetail() {}
+
+    @PostMapping("/selectDetail")
+    public String selectDetail(HttpSession session,
+                               @RequestParam("code") String userCode, Model model,
+                               UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        userDTO.setUserCode(code);
+        physicalDTO.setUserCode(code);
+
+        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+
+        model.addAttribute("user", user);
+
+        return "user/selectDetail";
+    }
+
+    @GetMapping("/update")
+    public void updateUser() {}
+
+    @PostMapping("/update")
+    public String updateUser(HttpSession session,
+                             @RequestParam("code") String userCode, Model model,
+                             UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        userDTO.setUserCode(code);
+        physicalDTO.setUserCode(code);
+
+        UserTotDTO user = userService.updatePage(code, userDTO, physicalDTO);
+
+        model.addAttribute("user", user);
+
+        return "/user/update";
+    }
+
+    @GetMapping("/updateUser")
+    public void update() {}
+
+    @PostMapping("/updateUser")
+    public String update(HttpSession session,
+                         @RequestParam("code") String userCode, Model model,
+                         @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
+                         UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        userDTO.setUserCode(code);
+        userDTO.setUserRole("MEMBER");
+
+        userService.update(userDTO, physicalDTO);
+
+        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+
+        model.addAttribute("user", user);
+
+        System.out.println(user.getPhysicalDTO().getHeight());
+
+        return "/user/selectDetail";
     }
 }

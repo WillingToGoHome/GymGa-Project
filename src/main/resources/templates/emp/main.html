@@ -3,114 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <title>직원 조회</title>
-    <link rel="stylesheet" href="/emp/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/emp/styles/empMainStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-    <div class="outerDiv">
-        <div class="mainBox">
-            <div class="empList">
-                <div style="margin-bottom: 20px">
-                    <span class="topic">직원 목록</span>
-                </div>
-                <hr class="line1">
-                <div class="empBlock" th:each="emp : ${ empList }">
-                    <div class="empBlockLeft">
-                        <img class="empImg" th:src="${ emp.pic }"/>
-                    </div>
-                    <div class="empBlockRight">
-                        <p class="empName" th:text="${ emp.name }"></p>
-                        <p class="empRole" th:text="${ emp.role }"></p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="bigButton" onClick="location.href='/emp/regist'">
-                    <img src="/emp/images/emp-regist.png" style="width: 150px"><br>
-                    신규 직원 등록
-                </div>
-                <div class="bigButton" onClick="location.href='/emp/search'">
-                    <img src="/emp/images/emp-search.png" style="width: 150px"><br>
-                    직원 조회 및 정보 수정
-                </div>
-            </div>
-        </div>
-        <div class="scheduleBox">
-            <span class="topic" id="today1"></span>
-            <span class="date" id="today2"></span>
-            <span class="moreSche" onclick="location.href='/schedule/schedulemain'">더보기</span><br>
-            <table class="cal">
-                <tr>
-                    <th class="none">일</th>
-                    <th class="none">월</th>
-                    <th class="none">화</th>
-                    <th class="none">수</th>
-                    <th class="none">목</th>
-                    <th class="none">금</th>
-                    <th class="none">토</th>
-                </tr>
-                <tr>
-                    <td id="sun" class="none"></td>
-                    <td id="mon" class="none"></td>
-                    <td id="tue" class="none"></td>
-                    <td id="wed" class="none"></td>
-                    <td id="thu" class="none"></td>
-                    <td id="fri" class="none"></td>
-                    <td id="sat" class="none"></td>
-                </tr>
-            </table>
-            <hr class="line2">
-            <div class="scheBox">
-                <div class="timeLine">
-                    <div class="pointer" id="pointer1"></div>
-                    <hr class="verticalLine">
-                    <div class="pointer" id="pointer2"></div>
-                    <hr class="verticalLine">
-                    <div class="pointer" id="pointer3"></div>
-                    <hr class="verticalLine">
-                    <div class="pointer" id="pointer4"></div>
-                    <hr class="verticalLine">
-                    <div class="pointer" id="pointer5"></div>
-                    <hr class="verticalLine">
-                    <div class="pointer" id="pointer6"></div>
-                </div>
-                <span id="time1">8:00 am</span><br>
-                <div class="scheList">
-                    <div th:each="sche : ${ scheList1 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
-                    </div>
-                </div>
-                <span id="time2">10:00 am</span><br>
-                <div class="scheList">
-                    <div th:each="sche : ${ scheList2 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
-                    </div>
-                </div>
-                <span id="time3">12:00 pm</span><br>
-                <div class="scheList">
-                    <div th:each="sche : ${ scheList3 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
-                    </div>
-                </div>
-                <span id="time4">14:00 pm</span><br>
-                <div class="scheList">
-                    <div th:each="sche : ${ scheList4 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
 
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+                        <div class="mainBox">
+                            <div class="empList">
+                                <!--                <div style="margin-bottom: 20px">-->
+                                <div style="margin-top: 3px; margin-bottom: 22px">
+                                    <span class="topic">직원 목록</span>
+                                </div>
+                                    <hr class="line1">
+                                <div class="empBlock" th:each="emp : ${ empList }">
+                                    <div class="empBlockLeft">
+                                        <img class="empImg" th:src="|/imageFile/${ emp.pic }|"/>
+                                    </div>
+                                    <div class="empBlockRight">
+                                        <span class="empName" th:text="${ emp.name }"></span><br>
+                                        <span class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bigButton" onClick="location.href='/emp/regist'">
+                                    <!--                    <img src="/emp/images/emp-regist.png" style="width: 200px"><br>-->
+                                    <img src="/emp/images/emp-regist.png" style="width: 150px"><br>
+                                    신규 직원 등록
+                                </div>
+                                <div class="bigButton" onClick="location.href='/emp/search'">
+                                    <!--                    <img src="/emp/images/emp-search.png" style="width: 200px"><br>-->
+                                    <img src="/emp/images/emp-search.png" style="width: 150px"><br>
+                                    직원 조회 및 정보 수정
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scheduleBox">
+                            <span class="topic" id="today1"></span>
+                            <span class="date" id="today2"></span>
+                            <span class="moreSche" onclick="location.href='/schedule/schedulemain'">더보기</span><br>
+                            <table class="cal">
+                                <tr>
+                                    <th class="none">일</th>
+                                    <th class="none">월</th>
+                                    <th class="none">화</th>
+                                    <th class="none">수</th>
+                                    <th class="none">목</th>
+                                    <th class="none">금</th>
+                                    <th class="none">토</th>
+                                </tr>
+                                <tr>
+                                    <td id="sun" class="none"></td>
+                                    <td id="mon" class="none"></td>
+                                    <td id="tue" class="none"></td>
+                                    <td id="wed" class="none"></td>
+                                    <td id="thu" class="none"></td>
+                                    <td id="fri" class="none"></td>
+                                    <td id="sat" class="none"></td>
+                                </tr>
+                            </table>
+                            <hr class="line2">
+                            <div class="scheBox">
+                                <div class="timeLine">
+                                    <div class="pointer" id="pointer1"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer2"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer3"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer4"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer5"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer6"></div>
+                                </div>
+                                <span id="time1">8:00 am</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList1 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time2">10:00 am</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList2 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time3">12:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList3 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time4">14:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList4 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+
+                                    </div>
+                                </div>
+                                <span id="time5">16:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList5 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time6">18:00 pm</span><br>
+                                <!--                <div class="scheList" style="height: 164px; margin-left: 20px">-->
+                                <div class="scheList" style="height: 120px; margin-left: 20px">
+                                    <div th:each="sche : ${ scheList6 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <span id="time5">16:00 pm</span><br>
-                <div class="scheList">
-                    <div th:each="sche : ${ scheList5 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
-                    </div>
-                </div>
-                <span id="time6">18:00 pm</span><br>
-                <div class="scheList" style="height: 164px; margin-left: 20px">
-                    <div th:each="sche : ${ scheList6 }">
-                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
-                    </div>
-                </div>
+                <!--개인 작업 종료-->
             </div>
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
         </div>
     </div>
 

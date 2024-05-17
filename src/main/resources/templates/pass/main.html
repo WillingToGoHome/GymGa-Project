@@ -2,20 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>이용권 관리</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/pass/styles/passPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-    <div onclick="location.href='/pass/regist1'">
-        <img src="/pass/images/pass-regist.png"><br>
-        <span>이용권 등록</span>
-    </div>
-    <div onclick="location.href='/pass/select'">
-        <img src="/pass/images/pass-select.png"><br>
-        <span>이용권 조회</span>
-    </div>
-    <div onclick="location.href='/pass/update'">
-        <img src="/pass/images/pass-update.png"><br>
-        <span>이용권 변경 및 환불</span>
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
+
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+                        <div class="selectDiv" onclick="location.href='/pass/regist1'">
+                            <img src="/pass/images/pass-regist.png"><br>
+                            <span>이용권 등록</span>
+                        </div>
+                        <div class="selectDiv" onclick="location.href='/pass/search'">
+                            <img src="/pass/images/pass-select.png"><br>
+                            <span>이용권 조회</span>
+                        </div>
+                        <div class="selectDiv" onclick="location.href='/pass/update'">
+                            <img src="/pass/images/pass-update.png"><br>
+                            <span>이용권 변경 및 환불</span>
+                        </div>
+                    </div>
+                </div>
+                <!--개인 작업 종료-->
+            </div>
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
+        </div>
     </div>
 </body>
 </html>

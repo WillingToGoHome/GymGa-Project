@@ -18,7 +18,7 @@ public class UserAndEmpDTO {
     private String userRole;
     private String userPic;
     private String userGender;
-    private Date userBirth;
+    private String userBirth;
     private String userAddress;
     private String userEtc;
     private int userStaff;

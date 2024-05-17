@@ -33,7 +33,84 @@
             , USER_ETC
             , USER_STAFF
         FROM USERDB
-        WHERE USER_ROLE = '직원'
+        WHERE USER_ROLE IN ('ADMIN', 'USER')
         ORDER BY USER_NAME
     </select>
+
+    <select id="selectAllMember" resultMap="userResultMap">
+        SELECT
+        USER_CODE
+        , USER_ID
+        , USER_PWD
+        , USER_NAME
+        , USER_PHONE
+        , USER_ROLE
+        , USER_PIC
+        , USER_GENDER
+        , USER_BIRTH
+        , USER_ADDRESS
+        , USER_ETC
+        , USER_STAFF
+        FROM USERDB
+        WHERE USER_ROLE = 'MEMBER'
+        <if test="condition == 'name'">
+            AND USER_NAME LIKE CONCAT('%', #{text}, '%')
+        </if>
+        ORDER BY USER_CODE
+    </select>
+
+    <select id="findMaxCode" resultType="_int">
+        SELECT
+            MAX(PASS_CODE)
+        FROM PASSDB
+    </select>
+
+    <insert id="registNewPassDTO" parameterType="com.willingtogohome.gymga.pass.model.dto.PassDTO">
+        INSERT INTO PASSDB(
+            PASS_CODE
+            , PQ_CODE
+            , PASS_STATUS
+            , PASS_START
+            , PASS_END
+            , PASS_TOTAL
+            , PASS_USE
+            , USER_CODE
+        )
+        VALUES(
+            #{ passCode }
+            , #{ pqCode }
+            , #{ passStatus }
+            , #{ passStart }
+            , #{ passEnd }
+            , #{ passTotal }
+            , #{ passUse }
+            , #{ userCode }
+        )
+    </insert>
+
+    <insert id="registNewSaleDTO" parameterType="com.willingtogohome.gymga.pass.model.dto.SaleDTO">
+        INSERT INTO SALESDB(
+            USER_CODE
+            , SALES_METHOD
+            , SALES_DATE
+        )
+        VALUES(
+            #{ memberCode }
+            , #{ salesMethod }
+            , #{ salesDate }
+        )
+    </insert>
+
+    <insert id="registNewValidateDTO" parameterType="com.willingtogohome.gymga.pass.model.dto.ValidateDTO">
+        INSERT INTO VALIDATEDB(
+            VAL_STATUS
+            , PASS_CODE
+            , USER_CODE
+        )
+        VALUES(
+            #{ valStatus }
+            , #{ passCode }
+            , #{ memberCode }
+        )
+    </insert>
 </mapper>

@@ -83,8 +83,8 @@
     margin-bottom: 10px;
     padding-top: 10px;
     width: 660px;
-
 }
+
 .backGround{
     background-color: white;
     width: 690px;
@@ -299,7 +299,7 @@
     text-align: center;
 }
 .price2{
-    width: 150px;
+    width: 180px;
     text-align: center;
 }
 
@@ -417,3 +417,4 @@
 
     /*text-align: center;*/
 }
+

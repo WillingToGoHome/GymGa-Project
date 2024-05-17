@@ -1,4 +1,4 @@
-package com.willingtogohome.gymga.user.service;
+package com.willingtogohome.gymga.user.model.service;
 
 import com.willingtogohome.gymga.user.model.dao.UserMapper;
 import com.willingtogohome.gymga.user.model.dto.*;
@@ -45,11 +45,6 @@ public class UserService {
         return userMapper.findLastCode();
     }
 
-
-    public List<UserTotDTO> selectDetail(int code) {
-        return userMapper.selectDetail(code);
-    }
-
     public List<UserDTO> findAllTeacher() {
 
         return userMapper.findAllTeacher();
@@ -59,4 +54,32 @@ public class UserService {
 
         return userMapper.selectAllUserID();
     }
+
+    public UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        return userMapper.getUserDetailByCode(code, userDTO, physicalDTO);
+    }
+
+    public UserTotDTO updatePage(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        return userMapper.updatePage(code, userDTO, physicalDTO);
+    }
+    @Transactional
+    public void update(UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        userMapper.updateUser(userDTO);
+        userMapper.updatePhy(physicalDTO);
+    }
+
+    public void selectDetail(UserDTO userDTO, PhysicalDTO physicalDTO) {
+
+        userMapper.selectDetailUser(userDTO);
+        userMapper.selectDetailPhy(physicalDTO);
+    }
+
+//    @Transactional
+//    public void update(UserTotDTO userTotDTO) {
+//
+//        userMapper.update(userTotDTO);
+//    }
 }

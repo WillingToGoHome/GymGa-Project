@@ -1,10 +1,14 @@
 package com.willingtogohome.gymga.schedule.model.dao;
 
+import com.willingtogohome.gymga.schedule.model.dto.ClassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -15,8 +19,9 @@ public interface ScheduleMapper {
 
     // 강사 찾기(옵션 선택용)
     List<EmpDTO> findAllTeacher();
-    void registNewSchedule(ScheduleDTO newSchedule);
+    void registNewPtSchedule(ScheduleDTO newSchedule);
 
+    void registNewGxSchedule(ScheduleDTO newSchedule);
 
     List<ScheduleAndClassAndUserAndPassDTO> findAll();
 
@@ -33,4 +38,20 @@ public interface ScheduleMapper {
     ScheduleAndClassAndUserAndPassDTO findScheAtten(int scheCode);
 
     List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate();
+
+
+    List<ScheduleAndClassAndUserAndPassDTO> findAllByScheRunDate(LocalDate scheRunDate);
+
+    List<ClassDTO> findAllClassName();
+
+
+    List<ScheduleAndClassAndUserAndPassDTO> findByClassCode(String classCode);
+
+    ScheduleAndClassAndUserAndPassDTO findGxList(int scheCode);
+
+    List<ScheduleAndClassAndUserAndPassDTO> findGxByRegDate(LocalDateTime scheRegDate);
+
+    void updateGxAtten(LocalDateTime scheRegDate);
+
+    void updateGxSchedule(ScheduleDTO scheduleDTO);
 }

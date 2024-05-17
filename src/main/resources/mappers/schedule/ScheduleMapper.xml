@@ -28,6 +28,7 @@
         <result property="empName" column="user_name"/>
     </resultMap>
 
+
     <select id="findAllSchedule" resultMap="scheduleResultMap">
         SELECT
                sche_code,
@@ -64,7 +65,16 @@
         ORDER BY user_code
     </select>
 
-    <insert id="registNewSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+    <select id="findAllClassName" resultMap="classResultMap">
+        SELECT
+               class_code,
+               class_name
+          FROM classdb
+         WHERE class_code != 'PT01'
+        ORDER BY class_code
+    </select>
+
+    <insert id="registNewPtSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
         INSERT
           INTO scheduledb
                (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code)
@@ -74,10 +84,25 @@
                 #{ scheRunDate },
                 #{ scheStartTime },
                 #{ scheEndTime },
-                #{ scheParticipate },
+                '1',
                 '예약대기',
                 #{ empCode }
                )
+    </insert>
+    <insert id="registNewGxSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        INSERT
+        INTO scheduledb
+        (class_code, sche_reg_date, sche_run_date, sche_start_time, sche_end_time, sche_participate, sche_atten, emp_code)
+        VALUES (
+        #{ classCode },
+        SYSDATE(),
+        #{ scheRunDate },
+        #{ scheStartTime },
+        #{ scheEndTime },
+        #{ scheParticipate },
+        '예약대기',
+        #{ empCode }
+        )
     </insert>
 
     <!--collection-->
@@ -88,6 +113,7 @@
         <result property="scheRunDate" column="sche_run_date"/>
         <result property="scheStartTime" column="sche_start_time"/>
         <result property="scheEndTime" column="sche_end_time"/>
+        <result property="registrationCount" column="registration_count"/>
         <result property="scheParticipate" column="sche_participate"/>
         <result property="scheAtten" column="sche_atten"/>
         <!--classDTO-->
@@ -198,6 +224,16 @@
                EMP_CODE = #{empCode}
         WHERE sche_code = #{scheCode};
     </update>
+    <!-- Gx 일정 변경 -->
+    <update id="updateGxSchedule" parameterType="com.willingtogohome.gymga.schedule.model.dto.ScheduleDTO">
+        UPDATE scheduledb
+        SET sche_run_date = #{scheRunDate},
+        sche_start_time = #{scheStartTime},
+        sche_end_time = #{scheEndTime},
+        sche_participate = #{scheParticipate},
+        EMP_CODE = #{empCode}
+        WHERE sche_code = #{scheCode};
+    </update>
 
     <!-- 출석 눌렀을 때-->
     <update id="updateAtten" parameterType="int">
@@ -300,6 +336,156 @@
           FROM scheduledb
     </select>
 
+<!--    <select id="findAllByScheRunDate" resultMap="scheduleAndClassAndUserAndPassResultMap">-->
+<!--        SELECT-->
+<!--        A.SCHE_CODE,-->
+<!--        &lt;!&ndash;               B.CLASS_CODE,&ndash;&gt;-->
+<!--        B.CLASS_NAME,-->
+<!--        A.SCHE_REG_DATE,-->
+<!--        A.SCHE_RUN_DATE,-->
+<!--        A.SCHE_START_TIME,-->
+<!--        A.SCHE_END_TIME,-->
+<!--        A.SCHE_PARTICIPATE,-->
+<!--        A.SCHE_ATTEN,-->
+<!--        &lt;!&ndash;               A.EMP_CODE,&ndash;&gt;-->
+<!--        &lt;!&ndash;               C.USER_CODE,&ndash;&gt;-->
+<!--        C.USER_CODE,-->
+<!--        C.USER_NAME AS EMP_NAME,-->
+<!--        &lt;!&ndash;               A.MEMBER_CODE,&ndash;&gt;-->
+<!--        &lt;!&ndash;               D.USER_CODE,&ndash;&gt;-->
+<!--        D.USER_CODE,-->
+<!--        D.USER_NAME,-->
+<!--        D.USER_PHONE,-->
+<!--        A.PASS_CODE,-->
+<!--        &lt;!&ndash;               E.PASS_CODE,&ndash;&gt;-->
+<!--        F.PQ_NAME,-->
+<!--        E.PASS_TOTAL,-->
+<!--        E.PASS_USE-->
+<!--        FROM SCHEDULEDB AS A-->
+<!--        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)-->
+<!--        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)-->
+<!--        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)-->
+<!--        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)-->
+<!--        LEFT JOIN PASSQUALDB AS F ON (E.PQ_CODE = F.PQ_CODE)-->
+<!--        WHERE A.SCHE_RUN_DATE = #{scheRunDate}-->
+<!--        ORDER BY A.SCHE_CODE-->
+<!--    </select>-->
+    <select id="findAllByScheRunDate" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+               A.SCHE_CODE,
+               B.CLASS_NAME,
+               A.SCHE_REG_DATE,
+               A.SCHE_RUN_DATE,
+               A.SCHE_START_TIME,
+               A.SCHE_END_TIME,
+               COUNT(D.USER_CODE) AS registration_count,
+               A.SCHE_PARTICIPATE,
+               A.SCHE_ATTEN,
+               C.USER_CODE,
+               C.USER_NAME AS EMP_NAME,
+               D.USER_CODE,
+               D.USER_NAME,
+               D.USER_PHONE,
+               A.PASS_CODE,
+               F.PQ_NAME,
+               E.PASS_TOTAL,
+               E.PASS_USE
+          FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        LEFT JOIN PASSQUALDB AS F ON (E.PQ_CODE = F.PQ_CODE)
+        WHERE A.SCHE_RUN_DATE = #{scheRunDate}
+        GROUP BY
+               A.SCHE_CODE,
+               B.CLASS_NAME,
+               A.SCHE_REG_DATE,
+               A.SCHE_RUN_DATE,
+               A.SCHE_START_TIME,
+               A.SCHE_END_TIME,
+               A.SCHE_PARTICIPATE,
+               A.SCHE_ATTEN,
+               C.USER_CODE,
+               C.USER_NAME,
+               D.USER_CODE,
+               D.USER_NAME,
+               D.USER_PHONE,
+               A.PASS_CODE,
+               F.PQ_NAME,
+               E.PASS_TOTAL,
+               E.PASS_USE;
+    </select>
+
+
+    <select id="findGxList" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+        A.SCHE_CODE,
+        A.CLASS_CODE,
+        B.CLASS_NAME,
+        A.SCHE_REG_DATE,
+        A.SCHE_RUN_DATE,
+        A.SCHE_START_TIME,
+        A.SCHE_END_TIME,
+        A.SCHE_PARTICIPATE,
+        A.SCHE_ATTEN,
+        <!--               A.EMP_CODE,-->
+        <!--               C.USER_CODE,-->
+        C.USER_CODE,
+        C.USER_NAME AS EMP_NAME,
+        <!--               A.MEMBER_CODE,-->
+        <!--               D.USER_CODE,-->
+        D.USER_CODE,
+        D.USER_NAME,
+        D.USER_PHONE,
+        A.PASS_CODE,
+        <!--               E.PASS_CODE,-->
+        F.PQ_NAME,
+        E.PASS_TOTAL,
+        E.PASS_USE
+        FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        LEFT JOIN PASSQUALDB AS F ON (E.PQ_CODE = F.PQ_CODE)
+        WHERE SCHE_CODE = #{scheCode}
+        ORDER BY A.SCHE_CODE
+    </select>
+    <select id="findGxByRegDate" resultMap="scheduleAndClassAndUserAndPassResultMap">
+        SELECT
+        A.SCHE_CODE,
+        A.CLASS_CODE,
+        B.CLASS_NAME,
+        A.SCHE_REG_DATE,
+        A.SCHE_RUN_DATE,
+        A.SCHE_START_TIME,
+        A.SCHE_END_TIME,
+        A.SCHE_PARTICIPATE,
+        A.SCHE_ATTEN,
+        <!--               A.EMP_CODE,-->
+        <!--               C.USER_CODE,-->
+        C.USER_CODE AS EMP_CODE,
+        C.USER_NAME AS EMP_NAME,
+        <!--               A.MEMBER_CODE,-->
+        <!--               D.USER_CODE,-->
+        D.USER_CODE,
+        D.USER_NAME,
+        D.USER_PHONE,
+        A.PASS_CODE,
+        <!--               E.PASS_CODE,-->
+        F.PQ_NAME,
+        E.PASS_TOTAL,
+        E.PASS_USE
+        FROM SCHEDULEDB AS A
+        LEFT JOIN CLASSDB AS B ON (A.CLASS_CODE = B.CLASS_CODE)
+        LEFT JOIN USERDB AS C ON (A.EMP_CODE = C.USER_CODE)
+        LEFT JOIN USERDB AS D ON (A.MEMBER_CODE = D.USER_CODE)
+        LEFT JOIN PASSDB AS E ON (A.PASS_CODE = E.PASS_CODE)
+        LEFT JOIN PASSQUALDB AS F ON (E.PQ_CODE = F.PQ_CODE)
+        WHERE A.SCHE_REG_DATE = #{scheRegDate}
+        ORDER BY A.SCHE_CODE
+    </select>
 
 
 </mapper>
