@@ -340,6 +340,7 @@ public class EmpController {
         System.out.println("get : /emp/detail/{code}");
 
         String text = Integer.toString(code);
+        session.setAttribute("searched", code);
 
         EmpTotDTO emp = empService.selectBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
