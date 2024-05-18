@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.emp.model.dto.*;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -360,10 +361,16 @@ public class EmpController {
         return "redirect:/emp/main";
     }
 
+    @GetMapping("/send")
+    public void sendError() {
+
+        throw new NullPointerException();
+    }
+
     @ExceptionHandler(SQLException.class)
     public String sqlException(SQLException exception, Model model) {
 
-        String message = "";
+        String message = "자료 입력에 문제가 발생했습니다";
 
         if (exception.toString().contains("salary")) {
             message = "기본급 입력에 문제가 발생했습니다";
@@ -375,14 +382,40 @@ public class EmpController {
         return "/emp/error";
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public String exception(Exception exception, Model model) {
-//
-//        String message = "알 수 없는 문제가 발생했습니다";
-//
-//        model.addAttribute("message", message);
-//        model.addAttribute("exception", exception);
-//
-//        return "/emp/error";
-//    }
+    @ExceptionHandler(UncategorizedSQLException.class)
+    public String uncategorizedSqlException(UncategorizedSQLException exception, Model model) {
+
+        String message = "자료 입력에 문제가 발생했습니다";
+
+        if (exception.toString().contains("salary")) {
+            message = "기본급 입력에 문제가 발생했습니다";
+        }
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public String nullPointerException(NullPointerException exception, Model model) {
+
+        String message = "자료를 불러오는데 문제가 발생했습니다";
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String exception(Exception exception, Model model) {
+
+        String message = "알 수 없는 문제가 발생했습니다";
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
+    }
 }
