@@ -195,6 +195,7 @@
              ,  USER_ADDRESS
              ,  USER_ETC
              ,  USER_STAFF
+             ,  USER_PIC
         )
         VALUES(
                 #{ userCode }
@@ -208,6 +209,7 @@
               , #{ userAddress }
               , #{ userEtc }
               , #{ userStaff }
+              , #{ userPic}
         )
     </insert>
 
