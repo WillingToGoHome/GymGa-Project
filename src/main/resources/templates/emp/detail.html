@@ -52,25 +52,27 @@
                                     <div style="float: left">
                                         <div>
                                             <div style="float: left;">
-                                                <div class="spanTagBoxWOSup" style="margin-left: 10px; width: 111.84px">
+                                                <div class="spanTagBoxWOSup" style="padding-left: 11.75px; width: 120px">
                                                     <span>사용자 번호</span><br>
                                                     <span>아이디</span><br>
                                                     <span>직급</span>
                                                 </div>
-                                                <div class="spanTagBoxWOSup" style="width: 126.99px">
+                                                <div class="spanTagBoxWOSup" style="width: 127px">
                                                     <span th:text="|*{ code }|"></span><br>
                                                     <span th:text="|*{ id }|"></span><br>
                                                     <span th:text="*{ role == 'ADMIN'? '대표' : '직원' }"></span>
                                                 </div>
                                             </div>
-                                            <div style="float: left; margin-left: 10px">
-                                                <div class="spanTagBoxWOSup">
-                                                    <span>이름</span><br>
-                                                    <span>전화번호</span><br>
-                                                    <span>생년월일</span><br>
-                                                    <span>성별</span>
+                                            <div style="float: left">
+                                                <div style="float: left; width: 120px">
+                                                    <div class="spanTagBoxWOSup" style="padding-left: 8.13px">
+                                                        <span>이름</span><br>
+                                                        <span>전화번호</span><br>
+                                                        <span>생년월일</span><br>
+                                                        <span>성별</span>
+                                                    </div>
                                                 </div>
-                                                <div class="spanTagBoxWOSup" style="margin-left: 30px">
+                                                <div class="spanTagBoxWOSup">
                                                     <span th:text="|*{ name }|"></span><br>
                                                     <span th:text="|*{ phone }|"></span><br>
                                                     <span th:text="|*{ birth }|"></span><br>
@@ -79,20 +81,20 @@
                                             </div>
                                         </div>
                                         <div style="clear: left">
-                                            <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                            <div class="spanTagBoxWOSup" style="width: 120px; padding-left: 11.75px">
                                                 <span>주소</span>
                                             </div>
-                                            <div class="spanTagBoxWOSup" style="margin-left: 88px">
+                                            <div class="spanTagBoxWOSup">
                                                 <span th:text="|*{ address }|"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="detailBox">
-                                    <div style="float: left; margin-left: 50px; margin-right: 50px">
+                                    <div style="float: left; margin-left: 50px; margin-right: 35px">
                                         <div>
                                             <h4>신체조건</h4>
-                                            <div class="spanTagBoxWOSup">
+                                            <div class="spanTagBoxWOSup" style="width: 30px">
                                                 <span>키</span><br>
                                                 <span>체중</span><br>
                                                 <span>BMI</span><br>
@@ -107,15 +109,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="float: left; margin-right: 60px">
+                                    <div style="float: left; margin-right: 40px; width: 185px">
                                         <h4>자격 사항</h4>
-                                        <div class="spanTagBoxWOSup" style="width: 165px">
+                                        <div class="spanTagBoxWOSup">
                                             <span th:text="|*{ employeeDTO.qual }|"></span>
                                         </div>
                                     </div>
                                     <div style="float: left">
                                         <h4>경력 사항</h4>
-                                        <div class="spanTagBoxWOSup" style="margin-left: 8px">
+                                        <div class="spanTagBoxWOSup" style="width: 75px">
                                             <span>근무지</span><br>
                                             <span>기간</span><br>
                                             <span>전체 사항</span><br>
@@ -147,7 +149,7 @@
                     <div class="sideBox">
                         <div>
                             <div class="main" style="margin-bottom: 25px">
-                                <span class="titleText" style="margin-left: 40px">직원 리스트</span>
+                                <span class="titleText" style="margin-left: 30px">직원 리스트</span>
                             </div>
                             <hr class="line" style="width: 300px">
                         </div>

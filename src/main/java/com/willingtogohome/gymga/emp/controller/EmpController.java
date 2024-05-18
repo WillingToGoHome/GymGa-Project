@@ -8,13 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,12 +32,9 @@ public class EmpController {
     }
 
     @GetMapping(value = {"/", "/main"})
-    public String empMain(HttpSession session, Model model) {
+    public String empMain(Model model) {
 
         System.out.println("get : /emp/ or /emp/main");
-
-//        int code = (int) session.getAttribute("searched");
-//        System.out.println("code = " + code);
 
         List<EmpDTO> empList = empService.selectAllEmp();
 
@@ -142,9 +138,9 @@ public class EmpController {
         physicalDTO.setCode(code + 1);
         employeeDTO.setCode(code + 1);
 
-        System.out.println("empDTO = " + empDTO);
-        System.out.println("physicalDTO = " + physicalDTO);
-        System.out.println("employeeDTO = " + employeeDTO);
+//        System.out.println("empDTO = " + empDTO);
+//        System.out.println("physicalDTO = " + physicalDTO);
+//        System.out.println("employeeDTO = " + employeeDTO);
 
         empService.registNewEmp(empDTO, physicalDTO, employeeDTO);
 
@@ -171,15 +167,34 @@ public class EmpController {
 
         System.out.println("get : /emp/result");
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria(category, search));
+        List<EmpTotDTO> searchedEmps = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-        session.setAttribute("searched", emp.getCode());
-
-        model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
 
+        if (searchedEmps.size() == 0) {
+            return "/emp/searchfail";
+        } else if (searchedEmps.size() == 1) {
+            model.addAttribute("emp", searchedEmps.get(0));
+            session.setAttribute("searched", searchedEmps.get(0).getCode());
+        } else if (searchedEmps.size() >= 2) {
+            model.addAttribute("searchedEmps", searchedEmps);
+            return "/emp/searchlist";
+        }
+
         return "/emp/result";
+    }
+
+    @GetMapping("/searchfail")
+    public String searchFail() {
+
+        return "/emp/searchFail";
+    }
+
+    @GetMapping("/searchlist")
+    public String searchList() {
+
+        return "/emp/searchList";
     }
 
     @GetMapping("/update")
@@ -190,7 +205,7 @@ public class EmpController {
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+        EmpTotDTO emp = empService.selectBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
 
@@ -216,7 +231,7 @@ public class EmpController {
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+        EmpTotDTO emp = empService.selectBy(new SearchCriteria("code", text));
 
         if (!picFile.isEmpty()) {
             String root = "src/main/resources/static";
@@ -235,21 +250,14 @@ public class EmpController {
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
                 String path = "C:/Lecture/GymGa-Project/src/main/resources/static/uploadFiles/";
-                System.out.println("path = " + path);
                 String originFile = emp.getPic();
-                System.out.println("originFile = " + originFile);
 //
                 File deleteFile = new File(path + originFile);
 
                 if (!originFile.equals("default-user.png")) {
                     if (deleteFile.exists()) {
                         deleteFile.delete();
-                        System.out.println("파일 삭제");
-                    } else {
-                        System.out.println("파일 없음");
                     }
-                } else {
-                    System.out.println("기본 파일");
                 }
 
                 empDTO.setPic(savedName);
@@ -315,7 +323,24 @@ public class EmpController {
         int code = (int) session.getAttribute("searched");
         String text = Integer.toString(code);
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria("code", text));
+        EmpTotDTO emp = empService.selectBy(new SearchCriteria("code", text));
+        List<EmpDTO> empList = empService.selectAllEmp();
+
+        model.addAttribute("emp", emp);
+        model.addAttribute("empList", empList);
+
+        return "/emp/detail";
+    }
+
+    @GetMapping("/detail/{code}")
+    public String selectEmpDetail(HttpSession session, Model model,
+                                  @PathVariable int code) {
+
+        System.out.println("get : /emp/detail/{code}");
+
+        String text = Integer.toString(code);
+
+        EmpTotDTO emp = empService.selectBy(new SearchCriteria("code", text));
         List<EmpDTO> empList = empService.selectAllEmp();
 
         model.addAttribute("emp", emp);
@@ -335,9 +360,29 @@ public class EmpController {
         return "redirect:/emp/main";
     }
 
-    @GetMapping("/test")
-    public String empTest() {
+    @ExceptionHandler(SQLException.class)
+    public String sqlException(SQLException exception, Model model) {
 
-        return "/emp/test";
+        String message = "";
+
+        if (exception.toString().contains("salary")) {
+            message = "기본급 입력에 문제가 발생했습니다";
+        }
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String exception(Exception exception, Model model) {
+
+        String message = "알 수 없는 문제가 발생했습니다";
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
     }
 }
