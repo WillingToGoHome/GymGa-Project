@@ -33,4 +33,48 @@
             A.USER_CODE = #{ code };
     </select>
 
+    <insert id="registPainCodeAndPos" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
+        INSERT INTO PAINDB(
+            USER_CODE
+            , PAIN_POS
+        )
+        VALUES(
+            #{ userCode }
+            , #{ pos }
+        )
+    </insert>
+
+    <insert id="registPain" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
+        INSERT INTO PAINDB(
+            USER_CODE
+            , PAIN_POS
+            , PAIN_TYPE
+            , PAIN_DUR
+            , PAIN_CAUSE
+            , PAIN_STR
+            , PAIN_ETC
+        )
+        SELECT
+            userCode
+            , pos
+            , #{ type }
+            , #{ dur }
+            , #{ cause }
+            , #{ str }
+            , #{ etc }
+        FROM
+            PAINDB
+        WHERE
+            userCode = #{ userCode }
+            AND pos = #{ pos }
+    </insert>
+
+    <delete id="deletePain" parameterType="int">
+        DELETE FROM
+            PAINDB
+        WHERE
+            USER_CODE = #{ code}
+            AND PAIN_POS = #{ pos }
+    </delete>
+
 </mapper>

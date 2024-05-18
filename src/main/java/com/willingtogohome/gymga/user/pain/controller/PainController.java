@@ -11,19 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/pain")
 public class PainController {
 
     private final PainService painService;
 
     @Autowired
-    public PainController(PainService painService) { this.painService = painService; }
+    public PainController(PainService painService) {
+        this.painService = painService;
+    }
 
+    @GetMapping("/detail")
+    public void mainPain() {}
 
-    @PostMapping("/pain")
+    @PostMapping("/detail")
     public String mainPain(HttpSession session,
                            @RequestParam("name") String userName,
                            @RequestParam("code") String userCode, Model model,
@@ -31,30 +33,63 @@ public class PainController {
 
         int code = Integer.parseInt(userCode);
 
-        session.setAttribute("userCode", userCode);
+        session.setAttribute("userCode", code);
 
         painDTO.setUserCode(code);
-        painDTO.setUserName(userName);
 
         PainDTO pain = painService.selectPain(code, userName, painDTO);
 
         model.addAttribute("pain", pain);
         model.addAttribute("userName", userName);
-        model.addAttribute("code", code);
 
-        return "user/pain/pain";
+        return "/user/pain/detail";
     }
 
-    @GetMapping("/pain/regist")
-    public void regist() {}
+    @GetMapping("/regist")
+    public void regist() {
+    }
 
-    @PostMapping("/pain/regist")
+    @PostMapping("/regist")
     public String regist(HttpSession session,
-                         @RequestParam("code") String userCode,@RequestParam("pos") int pos) {
+                         @RequestParam("code") int code, @RequestParam("pos") int pos,
+                         PainDTO painDTO) {
 
-        System.out.println(userCode);
-        System.out.println(pos);
 
-        return null;
+        session.setAttribute("userCode", code);
+
+        painDTO.setUserCode(code);
+        painDTO.setPos(pos);
+
+        painService.registPainCodeAndPos(painDTO);
+
+        return "/user/pain/regist";
+    }
+
+    @GetMapping("/registPain")
+    public void regitPain() {
+    }
+
+    @PostMapping("/registPain")
+    public String registPain(HttpSession session,
+                             @RequestParam("code") int code, @RequestParam("pos") int pos,
+                             PainDTO painDTO) {
+
+
+        session.setAttribute("userCode", code);
+
+        painDTO.setUserCode(code);
+        painDTO.setPos(pos);
+
+        painService.registPain(painDTO);
+
+        return "/user/pain/detail";
+    }
+
+    @PostMapping("/delete")
+    public String deletePain(@RequestParam("deleteCode") int code, @RequestParam("deletePos") int pos) {
+
+        painService.deletePain(code, pos);
+
+        return "/user/pain/detail";
     }
 }
