@@ -375,14 +375,14 @@ public class EmpController {
         return "/emp/error";
     }
 
-    @ExceptionHandler(Exception.class)
-    public String exception(Exception exception, Model model) {
-
-        String message = "알 수 없는 문제가 발생했습니다";
-
-        model.addAttribute("message", message);
-        model.addAttribute("exception", exception);
-
-        return "/emp/error";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String exception(Exception exception, Model model) {
+//
+//        String message = "알 수 없는 문제가 발생했습니다";
+//
+//        model.addAttribute("message", message);
+//        model.addAttribute("exception", exception);
+//
+//        return "/emp/error";
+//    }
 }
