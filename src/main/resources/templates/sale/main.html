@@ -14,9 +14,8 @@
 </head>
 <body>
 
-    <div id="app_area">
-        <div id="window">
-                <form action="/sale/main" method="post">
+    <div class="container">
+        <div id="app_area">
             <!--header-->
             <div th:insert="~{common/header}"></div>
             <!--navbar-->
@@ -24,19 +23,20 @@
                 <div th:insert="~{common/navbar}"></div>
 
                 <div class="my-style">
+                <form action="/sale/main" method="post">
 
-                    <div class="pieG" id="pie" onclick="location.href='/sale/selectall'"></div>
+                    <div class="pieG" id="pie">onclick="location.href='/sale/selectall'"</div>
 
-                    <div class="barG" id="bar" onclick="location.href='/sale/selectall'"></div>
+                    <div class="barG" id="bar" >onclick="location.href='/sale/selectall'"</div>
 
                     <div class="memberSale" id="pie2" onclick="location.href='/sale/selectall'">
                             <table>
                                 <tr>
-                                    <p style="font-size: 18px; font-weight: bold; margin-top: 10px">직원 매출</p>
+                                    <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">직원 매출</p>
                                 </tr>
                                 <tr th:each="empAndUser:${employeeAndUserDTO}">
                                     <td>
-                                        <img th:src="|/uploadFiles/${empAndUser.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
+                                        <img th:src="|/uploadFiles/${empAndUser.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;padding-left: 10px"/>
                                     </td>
                                     <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
                                     <td class="price" th:text="${empAndUser.total1}"></td>
@@ -45,8 +45,8 @@
                             </table>
                     </div>
 
-                    <div class="salesData">
-                        <table>
+                    <div class="salesData" onclick="location.href='/sale/detail'">
+                        <table style="width: 750px">
                             <tr>
                                 <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px">결제 내역</p>
                             </tr>
@@ -60,11 +60,11 @@
                                     <th>결제 방식</th>
                                     <th>시 간</th>
                                 </tr>
-                                <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}" >
+                                <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}"  >
                                     <td >
                                         <img th:src="|/uploadFiles/${sale.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
                                     </td>
-                                    <td class="time" th:text="${sale.userDTO.userName}" onclick="location.href='/sale/detail'"></td>
+                                    <td class="time" th:text="${sale.userDTO.userName}" ></td>
                                     <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
                           <!--          <td class="date2" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
                                  + ' ~'
@@ -77,11 +77,11 @@
                             </thead>
                         </table>
                     </div>
+                </form>
                 </div>
             </div>
             <!--footer-->
             <div th:insert="~{common/footer}"></div>
-                </form>
         </div>
     </div>
 

@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/styles/mainStyle.css">
-    <link rel="stylesheet" href="/styles/headerStyle.css">
-    <link rel="stylesheet" href="/styles/navbarStyle.css">
-    <link rel="stylesheet" href="/styles/myStyle.css">
-    <link rel="stylesheet" href="/styles/footerStyle.css">
-    <link rel="stylesheet" href="/styles/salesDetailStyle.css">
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/headerStyle.css">
+    <link rel="stylesheet" href="../styles/navbarStyle.css">
+    <link rel="stylesheet" href="../styles/myStyle.css">
+    <link rel="stylesheet" href="../styles/footerStyle.css">
+    <link rel="stylesheet" href="../styles/salesDetailStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div id="app_area">
-    <div id="window">
+
+<div class="container">
+    <div id="app_area">
         <!--header-->
         <div th:include="common/header"></div>
         <!--navbar-->
@@ -26,37 +27,41 @@
                 <div class="test">
                     <div class="backGround2">
                         <div class="on">
-                            <img src="/img/Back.png" class="back">
+                            <img src="/img/Back.png" class="back" onclick="location.href='/sale/selectall'">
                             <p class="text">상세 조회</p>
                         </div>
-                            <hr class="hr2">
-                            <div class="zxc2" th:if="${selectOneUserId != null}">
-                                <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
-                                <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
-                                <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
-                                <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
-                                <p class="price4" th:text="${selectOneUserId.passQualDTO.pqPrice}"></p>
-                                <p class="userPhone2" th:text="'유효 기간 : ' + ${#dates.format(selectOneUserId.passStart, 'yy-MM-dd')
+                        <hr class="hr2">
+
+
+                        <div class="zxc2" th:if="${selectOneUserId != null}">
+                            <p class="img2"><img class="img2"
+                                                 th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/>
+                            </p>
+                            <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
+                            <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
+                            <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
+                            <p class="price4" th:text="${selectOneUserId.passQualDTO.pqPrice}"></p>
+                            <p class="userPhone2" th:text="'유효 기간 : ' + ${#dates.format(selectOneUserId.passStart, 'yy-MM-dd')
                                  + ' ~ '
                                  + #dates.format(selectOneUserId.passEnd, 'yy-MM-dd')}"></p>
-                                <p class="price2" th:text="'이용권 : '+${selectOneUserId.passQualDTO.pqName}"></p>
-                                <p class="userStaff2" th:text="'결제 방식 : '+${selectOneUserId.saleDTO.salesMethod}"></p>
-                                <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
+                            <p class="price2" th:text="'이용권 : '+${selectOneUserId.passQualDTO.pqName}"></p>
+                            <p class="userStaff2" th:text="'결제 방식 : '+${selectOneUserId.saleDTO.salesMethod}"></p>
+                            <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
                                  +${#dates.format(selectOneUserId.saleDTO.salesDate, ' / a / HH:mm')}"></p>
-                                <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
-                            </div>
+                            <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
+                        </div>
                     </div>
 
                     <div class="backGround">
                         <div class="onDetail">
                             <form action="/sale/detail" method="post" class="top">
-                                <div>
-                                <input type="text" class="search" name="search" placeholder="검색 내용">
-                                <select name="category" class="option">
-                                    <option value="">전체 조회</option>
-                                    <option value="name">이름</option>
-                                </select>
-                                <button type="submit" class="searchButton">검색</button>
+                                <div class="on">
+                                    <input type="text" class="search" name="search" placeholder="검색 내용">
+                                    <select name="category" class="option">
+                                        <option value="">전체 조회</option>
+                                        <option value="name">이름</option>
+                                    </select>
+                                    <button type="submit" class="searchButton">검색</button>
                                 </div>
                             </form>
                         </div>
@@ -75,229 +80,229 @@
                 </div>
             </div>
         </div>
+        <!--내용 작성하는 div-->
+        <!--footer-->
+        <div th:include="common/footer"></div>
     </div>
-    <!--내용 작성하는 div-->
-    <!--footer-->
-    <div th:include="common/footer"></div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var prices = document.querySelectorAll('.price4');
-        prices.forEach(function(price) {
-            var value = price.textContent.trim();
-            var formattedValue = Number(value).toLocaleString('en');
-            price.textContent ='가격 : ' + formattedValue + '원';
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var prices = document.querySelectorAll('.price4');
+            prices.forEach(function (price) {
+                var value = price.textContent.trim();
+                var formattedValue = Number(value).toLocaleString('en');
+                price.textContent = '가격 : ' + formattedValue + '원';
+            });
         });
-    });
-</script>
+    </script>
 
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function () {-->
-<!--        var searchForm = document.querySelector('.top');-->
-<!--        searchForm.addEventListener('submit', function (event) {-->
-<!--            event.preventDefault(); // 기본 제출 동작 방지-->
+    <!--<script>-->
+    <!--    document.addEventListener('DOMContentLoaded', function () {-->
+    <!--        var searchForm = document.querySelector('.top');-->
+    <!--        searchForm.addEventListener('submit', function (event) {-->
+    <!--            event.preventDefault(); // 기본 제출 동작 방지-->
 
-<!--            var formData = new FormData(searchForm); // 폼 데이터 가져오기-->
+    <!--            var formData = new FormData(searchForm); // 폼 데이터 가져오기-->
 
-<!--            // 서버로 검색어를 전송하여 페이지의 일부분만 업데이트-->
-<!--            fetch('/sale/detail', {-->
-<!--                method: 'POST',-->
-<!--                body: formData-->
-<!--            })-->
-<!--                .then(response => response.text())-->
-<!--                .then(html => {-->
-<!--                    // 받은 HTML에서 필요한 부분만 추출-->
-<!--                    var parser = new DOMParser();-->
-<!--                    var doc = parser.parseFromString(html, 'text/html');-->
-<!--                    var userList = doc.querySelector('.zxc'); // 받은 HTML에서 .zxc 요소 추출-->
+    <!--            // 서버로 검색어를 전송하여 페이지의 일부분만 업데이트-->
+    <!--            fetch('/sale/detail', {-->
+    <!--                method: 'POST',-->
+    <!--                body: formData-->
+    <!--            })-->
+    <!--                .then(response => response.text())-->
+    <!--                .then(html => {-->
+    <!--                    // 받은 HTML에서 필요한 부분만 추출-->
+    <!--                    var parser = new DOMParser();-->
+    <!--                    var doc = parser.parseFromString(html, 'text/html');-->
+    <!--                    var userList = doc.querySelector('.zxc'); // 받은 HTML에서 .zxc 요소 추출-->
 
-<!--                    // 현재 .zxc 요소의 내용을 지우고, 새로운 정보로 채움-->
-<!--                    var detailContainer = document.querySelector('.zxc');-->
-<!--                    detailContainer.innerHTML = ''; // 기존 내용 초기화-->
-<!--                    detailContainer.appendChild(userList); // 새로운 내용 추가-->
-<!--                })-->
-<!--                .catch(error => {-->
-<!--                    console.error('검색 결과를 가져오는 중 오류 발생:', error.message);-->
-<!--                });-->
-<!--        });-->
-<!--    });-->
-
-
-<!--</script>-->
+    <!--                    // 현재 .zxc 요소의 내용을 지우고, 새로운 정보로 채움-->
+    <!--                    var detailContainer = document.querySelector('.zxc');-->
+    <!--                    detailContainer.innerHTML = ''; // 기존 내용 초기화-->
+    <!--                    detailContainer.appendChild(userList); // 새로운 내용 추가-->
+    <!--                })-->
+    <!--                .catch(error => {-->
+    <!--                    console.error('검색 결과를 가져오는 중 오류 발생:', error.message);-->
+    <!--                });-->
+    <!--        });-->
+    <!--    });-->
 
 
-<!--<script>-->
-<!--    function redirectToUserDetail(userId) {-->
-<!--        window.location.href = "/sale/detail?userId=" + userId;-->
-<!--    }-->
-<!--    document.addEventListener('DOMContentLoaded', function() {-->
-<!--        var userListElements = document.querySelectorAll('.userList');-->
-
-<!--        userListElements.forEach(function(userElement) {-->
-<!--            userElement.addEventListener('click', function() {-->
-
-<!--                var userId = userElement.querySelector('.userId').textContent;-->
-<!--                redirectToUserDetail(userId);-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function() {-->
-<!--        // userId 파라미터 가져오기-->
-<!--        const urlParams = new URLSearchParams(window.location.search);-->
-<!--        const userId = urlParams.get('userId');-->
-
-<!--        // 서버로 userId를 전송하여 해당 사용자의 상세 정보 가져오기-->
-<!--        fetch('/sale/detail?userId=' + userId)-->
-<!--            .then(response => {-->
-<!--                if (!response.ok) {-->
-<!--                    throw new Error('사용자 정보를 가져오지 못했습니다.');-->
-<!--                }-->
-<!--                return response.json();-->
-<!--            })-->
-<!--            .then(data => {-->
-<!--                // 사용자 정보를 받아와서 해당 요소에 표시-->
-<!--                const userDetailElement = document.querySelector('.userList2');-->
-<!--                userDetailElement.querySelector('.userId').textContent = data.userDTO.userId;-->
-<!--                userDetailElement.querySelector('.userName2').textContent = data.userDTO.userName;-->
-<!--                userDetailElement.querySelector('.userId2').textContent = data.passQualDTO.pqCode;-->
-<!--                userDetailElement.querySelector('.price4').textContent = data.passQualDTO.pqPrice;-->
-<!--                userDetailElement.querySelector('.userPhone2').textContent = `${data.passStart} ~ ${data.passEnd}`;-->
-<!--                userDetailElement.querySelector('.price2').textContent = data.passQualDTO.pqName;-->
-<!--                userDetailElement.querySelector('.userStaff2').textContent = data.saleDTO.salesMethod;-->
-<!--                userDetailElement.querySelector('.time4').textContent = `${data.passStart} ${data.saleDTO.salesDate}`;-->
-<!--                userDetailElement.querySelector('.userName2').textContent = data.empDTO.empName;-->
-
-<!--                // 사용자 이미지 설정-->
-<!--                const userImage = userDetailElement.querySelector('.img img');-->
-<!--                userImage.setAttribute('src', data.userDTO.userPic);-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('사용자 정보를 가져오는 중 오류 발생:', error.message);-->
-<!--            });-->
-<!--    });-->
-<!--</script>-->
+    <!--</script>-->
 
 
-<!--<script>-->
-<!--    function sendSearchToServer() {-->
-<!--        var searchInput = document.querySelector('.search').value;-->
+    <!--<script>-->
+    <!--    function redirectToUserDetail(userId) {-->
+    <!--        window.location.href = "/sale/detail?userId=" + userId;-->
+    <!--    }-->
+    <!--    document.addEventListener('DOMContentLoaded', function() {-->
+    <!--        var userListElements = document.querySelectorAll('.userList');-->
 
-<!--        // 서버로 검색어를 전송-->
-<!--        fetch('/sale/detail', {-->
-<!--            method: 'POST',-->
-<!--            headers: {-->
-<!--                'Content-Type': 'application/json'-->
-<!--            },-->
-<!--            body: JSON.stringify({ search: searchInput })-->
-<!--        })-->
-<!--            .then(response => {-->
-<!--                if (!response.ok) {-->
-<!--                    throw new Error('검색 결과를 가져오지 못했습니다.');-->
-<!--                }-->
-<!--                return response.json();-->
-<!--            })-->
-<!--            .then(data => {-->
-<!--                // 서버에서 받은 검색 결과를 처리-->
-<!--                console.log(data);-->
-<!--                // 필요한 작업 수행-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('검색 결과를 가져오는 중 오류 발생:', error.message);-->
-<!--            });-->
-<!--    }-->
+    <!--        userListElements.forEach(function(userElement) {-->
+    <!--            userElement.addEventListener('click', function() {-->
 
-<!--    document.addEventListener('DOMContentLoaded', function() {-->
-<!--        var searchForm = document.querySelector('.top');-->
-<!--        searchForm.addEventListener('submit', function(event) {-->
-<!--            event.preventDefault(); // 기본 제출 동작 방지-->
-<!--            sendSearchToServer();-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
+    <!--                var userId = userElement.querySelector('.userId').textContent;-->
+    <!--                redirectToUserDetail(userId);-->
+    <!--            });-->
+    <!--        });-->
+    <!--    });-->
+    <!--</script>-->
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectElement = document.querySelector('.option');
-        selectElement.addEventListener('change', function () {
-            // 현재 선택된 옵션의 값 가져오기
-            var selectedOption = selectElement.value;
-            // 검색 input 요소 가져오기
-            var searchInput = document.querySelector('.search');
+    <!--<script>-->
+    <!--    document.addEventListener('DOMContentLoaded', function() {-->
+    <!--        // userId 파라미터 가져오기-->
+    <!--        const urlParams = new URLSearchParams(window.location.search);-->
+    <!--        const userId = urlParams.get('userId');-->
 
-            // 선택된 옵션에 따라 placeholder 설정
-            switch (selectedOption) {
+    <!--        // 서버로 userId를 전송하여 해당 사용자의 상세 정보 가져오기-->
+    <!--        fetch('/sale/detail?userId=' + userId)-->
+    <!--            .then(response => {-->
+    <!--                if (!response.ok) {-->
+    <!--                    throw new Error('사용자 정보를 가져오지 못했습니다.');-->
+    <!--                }-->
+    <!--                return response.json();-->
+    <!--            })-->
+    <!--            .then(data => {-->
+    <!--                // 사용자 정보를 받아와서 해당 요소에 표시-->
+    <!--                const userDetailElement = document.querySelector('.userList2');-->
+    <!--                userDetailElement.querySelector('.userId').textContent = data.userDTO.userId;-->
+    <!--                userDetailElement.querySelector('.userName2').textContent = data.userDTO.userName;-->
+    <!--                userDetailElement.querySelector('.userId2').textContent = data.passQualDTO.pqCode;-->
+    <!--                userDetailElement.querySelector('.price4').textContent = data.passQualDTO.pqPrice;-->
+    <!--                userDetailElement.querySelector('.userPhone2').textContent = `${data.passStart} ~ ${data.passEnd}`;-->
+    <!--                userDetailElement.querySelector('.price2').textContent = data.passQualDTO.pqName;-->
+    <!--                userDetailElement.querySelector('.userStaff2').textContent = data.saleDTO.salesMethod;-->
+    <!--                userDetailElement.querySelector('.time4').textContent = `${data.passStart} ${data.saleDTO.salesDate}`;-->
+    <!--                userDetailElement.querySelector('.userName2').textContent = data.empDTO.empName;-->
 
-                case 'name':
-                    searchInput.placeholder = '이름 검색 ex) 홍길동';
-                    break;
-                default:
-                    searchInput.placeholder = '이름 검색 ex) 홍길동';
+    <!--                // 사용자 이미지 설정-->
+    <!--                const userImage = userDetailElement.querySelector('.img img');-->
+    <!--                userImage.setAttribute('src', data.userDTO.userPic);-->
+    <!--            })-->
+    <!--            .catch(error => {-->
+    <!--                console.error('사용자 정보를 가져오는 중 오류 발생:', error.message);-->
+    <!--            });-->
+    <!--    });-->
+    <!--</script>-->
+
+
+    <!--<script>-->
+    <!--    function sendSearchToServer() {-->
+    <!--        var searchInput = document.querySelector('.search').value;-->
+
+    <!--        // 서버로 검색어를 전송-->
+    <!--        fetch('/sale/detail', {-->
+    <!--            method: 'POST',-->
+    <!--            headers: {-->
+    <!--                'Content-Type': 'application/json'-->
+    <!--            },-->
+    <!--            body: JSON.stringify({ search: searchInput })-->
+    <!--        })-->
+    <!--            .then(response => {-->
+    <!--                if (!response.ok) {-->
+    <!--                    throw new Error('검색 결과를 가져오지 못했습니다.');-->
+    <!--                }-->
+    <!--                return response.json();-->
+    <!--            })-->
+    <!--            .then(data => {-->
+    <!--                // 서버에서 받은 검색 결과를 처리-->
+    <!--                console.log(data);-->
+    <!--                // 필요한 작업 수행-->
+    <!--            })-->
+    <!--            .catch(error => {-->
+    <!--                console.error('검색 결과를 가져오는 중 오류 발생:', error.message);-->
+    <!--            });-->
+    <!--    }-->
+
+    <!--    document.addEventListener('DOMContentLoaded', function() {-->
+    <!--        var searchForm = document.querySelector('.top');-->
+    <!--        searchForm.addEventListener('submit', function(event) {-->
+    <!--            event.preventDefault(); // 기본 제출 동작 방지-->
+    <!--            sendSearchToServer();-->
+    <!--        });-->
+    <!--    });-->
+    <!--</script>-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var selectElement = document.querySelector('.option');
+            selectElement.addEventListener('change', function () {
+                // 현재 선택된 옵션의 값 가져오기
+                var selectedOption = selectElement.value;
+                // 검색 input 요소 가져오기
+                var searchInput = document.querySelector('.search');
+
+                // 선택된 옵션에 따라 placeholder 설정
+                switch (selectedOption) {
+
+                    case 'name':
+                        searchInput.placeholder = '이름 검색 ex) 홍길동';
+                        break;
+                    default:
+                        searchInput.placeholder = '이름 검색 ex) 홍길동';
+                }
+            });
+            var userList = document.querySelectorAll('.userList');
+            if (userList.length === 0 || userList === '') {
+                displayNoResultsMessage();
             }
         });
-        var userList = document.querySelectorAll('.userList');
-        if (userList.length === 0 || userList === '') {
-            displayNoResultsMessage();
+
+        function displayNoResultsMessage() {
+
+            var messageDiv = document.createElement('div');
+            messageDiv.textContent = '검색 결과가 없습니다.';
+            messageDiv.style.color = 'red';
+            messageDiv.style.textAlign = 'center';
+            messageDiv.style.marginTop = '10px'
+
+            var contentContainer = document.querySelector('.zxc');
+            contentContainer.appendChild(messageDiv);
         }
-    });
+    </script>
 
-    function displayNoResultsMessage() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var selectElement = document.querySelector('.option');
+            var searchInput = document.querySelector('.search');
 
-        var messageDiv = document.createElement('div');
-        messageDiv.textContent = '검색 결과가 없습니다.';
-        messageDiv.style.color = 'red';
-        messageDiv.style.textAlign = 'center';
-        messageDiv.style.marginTop = '10px'
-
-        var contentContainer = document.querySelector('.zxc');
-        contentContainer.appendChild(messageDiv);
-    }
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectElement = document.querySelector('.option');
-        var searchInput = document.querySelector('.search');
-
-        // 옵션을 선택했을 때 입력 상자에 초점을 맞춤
-        selectElement.addEventListener('change', function () {
-            searchInput.focus();
+            // 옵션을 선택했을 때 입력 상자에 초점을 맞춤
+            selectElement.addEventListener('change', function () {
+                searchInput.focus();
+            });
         });
-    });
-</script>
+    </script>
 
 
-<script>
-    $(document).ready(function () {
-        var userListSize = $(".userList").length;
-        for (var i = 0; i < userListSize - 1; i++) {
-            var userList = $(".userList:eq(" + i + ")");
-            userList.after("<div>");
-            var hrDiv = userList.next();
-            hrDiv.append("<div><hr class='hr3'></div>");
-        }
+    <script>
+        $(document).ready(function () {
+            var userListSize = $(".userList").length;
+            for (var i = 0; i < userListSize - 1; i++) {
+                var userList = $(".userList:eq(" + i + ")");
+                userList.after("<div>");
+                var hrDiv = userList.next();
+                hrDiv.append("<div><hr class='hr3'></div>");
+            }
 
-        $(".deleteButton").click(function () {
-            $(this).siblings(".modalContainer").show();
+            $(".deleteButton").click(function () {
+                $(this).siblings(".modalContainer").show();
+            });
+
+            $(".cancelButton").click(function () {
+                $(this).closest(".modalContainer").hide();
+            });
         });
-
-        $(".cancelButton").click(function () {
-            $(this).closest(".modalContainer").hide();
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var prices = document.querySelectorAll('.price');
+            prices.forEach(function (price) {
+                var value = price.textContent.trim();
+                var formattedValue = Number(value).toLocaleString('en');
+                price.textContent = formattedValue + '원';
+            });
         });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var prices = document.querySelectorAll('.price');
-        prices.forEach(function (price) {
-            var value = price.textContent.trim();
-            var formattedValue = Number(value).toLocaleString('en');
-            price.textContent = formattedValue + '원';
-        });
-    });
-</script>
+    </script>
 
 
 </body>

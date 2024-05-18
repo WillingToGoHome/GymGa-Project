@@ -5,13 +5,14 @@
     background-color: white;
     border: 1px solid white;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     padding-bottom: 10px;
     height: 310px;
     width: calc((100% - 10px - 340px - 0px) / 2);
     margin-right: 20px;
     text-align: center;
     color: black;
+    /*cursor: pointer;*/
 }
 .pieG{
     /*margin-left: 30px;*/
@@ -27,7 +28,7 @@
     background-color: white;
     border: 1px solid white;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     padding-bottom: 10px;
     height: 635px;
     max-height: 660px;
@@ -38,6 +39,7 @@
     /*min-height: 25vh;*/
     /*max-height: 30vh;*/
     /*overflow-y: scroll;*/
+    cursor: pointer;
 }
 
 
@@ -65,14 +67,17 @@
     /*overflow-y: scroll;*/
     height: 305px;
     width: 820px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 .td{
     min-width: 170px;
     height: 50px;
     border-bottom: 1px black;
+
 }
+
 .price{
     width: 130px;
     height: 50px;
