@@ -4,6 +4,9 @@ server:
   servlet:
     session:
       timeout: 1800
+  error:
+    path: /error
+
 
 ## driver config
 spring:

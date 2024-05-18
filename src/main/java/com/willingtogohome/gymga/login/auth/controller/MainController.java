@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = {"", "/","/login"})
     public void login(){}
 
     @GetMapping(value = "/login/auth/fail")
