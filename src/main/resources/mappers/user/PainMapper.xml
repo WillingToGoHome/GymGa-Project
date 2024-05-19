@@ -15,6 +15,16 @@
         <result property="etc" column="pain_etc"/>
     </resultMap>
 
+    <resultMap id="painUpdateResultMap" type="com.willingtogohome.gymga.user.pain.model.dto.PainUpdateDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="pos" column="pain_pos"/>
+        <result property="type" column="pain_type"/>
+        <result property="dur" column="pain_dur"/>
+        <result property="cause" column="pain_cause"/>
+        <result property="str" column="pain_str"/>
+        <result property="etc" column="pain_etc"/>
+    </resultMap>
+
     <select id="selectPain" resultMap="painResultMap">
         SELECT
             A.USER_CODE
@@ -39,13 +49,44 @@
             , PAIN_POS
         )
         VALUES(
-            #{ userCode }
+            #{ code }
             , #{ pos }
         )
     </insert>
 
-    <insert id="registPain" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
-        INSERT INTO PAINDB(
+    <update id="registPain" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainUpdateDTO">
+        UPDATE PAINDB
+        <set>
+            <if test="type != null and type != ''">
+                PAIN_TYPE = #{ type }
+            </if>
+            <if test="dur != null and dur!= ''">
+                , PAIN_DUR = #{ dur }
+            </if>
+            <if test="cause != null and cause != ''">
+                , PAIN_CAUSE = #{ cause }
+            </if>
+            <if test="str != null">
+                , PAIN_STR = #{ str }
+            </if>
+            <if test="etc != null and etc != ''">
+                , PAIN_ETC = #{ etc }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ userCode }
+        AND PAIN_POS = #{ pos }
+    </update>
+
+    <delete id="deletePain" parameterType="int">
+        DELETE FROM
+            PAINDB
+        WHERE
+            USER_CODE = #{ code }
+            AND PAIN_POS = #{ pos }
+    </delete>
+
+    <select id="updatePain" resultMap="painResultMap">
+        SELECT
             USER_CODE
             , PAIN_POS
             , PAIN_TYPE
@@ -53,28 +94,48 @@
             , PAIN_CAUSE
             , PAIN_STR
             , PAIN_ETC
-        )
-        SELECT
-            userCode
-            , pos
-            , #{ type }
-            , #{ dur }
-            , #{ cause }
-            , #{ str }
-            , #{ etc }
         FROM
             PAINDB
         WHERE
-            userCode = #{ userCode }
-            AND pos = #{ pos }
-    </insert>
+            USER_CODE = #{code};
+    </select>
 
-    <delete id="deletePain" parameterType="int">
-        DELETE FROM
+    <update id="update" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainUpdateDTO">
+        UPDATE PAINDB
+        <set>
+            <if test="type != null and type != ''">
+                PAIN_TYPE = #{ type }
+            </if>
+            <if test="dur != null and dur!= ''">
+                , PAIN_DUR = #{ dur }
+            </if>
+            <if test="cause != null and cause != ''">
+                , PAIN_CAUSE = #{ cause }
+            </if>
+            <if test="str != null">
+                , PAIN_STR = #{ str }
+            </if>
+            <if test="etc != null and etc != ''">
+                , PAIN_ETC = #{ etc }
+            </if>
+        </set>
+        WHERE USER_CODE = #{ userCode }
+        AND PAIN_POS = #{ pos }
+    </update>
+
+    <select id="getPainByCode" resultMap="painUpdateResultMap">
+        SELECT
+            USER_CODE
+            , PAIN_POS
+            , PAIN_TYPE
+            , PAIN_DUR
+            , PAIN_CAUSE
+            , PAIN_STR
+            , PAIN_ETC
+        FROM
             PAINDB
         WHERE
-            USER_CODE = #{ code}
-            AND PAIN_POS = #{ pos }
-    </delete>
+            USER_CODE = #{ code }
+    </select>
 
 </mapper>

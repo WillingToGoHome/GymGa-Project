@@ -31,14 +31,22 @@
                 </div>
                 <hr class="line1">
                 <form action="/pain/registPain" method="post">
+                    <input type="hidden" name="pos" th:value="${pos}">
                     <div class="allBox">
                         <div class="imgBox">
-                            <img src="/images/painImg.png" class="painImg">
+                            <div th:switch="${pos}">
+                                <img th:case="1" src="/images/오른다리.png" class="painImg">
+                                <img th:case="2" src="/images/왼다리.png" class="painImg">
+                                <img th:case="3" src="/images/오른팔.png" class="painImg">
+                                <img th:case="4" src="/images/왼팔.png" class="painImg">
+                                <img th:case="5" src="/images/상체.png" class="painImg">
+                                <img th:case="6" src="/images/머리.png" class="painImg">
+                            </div>
                         </div>
                         <div class="middleBox">
                             <div class="painCategoryBox">
-                                <div class="painPosBox" th:if="${pain != null}" th:switch="${pain?.pos}">
-                                    <div th:switch="${pain?.pos}">
+                                <div class="painPosBox" th:switch="${pos}">
+                                    <div th:switch="${pos}">
                                         <p th:case="1" class="posText">오른쪽-다리</p>
                                         <p th:case="2" class="posText">왼쪽-다리</p>
                                         <p th:case="3" class="posText">오른쪽-팔</p>
@@ -61,14 +69,14 @@
                                 <input type="text" class="inputBox" name="cause" id="cause" placeholder="통증 원인 입력 ex) 농구하다가 넘어진 이후로 아픔, 손목이 꺾임 등">
                                 <hr class="line2">
                                 <p class="painExplainText">통증 강도</p>
-                                <input type="text" class="inputBox" name="str" id="str" placeholder="통증 강도 입력 ex) 1~5사이">
+                                <input type="number" class="inputBox" name="str" id="str" placeholder="통증 강도 입력 ex) 1~5사이">
                             </div>
                         </div>
                         <div class="rightBox">
                             <button type="submit" class="registButton">등록</button>
                             <div class="painStrBox" style="margin-top: 30px">
                                 <p class="painExplainText">메모</p>
-                                <input type="text" class="inputBox" name="etc" id="etc" placeholder="부가사항 자유롭게 작성" style="width: 260px; height: 330px">
+                                <input type="text" class="inputBox" name="etc" id="etc" placeholder="부가사항 자유롭게 작성" style="width: 260px; height: 330px; word-wrap: break-word">
                             </div>
                         </div>
                     </div>
