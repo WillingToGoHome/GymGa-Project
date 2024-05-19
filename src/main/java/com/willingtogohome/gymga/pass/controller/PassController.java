@@ -108,5 +108,12 @@ public class PassController {
         return "/pass/update";
     }
 
+    @GetMapping(value = "/class", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<PassQualDTO> findPqNameList() {
+        passService.findPqNameList().forEach(System.out::println);
+        return passService.findPqNameList();
+    }
+
 
 }

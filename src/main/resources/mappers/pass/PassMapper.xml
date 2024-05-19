@@ -63,6 +63,12 @@
         </association>
     </resultMap>
 
+    <resultMap id="passQualMap" type="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
+        <id property="pqCode" column="pq_code"/>
+        <result property="pqName" column="pq_name"/>
+        <result property="pqPrice" column="pq_price"/>
+    </resultMap>
+
     <select id="selectAllEmp" resultMap="userResultMap">
         SELECT
             USER_CODE
@@ -182,5 +188,14 @@
             LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.user_role = 'MEMBER'
         order by A.user_code;
+    </select>
+
+    <select id="findPqNameList" resultMap="passQualMap">
+        SELECT
+            pq_code,
+            pq_name,
+            pq_price
+        FROM   passqualdb
+        ORDER BY pq_code;
     </select>
 </mapper>

@@ -46,4 +46,8 @@ public class PassService {
     public List<PassAndPassQualDTO> selectAllPassAndUser() {
         return passMapper.selectAllPassAndUser();
     }
+
+    public List<PassQualDTO> findPqNameList() {
+        return passMapper.findPqNameList();
+    }
 }
