@@ -97,13 +97,13 @@ public class PassController {
     @GetMapping("/update")
     public String passUpdate(Model model){
 
-        List<UserDTO> userList = passService.selectAllPassAndUser();
+        List<PassAndPassQualDTO> passList = passService.selectAllPassAndUser();
 
-        for (UserDTO user : userList) {
-            System.out.println("user = " + user);
+        for (PassAndPassQualDTO pass : passList) {
+            System.out.println("pass = " + pass);
         }
 
-        model.addAttribute("userList", userList);
+        model.addAttribute("passList", passList);
 
         return "/pass/update";
     }

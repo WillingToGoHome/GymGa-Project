@@ -43,7 +43,7 @@ public class PassService {
 
     }
 
-    public List<UserDTO> selectAllPassAndUser() {
+    public List<PassAndPassQualDTO> selectAllPassAndUser() {
         return passMapper.selectAllPassAndUser();
     }
 }

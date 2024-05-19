@@ -20,5 +20,5 @@ public interface PassMapper {
 
     void registNewValidateDTO(ValidateDTO validateDTO);
 
-    List<UserDTO> selectAllPassAndUser();
+    List<PassAndPassQualDTO> selectAllPassAndUser();
 }
