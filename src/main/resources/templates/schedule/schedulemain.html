@@ -31,25 +31,25 @@
             <!--개인 작업 시작-->
             <div class="my-style" style="display: flex">
                 <!--기본달력-->
-<!--                <div class="left">-->
-<!--                    <table class="calendar" id="calendar">-->
-<!--                    <div class="month">-->
-<!--                    </div>-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>Sun</th>-->
-<!--                        <th>Mon</th>-->
-<!--                        <th>Tue</th>-->
-<!--                        <th>Wed</th>-->
-<!--                        <th>Thu</th>-->
-<!--                        <th>Fri</th>-->
-<!--                        <th>Sat</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody id="calendar-body">-->
-<!--                    </tbody>-->
+                <!--                <div class="left">-->
+                <!--                    <table class="calendar" id="calendar">-->
+                <!--                    <div class="month">-->
+                <!--                    </div>-->
+                <!--                    <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th>Sun</th>-->
+                <!--                        <th>Mon</th>-->
+                <!--                        <th>Tue</th>-->
+                <!--                        <th>Wed</th>-->
+                <!--                        <th>Thu</th>-->
+                <!--                        <th>Fri</th>-->
+                <!--                        <th>Sat</th>-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+                <!--                    <tbody id="calendar-body">-->
+                <!--                    </tbody>-->
 
-<!--                </table>-->
+                <!--                </table>-->
                 <!--기본달력-->
                 <!-- New 달력 -->
                 <div class="calendar">
@@ -101,20 +101,20 @@
                                     <input type="date" name="scheRunDate"/><br>
                                     <label>시간 선택</label><br>
                                     <div class="time-choice">
-                                    <input type="time" name="scheStartTime" id="scheStartTime2" step="1800">
-                                    <p>~</p>
-                                    <input type="time" name="scheEndTime" id="scheEndTime2" step="1800">
+                                        <input type="time" name="scheStartTime" id="scheStartTime2" step="1800">
+                                        <p>~</p>
+                                        <input type="time" name="scheEndTime" id="scheEndTime2" step="1800">
                                     </div>
                                     <button class="check" type="submit">확인</button>
                                 </form>
                                 <!-- 강사선택 스크립트 -->
                                 <script>
                                     fetch("/schedule/teacher")
-                                        .then(res =>res.json())
+                                        .then(res => res.json())
                                         .then(data => {
                                             const $empCode = document.getElementById("empSelectCode");
 
-                                            for(let index in data) {
+                                            for (let index in data) {
                                                 const $option = document.createElement('option');
                                                 $option.value = data[index].empCode;
                                                 $option.text = data[index].empName;
@@ -162,11 +162,11 @@
                                 <!-- 강사선택 스크립트 -->
                                 <script>
                                     fetch("/schedule/teacher")
-                                        .then(res =>res.json())
+                                        .then(res => res.json())
                                         .then(data => {
                                             const $empCode = document.getElementById("empSelectCode2");
 
-                                            for(let index in data) {
+                                            for (let index in data) {
                                                 const $option = document.createElement('option');
                                                 $option.value = data[index].empCode;
                                                 $option.text = data[index].empName;
@@ -183,7 +183,7 @@
                                         .then(data => {
                                             const $className = document.getElementById("classSelectCode");
 
-                                            for(let index in data) {
+                                            for (let index in data) {
                                                 const $option = document.createElement('option');
                                                 $option.value = data[index].classCode;
                                                 $option.text = data[index].className;
@@ -210,7 +210,7 @@
                     <div class="days">
                         <!-- js -->
                     </div>
-                <!-- New 달력 -->
+                    <!-- New 달력 -->
                 </div>
                 <!--Today-->
                 <div class="right">
@@ -220,7 +220,8 @@
                         </div>
                         <div class="count-schedule" th:if="${scheduleListByRunDate != null}">
                             <p>·총일정: <span th:text="${#lists.size(scheduleListByRunDate)}"></span></p>
-                            <p>·취소 일정: <span th:text="${#lists.size(scheduleListByRunDate.?[scheAtten == '결석'])}"></span></p>
+                            <p>·취소 일정: <span
+                                    th:text="${#lists.size(scheduleListByRunDate.?[scheAtten == '결석'])}"></span></p>
                             <p th:with="totalSize=${#lists.size(scheduleListByRunDate)}, absentCount=${#lists.size(scheduleListByRunDate.?[scheAtten == '결석'])}">
                                 ·취소율: <span th:text="${totalSize != 0 ? (absentCount  * 100 / totalSize) : 0}"></span>%
                             </p>
@@ -246,36 +247,90 @@
                                 <th>회원명</th>
                                 <th>출결</th>
                             </tr>
-                            <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}" >
+                            <tr th:each="scheduleByRunDate : ${scheduleListByRunDate}">
                                 <td>
-<!--                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>-->
+                                    <!--                                    <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;" ></a>-->
                                     <a th:switch="${scheduleByRunDate.classCategory.className}">
                                         <span th:case="'1:1 PT'">
-                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                            <a th:text="${scheduleByRunDate.classCategory.className}"
+                                               th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
                                         </span>
                                         <span th:case="*">
-                                            <a th:text="${scheduleByRunDate.classCategory.className}" th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}" style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                            <a th:text="${scheduleByRunDate.classCategory.className}"
+                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
                                         </span>
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:text="${scheduleByRunDate.empCategory.empName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                        <span th:case="'1:1 PT'">
+                                            <a th:text="${scheduleByRunDate.empCategory.empName}"
+                                               th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                        <span th:case="*">
+                                            <a th:text="${scheduleByRunDate.empCategory.empName}"
+                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                    </a>
                                 </td>
                                 <td>
-                                    <a th:text="${scheduleByRunDate.scheStartTime}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                        <span th:case="'1:1 PT'">
+                                            <a th:text="${scheduleByRunDate.scheStartTime}"
+                                               th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                        <span th:case="*">
+                                            <a th:text="${scheduleByRunDate.scheStartTime}"
+                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                        </span>
+                                    </a>
                                 </td>
                                 <td th:text="${scheduleByRunDate.registrationCount} + '/' + ${scheduleByRunDate.scheParticipate}">
-<!--                                    <a th:text="${scheduleByRunDate.scheParticipate}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>-->
+                                    <!--                                    <a th:text="${scheduleByRunDate.scheParticipate}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>-->
                                 <td>
-                                    <a th:text="${scheduleByRunDate.userCategory.memberName}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration-line: none; color: #000000;"></a>
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                            <span th:case="'1:1 PT'">
+                                                <a th:text="${scheduleByRunDate.userCategory.memberName}"
+                                                   th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}"
+                                                   style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                            </span>
+                                        <span th:case="*">
+                                                <a th:text="${scheduleByRunDate.userCategory.memberName}"
+                                                   th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                                   style="text-decoration-line: none; color: #000000;">Link Text</a>
+                                            </span>
+                                    </a>
                                 </td>
                                 <td>
-                                    <a th:switch="${scheduleByRunDate.scheAtten}" th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}" style="text-decoration: none;">
-                                        <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
-                                        <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>
-                                        <span th:case="'예약'" style="color: #000000;">■ 예약</span>
-                                        <span th:case="'예약대기'" style="color: #ABABAB;">■ 예약대기</span>
+                                    <a th:switch="${scheduleByRunDate.classCategory.className}">
+                                        <span th:case="'1:1 PT'">
+                                            <a th:switch="${scheduleByRunDate.scheAtten}"
+                                               th:href="@{|/schedule/schedulelist/${scheduleByRunDate.scheCode}|}"
+                                               style="text-decoration: none;">
+                                                <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
+                                                <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>
+                                                <span th:case="'예약'" style="color: #000000;">■ 예약</span>
+                                                <span th:case="'예약대기'" style="color: #ABABAB;">■ 예약대기</span>
+                                            </a>
+                                        </span>
+                                        <span th:case="*">
+                                            <a th:switch="${scheduleByRunDate.scheAtten}"
+                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               style="text-decoration: none;">
+                                                <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
+                                                <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>
+                                                <span th:case="'예약'" style="color: #000000;">■ 예약</span>
+                                                <span th:case="'예약대기'" style="color: #ABABAB;">■ 예약대기</span>
+                                            </a>
+                                        </span>
                                     </a>
+
                                 </td>
                             </tr>
                         </table>
@@ -341,7 +396,7 @@
         const prevDays = prevLastDay.getDate();
         const lastDate = lastDay.getDate();
         const day = firstDay.getDay();
-        const nextDays = 7 - lastDay.getDay() -1;
+        const nextDays = 7 - lastDay.getDay() - 1;
 
         //update date top of calendar
         date.innerHTML = months[month] + " " + year;
@@ -352,17 +407,17 @@
 
         // prev month days
 
-        for(let x = day; x > 0; x--) {
-            days += `<div class="day prev-date" >${prevDays -x + 1}</div>`;
+        for (let x = day; x > 0; x--) {
+            days += `<div class="day prev-date" >${prevDays - x + 1}</div>`;
         }
 
         // current month days
-        for(let i = 1; i <= lastDate; i++) {
+        for (let i = 1; i <= lastDate; i++) {
 
             // check if event present on current day
             let event = false;
             eventsArr.forEach((eventObj) => {
-                if(
+                if (
                     eventObj.day === i &&
                     eventObj.month === month + 1 &&
                     eventObj.year === year
@@ -374,7 +429,7 @@
 
 
             // if day is today add class today
-            if(i === new Date().getDate() &&
+            if (i === new Date().getDate() &&
                 year === new Date().getFullYear() &&
                 month === new Date().getMonth()
             ) {
@@ -384,7 +439,7 @@
                 // updateEvents(i);
 
                 //if event found also add event class
-                if(event) {
+                if (event) {
                     days += `<div class="day today active event" >${i}</div>`;
                 } else {
                     days += `<div class="day today active">${i}</div>`;
@@ -392,7 +447,7 @@
             }
             //add remaing as it is
             else {
-                if(event) {
+                if (event) {
                     days += `<div class="day event" >${i}</div>`;
                 } else {
                     days += `<div class="day">${i}</div>`;
@@ -402,7 +457,7 @@
 
         //next month days
 
-        for(let j = 1; j <= nextDays; j++) {
+        for (let j = 1; j <= nextDays; j++) {
             days += `<div class="day next-date" >${j}</div>`;
         }
         daysContainer.innerHTML = days;
@@ -415,7 +470,7 @@
     //prev month
     function prevMonth() {
         month--;
-        if(month <0) {
+        if (month < 0) {
             month = 11;
             year--;
         }
@@ -426,7 +481,7 @@
 
     function nextMonth() {
         month++;
-        if(month > 11) {
+        if (month > 11) {
             month = 0;
             year++;
         }
@@ -445,7 +500,7 @@
         days.forEach((day) => {
             day.addEventListener("click", (e) => {
                 activeDay = Number(e.target.innerHTML);
-                const clickedDate = new Date(year, month, parseInt(e.target.innerText, 10)+1);
+                const clickedDate = new Date(year, month, parseInt(e.target.innerText, 10) + 1);
                 const mysqlDate = clickedDate.toISOString().split('T')[0];
                 console.log('Clicked on ' + mysqlDate);
 
@@ -462,7 +517,7 @@
                 });
                 // if prev month day clicked goto prev month and add active
 
-                if(e.target.classList.contains("prev-date")) {
+                if (e.target.classList.contains("prev-date")) {
                     prevMonth();
 
                     setTimeout(() => {
@@ -471,7 +526,7 @@
 
                         // after going to prev month add active to clicked
                         days.forEach((day) => {
-                            if(
+                            if (
                                 !day.classList.contains("prev-date") &&
                                 day.innerHTML === e.target.innerHTML
                             ) {
@@ -480,7 +535,7 @@
                         });
                     }, 100);
                     // same with next month
-                } else if(e.target.classList.contains("next-date")) {
+                } else if (e.target.classList.contains("next-date")) {
                     nextMonth();
 
                     setTimeout(() => {
@@ -489,7 +544,7 @@
 
                         // after going to prev month add active to clicked
                         days.forEach((day) => {
-                            if(
+                            if (
                                 !day.classList.contains("next-date") &&
                                 day.innerHTML === e.target.innerHTML
                             ) {
@@ -534,7 +589,7 @@
 
         //if nothing found
 
-        if((events === "")) {
+        if ((events === "")) {
             events = `<div class="no-event">
                     <h3>No Event</h3>
                   </div>`;
@@ -554,7 +609,7 @@
     }
 
     function getEvents() {
-        if(localStorage.getItem("events" === null)) {
+        if (localStorage.getItem("events" === null)) {
             return;
         }
         // eventsArr.push(...JSON.parse(localStorage.getItem("events")));
@@ -572,28 +627,28 @@
     let closeBtns = document.getElementsByClassName("close");
 
 
-    registscheBtn.onclick = function() {
+    registscheBtn.onclick = function () {
         registScheModal.style.display = "block";
     }
 
-    registPtBtn.onclick = function() {
+    registPtBtn.onclick = function () {
         registPtModal.style.display = "block";
     }
 
-    registGxBtn.onclick = function() {
+    registGxBtn.onclick = function () {
         registGxModal.style.display = "block";
     }
 
-    for(let i = 0; i < closeBtns.length; i++) {
-        closeBtns[i].onclick = function() {
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function () {
             registPtModal.style.display = "none";
             registGxModal.style.display = "none";
         }
     }
 
     // 모달 외부 클릭 시 모달 닫기
-    window.onclick = function(event) {
-        if(event.target == registScheModal || event.target == modal) {
+    window.onclick = function (event) {
+        if (event.target == registScheModal || event.target == modal) {
             console.log("외부클릭 이벤트 발생함", event.target)
             registScheModal.style.display = "none";
         }
@@ -602,12 +657,12 @@
 <!-- Input type="time" 관련 스크립트 -->
 <script>
     // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
-    document.getElementById("scheStartTime").addEventListener("change", function() {
+    document.getElementById("scheStartTime").addEventListener("change", function () {
         // 시작 시간 값을 가져옴
         var startTime = this.value;
 
         // 만약 시작 시간 값이 유효하다면
-        if(startTime) {
+        if (startTime) {
             // 시작 시간을 Date 객체로 변환
             var start = new Date("2024-01-01 " + startTime);
 
@@ -624,12 +679,12 @@
         }
     });
 
-    document.getElementById("scheStartTime2").addEventListener("change", function() {
+    document.getElementById("scheStartTime2").addEventListener("change", function () {
         // 시작 시간 값을 가져옴
         var startTime = this.value;
 
         // 만약 시작 시간 값이 유효하다면
-        if(startTime) {
+        if (startTime) {
             // 시작 시간을 Date 객체로 변환
             var start = new Date("2024-01-01 " + startTime);
 
@@ -647,12 +702,12 @@
     });
 
     // 종료 시간 입력 필드의 값이 변경될 때 호출되는 함수
-    document.getElementById("scheEndTime").addEventListener("change", function() {
+    document.getElementById("scheEndTime").addEventListener("change", function () {
         // 종료 시간 값을 가져옴
         var endTime = this.value;
 
         // 만약 종료 시간 값이 유효하다면
-        if(endTime) {
+        if (endTime) {
             // 종료 시간을 Date 객체로 변환
             var end = new Date("2024-01-01 " + endTime);
 
@@ -669,12 +724,12 @@
         }
     });
     // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
-    document.getElementById("scheStartTime").addEventListener("change", function() {
+    document.getElementById("scheStartTime").addEventListener("change", function () {
         // 시작 시간 값을 가져옴
         var startTime = this.value;
 
         // 만약 시작 시간 값이 유효하다면
-        if(startTime) {
+        if (startTime) {
             // 시작 시간을 Date 객체로 변환
             var start = new Date("2024-01-01 " + startTime);
 
@@ -689,12 +744,12 @@
             document.getElementById("scheEndTime").value = hours + ":" + minutes;
         }
     });
-    document.getElementById("scheEndTime").addEventListener("change", function() {
+    document.getElementById("scheEndTime").addEventListener("change", function () {
         // 종료 시간 값을 가져옴
         var endTime = this.value;
 
         // 만약 종료 시간 값이 유효하다면
-        if(endTime) {
+        if (endTime) {
             // 종료 시간을 Date 객체로 변환
             var end = new Date("2024-01-01 " + endTime);
 
@@ -711,12 +766,12 @@
         }
     });
     // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
-    document.getElementById("scheStartTime2").addEventListener("change", function() {
+    document.getElementById("scheStartTime2").addEventListener("change", function () {
         // 시작 시간 값을 가져옴
         var startTime = this.value;
 
         // 만약 시작 시간 값이 유효하다면
-        if(startTime) {
+        if (startTime) {
             // 시작 시간을 Date 객체로 변환
             var start = new Date("2024-01-01 " + startTime);
 
