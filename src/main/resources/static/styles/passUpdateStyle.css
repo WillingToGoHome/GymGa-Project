@@ -1,0 +1,232 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 auto;
+}
+
+#main {
+    color: white;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#app_area {
+    width: 1506px;
+    max-width: 90%;
+    aspect-ratio: 100 / 56.25;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.contents {
+    width: 1147px;
+    height: 637px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 23px;
+    margin-right: 22px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.on {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+}
+
+.back {
+    padding-left: 1%;
+    cursor: pointer;
+}
+
+.text {
+    font-size: 24px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    color: black;
+    line-height: 47px;
+}
+
+.top {
+    display: flex;
+    padding-left: 35%;
+}
+
+.search {
+    width: 200px;
+    height: 46px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: 1px solid #ABABAB;
+    font-weight: bold;
+    color: #ABABAB;
+    font-size: 16px;
+}
+
+.hr1 {
+    width: 95%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    border: 1px solid #D9D9D9;
+    margin: 0 auto;
+}
+
+.option {
+    width: 100px;
+    height: 50px;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    color: #ABABAB;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.searchButton {
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    margin-left: 10px;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.titleText {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.hr2 {
+    width: 95%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #000000;
+}
+
+.passUpdate {
+    overflow-y: scroll;
+    height: 385px;
+}
+
+.userList {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.userName {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userId {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userPass {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: #4B82D8;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userPassStatus {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: #D25656;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userPassPrice {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userStaff {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.buttonBox {
+    align-content: center;
+    width: 130px;
+    display: flex;
+}
+
+.detailButton {
+    width: 60px;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    border-radius: 5px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.deleteButton {
+    width: 60px;
+    height: 30px;
+    color: #656565;
+    border: 1px solid #656565;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+}

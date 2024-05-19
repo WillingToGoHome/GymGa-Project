@@ -93,4 +93,20 @@ public class PassController {
 
         return "/pass/search";
     }
+
+    @GetMapping("/update")
+    public String passUpdate(Model model){
+
+        List<UserDTO> userList = passService.selectAllPassAndUser();
+
+        for (UserDTO user : userList) {
+            System.out.println("user = " + user);
+        }
+
+        model.addAttribute("userList", userList);
+
+        return "/pass/update";
+    }
+
+
 }

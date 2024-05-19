@@ -19,4 +19,6 @@ public interface PassMapper {
     void registNewSaleDTO(SaleDTO saleDTO);
 
     void registNewValidateDTO(ValidateDTO validateDTO);
+
+    List<UserDTO> selectAllPassAndUser();
 }

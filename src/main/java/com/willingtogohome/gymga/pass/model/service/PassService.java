@@ -42,4 +42,8 @@ public class PassService {
         passMapper.registNewValidateDTO(validateDTO);
 
     }
+
+    public List<UserDTO> selectAllPassAndUser() {
+        return passMapper.selectAllPassAndUser();
+    }
 }
