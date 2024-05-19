@@ -1,3 +1,6 @@
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
 .pieG{
     aspect-ratio: 100 / 48.55;
     background-color: white;
@@ -11,6 +14,7 @@
     text-align: center;
     color: black;
 }
+
 
 .barG {
     aspect-ratio: 100 / 48.55;
@@ -82,7 +86,7 @@
     /*float: left;*/
     margin-bottom: 10px;
     /*padding-top: 10px;*/
-    width: 660px;
+    width: 690px;
     padding-top: 10px;
 }
 
@@ -113,6 +117,7 @@
 .top {
     display: flex;
     height: 30px;
+    margin-left: 60px;
     /*padding-left: 39%;*/
 
 }

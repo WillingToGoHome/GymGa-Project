@@ -1,3 +1,7 @@
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
 .pieG, .barG{
     aspect-ratio: 100 / 48.55;
     float: left;
@@ -14,9 +18,11 @@
     color: black;
     /*cursor: pointer;*/
 }
+
 .pieG{
     /*margin-left: 30px;*/
 }
+
 .memberSale {
     color: black;
     text-align: center;
@@ -42,8 +48,81 @@
     cursor: pointer;
 }
 
+.mainMemberSale{
+    color: black;
+    text-align: center;
+    /*font-weight: normal;*/
+    aspect-ratio: 100 / 48.55;
+    float: right;
+    /*float: none;*/
+    /*margin-top: 30px;*/
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    padding-bottom: 10px;
+    height: 310px;
+    max-height: 660px;
+    width: 305px;
+    /*margin-right: 20px;*/
+    /*min-width: 20vw;*/
+    /*max-width: 22vw;*/
+    /*min-height: 25vh;*/
+    /*max-height: 30vh;*/
+    /*overflow-y: scroll;*/
+    cursor: pointer;
+}
+/*.mainMemberSale{*/
+/*    color: black;*/
+/*    text-align: center;*/
+/*    aspect-ratio: 100 / 48.55;*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    right: 0; !* 우측 정렬을 유지하려면 right 속성 추가 *!*/
+/*    background-color: white;*/
+/*    border: 1px solid white;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);*/
+/*    padding-bottom: 10px;*/
+/*    height: 305px;*/
+/*    max-height: 660px;*/
+/*    width: 305px;*/
+/*    cursor: pointer;*/
+/*    margin-bottom: 80px;*/
+/*    margin-right: 60px;*/
+/*}*/
+
+
 
 .salesData{
+    color: black;
+    text-align: center;
+    /*width: 1020px;*/
+    /*display: flex;*/
+    /*margin-left: 30px;*/
+    margin-top: 20px;
+    padding: 14px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    /*min-width: 35vw;*/
+    /*max-width: 100vw;*/
+    /*min-height: 29vh;*/
+    /*max-height: 80vh;*/
+    /*min-height: 10vh;*/
+    /*min-width: 10vw;*/
+    /*width: 22.7vw;*/
+    font-size: 16px;
+    /*font-weight: bold;*/
+    float:left;;
+    /*overflow-y: scroll;*/
+    height: 305px;
+    width: 820px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.mainSalesData{
     color: black;
     text-align: center;
     /*width: 1020px;*/
@@ -97,4 +176,7 @@
     height: 50px;
     font-size: 14px;
 }
+
+
+
 

@@ -23,14 +23,6 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping(value = "/main")
-    public String main(SecurityContextHolder securityContextHolder) {
 
-        String logonName = securityContextHolder.getContext().getAuthentication().getName();
-
-        System.out.println("logonName = " + logonName);
-
-        return "main";
-    }
 
 }
