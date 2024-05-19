@@ -50,4 +50,8 @@ public class PassService {
     public List<PassQualDTO> findPqNameList() {
         return passMapper.findPqNameList();
     }
+
+    public List<PassAndPassQualDTO> searchUser(SearchCriteria criteria) {
+        return passMapper.searchUser(criteria);
+    }
 }

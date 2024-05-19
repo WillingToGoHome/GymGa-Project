@@ -171,7 +171,7 @@ body {
     margin: 0;
     text-align: center;
     line-height: 30px;
-    margin-left: 6px;
+    margin-left: 8px;
 }
 
 .passStatus {
@@ -182,7 +182,7 @@ body {
     margin: 0;
     text-align: center;
     line-height: 30px;
-    padding-left: 10px;
+    margin-right: 7px;
 }
 
 .passPrice {
@@ -203,7 +203,7 @@ body {
     margin: 0;
     text-align: center;
     line-height: 30px;
-    margin-right: -32px;
+    margin-right: -4px;
 }
 
 .buttonBox {
@@ -238,10 +238,10 @@ body {
 }
 
 .hr3 {
-    width: 98.5%;
+    width: 96.5%;
     margin-block-start: auto;
     margin-block-end: auto;
-    margin: 0 auto;
+    margin-left: 31px;
     margin-top: 20px;
     border: 1px solid #D9D9D9;
 }
@@ -378,4 +378,26 @@ body {
     padding-top: 55px;
     line-height: 50px;
     padding-left: 400px;
+}
+
+.reason {
+    margin-left: 85px;
+}
+
+.cancelButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.refundButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
 }
