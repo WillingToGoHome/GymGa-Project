@@ -145,7 +145,7 @@ public class SaleController {
     public void searchUsers() {
     }
 
-    @PostMapping("/search")
+    @PostMapping("/sale/search")
     public String userSearch(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
 
         SearchCriteria criteria = new SearchCriteria();
