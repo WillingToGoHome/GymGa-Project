@@ -37,7 +37,7 @@ public class EmpController {
 
         String name = securityContextHolder.getContext().getAuthentication().getName();
 
-        EmpTotDTO emp = empService.searchBy(new SearchCriteria("name", name));
+        EmpTotDTO emp = empService.selectBy(new SearchCriteria("name", name));
         List<EmpDTO> empList = empService.selectAllEmp();
 
         String code = Integer.toString(emp.getCode());
@@ -189,22 +189,20 @@ public class EmpController {
 
         System.out.println("get : /emp/result");
 
-        EmpTotDTO searchedEmps = empService.searchBy(new SearchCriteria(category, search));
+        List<EmpTotDTO> searchedEmps = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
 
         model.addAttribute("empList", empList);
 
-//        if (searchedEmps.size() == 0) {
-//            return "/emp/searchfail";
-//        } else if (searchedEmps.size() == 1) {
-            model.addAttribute("emp", searchedEmps);
-//            model.addAttribute("emp", searchedEmps.get(0));
-            session.setAttribute("searched", searchedEmps.getCode());
-//            session.setAttribute("searched", searchedEmps.get(0).getCode());
-//        } else if (searchedEmps.size() >= 2) {
-//            model.addAttribute("searchedEmps", searchedEmps);
-//            return "/emp/searchlist";
-//        }
+        if (searchedEmps.size() == 0) {
+            return "/emp/searchfail";
+        } else if (searchedEmps.size() == 1) {
+            model.addAttribute("emp", searchedEmps.get(0));
+            session.setAttribute("searched", searchedEmps.get(0).getCode());
+        } else if (searchedEmps.size() >= 2) {
+            model.addAttribute("searchedEmps", searchedEmps);
+            return "/emp/searchlist";
+        }
 
         return "/emp/result";
     }
