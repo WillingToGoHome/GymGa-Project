@@ -120,6 +120,7 @@ public class PassController {
 
         for (PassAndPassQualDTO pass : passList) {
             System.out.println("pass = " + pass);
+            System.out.println("pqPrice" + pass.getPassQualDTO().getPqPrice().intValue());
         }
 
         model.addAttribute("passList", passList);
@@ -133,6 +134,23 @@ public class PassController {
         passService.findPqNameList().forEach(System.out::println);
         return passService.findPqNameList();
     }
+
+
+//    @RequestMapping(value = "/refund", method = RequestMethod.GET)
+//    public String refundList (Model model) {
+//
+//        List<PassAndPassQualDTO> passList = passService.refundList();
+//
+//        for (PassAndPassQualDTO pass : passList) {
+//            System.out.println("pass = " + pass);
+//            System.out.println("passList = " + passList);
+//        }
+//
+//        model.addAttribute("passList", passList);
+//
+//        return "/pass/update";
+//    }
+
 
 
 
