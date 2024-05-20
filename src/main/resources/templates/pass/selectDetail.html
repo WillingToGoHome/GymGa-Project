@@ -81,12 +81,12 @@
                             </div>
                             <hr>
                             <div class="recent-content-info">
-                                <div class="th">
-                                    <p th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')}"></p>
-                                    <p th:text="${#dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
-                                    <p th:text="${user.passQualDTO.pqName}"></p>
+                                <div class="th"th:each="oneMemberPass : ${oneMemberAllPassList}">
+                                    <p th:text="${#dates.format(oneMemberPass.passStart, 'yyyy-MM-dd')}"></p>
+                                    <p th:text="${#dates.format(oneMemberPass.passEnd, 'yyyy-MM-dd')}"></p>
+                                    <p th:text="${oneMemberPass.passQualDTO.pqName}"></p>
                                     <p>결제 완료</p>
-                                    <p>사용 횟수</p>
+                                    <p th:text="${oneMemberPass.passUse} + '/' + ${oneMemberPass.passTotal}"></p>
                                     <p th:text="${user.passStatus}"></p>
 
                                 </div>

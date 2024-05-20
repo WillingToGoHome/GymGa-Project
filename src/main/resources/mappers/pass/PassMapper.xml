@@ -288,12 +288,16 @@
         A.USER_CODE,
         A.USER_NAME,
         A.USER_ID,
+        A.USER_BIRTH,
         A.USER_GENDER,
         A.USER_PHONE,
+        A.USER_ADDRESS,
         A.user_pic,
         A.user_staff,
-        B.pq_code,
         B.pq_name,
+        C.pass_code,
+        C.pass_total,
+        C.pass_use,
         C.pass_status,
         C.pass_start,
         C.pass_end,
@@ -362,8 +366,10 @@
         A.USER_ADDRESS,
         A.user_pic,
         A.user_staff,
-        B.pq_code,
         B.pq_name,
+        C.pass_code,
+        C.pass_total,
+        C.pass_use,
         C.pass_status,
         C.pass_start,
         C.pass_end,
@@ -376,8 +382,8 @@
         LEFT JOIN salesdb D ON D.user_code = A.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         LEFT JOIN userdb F ON A.user_staff = F.user_code
-        WHERE A.USER_CODE = #{userCode}
-        LIMIT 1
+        WHERE A.USER_CODE = ${userCode}
+        AND C.PASS_CODE = ${passCode};
     </select>
 
     <select id="getCountByCode" resultMap="passCountResultMap" parameterType="int">
@@ -394,6 +400,36 @@
         LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.USER_CODE = #{userCode}
         GROUP BY A.USER_CODE;
+    </select>
+
+    <select id="oneMemberAllPassList" resultMap="passResultMap">
+        SELECT
+        A.USER_CODE,
+        A.USER_NAME,
+        A.USER_ID,
+        A.USER_BIRTH,
+        A.USER_GENDER,
+        A.USER_PHONE,
+        A.USER_ADDRESS,
+        A.user_pic,
+        A.user_staff,
+        B.pq_name,
+        C.pass_code,
+        C.pass_total,
+        C.pass_use,
+        C.pass_status,
+        C.pass_start,
+        C.pass_end,
+        B.pq_price,
+        D.sales_date,
+        D.sales_method
+        FROM USERDB A
+        LEFT JOIN validatedb E ON E.user_code = A.user_code
+        LEFT JOIN passdb C ON C.pass_code = E.pass_code
+        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        LEFT JOIN userdb F ON A.user_staff = F.user_code
+        WHERE A.USER_CODE = ${userCode}
     </select>
 
 </mapper>

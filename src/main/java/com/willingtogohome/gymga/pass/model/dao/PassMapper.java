@@ -30,7 +30,9 @@ public interface PassMapper {
 
     List<PassAndPassQualDTO> searchPassList();
 
-    PassAndPassQualDTO getInfoDetailByCode(int code);
+    PassAndPassQualDTO getInfoDetailByCode(Integer userCode, Integer passCode);
 
-    List<PassCountDTO> getCountByCode(int code);
+    List<PassCountDTO> getCountByCode(Integer userCode);
+
+    List<PassAndPassQualDTO> oneMemberAllPassList(Integer userCode);
 }

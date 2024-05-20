@@ -187,16 +187,20 @@ public class PassController {
     }
 
     @PostMapping("/selectDetail")
-    public String selectDetail(@RequestParam("code") String userCode, Model model) {
+    public String selectDetail(@RequestParam("code") Integer userCode,
+                               @RequestParam("passCode")Integer passCode, Model model) {
 
-        int code = Integer.parseInt(userCode);
-
-        PassAndPassQualDTO user = passService.getInfoDetailByCode(code);
+        PassAndPassQualDTO user = passService.getInfoDetailByCode(userCode, passCode);
         model.addAttribute("user", user);
         System.out.println("user = " + user);
 
+        /* 이용권 목록 */
+
+        List<PassAndPassQualDTO> oneMemberAllPassList = passService.oneMemberAllPassListByCode(userCode);
+        model.addAttribute("oneMemberAllPassList", oneMemberAllPassList);
+
         /* PT, GX 카운터 */
-        List<PassCountDTO> userPassCount = passService.getCountByCode(code);
+        List<PassCountDTO> userPassCount = passService.getCountByCode(userCode);
         model.addAttribute("userPassCount", userPassCount);
         System.out.println("userPassCount = " + userPassCount);
 

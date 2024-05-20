@@ -64,12 +64,16 @@ public class PassService {
         return passMapper.searchPassList();
     }
 
-    public PassAndPassQualDTO getInfoDetailByCode(int code) {
-        return passMapper.getInfoDetailByCode(code);
+    public PassAndPassQualDTO getInfoDetailByCode(Integer userCode, Integer passCode) {
+        return passMapper.getInfoDetailByCode(userCode, passCode);
     }
 
-    public List<PassCountDTO> getCountByCode(int code) {
+    public List<PassCountDTO> getCountByCode(Integer userCode) {
 
-        return passMapper.getCountByCode(code);
+        return passMapper.getCountByCode(userCode);
+    }
+
+    public List<PassAndPassQualDTO> oneMemberAllPassListByCode(Integer userCode) {
+        return passMapper.oneMemberAllPassList(userCode);
     }
 }
