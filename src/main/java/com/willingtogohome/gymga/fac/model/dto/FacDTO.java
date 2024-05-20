@@ -20,7 +20,7 @@ public class FacDTO {
     private String facStatus;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date facStart;
-    private int userCode;
+    private Integer userCode;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date facEnd;
 

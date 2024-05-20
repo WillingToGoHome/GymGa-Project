@@ -48,7 +48,7 @@
  .btn-custom {
      background-color: white;
      color: black;
-     border: 1px solid black;
+     border: 1px solid #4B82D8;
  }
 
 .modal-title {
@@ -78,12 +78,14 @@
  .modal-body input {
      width: 120px;
      height: 25px;
-     border: 1px solid black;
+     border: 1px solid #4B82D8;
+     stroke: #4B82D8;
  }
  .modal-body select {
      width: 120px;
      height: 25px;
-     border: 1px solid black;
+     border: 1px solid #4B82D8;
+     stroke: #4B82D8;
  }
 .modal-dialog {
     display: flex;
@@ -109,7 +111,8 @@
     width: 120px; /* Adjust as needed */
     height: 111px; /* Adjust as needed */
     background-color: #8DD0F6;
-    border-radius: 20px;
+    border-radius: 10px;
+    stroke: #4B82D8;
     list-style: none;
     display: flex;
     flex-direction: column;
