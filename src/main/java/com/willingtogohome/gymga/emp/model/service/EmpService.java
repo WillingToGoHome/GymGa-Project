@@ -27,10 +27,10 @@ public class EmpService {
         return empMapper.selectAllEmp();
     }
 
-    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
-
-        return scheMapper.selectAllSche(searchCriteria);
-    }
+//    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
+//
+//        return scheMapper.selectAllSche(searchCriteria);
+//    }
 
     public List<EmpTotDTO> searchBy(SearchCriteria searchCriteria) {
 

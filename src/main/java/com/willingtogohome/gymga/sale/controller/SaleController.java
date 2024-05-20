@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/sale")
+@RequestMapping("/sale")
 public class SaleController {
     private final SaleService saleService;
 
