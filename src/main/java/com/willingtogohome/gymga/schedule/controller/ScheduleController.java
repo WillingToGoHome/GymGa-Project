@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.schedule.controller;
 
+import com.willingtogohome.gymga.schedule.exception.ScheduleNotFoundException;
 import com.willingtogohome.gymga.schedule.model.dto.ClassDTO;
 import com.willingtogohome.gymga.schedule.model.dto.EmpDTO;
 import com.willingtogohome.gymga.schedule.model.dto.ScheduleAndClassAndUserAndPassDTO;
@@ -36,6 +37,10 @@ public class ScheduleController {
     public String scheduleMain(Model model) {
 
         List<ScheduleAndClassAndUserAndPassDTO> allList = scheduleService.findAll();
+
+        if(allList.isEmpty()) {
+            throw new ScheduleNotFoundException("일정이 없습니다.");
+        }
         model.addAttribute("allList", allList);
         System.out.println("allList = " + allList);
 
@@ -46,11 +51,16 @@ public class ScheduleController {
     @GetMapping(value = "/schedule/scherundate", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ScheduleAndClassAndUserAndPassDTO> findAllScheRunDate() {
-        System.out.println("test");
+
+        List<ScheduleAndClassAndUserAndPassDTO> result = scheduleService.findAllScheRunDate();
 
         scheduleService.findAllScheRunDate().forEach(System.out::println);
 
-        return scheduleService.findAllScheRunDate();
+        if(result.isEmpty()) {
+            throw new ScheduleNotFoundException("해당 날짜에 일정이 없습니다.");
+        }
+
+        return result;
     }
 
     // 일정으로 페이지 가기 ?
@@ -70,16 +80,27 @@ public class ScheduleController {
     @ResponseBody
     public List<EmpDTO> findTeacherList() {
 
+        List<EmpDTO> teachers = scheduleService.findAllTeacher();
+
         scheduleService.findAllTeacher().forEach(System.out::println);
 
-        return scheduleService.findAllTeacher();
+        if(teachers.isEmpty()) {
+            throw  new ScheduleNotFoundException("강사를 찾을 수 없습니다.");
+        }
+
+        return teachers;
     }
 
     @GetMapping(value ="/schedule/className", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ClassDTO> findClassNameList() {
+
+        List<ClassDTO> classList = scheduleService.findAllClassName();
         scheduleService.findAllClassName().forEach(System.out::println);
-        return scheduleService.findAllClassName();
+            if(classList.isEmpty()) {
+                throw new ScheduleNotFoundException("강의를 찾을 수 없습니다.");
+            }
+        return classList;
     }
 
     @PostMapping("/schedule/scheduleregistPt")

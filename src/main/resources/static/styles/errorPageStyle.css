@@ -1,0 +1,44 @@
+.error-container {
+    background: #ffffff;
+    border-radius: 7.5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #4B82D8;
+}
+
+.error-box {
+    width: 50%;
+    height: 50%;
+    background: #F0F0F0;
+    border-radius: 7.5px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+}
+
+.error-box-hedaer {
+    height: 15%;
+    background: #4B82D8;
+    border-top-left-radius: 7.5px;
+    border-top-right-radius: 7.5px;
+}
+
+.error-box-text {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.error-box-text img {
+    width: 150px;
+}
+
+.error-box-text a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
