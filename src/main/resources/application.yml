@@ -5,6 +5,7 @@ server:
     session:
       timeout: 1800
 
+
 ## driver config
 spring:
   jackson:
@@ -12,7 +13,8 @@ spring:
       fail-on-empty-beans: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3308/crmdb
+#    url: jdbc:mysql://localhost:3308/crmdb
+    url: jdbc:mysql://192.168.0.53:3308/crmdb
     username: ohgiraffers
     password: ohgiraffers
   servlet:
