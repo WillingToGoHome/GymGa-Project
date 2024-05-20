@@ -15,8 +15,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
-        String script = "<script>alert('로그인이 필요합니다.'); window.location.href='/login';</script>";
-        response.setContentType("text/html;charset=UTF-8");
-        response.getWriter().println(script);
+//        String script = "<script>alert('로그인이 필요합니다.'); window.location.href='/login';</script>";
+//        response.setContentType("text/html;charset=UTF-8");
+//        response.getWriter().println(script);
+        response.sendRedirect("/login");
     }
 }

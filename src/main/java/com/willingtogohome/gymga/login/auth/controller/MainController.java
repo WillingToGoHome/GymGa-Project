@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping(value = {"", "/","/login"})
+    @GetMapping(value = "/login")
     public void login(){}
 
     @GetMapping(value = "/login/auth/fail")
@@ -23,7 +23,7 @@ public class MainController {
         return mv;
     }
 
-    @GetMapping(value = "/main")
+    @GetMapping(value = {"/","/main"})
     public String main(SecurityContextHolder securityContextHolder) {
 
         String logonName = securityContextHolder.getContext().getAuthentication().getName();

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +29,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
 
     @Autowired
@@ -60,8 +62,8 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/login", "/login/admin/regist", "/", "/login/auth/*", "/error/**").permitAll();
-            auth.requestMatchers("/main", "/emp/**", "/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
+            auth.requestMatchers("/login","/login/admin/regist","/login/auth/*","/error/**","/error").permitAll();
+            auth.requestMatchers("/","/main","/emp/**","/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
 //            auth.requestMatchers("/main").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.anyRequest().authenticated();
 
