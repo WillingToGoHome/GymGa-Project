@@ -55,6 +55,4 @@ public class PassService {
         return passMapper.searchUser(criteria);
     }
 
-//    public List<PassAndPassQualDTO> refundList() {
-//    }
 }

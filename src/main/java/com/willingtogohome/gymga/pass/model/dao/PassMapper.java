@@ -25,4 +25,5 @@ public interface PassMapper {
     List<PassQualDTO> findPqNameList();
 
     List<PassAndPassQualDTO> searchUser(SearchCriteria criteria);
+
 }

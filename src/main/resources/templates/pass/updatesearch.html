@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>이용권 변경 및 환불</title>
+    <title>이용권 환불</title>
     <link rel="stylesheet" href="/styles/mainStyle.css">
     <link rel="stylesheet" href="/styles/headerStyle.css">
     <link rel="stylesheet" href="/styles/navbarStyle.css">
@@ -28,7 +28,7 @@
                 <div class="contents">
                     <div class="on">
                         <img src="/img/Back.png" onClick="location.href='/pass/main'" class="back">
-                        <p class="text">이용권 변경 및 환불</p>
+                        <p class="text">이용권 환불</p>
                         <form action="/pass/updatesearch" method="post" class="top">
                             <input type="text" class="search" name="search" placeholder="검색 내용">
                             <select name="category" class="option">
@@ -47,7 +47,7 @@
                         <p class="titleText">이용권 상태</p>
                         <p class="titleText">결제 금액</p>
                         <p class="titleText">담당 강사</p>
-                        <p class="titleText" style="padding-right: 29px">변경/환불</p>
+                        <p class="titleText" style="padding-right: 29px">환불</p>
                     </div>
                     <hr class="hr2">
                     <div class="passUpdate">
@@ -70,57 +70,7 @@
                             </p>
                             <div class="buttonBox">
                                 <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                <input class="changeButton" type="submit" value="변경">
                                 <button class="refundButton">환불</button>
-                                <div class="modalContainer">
-                                    <div class="modalContent">
-                                        <div class="textBox" th:object="${pass}">
-                                            <form action="/pass/change" method="post">
-                                                <h2 style="color: black; text-align: center; padding-top: 60px;">이용권 변경</h2>
-                                                <div class="text2">
-                                                    <label class="modalText">
-                                                        회원명
-                                                        <input type="text" id="userName" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
-                                                    </label><br>
-                                                    <label class="modalText">
-                                                        회원ID
-                                                        <input type="text" id="userId" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
-                                                    </label><br>
-                                                    <label class="modalText">
-                                                        기존 이용권
-                                                        <input type="text" id="pqName" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
-                                                    </label><br>
-                                                    <label class="modalText">
-                                                        변경 이용권
-                                                        <select name="pqCode" id="pqCode" class="modalNewPass">
-                                                            <option selected disabled>선택</option>
-                                                        </select>
-                                                    </label><br>
-                                                    <label class="modalText">
-                                                        추가금액 / 결제방식
-                                                        <input type="text" id="pqPrice" name="pqPrice" class="modalPqPrice" readonly>
-                                                        <select id="method" name="salesMethod">
-                                                            <option selected disabled>선택</option>
-                                                            <option value="신용카드">신용카드</option>
-                                                            <option value="현금">현금</option>
-                                                        </select>
-                                                    </label><br>
-                                                    <label class="modalText">
-                                                        변경 날짜
-                                                        <input type="text" id="today" name="today" class="modalToday" readonly>
-                                                    </label>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modalButtonBox">
-                                            <button class="cancelButton">취소</button>
-                                            <form action="/pass/change" method="post">
-                                                <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                                <input class="changeButton2" type="submit" value="변경">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modalContainer2">
                                 <div class="modalContent2">
@@ -142,7 +92,7 @@
                                                 </label><br>
                                                 <label class="modalText">
                                                     환불 사유
-                                                    <input type="text" id="reason" name="reason" class="reason">
+                                                    <input type="text" id="reason" name="reason" class="reason" style="color: black">
                                                 </label><br>
                                                 <label class="modalText">
                                                     총 환불금액 / 위약금
@@ -153,14 +103,12 @@
                                                     변경 날짜
                                                     <input type="text" id="today2" name="today" class="modalToday" readonly>
                                                 </label>
+                                                <div class="modalButtonBox2">
+                                                    <button class="cancelButton2" type="button">취소</button>
+                                                    <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                                    <input class="refundButton2" type="submit" value="환불" style="width: 130px; height: 43px; border-radius: 10px; color: #ffffff; padding: 0; border: 1px solid #FFFFFF;">
+                                                </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="modalButtonBox2">
-                                        <button class="cancelButton2">취소</button>
-                                        <form action="/pass/refund" method="post">
-                                            <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                            <input class="refundButton2" type="submit" value="환불">
                                         </form>
                                     </div>
                                 </div>
@@ -209,10 +157,6 @@
             modal.find(".modalToday").val(today);
 
             modal.show();
-        });
-
-        $(".cancelButton").click(function() {
-            $(this).closest(".modalContainer").hide();
         });
 
         $(".refundButton").click(function () {
