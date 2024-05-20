@@ -3,45 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
-    <link rel="stylesheet" href="styles/mainStyle.css">
-    <link rel="stylesheet" href="styles/headerStyle.css">
-    <link rel="stylesheet" href="styles/navbarStyle.css">
-    <link rel="stylesheet" href="styles/myStyle.css">
-    <link rel="stylesheet" href="styles/footerStyle.css">
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/styles/mainPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 </head>
 
 <body>
-<div class="container">
-    <div class="app-area">
-        <!--Heade Start-->
-        <div th:include="common/header"></div>
-        <!--Header End-->
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
 
-        <!--Main Start-->
-        <div class="main-container">
-            <!--Navbar Start-->
-            <div th:include="common/navbar"></div>
-            <!--Navbar End-->
-            <!--개인 작업 시작-->
-            <div class="my-style">
-                <div sec:authorize="hasAnyAuthority('ADMIN')">
-                    <h1>대표페이지</h1>
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+    <!--                    <div sec:authorize="hasAnyAuthority('ADMIN')">-->
+    <!--                        <h1>대표페이지</h1>-->
+    <!--                    </div>-->
+    <!--                    <div sec:authorize="hasAnyAuthority('USER')">-->
+    <!--                        <h1>직원페이지</h1>-->
+    <!--                    </div>-->
+                        <div class="salesInfoDiv">
+                            <div class="salesInfoBox" style="margin: 0 20px 17px 0">
+                                <span class="topic">이용권 현황</span>
+                                <div class="graph" id="pie"></div>
+                            </div>
+                            <div class="salesInfoBox" style="margin-bottom: 17px">
+                                <span class="topic">매출 현황</span>
+                                <div class="graph" id="bar"></div>
+                            </div>
+                            <div class="salesInfoBox" style="width: 760px; height: 250px">
+                                <span class="topic">회원 현황</span>
+                                <div class="memberList" style="overflow-y: auto">
+                                    <table style="width: 680px; margin: 0; margin-left: 0; text-align: center">
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>성별</th>
+                                            <th>연락처</th>
+                                            <th>회원권 종류</th>
+                                            <th>만료일</th>
+                                            <!--                    <th>비고</th>-->
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <hr style="width: 95%; margin: auto; background-color: rgba(101, 101, 101, 1)">
+                                            </td>
+                                        </tr>
+                                        <div>
+                                            <tr th:each="member: ${ memberList }">
+                                                <td th:text="${ member.userName }"></td>
+                                                <td th:text="${ member.userGender }"></td>
+                                                <td th:text="${ member.userPhone }"></td>
+                                                <td th:text="${ member.pqName }"></td>
+                                                <td th:text="${ member.passEnd }"></td>
+                                                <!--                        <td th:text="${ member.userETC }"></td>-->
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scheduleInfoDiv">
+                            <span class="topic" id="today1"></span>
+                            <span class="date" id="today2"></span>
+                            <span class="moreSche" onclick="location.href='/schedule/schedulemain'">더보기</span><br>
+                            <table class="cal">
+                                <tr>
+                                    <th class="none">일</th>
+                                    <th class="none">월</th>
+                                    <th class="none">화</th>
+                                    <th class="none">수</th>
+                                    <th class="none">목</th>
+                                    <th class="none">금</th>
+                                    <th class="none">토</th>
+                                </tr>
+                                <tr>
+                                    <td id="sun" class="none"></td>
+                                    <td id="mon" class="none"></td>
+                                    <td id="tue" class="none"></td>
+                                    <td id="wed" class="none"></td>
+                                    <td id="thu" class="none"></td>
+                                    <td id="fri" class="none"></td>
+                                    <td id="sat" class="none"></td>
+                                </tr>
+                            </table>
+                            <hr class="line2">
+                            <div class="scheBox">
+                                <div class="timeLine">
+                                    <div class="pointer" id="pointer1"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer2"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer3"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer4"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer5"></div>
+                                    <hr class="verticalLine">
+                                    <div class="pointer" id="pointer6"></div>
+                                </div>
+                                <span id="time1">8:00 am</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList1 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time2">10:00 am</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList2 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time3">12:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList3 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time4">14:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList4 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+
+                                    </div>
+                                </div>
+                                <span id="time5">16:00 pm</span><br>
+                                <div class="scheList">
+                                    <div th:each="sche : ${ scheList5 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                                <span id="time6">18:00 pm</span><br>
+                                <!--                <div class="scheList" style="height: 164px; margin-left: 20px">-->
+                                <div class="scheList" style="height: 120px; margin-left: 20px">
+                                    <div th:each="sche : ${ scheList6 }">
+                                        <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div sec:authorize="hasAnyAuthority('USER')">
-                    <h1>직원페이지</h1>
-                </div>
+                <!--개인 작업 종료-->
             </div>
-            <!--개인 작업 종료-->
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
         </div>
-        <!--Main End-->
-
-        <!--Footer Start-->
-        <div th:include="common/footer"></div>
-        <!--Footer End-->
     </div>
-</div>
 
+    <script>
+        var d = new Date();
+        var a = new Date();
+        let day = document.getElementById("today1");
+        let date = document.getElementById("today2");
+        let sun = document.getElementById("sun");
+        let mon = document.getElementById("mon");
+        let tue = document.getElementById("tue");
+        let wed = document.getElementById("wed");
+        let thu = document.getElementById("thu");
+        let fri = document.getElementById("fri");
+        let sat = document.getElementById("sat");
 
+        switch (d.getDay()) {
+            case 0: day.innerHTML = '오늘, 일요일';
+                sun.className = "today";
+                a.setDate(d.getDate());
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 5)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 6)
+                sat.innerHTML = a.getDate();
+                break;
+            case 1: day.innerHTML = '오늘, 월요일';
+                mon.className = "today";
+                a.setDate(d.getDate() - 1);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 5)
+                sat.innerHTML = a.getDate();
+                break;
+            case 2: day.innerHTML = '오늘, 화요일';
+                tue.className = "today";
+                a.setDate(d.getDate() - 2);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4)
+                sat.innerHTML = a.getDate();
+                break;
+            case 3: day.innerHTML = '오늘, 수요일';
+                wed.className = "today";
+                a.setDate(d.getDate() - 3);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3)
+                sat.innerHTML = a.getDate();
+                break;
+            case 4: day.innerHTML = '오늘, 목요일';
+                thu.className = "today";
+                a.setDate(d.getDate() - 4);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2)
+                sat.innerHTML = a.getDate();
+                break;
+            case 5: day.innerHTML = '오늘, 금요일';
+                fri.className = "today";
+                a.setDate(d.getDate() - 5);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 4);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate())
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1)
+                sat.innerHTML = a.getDate();
+                break;
+            case 6: day.innerHTML = '오늘, 토요일';
+                sat.className = "today";
+                a.setDate(d.getDate() - 6);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 5);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 4);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate())
+                sat.innerHTML = a.getDate();
+                break;
+        }
+
+        date.innerHTML = d.getFullYear() + '.' + ((d.getMonth() + 1) < 10? '0' + (d.getMonth() + 1) : (d.getMonth() + 1)) + '.' + (d.getDate() < 10? '0' + d.getDate() : d.getDate());
+
+        switch (d.getHours()) {
+            case 8 : case 9: document.getElementById("pointer1").className = "pointerTime";
+                document.getElementById("time1").className = "scheTime"; break;
+            case 10 : case 11: document.getElementById("pointer2").className = "pointerTime";
+                document.getElementById("time2").className = "scheTime"; break;
+            case 12 : case 13: document.getElementById("pointer3").className = "pointerTime";
+                document.getElementById("time3").className = "scheTime"; break;
+            case 14 : case 15: document.getElementById("pointer4").className = "pointerTime";
+                document.getElementById("time4").className = "scheTime"; break;
+            case 16 : case 17: document.getElementById("pointer5").className = "pointerTime";
+                document.getElementById("time5").className = "scheTime"; break;
+            default: document.getElementById("pointer6").className = "pointerTime";
+                document.getElementById("time6").className = "scheTime"; break;
+        }
+    </script>
+
+    <script type="text/javascript">
+        var pie = document.getElementById("pie");
+        var bar = document.getElementById("bar");
+
+        var myChart = echarts.init(pie, null, {
+            renderer: 'canvas',
+            useDirtyRect: false
+        });
+        var myChart2 = echarts.init(bar, null, {
+            renderer: 'canvas2',
+            useDirtyReact: false
+        });
+
+        function fetchDataForPieChart() {
+            fetch('/main/piedata')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('파이 차트 데이터를 가져오지 못했습니다.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var pt = data.pt;
+                    var gx = data.gx;
+                    var gp = data.gp;
+
+                    if (pt == 0 && gx == 0 && gp == 0) {
+                        throw new Error('파이 차트를 위한 데이터가 없습니다.');
+                    }
+
+                    var ptPer = Math.round(pt / (pt + gx + gp) * 10000) / 100;
+                    var gxPer = Math.round(gx / (pt + gx + gp) * 10000) / 100;
+                    var gpPer = 100 - ptPer - gxPer;
+
+                    var option = {
+                        title: {
+                            // text: '이용권 현황',
+                            // left: 'center',
+                            // top: 10,
+                            // textStyle: {
+                            //     fontSize: 18,
+                            //     fontWeight: 'bold',
+                            //     fontFamily: 'Noto Sans KR, sans-serif'}
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            top: '85%',
+                            left: 'center',
+                            fontSize: 16,
+                        },
+                        series: [
+                            {
+                                name: '이용권 종류',
+                                type: 'pie',
+                                radius: ['30%', '60%'],
+                                avoidLabelOverlap: false,
+                                seriesLayoutBy: 'row',
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: true,
+                                    position: 'middle',
+                                    formatter: function(params) {
+                                        var dataName = params.data.name;
+                                        var dataValue = params.data.value;
+                                        var percent = params.percent.toFixed(1);
+                                        var PT = data.pt;
+                                        var GX = data.gx;
+                                        var GP = data.gp;
+
+                                        if (percent === '0.00') {
+                                            return '';
+                                        }
+
+                                        if (dataName === 'PT') {
+                                            return percent + '%';
+                                        } else if (dataName === 'GX') {
+                                            return  percent + '%';
+                                        } else if (dataName === '일반') {
+                                            return percent + '%';
+                                        }
+                                    }
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: 16,
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: true,
+                                },
+                                data: [
+                                    { value: data.pt, name: 'PT' },
+                                    { value: data.gx, name: 'GX' },
+                                    { value: data.gp, name: '일반' }
+                                ]
+                            }
+                        ]
+                    };
+                    console.log(data)
+                    myChart.setOption(option);
+                })
+                .catch(error => {
+                    console.error('파이 차트 데이터를 가져오는 중 오류 발생:', error.message);
+                });
+        }
+        fetchDataForPieChart();
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+
+        function fetchDataForBarChart() {
+            fetch('/main/bardata')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('월별 매출 데이터를 가져오지 못했습니다.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var monthData = data.map(item => item.month);
+                    var totalData = data.map(item => item.total);
+
+                    var option = {
+                        title: {
+                            // text: '매출 현황',
+                            // left: 'center',
+                            // top: 10,
+                            // textStyle: {
+                            //     fontSize: 18,
+                            //     fontWeight: 'bold',
+                            //     fontFamily: 'Noto Sans KR, sans-serif'}
+                        },
+                        grid: {
+                            left: '10px',
+                            right: '10px',
+                            bottom: '10px',
+                            containLabel: true
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: monthData,
+                            axisLabel: {
+                                interval: 0,
+                                rotate: 30
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: function (value) {
+                                    if (value >= 10000) {
+                                        return (value / 10000) + '만';
+                                    } else {
+                                        return value;
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            data: totalData,
+                            type: 'bar',
+                            label: {
+                                show: false,
+                                position: 'top',
+                                color: '#000'
+                            }
+                        }]
+                    };
+                    myChart2.setOption(option);
+                })
+                .catch(error => {
+                    console.error('월별 매출 데이터를 가져오는 중 오류가 발생했습니다:', error);
+                });
+        }
+
+        fetchDataForBarChart();
+        window.addEventListener('resize', () => {
+            myChart2.resize();
+        });
+    </script>
 </body>
 </html>

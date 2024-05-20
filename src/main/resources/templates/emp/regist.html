@@ -51,7 +51,7 @@
                                         <div style="float: left">
                                             <div>
                                                 <div style="float: left">
-                                                    <div class="spanTagBoxWSup">
+                                                    <div class="spanTagBoxWSup" style="width: 120px">
                                                         <span class="highlightSpan">* </span><span>아이디</span><br>
                                                         <span class="highlightSpan">* </span><span>비밀번호</span><br>
                                                         <span class="highlightSpan">* </span><span>비밀번호 재입력</span><br>
@@ -65,12 +65,12 @@
                                                     </div>
                                                 </div>
                                                 <div style="float: left">
-                                                    <div style="float: left; margin-right: 31px">
+                                                    <div style="float: left; width: 120px">
                                                         <div class="spanTagBoxWSup" style="clear: left">
                                                             <span class="highlightSpan">*</span><span>이름</span><br>
                                                             <span class="highlightSpan">*</span><span>전화번호</span><br>
                                                         </div>
-                                                        <div class="spanTagBoxWOSup" style="clear: left; margin-left: 7px; padding-top: 2px">
+                                                        <div class="spanTagBoxWOSup" style="clear: left; padding-left: 8.13px; padding-top: 2px">
                                                             <span>생년월일</span><br>
                                                             <span>성별</span>
                                                         </div>
@@ -87,36 +87,39 @@
                                                 </div>
                                             </div>
                                             <div style="clear: left">
-                                                <div class="spanTagBoxWOSup" style="margin-left: 10px">
+                                                <div class="spanTagBoxWOSup" style="width: 120px; padding-left: 11.75px">
                                                     <span>주소</span>
                                                     <button type="button" onclick="sample4_execDaumPostcode()" style="width: 60px; margin-left: 10px">찾기</button><br>
                                                 </div>
-                                                <div style="margin-left: 14px; float: left">
-                                                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1" style="width: 250px; margin-right: 10px">
+                                                <div style="float: left">
+                                                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1" style="width: 253px; margin-right: 10px">
                                                     <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2" style="width: 120px">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="detailBox">
-                                        <div style="float: left; margin-left: 50px; margin-right: 50px">
+                                        <div style="float: left; margin-left: 50px; margin-right: 35px">
                                             <div>
                                                 <h4>신체조건</h4>
-                                                <div class="spanTagBoxWOSup">
+                                                <div class="spanTagBoxWOSup" style="width: 30px">
                                                     <span>키</span><br>
                                                     <span>체중</span><br>
                                                     <span>BMI</span><br>
                                                     <span>기타</span>
                                                 </div>
-                                                <div style="float: left; margin-right: 20px">
-                                                    <input type="text" id="height" name="height" placeholder="cm" onchange="bmiCal()"><br>
-                                                    <input type="text" id="weight" name="weight" placeholder="kg" onchange="bmiCal()"><br>
-                                                    <input type="text" id="bmi" name="bmi"><br>
+                                                <div style="float: left; margin-right: 20px; width: 120px">
+                                                    <input type="text" id="height" name="height" placeholder="cm" onchange="bmiCal()" style="width: 60px">
+                                                    <span style="font-weight: bold">cm</span><br>
+                                                    <input type="text" id="weight" name="weight" placeholder="kg" onchange="bmiCal()" style="width: 60px">
+                                                    <span style="font-weight: bold">kg</span><br>
+                                                    <input type="text" id="bmi" name="bmi" style="width: 60px">
+                                                    <span style="font-weight: bold">kg/m<sup>2</sup></span><br>
                                                     <input type="text" name="etc">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="float: left; margin-right: 60px">
+                                        <div style="float: left; margin-right: 40px">
                                             <h4>자격 사항</h4>
                                             <div style="margin-right: 20px; float: left">
                                                 <input type="checkbox" id="qual1" name="qual" value="생활체육지도자" style="width: 25px; height: 25px"><br>
@@ -132,16 +135,16 @@
                                         </div>
                                         <div style="float: left">
                                             <h4>경력 사항</h4>
-                                            <div class="spanTagBoxWOSup">
-                                                <span style="margin-left: 8px">근무지</span><br>
-                                                <span style="margin-left: 8px">기간</span><br>
-                                                <span style="margin-left: 8px">전체 경력</span><br>
+                                            <div class="spanTagBoxWOSup" style="width: 75px">
+                                                <span style="margin-left: 8.13px">근무지</span><br>
+                                                <span style="margin-left: 8.13px">기간</span><br>
+                                                <span style="margin-left: 8.13px">전체 경력</span><br>
                                                 <span class="highlightSpan" style="line-height: 18px">*</span><span>기본급</span>
                                             </div>
-                                            <div style="float: left;">
+                                            <div style="float: left; font-weight: bold">
                                                 <input type="text" name="location"><br>
-                                                <input type="text" id="year" name="year" style="width: 30px">년 <input type="text" id="month" name="month" style="width: 30px">개월 <br>
-                                                <input type="text" id="totalYear" name="totalYear" style="width: 30px">년 <input type="text" id="totalMonth" name="totalMonth" style="width: 30px">개월 <br>
+                                                <input type="text" id="year" name="year" style="width: 30px">년 <input type="text" id="month" name="month" style="width: 30px; margin-left: 10px">개월 <br>
+                                                <input type="text" id="totalYear" name="totalYear" style="width: 30px">년 <input type="text" id="totalMonth" name="totalMonth" style="width: 30px; margin-left: 10px">개월 <br>
                                                 <input type="text" id="salary" name="salary" placeholder="필수 입력" autofocus> <br>
                                             </div>
                                         </div>

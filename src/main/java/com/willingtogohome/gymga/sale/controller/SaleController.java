@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/sale")
+//@RequestMapping("/sale")
 public class SaleController {
     private final SaleService saleService;
 
@@ -39,7 +40,7 @@ public class SaleController {
 
 
 
-    @GetMapping("/main")
+    @GetMapping("/sale/main")
     public String saleMain(Model model){
 
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
@@ -67,14 +68,26 @@ public class SaleController {
         return "sale/main";
     }
 
-    @PostMapping("/main")
+//    @GetMapping(value = "/main")
+//    public String main(SecurityContextHolder securityContextHolder,Model model) {
+//        List<EmployeeAndUserDTO> employeeAndUserDTO = saleService.empAndUser();
+//        model.addAttribute("employeeAndUserDTO",employeeAndUserDTO);
+//
+//        String logonName = securityContextHolder.getContext().getAuthentication().getName();
+//
+//        System.out.println("logonName = " + logonName);
+//
+//        return "main";
+//    }
+
+    @PostMapping("/sale/main")
     public String saleMainP(){
         return "redirect:/sale/main";
         }
 
 
 
-    @GetMapping("/passDataBar")
+    @GetMapping("/sale/passDataBar")
     public ResponseEntity<List<PassMonthDTO>> getPassDataBar() {
         List<PassMonthDTO> passDataForPieChart = saleService.getPassDataForPieChart();
         return ResponseEntity.ok(passDataForPieChart);
@@ -90,7 +103,7 @@ public class SaleController {
 //        }
 //    }
 
-    @GetMapping("/passDataPie")
+    @GetMapping("/sale/passDataPie")
     public ResponseEntity<Map<String, Integer>> getPassData(HttpSession session) {
 
         SearchCriteria searchCriteria = (SearchCriteria) session.getAttribute("Text");
@@ -115,7 +128,7 @@ public class SaleController {
 //        return new ResponseEntity<>(passData, HttpStatus.OK);
 //    }
 
-    @GetMapping("/selectall")
+    @GetMapping("/sale/selectall")
     public String UserAllList(Model model) {
 
         List<PassAndPassQualDTO> userList = saleService.findAllList();
@@ -128,7 +141,7 @@ public class SaleController {
         return "sale/selectall";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/sale/search")
     public void searchUsers() {
     }
 
@@ -179,7 +192,7 @@ public class SaleController {
 //
 //        return "sale/detail"; // 사용자 정보가 담긴 뷰로 이동
 //    }
-    @GetMapping("/detail")
+    @GetMapping("/sale/detail")
     public String detail(Model model){
         List<PassAndPassQualDTO> detailList = saleService.findAllList();
         model.addAttribute("detailList", detailList);
@@ -188,7 +201,7 @@ public class SaleController {
     }
 
 
-    @PostMapping("/detail")
+    @PostMapping("/sale/detail")
     public String detail(Model model, @RequestParam String search, @RequestParam String category, HttpSession session){
         SearchCriteria criteria = new SearchCriteria();
         criteria.setText(search);
@@ -206,7 +219,7 @@ public class SaleController {
     }
 
 
-    @GetMapping("/detail/{userId}")
+    @GetMapping("/sale/detail/{userId}")
     public String findByScheduleCode(@PathVariable("userId") String userId, Model model) {
         System.out.println("userId = " + userId);
 //        List<PassAndPassQualDTO> detailList = saleService.findAllList();

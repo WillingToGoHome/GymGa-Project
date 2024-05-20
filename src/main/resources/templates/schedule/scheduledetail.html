@@ -167,6 +167,7 @@
                         </button>
                         <p>일정 변경</p>
                     </div>
+                    <hr>
                     <p class="pt-or-gx">개인 수업</p>
                     <form th:action="@{|/schedule/scheduleupdate/${selectOneSchedule.scheCode}|}" method="post">
                         <input type="hidden" name="scheCode" th:value="${selectOneSchedule.scheCode}">

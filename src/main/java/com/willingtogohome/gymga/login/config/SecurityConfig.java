@@ -3,8 +3,6 @@ package com.willingtogohome.gymga.login.config;
 import com.willingtogohome.gymga.login.common.UserRole;
 import com.willingtogohome.gymga.login.config.handler.AuthFailHandler;
 import com.willingtogohome.gymga.login.config.handler.AuthSuccessHandler;
-import com.willingtogohome.gymga.login.config.handler.CustomAccessDeniedHandler;
-import com.willingtogohome.gymga.login.config.handler.CustomAuthenticationEntryPoint;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,7 +61,7 @@ public class SecurityConfig {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/login","/login/admin/regist","/login/auth/*","/error/**","/error").permitAll();
-            auth.requestMatchers("/","/main","/emp/**","/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
+            auth.requestMatchers("/","/main","/emp/**","/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**","/api/loggedInUser").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
 //            auth.requestMatchers("/main").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.anyRequest().authenticated();
 

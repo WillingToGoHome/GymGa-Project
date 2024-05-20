@@ -545,7 +545,7 @@
     var idListObject = [[${idList}]];
 
     function idCheck() {
-        let id = document.getElementById("id");
+        const id = document.getElementById("id");
 
         if (idListObject.indexOf(id.value) >= 0) {
             alert("중복 아이디 입니다. 다른 아이디를 사용해주세요.");

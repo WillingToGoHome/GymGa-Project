@@ -27,12 +27,12 @@ public class EmpService {
         return empMapper.selectAllEmp();
     }
 
-    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
+//    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
+//
+//        return scheMapper.selectAllSche(searchCriteria);
+//    }
 
-        return scheMapper.selectAllSche(searchCriteria);
-    }
-
-    public EmpTotDTO searchBy(SearchCriteria searchCriteria) {
+    public List<EmpTotDTO> searchBy(SearchCriteria searchCriteria) {
 
         return empMapper.searchBy(searchCriteria);
     }
@@ -69,5 +69,10 @@ public class EmpService {
     public List<EmpDTO> selectAllUserID() {
 
         return empMapper.selectAllUserID();
+    }
+
+    public EmpTotDTO selectBy(SearchCriteria code) {
+
+        return empMapper.selectBy(code);
     }
 }
