@@ -244,18 +244,21 @@ public class ScheduleController {
     }
 
     @GetMapping("/api/loggedInUser")
-    public ResponseEntity<String> getLoggedInUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
+    public ResponseEntity<String> getLoggedInUser(SecurityContextHolder securityContextHolder) {
 
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+        int userCode = Integer.parseInt(securityContextHolder.getContext().getAuthentication().getName());
+        String userName = scheduleService.findUserName(userCode);
 
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String username;
+//
+//        if (principal instanceof UserDetails) {
+//            username = ((UserDetails) principal).getUsername();
+//        } else {
+//            username = principal.toString();
+//        }
 
-        return ResponseEntity.ok(username);
+        return ResponseEntity.ok(userName);
     }
 
 

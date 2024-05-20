@@ -43,9 +43,10 @@
             USER_CODE
             , USER_NAME
             , USER_ROLE
+            , USER_PIC
             , USER_STAFF
         FROM USERDB
-        WHERE USER_NAME = #{ name }
+        WHERE USER_CODE = #{ userCode }
     </select>
 
     <select id="ptCount" resultType="_int">

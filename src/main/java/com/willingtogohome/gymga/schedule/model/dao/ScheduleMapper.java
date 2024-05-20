@@ -55,4 +55,5 @@ public interface ScheduleMapper {
 
     void updateGxSchedule(ScheduleDTO scheduleDTO);
 
+    String findUserName(int userCode);
 }
