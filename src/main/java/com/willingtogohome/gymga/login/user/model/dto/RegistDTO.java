@@ -10,10 +10,11 @@ public class RegistDTO {
     private String userAddress;
     private String userEtc;
     private String role;
+    private String userPic;
 
     public RegistDTO(){}
 
-    public RegistDTO(String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String role) {
+    public RegistDTO(String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String role, String userPic) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;
@@ -22,6 +23,7 @@ public class RegistDTO {
         this.userAddress = userAddress;
         this.userEtc = userEtc;
         this.role = role;
+        this.userPic = userPic;
     }
 
     public String getUserId() {
@@ -54,6 +56,14 @@ public class RegistDTO {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
     }
 
     public String getUserBirth() {
@@ -99,6 +109,7 @@ public class RegistDTO {
                 ", userAddress='" + userAddress + '\'' +
                 ", userEtc='" + userEtc + '\'' +
                 ", role='" + role + '\'' +
+                ", userPic='" + userPic + '\'' +
                 '}';
     }
 

@@ -9,8 +9,9 @@
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
-        <result property="userPhone" column="USER_PHONE"/>
+        <result property="userPic" column="USER_PIC"/>
         <result property="userRole" column="USER_ROLE"/>
+        <result property="userPhone" column="USER_PHONE"/>
     </resultMap>
 
 
@@ -20,8 +21,9 @@
         ,   USER_ID
         ,   USER_PWD
         ,   USER_NAME
-        ,   USER_PHONE
+        ,   USER_PIC
         ,   USER_ROLE
+        ,   USER_PHONE
         FROM    USERDB
         WHERE USER_ID = #{ username }
     </select>
@@ -37,6 +39,7 @@
         ,   USER_ADDRESS
         ,   USER_ETC
         ,   USER_ROLE
+        ,   USER_PIC
         )
         VALUES
         (
@@ -48,6 +51,7 @@
         ,   #{ userAddress }
         ,   #{ userEtc }
         ,   #{ role }
+        ,   'default-user.png'
         )
     </insert>
 
