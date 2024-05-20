@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface MainMapper {
-    UserDTO selectEmpBy(String name);
+    UserDTO selectEmpBy(int userCode);
 
     Integer ptCount(int userCode);
 

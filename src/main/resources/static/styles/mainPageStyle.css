@@ -17,12 +17,12 @@ body {
 
 .salesInfoBox {
     width: 370px;
-    height: 370px;
+    height: 330px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
     float: left;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .topic {
@@ -34,9 +34,11 @@ body {
 
 .graph {
     width: 350px;
-    height: 320px;
+    height: 300px;
     text-align: center;
     color: black;
+    margin: auto;
+
 }
 
 .memberList {
@@ -44,6 +46,7 @@ body {
     height: 200px;
     border: 1px solid rgba(171, 171, 171, 1);
     border-radius: 10px;
+    margin-top: 10px;
     margin-left: 30px;
 }
 
@@ -199,4 +202,8 @@ table {
 .scheList::-webkit-scrollbar-track {
     background: rgba(205, 205, 205, 0.25);
     border-radius: 10px;
+}
+
+.line {
+    margin: auto;
 }

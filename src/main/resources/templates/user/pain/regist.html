@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" th:href="@{/css/painRegist.css}">
     <link rel="stylesheet" th:href="@{/styles/mainStyle.css}">
     <link rel="stylesheet" th:href="@{/styles/headerStyle.css}">
@@ -27,11 +28,12 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic">통증 등록</p>
+                    <p class="topic" th:text="${name} + ' 회원님 통증 등록'"></p>
                 </div>
                 <hr class="line1">
                 <form action="/pain/registPain" method="post">
                     <input type="hidden" name="pos" th:value="${pos}">
+                    <input type="hidden" name="name" th:value="${name}">
                     <div class="allBox">
                         <div class="imgBox">
                             <div th:switch="${pos}">
@@ -60,16 +62,16 @@
                             </div>
                             <div class="painDetail">
                                 <p class="painExplainText">통증 유형</p>
-                                <input type="text" class="inputBox" name="type" id="type" placeholder="통증 유형 입력 ex) 회전근개 파열, 오십견, 관절염 등">
+                                <input type="text" class="inputBox" name="type" id="type" placeholder="통증 유형 입력 ex) 회전근개 파열, 오십견, 관절염 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 기간</p>
-                                <input type="text" class="inputBox" name="dur" id="dur" placeholder="통증 기간 입력 ex)  2주 전 등">
+                                <input type="text" class="inputBox" name="dur" id="dur" placeholder="통증 기간 입력 ex)  2주 전 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 원인</p>
-                                <input type="text" class="inputBox" name="cause" id="cause" placeholder="통증 원인 입력 ex) 농구하다가 넘어진 이후로 아픔, 손목이 꺾임 등">
+                                <input type="text" class="inputBox" name="cause" id="cause" placeholder="통증 원인 입력 ex) 농구하다가 넘어진 이후로 아픔, 손목이 꺾임 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 강도</p>
-                                <input type="number" class="inputBox" name="str" id="str" placeholder="통증 강도 입력 ex) 1~5사이">
+                                <input type="number" class="inputBox" name="str" id="str" placeholder="통증 강도 입력 ex) 1~5사이" >
                             </div>
                         </div>
                         <div class="rightBox">

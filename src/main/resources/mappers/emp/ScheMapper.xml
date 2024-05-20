@@ -57,6 +57,7 @@
             AND A.EMP_CODE = #{ condition }
         </if>
 <!--        AND SCHE_RUN_DATE = CURDATE()-->
+        AND SCHE_RUN_DATE = '2024-05-22'
         ORDER BY A.SCHE_START_TIME AND C.USER_NAME
     </select>
 </mapper>

@@ -71,98 +71,48 @@
                             </p>
                             <div class="buttonBox">
                                     <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                    <input class="changeButton" type="submit" value="변경">
                                 <button class="refundButton">환불</button>
-                                <div class="modalContainer">
-                                    <div class="modalContent">
+                                <div class="modalContainer2">
+                                    <div class="modalContent2">
                                         <div class="textBox" th:object="${pass}">
-                                            <form action="/pass/change" method="post">
-                                                <h2 style="color: black; text-align: center; padding-top: 60px;">이용권 변경</h2>
-                                                    <div class="text2">
-                                                        <label class="modalText">
-                                                            회원명
-                                                            <input type="text" id="userName" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            회원ID
-                                                            <input type="text" id="userId" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            기존 이용권
-                                                            <input type="text" id="pqName" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            변경 이용권
-                                                            <select name="pqCode" id="pqCode" class="modalNewPass">
-                                                                <option selected disabled>선택</option>
-                                                            </select>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            추가금액 / 결제방식
-                                                            <input type="text" id="pqPrice" name="pqPrice" class="modalPqPrice" readonly>
-                                                            <select id="method" name="salesMethod">
-                                                                <option selected disabled>선택</option>
-                                                                <option value="신용카드">신용카드</option>
-                                                                <option value="현금">현금</option>
-                                                            </select>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            변경 날짜
-                                                            <input type="text" id="today" name="today" class="modalToday" readonly>
-                                                        </label>
-                                                    </div>
+                                            <form action="/pass/refund" method="post">
+                                                <h2 style="color: black; text-align: center; padding-top: 60px;">이용권 환불</h2>
+                                                <div class="text2">
+                                                    <label class="modalText">
+                                                        회원명
+                                                        <input type="text" id="userName2" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        회원ID
+                                                        <input type="text" id="userId2" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        환불 이용권
+                                                        <input type="text" id="pqName2" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        환불 사유
+                                                        <input type="text" id="reason" name="reason" class="reason">
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        총 환불금액 / 위약금
+                                                        <input type="text" id="pqPrice2" name="pqPrice" class="modalPqPrice" style="margin-left: 12px" th:value="${pass.passQualDTO.pqPrice * 0.9 }" readonly>
+                                                        <input type="text" id="pqPrice3" name="pqPrice1" class="modalPqPrice1" th:value="${pass.passQualDTO.pqPrice * 0.1}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        변경 날짜
+                                                        <input type="text" id="today2" name="today" class="modalToday" readonly>
+                                                    </label>
+                                                </div>
                                             </form>
                                         </div>
-                                        <div class="modalButtonBox">
-                                            <button class="cancelButton">취소</button>
-                                            <form action="/pass/change" method="post">
+                                        <div class="modalButtonBox2">
+                                            <button class="cancelButton2">취소</button>
+                                            <form action="/pass/refund" method="post">
                                                 <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                                <input class="changeButton2" type="submit" value="변경">
+                                                <input class="refundButton2" type="submit" value="환불">
                                             </form>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modalContainer2">
-                                <div class="modalContent2">
-                                    <div class="textBox" th:object="${pass}">
-                                        <form action="/pass/refund" method="post">
-                                            <h2 style="color: black; text-align: center; padding-top: 60px;">이용권 환불</h2>
-                                            <div class="text2">
-                                                <label class="modalText">
-                                                    회원명
-                                                    <input type="text" id="userName2" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
-                                                </label><br>
-                                                <label class="modalText">
-                                                    회원ID
-                                                    <input type="text" id="userId2" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
-                                                </label><br>
-                                                <label class="modalText">
-                                                    환불 이용권
-                                                    <input type="text" id="pqName2" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
-                                                </label><br>
-                                                <label class="modalText">
-                                                    환불 사유
-                                                    <input type="text" id="reason" name="reason" class="reason">
-                                                </label><br>
-                                                <label class="modalText">
-                                                    총 환불금액 / 위약금
-                                                    <input type="text" id="pqPrice2" name="pqPrice" class="modalPqPrice" style="margin-left: 12px" th:value="${pass.passQualDTO.pqPrice * 0.9 }" readonly>
-                                                    <input type="text" id="pqPrice3" name="pqPrice" class="modalPqPrice" th:value="${pass.passQualDTO.pqPrice * 0.1}" readonly>
-                                                </label><br>
-                                                <label class="modalText">
-                                                    변경 날짜
-                                                    <input type="text" id="today2" name="today" class="modalToday" readonly>
-                                                </label>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modalButtonBox2">
-                                        <button class="cancelButton2">취소</button>
-                                        <form action="/pass/refund" method="post">
-                                            <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                            <input class="refundButton2" type="submit" value="환불">
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -192,25 +142,29 @@
             hrDiv.append("<div><hr class='hr3'></div>");
         }
 
-        $(".changeButton").click(function() {
-            var userList = $(this).closest(".userList");
-            var userName = userList.data("userName");
-            var userId = userList.data("userId");
-            var pqName = userList.data("pqName");
-            var pqPrice = userList.data("pqPrice");
-
-            var modal = userList.find(".modalContainer");
-            modal.find(".modalUserName").val(userName);
-            modal.find(".modalUserId").val(userId);
-            modal.find(".modalPqName").val(pqName);
-            modal.find(".modalPqPrice").val(pqPrice);
-            modal.find(".modalPqPrice").val(pqPrice.toLocaleString()+"원");
-
-            var today = new Date().toISOString().split('T')[0];
-            modal.find(".modalToday").val(today);
-
-            modal.show();
-        });
+        // $(".changeButton").click(function() {
+        //     var userList = $(this).closest(".userList");
+        //     var userName = userList.data("userName");
+        //     var userId = userList.data("userId");
+        //     var pqName = userList.data("pqName");
+        //     var pqPrice = userList.data("pqPrice");
+        //     var newPqPrice = userList.data("pqPrice");
+        //
+        //     var modal = userList.find(".modalContainer");
+        //     modal.find(".modalUserName").val(userName);
+        //     modal.find(".modalUserId").val(userId);
+        //     modal.find(".modalPqName").val(pqName);
+        //     modal.find(".modalPqPrice").val(pqPrice);
+        //     modal.find(".modalNewPqPrice").val(find(".modalPqPrice")-pqPrice);
+        //     console.log(typeof(pqPrice));
+        //
+        //     var today = new Date().toISOString().split('T')[0];
+        //     modal.find(".modalToday").val(today);
+        //
+        //     modal.find(".modalPqPrice").data("originalPrice", pqPrice);
+        //
+        //     modal.show();
+        // });
 
         $(".cancelButton").click(function() {
             $(this).closest(".modalContainer").hide();
@@ -221,11 +175,14 @@
             var userName = userList.data("userName");
             var userId = userList.data("userId");
             var pqName = userList.data("pqName");
+            var pqPrice = userList.data("pqPrice");
 
             var modal = userList.find(".modalContainer2");
             modal.find(".modalUserName").val(userName);
             modal.find(".modalUserId").val(userId);
             modal.find(".modalPqName").val(pqName);
+            modal.find(".modalPqPrice").val((pqPrice * 0.9).toLocaleString()+"원");
+            modal.find(".modalPqPrice1").val((pqPrice * 0.1).toLocaleString()+"원");
 
             var today = new Date().toISOString().split('T')[0];
             modal.find(".modalToday").val(today);
@@ -237,17 +194,20 @@
             $(this).closest(".modalContainer2").hide();
         });
 
-        $(".modalNewPass").change(function (){
-            var newPrice = parseInt($(this).find('option:selected').data("price"));
-            var modalContent = $(this).closest(".modalContent");
-            var currentPrice = parseInt(modalContent.find(".modalPqPrice").val());
-            var additionalPrice = newPrice - currentPrice;
-            if (!isNaN(additionalPrice)) {
-                modalContent.find(".modalPqPrice").val(additionalPrice.toLocaleString() + "원");
-            } else {
-                modalContent.find(".modalPqPrice").val("선택된 이용권의 가격을 가져올 수 없습니다.");
-            }
-        });
+        // $(".modalNewPass").change(function (){
+        //     var newPrice = parseInt($(this).find('option:selected').data("pqPrice"));
+        //     var modalContent = $(this).closest(".modalContent");
+        //     var currentPrice = parseInt(modalContent.find(".modalPqPrice").val());
+        //     var additionalPrice = newPrice - currentPrice;
+        //     if (!isNaN(additionalPrice)) {
+        //         modalContent.find(".modalNewPqPrice").val(additionalPrice.toLocaleString() + "원");
+        //     } else {
+        //         console.log(typeof (newPrice));
+        //         console.log(typeof (currentPrice));
+        //         console.log(typeof (additionalPrice));
+        //         modalContent.find(".modalNewPqPrice").val("선택된 이용권의 가격을 가져올 수 없습니다.");
+        //     }
+        // });
 
         var today = new Date().toISOString().split('T')[0];
         $("#today").val(today);
@@ -267,22 +227,20 @@
 </script>
 
 <!-- 변경 수업 선택 스크립트 -->
-<script>
-    fetch("/pass/class")
-        .then(res => res.json())
-        .then(data => {
-            const $pqCode = document.getElementById("pqCode");
-            console.log(data);
+<!--<script>-->
+<!--    fetch("/pass/class")-->
+<!--        .then(res => res.json())-->
+<!--        .then(data => {-->
+<!--            const $pqCode = document.getElementById("pqCode");-->
 
-            for (let index in data) {
-                const $option = document.createElement('option');
-                $option.value = data[index].pqCode;
-                $option.text = data[index].pqName;
+<!--            for (let index in data) {-->
+<!--                const $option = document.createElement('option');-->
+<!--                $option.value = data[index].pqCode;-->
+<!--                $option.text = data[index].pqName;-->
 
-                $pqCode.appendChild($option);
-                document.getElementById("pqSelectCode").value = data[index].pqCode;
-            }
-        });
-</script>
+<!--                $pqCode.appendChild($option);-->
+<!--            }-->
+<!--        });-->
+<!--</script>-->
 </body>
 </html>

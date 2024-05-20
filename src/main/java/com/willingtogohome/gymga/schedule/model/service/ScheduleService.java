@@ -122,4 +122,7 @@ public class ScheduleService {
     }
 
 
+    public String findUserName(int userCode) {
+        return scheduleMapper.findUserName(userCode);
+    }
 }

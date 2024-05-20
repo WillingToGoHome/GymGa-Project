@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>403 Error Page</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/styles/errorPageStyle.css">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+</head>
+
+<body>
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
+                <div class="error-container" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <div class="error-box">
+                        <div class="error-box-hedaer"></div>
+                        <div class="error-box-text">
+                            <img src="/images/error.png">
+                            <h1 th:text="${errorCode}"></h1>
+                            <p th:text="${errorMessage}"></p>
+                            <a href="/main">메인페이지로</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-container" sec:authorize="hasAnyAuthority('USER')">
+                    <h1 th:text="${errorCode}"></h1>
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
+
+
+</body>
+</html>

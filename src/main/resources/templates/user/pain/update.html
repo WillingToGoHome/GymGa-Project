@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" th:href="@{/css/painRegist.css}">
     <link rel="stylesheet" th:href="@{/styles/mainStyle.css}">
     <link rel="stylesheet" th:href="@{/styles/headerStyle.css}">
@@ -27,10 +28,11 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic">통증 수정</p>
+                    <p class="topic" th:text="${name} + ' 회원님 통증 수정'"></p>
                 </div>
                 <hr class="line1">
                 <form action="/pain/updatePain" method="post">
+                    <input type="hidden" name="updateName" th:value="${name}">
                     <input type="hidden" name="pos" th:value="${pos}">
                     <div class="allBox">
                         <div class="imgBox">

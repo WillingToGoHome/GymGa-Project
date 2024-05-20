@@ -50,8 +50,13 @@ public class PainService {
         painMapper.update(painDTO);
     }
 
-    public PainUpdateDTO getPainByCode(int code) {
+    public PainUpdateDTO getPainByCode(int code, PainDTO painDTO) {
 
-        return painMapper.getPainByCode(code);
+        return painMapper.getPainByCode(code, painDTO);
+    }
+
+    public PainDTO resultPain(int code, PainDTO painDTO) {
+
+        return painMapper.resultPain(code, painDTO);
     }
 }

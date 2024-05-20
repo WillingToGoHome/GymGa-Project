@@ -19,7 +19,7 @@ public interface PainMapper {
 
     void update(PainDTO painDTO);
 
-    PainUpdateDTO getPainByCode(int code);
+    PainUpdateDTO getPainByCode(int code, PainDTO painDTO);
 
-
+    PainDTO resultPain(int code, PainDTO painDTO);
 }

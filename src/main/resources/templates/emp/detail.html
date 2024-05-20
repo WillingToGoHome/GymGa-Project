@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <link rel="shortcut icon" href="#">
 </head>
 <body>
 <div class="container">
@@ -140,9 +141,14 @@
                                                         <button class="submitButton" type="submit" style="background-color: white; border: 1px solid rgba(75, 130, 216, 1); color: rgba(75, 130, 216, 1)">삭제</button>
                                                     </form>
                                                 </div>
+                                                <div style="float: left">
+                                                    <button class="submitButton" onClick="location.href='/emp/update'">수정</button>
+                                                </div>
                                             </div>
-                                            <div style="float: left">
-                                                <button class="submitButton" onClick="location.href='/emp/update'">수정</button>
+                                            <div sec:authorize="hasAnyAuthority('USER')">
+                                                <div style="float: left">
+                                                    <button class="submitButton" onClick="location.href='/emp/update'">수정</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
