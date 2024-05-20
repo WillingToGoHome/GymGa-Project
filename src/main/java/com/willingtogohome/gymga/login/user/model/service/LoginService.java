@@ -66,7 +66,14 @@ public class LoginService {
         return result;
     }
 
-    public List<RegistDTO> idCheck() {
-        return loginMapper.idCheck();
+
+// 수빈님꺼 주석
+//    public List<RegistDTO> idCheck() {
+//        return loginMapper.idCheck();
+//    }
+
+    /* 아이디 중복 체크*/
+    public int idCheck(String userId) {
+        return loginMapper.idCheck(userId);
     }
 }

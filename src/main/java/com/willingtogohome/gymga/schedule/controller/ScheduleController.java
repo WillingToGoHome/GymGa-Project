@@ -254,6 +254,7 @@ public class ScheduleController {
             username = principal.toString();
         }
 
+
         return ResponseEntity.ok(username);
     }
 

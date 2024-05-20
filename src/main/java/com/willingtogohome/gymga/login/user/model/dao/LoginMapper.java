@@ -22,7 +22,12 @@ public interface LoginMapper {
     /* 비밀번호 찾기 */
     String find_pwd(String userId, String userPhone);
 
+
     /* 아이디 중복체크 */
-    List<RegistDTO> idCheck();
+    // 수빈님꺼 주석
+//    List<RegistDTO> idCheck();
+
+    /*아이디 중복체크*/
+    int idCheck(String userId);
 
 }

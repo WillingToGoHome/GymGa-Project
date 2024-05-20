@@ -18,6 +18,57 @@
         <result property="userStaff" column="USER_STAFF"/>
     </resultMap>
 
+    <resultMap id="passResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassAndPassQualDTO">
+        <id property="passCode" column="pass_code"/>
+        <result property="pqCode" column="pq_code"/>
+        <result property="passStatus" column="pass_status"/>
+        <result property="passStart" column="pass_start"/>
+        <result property="passEnd" column="pass_end"/>
+        <result property="passTotal" column="pass_total"/>
+        <result property="passUse" column="pass_use"/>
+        <result property="userCode" column="user_code"/>
+        <association property="passQualDTO" javaType="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
+            <id property="pqCode" column="pq_code"/>
+            <result property="pqName" column="pq_name"/>
+            <result property="pqPrice" column="pq_price"/>
+        </association>
+        <association property="userDTO" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPwd" column="user_pwd"/>
+            <result property="userName" column="user_name"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRole" column="user_role"/>
+            <result property="userPic" column="user_pic"/>
+            <result property="userGender" column="user_gender"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userEtc" column="user_etc"/>
+            <result property="userStaff" column="user_staff"/>
+            <result property="staffName" column="staff_name"/>
+        </association>
+        <association property="validateDTO" javaType="com.willingtogohome.gymga.sale.model.dto.ValidateDTO">
+            <id property="valStatus" column="val_status"/>
+            <result property="passCode" column="pass_code"/>
+            <result property="userCode" column="user_code"/>
+        </association>
+        <association property="saleDTO" javaType="com.willingtogohome.gymga.sale.model.dto.SaleDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="salesMethod" column="sales_method"/>
+            <result property="salesDate" column="sales_date"/>
+        </association>
+        <association property="empDTO" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
+            <id property="empCode" column="emp_code"/>
+            <result property="empName" column="emp_name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="passQualMap" type="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
+        <id property="pqCode" column="pq_code"/>
+        <result property="pqName" column="pq_name"/>
+        <result property="pqPrice" column="pq_price"/>
+    </resultMap>
+
     <select id="selectAllEmp" resultMap="userResultMap">
         SELECT
             USER_CODE
@@ -113,4 +164,72 @@
             , #{ memberCode }
         )
     </insert>
+
+    <select id="selectAllPassAndUser" resultMap="passResultMap">
+        SELECT
+            A.USER_CODE,
+            A.USER_NAME,
+            A.USER_ID,
+            A.user_pic,
+            A.user_staff,
+            B.pq_code,
+            B.pq_name,
+            C.pass_status,
+            C.pass_start,
+            C.pass_end,
+            B.pq_price,
+            D.sales_date,
+            D.sales_method
+        FROM USERDB A
+            LEFT JOIN validatedb E ON E.user_code = A.user_code
+            LEFT JOIN passdb C ON C.pass_code = E.pass_code
+            LEFT JOIN salesdb D ON D.user_code = A.user_code
+            LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+            LEFT JOIN userdb F ON A.user_staff = F.user_code
+        WHERE A.user_role = 'MEMBER'
+        order by A.user_code;
+    </select>
+
+    <select id="findPqNameList" resultMap="passQualMap">
+        SELECT
+            pq_code,
+            pq_name,
+            pq_price
+        FROM   passqualdb
+        ORDER BY pq_code;
+    </select>
+
+    <select id="searchUser" resultMap="passResultMap">
+        SELECT
+                A.USER_CODE,
+                A.USER_NAME,
+                A.USER_ID,
+                A.user_pic,
+                A.user_staff,
+                B.pq_code,
+                B.pq_name,
+                C.pass_status,
+                C.pass_start,
+                C.pass_end,
+                B.pq_price,
+                D.sales_date,
+                D.sales_method
+        FROM USERDB A
+                LEFT JOIN validatedb E ON E.user_code = A.user_code
+                LEFT JOIN passdb C ON C.pass_code = E.pass_code
+                LEFT JOIN salesdb D ON D.user_code = A.user_code
+                LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+                LEFT JOIN userdb F ON A.user_staff = F.user_code
+        <where>
+            <if test="condition == 'name'">
+                AND A.USER_NAME Like CONCAT('%', #{ text }, '%')
+            </if>
+            <if test="condition == 'id'">
+                AND A.USER_ID Like CONCAT('%', #{ text }, '%')
+            </if>
+            AND A.USER_ROLE = 'MEMBER'
+        </where>
+        ORDER BY
+        A.USER_CODE;
+    </select>
 </mapper>

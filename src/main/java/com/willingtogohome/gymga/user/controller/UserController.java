@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.user.controller;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import com.willingtogohome.gymga.user.model.dto.*;
 
 import com.willingtogohome.gymga.user.model.service.UserService;
@@ -93,6 +94,10 @@ public class UserController {
         List<UserDTO> userIDList = userService.selectAllUserID();
 
         String[] idList = new String[userIDList.size()];
+        int i = 0;
+        for (UserDTO userId : userIDList) {
+            idList[i++] = userId.getUserId();
+        }
 
         model.addAttribute("idList", idList);
 
@@ -118,16 +123,17 @@ public class UserController {
             String originFileName = picFile.getOriginalFilename();
             String ext = originFileName.substring(originFileName.lastIndexOf("."));
             String savedName = UUID.randomUUID() + ext;
+            System.out.println("savedName = " + savedName);
 
             try {
                 picFile.transferTo(new File(filePath + "/" + savedName));
-                newUser.setUserPic("/uploadFiles/" + savedName);
-                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
+                newUser.setUserPic(savedName);
+//                session.setAttribute("/uploadFiles/" + savedName, urlAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            newUser.setUserPic("/uploadFiles/default-user.png");
+            newUser.setUserPic("default-user.png");
         }
 
         int code = userService.findLastCode();
@@ -140,6 +146,7 @@ public class UserController {
         newUser.setUserRole("MEMBER");
         newUser.setUserAddress(userAddress1 + " " + userAddress2);
         physical.setUserCode(code + 1);
+        System.out.println("newUser = " + newUser);
 
         userService.registUser(newUser, physical);
 
@@ -198,7 +205,8 @@ public class UserController {
                          @RequestParam("code") String userCode, Model model,
                          @RequestParam String userAddress1, @RequestParam String userAddress2,
                          @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd")
-                         UserDTO userDTO, PhysicalDTO physicalDTO) {
+                         UserDTO userDTO, PhysicalDTO physicalDTO,
+                         @RequestParam MultipartFile picFile) {
 
         int code = Integer.parseInt(userCode);
 
@@ -216,6 +224,28 @@ public class UserController {
             }
         } else {
             userDTO.setUserAddress("");
+        }
+
+        if (!picFile.isEmpty()) {
+            String root = "src/main/resources/static";
+            String filePath = root + "/uploadFiles";
+            File dir = new File(filePath);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originFileName = picFile.getOriginalFilename();
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+
+            String savedName = UUID.randomUUID() + ext;
+
+            try {
+                picFile.transferTo(new File(filePath + "/" + savedName));
+                userDTO.setUserPic(savedName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         userService.update(userDTO, physicalDTO);

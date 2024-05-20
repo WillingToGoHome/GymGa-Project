@@ -39,7 +39,7 @@
                         <form action="/user/updateUser" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
                             <div class="signupBox">
                                 <div class="previewBox">
-                                    <img id="preview" th:src="${user.userPic}"><br>
+                                    <img id="preview" th:src="|/imageFile/${user.userPic}|"><br>
                                     <div class="fileBox">
                                         <label for="picFile">사진등록</label>
                                         <input type="file" id="picFile" name="picFile" onchange="chooseImage(this)"/><br>
