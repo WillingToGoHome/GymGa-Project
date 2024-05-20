@@ -24,10 +24,6 @@ public class MainService {
         this.mainMapper = mainMapper;
     }
 
-    public UserDTO selectLoginInfo(int code) {
-
-        return mainMapper.selectLoginInfo(code);
-
     public UserDTO selectEmpBy(String name) {
         return mainMapper.selectEmpBy(name);
     }
