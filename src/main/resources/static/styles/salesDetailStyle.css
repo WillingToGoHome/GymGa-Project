@@ -1,9 +1,12 @@
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
 .pieG{
     aspect-ratio: 100 / 48.55;
     background-color: white;
     border: 1px solid white;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     padding-bottom: 10px;
     height: 310px;
     width: 430px;
@@ -17,7 +20,7 @@
     background-color: white;
     border: 1px solid white;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     padding-bottom: 10px;
     height: 310px;
     width: 430px;
@@ -30,7 +33,7 @@
     /*justify-content: space-between;*/
     justify-content: flex-end;
     margin: 0 auto;
-    margin-left: -40px;
+    margin-left: -38px;
 }
 
 
@@ -81,25 +84,25 @@
     display: flex;
     /*float: right;*/
     margin-bottom: 10px;
-    padding-top: 10px;
+    /*padding-top: 5px;*/
     width: 380px;
-    flex-direction: row-reverse;
+    /*flex-direction: row-reverse;*/
 }
 .on {
     display: flex;
     /*float: left;*/
     margin-bottom: 10px;
-    padding-top: 10px;
-    width: 660px;
+    /*padding-top: 10px;*/
+    width: 380px;
 }
-.backGround{
+.backGround {
     background-color: white;
     width: 400px;
     border-radius: 10px;
     /*margin: 0 auto;*/
     /*margin-right: 20px;*/
-    padding: 5px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    padding-top: 10px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 }
 
 .back {
@@ -120,12 +123,13 @@
 .top {
     display: flex;
     height: 30px;
+    margin-left: 20px;
     /*padding-left: 39%;*/
 
 }
 
 .search {
-    width: 150px;
+    width: 130px;
     height: 30px;
     border-radius: 10px;
     padding-left: 10px;
@@ -147,7 +151,7 @@
     width: 100px;
     height: 30px;
     margin-left: 10px;
-    padding: 5px;
+    padding-left: 5px;
     border-radius: 10px;
     border: 1px solid #ABABAB;
     color: #ABABAB;
@@ -184,6 +188,7 @@
     /*float:left;;*/
     /*margin: auto;*/
     padding-top: 15px;
+    color: black;
 }
 
 .titleText {
@@ -441,17 +446,18 @@
 
 .zxc {
     overflow-y: scroll;
-    height: 580px;
+    height: 587px;
     width: 380px;
     /*text-align: center;*/
 }
 .zxc2 {
     /*overflow-y: scroll;*/
     display: flex;
-    height: 580px;
+    height: 587px;
     width: 725px;
     flex-direction: column;
     align-items: center;
+    color: black;
     justify-content: space-around
 }
 .backGround2 {
@@ -460,8 +466,8 @@
     border-radius: 10px;
     /*margin: 0 auto;*/
     margin-right: 20px;
-    padding: 5px;
-    box-shadow: 1px 1px 1px 1px #BDBDBD;
+    padding-top: 10px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 }
 .userList2 {
     width: 400px;
@@ -475,6 +481,7 @@
 
 .test{
     display: flex;
+
 }
 
 .zxc span {

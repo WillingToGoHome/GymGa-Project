@@ -1,0 +1,244 @@
+.contents {
+    width: 1147px;
+    height: 637px;
+    border-radius: 10px;
+    overflow: scroll;
+    margin: auto;
+    margin-top: 23px;
+    background-color: #FFFFFF;
+    margin-right: 25px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.on {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+}
+
+.back {
+    cursor: pointer;
+    padding-left: 1%;
+}
+
+.topic {
+    font-size: 24px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    color: black;
+    line-height: 47px;
+}
+
+.topic2 {
+    font-size: 24px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    color: black;
+    line-height: 47px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.line1 {
+    width: 95%;
+    align-content: center;
+    margin: 0 auto;
+    border: 1px solid #D9D9D9;;
+}
+
+.allBox {
+    display: flex;
+}
+
+.painImg {
+    width: 300px;
+    height: 525px;
+    margin-top: 25px;
+    margin-left: 15px;
+}
+
+.middleBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.painCategoryBox{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    margin-top: 25px;
+}
+
+.painPosBox {
+    width: 120px;
+    height: 35px;
+    background-color: #4B82D8;
+    color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin-right: 15px;
+}
+
+.posText {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.painPosRegistBox {
+    width: 50px;
+    height: 35px;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 10px;
+    line-height: 35px;
+    text-align: center;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    border: 1px solid #ffffff;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 810px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+    background-color: #FFFFFF;
+    width: 80%;
+    height: 75%;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.textBox {
+    width: 524px;
+    height: 126px;
+    text-align: center;
+    margin: auto;
+    padding-top: 216px;
+}
+
+.modalButtonBox {
+    margin: auto;
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 95px;
+}
+
+.cancelButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.checkButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}
+
+.painDetail {
+    width: 480px;
+    height: 440px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.painExplainText{
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.inputBox {
+    color: #ABABAB;
+    font-weight: lighter;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: 1px solid #ABABAB;
+    width: 435px;
+    padding-left: 5px;
+}
+
+.line2 {
+    width: 100%;
+    align-content: center;
+    border: 1px solid #D9D9D9;
+    margin-top: 20px;
+}
+
+.rightBox {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
+.registButton {
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #4B82D8;
+    color: #ffffff;
+    border: 1px solid #4B82D8;
+    margin-left: 220px;
+    font-weight: bold;
+}
+
+.painStrBox {
+    width: 300px;
+    height: 440px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.plusButton {
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 12px;
+    margin-left: 176px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

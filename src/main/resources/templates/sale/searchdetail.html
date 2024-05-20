@@ -14,8 +14,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div id="app_area">
-    <div id="window">
+<div class="container">
+    <div id="app_area">
         <!--header-->
         <div th:include="common/header"></div>
         <!--navbar-->
@@ -26,12 +26,13 @@
                 <div class="test">
                     <div class="backGround2">
                         <div class="on">
-                            <img src="/img/Back.png" class="back">
+                            <img src="/img/Back.png" class="back" onclick="location.href='/sale/detail'">
                             <p class="text">상세 조회</p>
                         </div>
                         <hr class="hr2">
                         <div class="zxc2" th:if="${selectOneUserId != null}">
-                            <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
+                            <p class="img2"><img class="img2"
+                                                 th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
                             <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
                             <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
                             <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
@@ -50,7 +51,7 @@
                     <div class="backGround">
                         <div class="onDetail">
                             <form action="/sale/detail" method="post" class="top">
-                                <div>
+                                <div class="on">
                                     <input type="text" class="search" name="search" placeholder="검색 내용">
                                     <select name="category" class="option">
                                         <option value="">전체 조회</option>
@@ -75,18 +76,18 @@
                 </div>
             </div>
         </div>
+        <!--내용 작성하는 div-->
+        <!--footer-->
+        <div th:include="common/footer"></div>
     </div>
-    <!--내용 작성하는 div-->
-    <!--footer-->
-    <div th:include="common/footer"></div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var prices = document.querySelectorAll('.price4');
-        prices.forEach(function(price) {
+        prices.forEach(function (price) {
             var value = price.textContent.trim();
             var formattedValue = Number(value).toLocaleString('en');
-            price.textContent ='가격 : ' + formattedValue + '원';
+            price.textContent = '가격 : ' + formattedValue + '원';
         });
     });
 </script>

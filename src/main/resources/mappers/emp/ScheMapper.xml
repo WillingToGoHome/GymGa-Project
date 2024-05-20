@@ -53,6 +53,9 @@
         <if test="text == '18:00pm'">
             WHERE A.SCHE_START_TIME >= '18:00:00'
         </if>
+        <if test="condition != 0">
+            AND A.EMP_CODE = #{ condition }
+        </if>
 <!--        AND SCHE_RUN_DATE = CURDATE()-->
         ORDER BY A.SCHE_START_TIME AND C.USER_NAME
     </select>

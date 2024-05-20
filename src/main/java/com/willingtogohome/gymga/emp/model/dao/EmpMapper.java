@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmpMapper {
     List<EmpDTO> selectAllEmp();
 
-    EmpTotDTO searchBy(SearchCriteria searchCriteria);
+    List<EmpTotDTO> searchBy(SearchCriteria searchCriteria);
 
     void registNewEmp(EmpDTO emp);
 
@@ -34,4 +34,6 @@ public interface EmpMapper {
     void updateEmployee(EmployeeDTO employeeDTO);
 
     List<EmpDTO> selectAllUserID();
+
+    EmpTotDTO selectBy(SearchCriteria code);
 }
