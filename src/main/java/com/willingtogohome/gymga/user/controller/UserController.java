@@ -36,9 +36,9 @@ public class UserController {
 
         List<UserAndEmpDTO> userList = userService.allUser();
 
-        for (UserAndEmpDTO user : userList) {
-            System.out.println("user = " + user);
-        }
+//        for (UserAndEmpDTO user : userList) {
+//            System.out.println("user = " + user);
+//        }
 
         model.addAttribute("userList", userList);
 
@@ -72,9 +72,9 @@ public class UserController {
 
         model.addAttribute("userList", userList);
 
-        for (UserAndEmpDTO user : userList) {
-            System.out.println("user = " + user);
-        }
+//        for (UserAndEmpDTO user : userList) {
+//            System.out.println("user = " + user);
+//        }
 
         return "user/search";
     }
@@ -153,22 +153,24 @@ public class UserController {
         return "redirect:/user/selectAll";
     }
 
-    @GetMapping("/selectDetail")
-    public void selectDetail() {}
+//    @GetMapping("/selectDetail")
+//    public void selectDetail() {}
 
-    @PostMapping("/selectDetail")
+    @GetMapping("/selectDetail")
     public String selectDetail(HttpSession session,
                                @RequestParam("code") String userCode, Model model,
                                UserDTO userDTO, PhysicalDTO physicalDTO) {
+        System.out.println("hi");
 
         int code = Integer.parseInt(userCode);
 
         session.setAttribute("userCode", code);
 
-        userDTO.setUserCode(code);
-        physicalDTO.setUserCode(code);
+//        userDTO.setUserCode(code);
+//        physicalDTO.setUserCode(code);
 
-        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+        UserTotDTO user = userService.getUserDetailByCode(code);
+        System.out.println("user = " + user);
 
         model.addAttribute("user", user);
 
@@ -250,7 +252,7 @@ public class UserController {
 
         userService.update(userDTO, physicalDTO);
 
-        UserTotDTO user = userService.getUserDetailByCode(code, userDTO, physicalDTO);
+        UserTotDTO user = userService.getUserDetailByCode(code);
 
         model.addAttribute("user", user);
 

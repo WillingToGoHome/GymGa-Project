@@ -24,11 +24,11 @@ public class PainController {
         this.painService = painService;
     }
 
-    @GetMapping("/detail")
-    public void mainPain() {
-    }
+//    @GetMapping("/detail")
+//    public void mainPain() {
+//    }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public String mainPain(HttpSession session,
                            @RequestParam("name") String userName,
                            @RequestParam("code") String userCode, Model model,

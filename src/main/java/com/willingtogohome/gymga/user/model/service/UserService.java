@@ -55,9 +55,9 @@ public class UserService {
         return userMapper.selectAllUserID();
     }
 
-    public UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {
+    public UserTotDTO getUserDetailByCode(int code) {
 
-        return userMapper.getUserDetailByCode(code, userDTO, physicalDTO);
+        return userMapper.getUserDetailByCode(code);
     }
 
     public UserTotDTO updatePage(int code, UserDTO userDTO, PhysicalDTO physicalDTO) {

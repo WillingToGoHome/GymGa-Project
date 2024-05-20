@@ -34,7 +34,7 @@ public interface UserMapper {
 
     List<UserDTO> selectAllUserID();
 
-    UserTotDTO getUserDetailByCode(int code, UserDTO userDTO, PhysicalDTO physicalDTO);
+    UserTotDTO getUserDetailByCode(int code);
 
     UserTotDTO updatePage(int code, UserDTO userDTO, PhysicalDTO physicalDTO);
 

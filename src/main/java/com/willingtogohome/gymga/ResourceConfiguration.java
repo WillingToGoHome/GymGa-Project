@@ -14,7 +14,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("/imageFile/**")
-                .addResourceLocations("file:///C:/Lecture/GymGa-Project/src/main/resources/static/uploadFiles/")
+                .addResourceLocations("file:///D:/Lecture/GymGa-Project/src/main/resources/static/uploadFiles/")
                 .setCacheControl(CacheControl.maxAge(1, TimeUnit.MINUTES));
     }
 }
