@@ -26,39 +26,53 @@
             <!--개인 작업 시작-->
             <div class="contents">
                 <div class="on">
-                    <img src="/img/Back.png" onClick="location.href='/user/selectDetail'" class="back">
-                    <p class="topic" th:text="${userName} + '님 통증'"></p>
+                    <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
+                    <p class="topic">통증 관리</p>
                 </div>
                 <hr class="line1">
                 <div class="allBox">
                     <div class="imgBox">
-                        <img src="/images/painImg.png" class="painImg">
+                        <div th:if="${pain != null}" th:switch="${pain?.pos}">
+                            <img th:case="1" src="/images/오른다리.png" class="painImg">
+                            <img th:case="2" src="/images/왼다리.png" class="painImg">
+                            <img th:case="3" src="/images/오른팔.png" class="painImg">
+                            <img th:case="4" src="/images/왼팔.png" class="painImg">
+                            <img th:case="5" src="/images/상체.png" class="painImg">
+                            <img th:case="6" src="/images/머리.png" class="painImg">
+                        </div>
+                        <div th:if="${pain == null}">
+                            <img src="/images/기본.png" class="painImg">
+                        </div>
                     </div>
                     <div class="middleBox">
                         <div class="painCategoryBox">
-                            <div class="painPosBox" th:if="${pain != null}" th:switch="${pain?.pos}">
-                                <p th:case="1" class="posText">오른쪽-다리</p>
-                                <p th:case="2" class="posText">왼쪽-다리</p>
-                                <p th:case="3" class="posText">오른쪽-팔</p>
-                                <p th:case="4" class="posText">왼쪽-팔</p>
-                                <p th:case="5" class="posText">가슴</p>
-                                <p th:case="6" class="posText">등</p>
-                                <p th:case="7" class="posText">머리</p>
-                            </div>
+                            <form id="deleteForm" action="/pain/delete" method="post">
+                                <div class="painPosBox" th:if="${pain != null}" th:switch="${pain?.pos}" onclick="submitForm()">
+                                    <input type="hidden" name="deleteCode" th:value="${pain?.userCode}">
+                                    <input type="hidden" name="deletePos" th:value="${pain?.pos}">
+                                    <div th:switch="${pain?.pos}">
+                                        <p th:case="1" class="posText">오른쪽-다리</p>
+                                        <p th:case="2" class="posText">왼쪽-다리</p>
+                                        <p th:case="3" class="posText">오른쪽-팔</p>
+                                        <p th:case="4" class="posText">왼쪽-팔</p>
+                                        <p th:case="5" class="posText">상체</p>
+                                        <p th:case="6" class="posText">머리</p>
+                                    </div>
+                                </div>
+                            </form>
                             <button class="painPosRegistBox">+</button>
                             <div class="modalContainer">
                                 <div class="modalContent">
-                                    <form action="/user/pain/regist" method="post">
+                                    <form id="registForm" action="/pain/regist" method="post">
                                         <div class="textBox">
-                                            <input type="hidden" name="code" th:value="${code}">
+                                            <input type="hidden" name="code" th:value="${userCode}">
                                             <input type="hidden" name="pos" id="posInput">
                                             <button class="checkButton" data-value="1">오른쪽-다리</button>
                                             <button class="checkButton" data-value="2">왼쪽-다리</button>
                                             <button class="checkButton" data-value="3">오른쪽-팔</button>
                                             <button class="checkButton" data-value="4">왼쪽-팔</button>
                                             <button class="checkButton" data-value="5">가슴</button>
-                                            <button class="checkButton" data-value="6">등</button>
-                                            <button class="checkButton" data-value="7">얼굴</button>
+                                            <button class="checkButton" data-value="6">얼굴</button>
                                         </div>
                                     </form>
                                 </div>
@@ -74,19 +88,21 @@
                             <p class="painExplainText">통증 원인</p>
                             <p class="painText" th:if="${pain != null}" th:text="${pain?.cause}"></p>
                             <hr class="line2">
-                            <p class="painExplainText">메모</p>
-                            <p class="painText" th:if="${pain != null}" th:text="${pain?.etc}"></p>
+                            <p class="painExplainText">통증 강도</p>
+                            <p class="painText" th:if="${pain != null}" th:text="${pain?.str}"></p>
                         </div>
                     </div>
                     <div th:if="${pain != null}">
                         <div th:if="${pain.pos != null}">
                             <div class="rightBox">
-                                <span><input type="submit" value="수정" class="registButton"></span>
+                                <form id="updateForm" action="/pain/update" method="post">
+                                    <input type="hidden" name="updatePos" th:value="${pain?.pos}">
+                                    <input type="hidden" name="updateCode" th:value="${userCode}">
+                                    <span><input type="submit" value="수정" class="registButton"></span>
+                                </form>
                                 <div class="painStrBox">
-                                    <div class="painStrCategoryBox">
-                                        <p class="painExplainText">통증 강도</p>
-                                        <p class="plusButton">+</p>
-                                    </div>
+                                    <p class="painExplainText">메모</p>
+                                    <p th:text="${pain?.etc}" class="painText" style="height: 365px; width: 260px; word-wrap: break-word"></p>
                                 </div>
                             </div>
                         </div>
@@ -94,18 +110,16 @@
                     <div th:if="${pain == null || pain.pos == null}">
                         <div class="rightBox">
                             <div class="painStrBox" style="margin-top: 65px">
-                                <div class="painStrCategoryBox">
-                                    <p class="painExplainText">통증 강도</p>
-                                    <p class="plusButton">+</p>
-                                </div>
+                                <p class="painExplainText">메모</p>
+                                <p th:text="${pain?.etc}" class="painText" style="height: 365px; width: 260px; word-wrap: break-word"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--개인 작업 종료-->
         </div>
-            <!--Main End-->
+        <!--개인 작업 종료-->
+        <!--Main End-->
 
         <!--Footer Start-->
         <div th:include="common/footer"></div>
@@ -138,6 +152,12 @@
             $("#myForm").submit();
         });
     });
+</script>
+
+<script>
+    function submitForm() {
+        document.getElementById("deleteForm").submit();
+    }
 </script>
 
 </body>
