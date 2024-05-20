@@ -7,14 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PainDTO {
+public class PainUpdateDTO {
 
-    private int userCode;
     private int pos;
     private String type;
     private String dur;
     private String cause;
     private int str;
     private String etc;
-    private String userName;
+    private int userCode;
 }

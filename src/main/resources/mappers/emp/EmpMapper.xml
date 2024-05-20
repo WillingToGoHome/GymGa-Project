@@ -172,6 +172,40 @@
         </if>
     </select>
 
+    <select id="selectBy" resultMap="empTotResultMap">
+        SELECT
+        A.USER_CODE
+        , A.USER_ID
+        , A.USER_PWD
+        , A.USER_NAME
+        , A.USER_PHONE
+        , A.USER_ROLE
+        , A.USER_PIC
+        , A.USER_GENDER
+        , A.USER_BIRTH
+        , A.USER_ADDRESS
+        , A.USER_ETC
+        , B.PHY_HEIGHT
+        , B.PHY_WEIGHT
+        , B.PHY_BMI
+        , C.EMP_LOCATION
+        , C.EMP_YEAR
+        , C.EMP_MONTH
+        , C.EMP_TOT_YEAR
+        , C.EMP_TOT_MONTH
+        , C.EMP_QUAL
+        , C.EMP_SALARY
+        FROM USERDB A
+        JOIN PHYSICALDB B ON A.USER_CODE = B.USER_CODE
+        JOIN EMPLOYEEDB C ON A.USER_CODE = C.USER_CODE
+        <if test="condition == 'name'">
+            WHERE A.USER_NAME = #{ text }
+        </if>
+        <if test="condition == 'code'">
+            WHERE A.USER_CODE = #{ text }
+        </if>
+    </select>
+
     <update id="updateEmp">
         UPDATE USERDB
         <set>

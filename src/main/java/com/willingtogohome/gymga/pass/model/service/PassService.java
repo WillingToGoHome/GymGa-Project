@@ -42,4 +42,16 @@ public class PassService {
         passMapper.registNewValidateDTO(validateDTO);
 
     }
+
+    public List<PassAndPassQualDTO> selectAllPassAndUser() {
+        return passMapper.selectAllPassAndUser();
+    }
+
+    public List<PassQualDTO> findPqNameList() {
+        return passMapper.findPqNameList();
+    }
+
+    public List<PassAndPassQualDTO> searchUser(SearchCriteria criteria) {
+        return passMapper.searchUser(criteria);
+    }
 }
