@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +26,6 @@ public class EmpController {
 
     @Autowired
     public EmpController(EmpService empService, PasswordEncoder passwordEncoder) {
-
         this.empService = empService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -39,42 +37,42 @@ public class EmpController {
 
         String name = securityContextHolder.getContext().getAuthentication().getName();
 
-//        EmpTotDTO emp = empService.searchBy(new SearchCriteria("name", name));
+        EmpTotDTO emp = empService.searchBy(new SearchCriteria("name", name));
         List<EmpDTO> empList = empService.selectAllEmp();
 
-//        String code = Integer.toString(emp.getCode());
-//        String role = emp.getRole();
+        String code = Integer.toString(emp.getCode());
+        String role = emp.getRole();
+
+        if (role.equals("ADMIN")) {
+            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("0", "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("0", "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("0", "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria("0", "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("0", "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("0", "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        } else {
+            session.setAttribute("searched", Integer.parseInt(code));
+            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(code, "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(code, "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(code, "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(code, "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(code, "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(code, "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        }
 //
-//        if (role.equals("ADMIN")) {
-//            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("0", "8:00am"));
-//            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("0", "10:00am"));
-//            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("0", "12:00pm"));
-//            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria("0", "14:00pm"));
-//            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("0", "16:00pm"));
-//            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("0", "18:00pm"));
-//            model.addAttribute("scheList1", scheList1);
-//            model.addAttribute("scheList2", scheList2);
-//            model.addAttribute("scheList3", scheList3);
-//            model.addAttribute("scheList4", scheList4);
-//            model.addAttribute("scheList5", scheList5);
-//            model.addAttribute("scheList6", scheList6);
-//        } else {
-//            session.setAttribute("searched", Integer.parseInt(code));
-//            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(code, "8:00am"));
-//            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(code, "10:00am"));
-//            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(code, "12:00pm"));
-//            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(code, "14:00pm"));
-//            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(code, "16:00pm"));
-//            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(code, "18:00pm"));
-//            model.addAttribute("scheList1", scheList1);
-//            model.addAttribute("scheList2", scheList2);
-//            model.addAttribute("scheList3", scheList3);
-//            model.addAttribute("scheList4", scheList4);
-//            model.addAttribute("scheList5", scheList5);
-//            model.addAttribute("scheList6", scheList6);
-//        }
-//
-//        model.addAttribute("emp", emp);
+        model.addAttribute("emp", emp);
         model.addAttribute("empList", empList);
 
         return "/emp/main";
@@ -191,20 +189,22 @@ public class EmpController {
 
         System.out.println("get : /emp/result");
 
-        List<EmpTotDTO> searchedEmps = empService.searchBy(new SearchCriteria(category, search));
+        EmpTotDTO searchedEmps = empService.searchBy(new SearchCriteria(category, search));
         List<EmpDTO> empList = empService.selectAllEmp();
 
         model.addAttribute("empList", empList);
 
-        if (searchedEmps.size() == 0) {
-            return "/emp/searchfail";
-        } else if (searchedEmps.size() == 1) {
-            model.addAttribute("emp", searchedEmps.get(0));
-            session.setAttribute("searched", searchedEmps.get(0).getCode());
-        } else if (searchedEmps.size() >= 2) {
-            model.addAttribute("searchedEmps", searchedEmps);
-            return "/emp/searchlist";
-        }
+//        if (searchedEmps.size() == 0) {
+//            return "/emp/searchfail";
+//        } else if (searchedEmps.size() == 1) {
+            model.addAttribute("emp", searchedEmps);
+//            model.addAttribute("emp", searchedEmps.get(0));
+            session.setAttribute("searched", searchedEmps.getCode());
+//            session.setAttribute("searched", searchedEmps.get(0).getCode());
+//        } else if (searchedEmps.size() >= 2) {
+//            model.addAttribute("searchedEmps", searchedEmps);
+//            return "/emp/searchlist";
+//        }
 
         return "/emp/result";
     }
@@ -235,26 +235,26 @@ public class EmpController {
         String sCode = Integer.toString(emp.getCode());
         String role = emp.getRole();
 
-//        if (role.equals("USER")) {
-//                        List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(sCode, "8:00am"));
-//            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(sCode, "10:00am"));
-//            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(sCode, "12:00pm"));
-//            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(sCode, "14:00pm"));
-//            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(sCode, "16:00pm"));
-//            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(sCode, "18:00pm"));
-//            model.addAttribute("scheList1", scheList1);
-//            model.addAttribute("scheList2", scheList2);
-//            model.addAttribute("scheList3", scheList3);
-//            model.addAttribute("scheList4", scheList4);
-//            model.addAttribute("scheList5", scheList5);
-//            model.addAttribute("scheList6", scheList6);
-//        }
-//
-//        String[] quals = emp.getEmployeeDTO().getQual().split(",");
-//
-//        model.addAttribute("emp", emp);
-//        model.addAttribute("quals", quals);
-//        model.addAttribute("empList", empList);
+        if (role.equals("USER")) {
+                        List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(sCode, "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(sCode, "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(sCode, "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(sCode, "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(sCode, "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(sCode, "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        }
+
+        String[] quals = emp.getEmployeeDTO().getQual().split(",");
+
+        model.addAttribute("emp", emp);
+        model.addAttribute("quals", quals);
+        model.addAttribute("empList", empList);
 
         return "/emp/update";
     }

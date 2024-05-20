@@ -32,7 +32,7 @@ public class EmpService {
 //        return scheMapper.selectAllSche(searchCriteria);
 //    }
 
-    public List<EmpTotDTO> searchBy(SearchCriteria searchCriteria) {
+    public EmpTotDTO searchBy(SearchCriteria searchCriteria) {
 
         return empMapper.searchBy(searchCriteria);
     }
@@ -74,5 +74,10 @@ public class EmpService {
     public EmpTotDTO selectBy(SearchCriteria code) {
 
         return empMapper.selectBy(code);
+    }
+
+    public List<ScheDTO> selectAllSche(SearchCriteria searchCriteria) {
+
+        return scheMapper.selectAllSche(searchCriteria);
     }
 }

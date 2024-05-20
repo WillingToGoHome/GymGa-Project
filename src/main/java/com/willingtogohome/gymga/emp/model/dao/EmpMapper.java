@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmpMapper {
     List<EmpDTO> selectAllEmp();
 
-    List<EmpTotDTO> searchBy(SearchCriteria searchCriteria);
+    EmpTotDTO searchBy(SearchCriteria searchCriteria);
 
     void registNewEmp(EmpDTO emp);
 
