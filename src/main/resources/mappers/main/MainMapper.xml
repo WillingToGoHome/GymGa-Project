@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willingtogohome.gymga.login.auth.model.dao.MainMapper">
+    <resultMap id="userResultMap" type="com.willingtogohome.gymga.user.model.dto.UserDTO">
+        <id property="userCode" column="USER_CODE"></id>
+        <result property="userId" column="USER_ID"></result>
+        <result property="userPwd" column="USER_PWD"></result>
+        <result property="userName" column="USER_NAME"></result>
+        <result property="userPhone" column="USER_PHONE"></result>
+        <result property="userRole" column="USER_ROLE"></result>
+        <result property="userPic" column="USER_PIC"></result>
+        <result property="userGender" column="USER_GENDER"></result>
+        <result property="userBirth" column="USER_BIRTH"></result>
+        <result property="userAddress" column="USER_ADDRESS"></result>
+        <result property="userEtc" column="USER_ETC"></result>
+        <result property="userStaff" column="USER_STAFF"></result>
+    </resultMap>
+
+    <resultMap id="passResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassDTO">
+        <id property="passCode" column="PASS_CODE"></id>
+        <result property="pqCode" column="PQ_CODE"></result>
+        <result property="passStatus" column="PASS_STATUS"></result>
+        <result property="passStart" column="PASS_START"></result>
+        <result property="passEnd" column="PASS_END"></result>
+        <result property="passTotal" column="PASS_TOTAL"></result>
+        <result property="passUse" column="PASS_USE"></result>
+        <result property="userCode" column="USER_CODE"></result>
+    </resultMap>
+
+    <resultMap id="memberAndPassResultMap" type="com.willingtogohome.gymga.login.auth.model.dto.MemberAndPassDTO">
+        <id property="userCode" column="USER_CODE"></id>
+        <result property="userName" column="USER_NAME"></result>
+        <result property="userGender" column="USER_GENDER"></result>
+        <result property="userPhone" column="USER_PHONE"></result>
+        <result property="passEnd" column="PASS_END"></result>
+        <result property="pqName" column="PQ_NAME"></result>
+    </resultMap>
+
+    <select id="selectEmpBy" resultMap="userResultMap">
+        SELECT
+            USER_CODE
+            , USER_NAME
+            , USER_ROLE
+            , USER_STAFF
+        FROM USERDB
+        WHERE USER_NAME = #{ name }
+    </select>
+
+    <select id="ptCount" resultType="_int">
+        SELECT
+            COUNT(PQ_CODE)
+        FROM PASSDB
+        WHERE PQ_CODE LIKE '%PT%'
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="gxCount" resultType="_int">
+        SELECT
+        COUNT(PQ_CODE)
+        FROM PASSDB
+        WHERE PQ_CODE LIKE '%GX%'
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="gpCount" resultType="_int">
+        SELECT
+            COUNT(PQ_CODE)
+        FROM PASSDB
+        WHERE PQ_CODE LIKE '%GP%'
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="thisMonth" resultType="_int">
+        SELECT
+            COALESCE(SUM(PQ_PRICE), 0)
+        FROM PASSDB A
+        JOIN PASSQUALDB B ON (A.PQ_CODE = B.PQ_CODE)
+        WHERE MONTH(PASS_START) = MONTH(CURDATE())
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="lastMonth" resultType="_int">
+        SELECT
+        COALESCE(SUM(PQ_PRICE), 0)
+        FROM PASSDB A
+        JOIN PASSQUALDB B ON (A.PQ_CODE = B.PQ_CODE)
+        WHERE MONTH(PASS_START) = MONTH(CURDATE()) - 1
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="twoMonthsAgo" resultType="_int">
+        SELECT
+        COALESCE(SUM(PQ_PRICE), 0)
+        FROM PASSDB A
+        JOIN PASSQUALDB B ON (A.PQ_CODE = B.PQ_CODE)
+        WHERE MONTH(PASS_START) = MONTH(CURDATE()) - 2
+        <if test="userCode != 0">
+            AND USER_CODE = #{ userCode }
+        </if>
+    </select>
+
+    <select id="selectMemberList" resultMap="memberAndPassResultMap">
+        SELECT
+            A.USER_CODE AS USER_CODE
+            , B.USER_NAME AS USER_NAME
+            , B.USER_GENDER AS USER_GENDER
+            , B.USER_PHONE AS USER_PHONE
+            , C.PASS_END AS PASS_END
+            , D.PQ_NAME AS PQ_NAME
+        FROM VALIDATEDB A
+        JOIN USERDB B ON A.USER_CODE = B.USER_CODE
+        JOIN PASSDB C ON A.PASS_CODE = C.PASS_CODE
+        JOIN PASSQUALDB D ON C.PQ_CODE = D.PQ_CODE
+        WHERE PASS_END > CURDATE()
+        ORDER BY PASS_END
+    </select>
+</mapper>
