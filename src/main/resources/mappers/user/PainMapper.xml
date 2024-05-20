@@ -43,6 +43,21 @@
             A.USER_CODE = #{ code };
     </select>
 
+    <select id="resultPain" resultMap="painResultMap">
+        SELECT
+            USER_CODE
+            , PAIN_POS
+            , PAIN_TYPE
+            , PAIN_DUR
+            , PAIN_CAUSE
+            , PAIN_STR
+            , PAIN_ETC
+        FROM
+            PAINDB
+        WHERE
+            USER_CODE = #{code};
+    </select>
+
     <insert id="registPainCodeAndPos" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
         INSERT INTO PAINDB(
             USER_CODE
@@ -66,7 +81,7 @@
             <if test="cause != null and cause != ''">
                 , PAIN_CAUSE = #{ cause }
             </if>
-            <if test="str != null">
+            <if test="str != null and str != ''">
                 , PAIN_STR = #{ str }
             </if>
             <if test="etc != null and etc != ''">
@@ -112,7 +127,7 @@
             <if test="cause != null and cause != ''">
                 , PAIN_CAUSE = #{ cause }
             </if>
-            <if test="str != null">
+            <if test="str != null and str != ''">
                 , PAIN_STR = #{ str }
             </if>
             <if test="etc != null and etc != ''">

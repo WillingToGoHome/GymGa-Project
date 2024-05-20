@@ -177,7 +177,7 @@
          FROM
               USERDB
         WHERE
-              USER_ROLE = 'ADMIN' or 'USER'
+              USER_ROLE IN ('ADMIN', 'USER')
         ORDER BY
               USER_CODE
     </select>
