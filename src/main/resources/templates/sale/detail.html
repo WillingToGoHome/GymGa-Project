@@ -33,10 +33,9 @@
                         <hr class="hr2">
 
 
-                        <div class="zxc2" th:if="${selectOneUserId != null}">
-                            <p class="img2"><img class="img2"
-                                                 th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/>
-                            </p>
+                        <div class="zxc2" th:each="selectOneUserId:${selectOneUser}">
+
+                            <p class="img2"><img class="img2" th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
                             <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
                             <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
                             <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
@@ -49,7 +48,9 @@
                             <p class="time4" th:text="${#dates.format(selectOneUserId.passStart, 'YY.MM.dd')}
                                  +${#dates.format(selectOneUserId.saleDTO.salesDate, ' / a / HH:mm')}"></p>
                             <p class="userName2" th:text="'판매 직원 : '+${selectOneUserId.empDTO.empName}"></p>
+
                         </div>
+
                     </div>
 
                     <div class="backGround">
