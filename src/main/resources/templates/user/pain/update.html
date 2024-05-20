@@ -28,15 +28,15 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic" th:text="${name} + ' 회원님 통증 수정'"></p>
+                    <p class="topic" th:text="${pain.userName} + ' 회원님 통증 수정'"></p>
                 </div>
                 <hr class="line1">
                 <form action="/pain/updatePain" method="post">
-                    <input type="hidden" name="updateName" th:value="${name}">
-                    <input type="hidden" name="pos" th:value="${pos}">
+                    <input type="hidden" name="updateCode" th:value="${pain.userCode}">
+                    <input type="hidden" name="pos" th:value="${pain.pos}">
                     <div class="allBox">
                         <div class="imgBox">
-                            <div th:switch="${pos}">
+                            <div th:switch="${pain.pos}">
                                 <img th:case="1" src="/images/오른다리.png" class="painImg">
                                 <img th:case="2" src="/images/왼다리.png" class="painImg">
                                 <img th:case="3" src="/images/오른팔.png" class="painImg">
@@ -50,8 +50,8 @@
                         </div>
                         <div class="middleBox">
                             <div class="painCategoryBox">
-                                <div class="painPosBox" th:switch="${pos}">
-                                    <div th:switch="${pos}">
+                                <div class="painPosBox" th:switch="${pain.pos}">
+                                    <div th:switch="${pain.pos}">
                                         <p th:case="1" class="posText">오른쪽-다리</p>
                                         <p th:case="2" class="posText">왼쪽-다리</p>
                                         <p th:case="3" class="posText">오른쪽-팔</p>

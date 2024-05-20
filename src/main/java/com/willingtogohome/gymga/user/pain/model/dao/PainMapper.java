@@ -7,17 +7,17 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PainMapper {
 
-    PainDTO selectPain(int code, String userName, PainDTO painDTO);
+    PainDTO selectPain(int code);
 
-    void registPain(PainDTO painDTO);
+    void registPain(PainDTO painDTO, int code, int pos);
 
     void registPainCodeAndPos(int code, int pos);
 
     void deletePain(int code, int pos);
 
-    PainDTO updatePain(int code);
+    PainDTO updatePain(int code, PainDTO painDTO);
 
-    void update(PainDTO painDTO);
+    void update(int code, int pos);
 
     PainUpdateDTO getPainByCode(int code, PainDTO painDTO);
 

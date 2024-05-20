@@ -10,11 +10,11 @@ import lombok.*;
 public class PainDTO {
 
     private int userCode;
+    private String userName;
     private int pos;
     private String type;
     private String dur;
     private String cause;
     private int str;
     private String etc;
-    private String userName;
 }
