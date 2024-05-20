@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <title>Title</title>
-<!--    <link rel="stylesheet" href="/fac/mainStyle2.css">-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+<!--    <link rel="stylesheet" href="/fac/mainStyle2.css">-->
     <link rel="stylesheet" href="/styles/mainStyle.css">
     <link rel="stylesheet" href="/styles/headerStyle.css">
     <link rel="stylesheet" href="/styles/navbarStyle.css">
@@ -183,9 +182,9 @@
                             <div class="modal-body">
                                 <form id="updateForm" onsubmit="submitForm2()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="padding-left: 5px; border-radius: 10px" readonly><br>
-                                    <label>회원 이름: </label>
-                                    <input type="text" name="userCode" id="clickedUserCodeInput" style="padding-left: 5px; border-radius: 10px" readonly ><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="padding-left: 5px; border-radius: 10px"><br>
+                                    <label>회원 코드: </label>
+                                    <input type="text" name="userCode" id="clickedUserCodeInput" style="padding-left: 5px; border-radius: 10px" ><br>
                                     <!--                    <label>회원 코드: </label>-->
                                     <!--                    <select name="userCode" id="userCode3"></select><br>-->
                                     <label>사용 가능 상태: </label>
@@ -194,8 +193,8 @@
                                         <option value="사용중">사용 중</option>
                                         <option value="만료">만료</option>
                                     </select><br>
-                                    <label>사용 시작 기간: </label><input type="date" name="facStart" style="border-radius: 10px"><br>
-                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" style="border-radius: 10px"><br>
+                                    <label>사용 시작 기간: </label><input type="date" name="facStart" id="facStart1" style="border-radius: 10px"><br>
+                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" id="facEnd1" style="border-radius: 10px"><br>
                                 </form>
                             </div>
 
@@ -222,8 +221,6 @@
                                     <label>사용 가능 상태: </label>
                                     <select name="facStatus" id="facStatus4" style="border-radius: 10px">
                                         <option value=""></option>
-                                        <option value="사용중">사용 중</option>
-                                        <option value="만료">만료</option>
                                     </select><br>
                                 </form>
                             </div>
@@ -234,6 +231,92 @@
                         </div>
                     </div>
                 </div>
+
+                <script th:inline="javascript">
+                    function setFacStatusColor() {
+                        document.querySelectorAll(".facStatus").forEach(function (element) {
+                            var selectedValue = element.textContent.trim();
+                            var color = "";
+                            if (selectedValue === "사용중") {
+                                color = "#4041C5";
+                            } else if (selectedValue === "만료") {
+                                color = "#F82626";
+                                element.style.right = "-80px";
+                            } else if (selectedValue === "") {
+                                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
+                                color = "rgba(64, 65, 197, 0.5)";
+                                element.style.right = "-50px"; // Set color to "#4041C5" with 50% opacity
+                            } else {
+                                // If selectedValue is anything else, set the color to match "사용가능"
+                                color = "rgba(64, 65, 197, 0.5)";
+                            }
+
+                            element.textContent = selectedValue; // Update the text content
+                            element.style.color = color; // Apply the color
+                        });
+                    }
+
+                    // 페이지 로드 시 호출하여 초기 색상 설정
+                    setFacStatusColor();
+
+                    // 클릭한 번호를 input 상자에 보여주는 함수
+                    $('.fac-item').click(function() {
+                        // 클릭한 사물함 번호 가져오기
+                        var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
+                        var userCode = $(this).find('.userCode').text(); // 사물함 번호를 가져옴
+                        // var facStart = this.find('.facStart').text.replace(' ~', '');
+                        // var facEnd = $(this).find('.facEnd').text(); // 사물함 번호를 가져옴
+
+
+
+
+                        // data-faccode 속성에 번호 설정
+                        $('#facActionModal').attr('data-facCode', facCode);
+                        // input 상자에 번호 표시
+                        $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
+                        $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
+                        $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
+                        $('#clickedUserCodeInput').val(userCode); // 사물함 삭제 번호 id
+
+                        // $('#clickedUserCodeInput').val(userCodeCodePart); // 클릭한 사용자 코드의 코드 부분을 할당
+                        // $('#facStart1').val(facStart); // 클릭한 사용자 코드의 코드 부분을 할당
+                        // $('#facEnd1').val(facEnd); // 클릭한 사용자 코드의 코드 부분을 할당
+
+
+                        // 변경된 데이터에 따라 스타일 다시 설정
+                        setFacStatusColor();
+                    });
+                </script>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // 사용자 정보 배열
+                        var users = [
+                            '남효정(0000)(1)', '북효정(1111)(2)', '서효정(2222)(3)', '동효정(3333)(4)',
+                            '김민지(1111)(5)', '이지은(1111)(6)', '박지우(4444)(7)', '김다솜(5555)(8)',
+                            '정재훈(9999)(9)', '송지원(3333)(10)', '이동민(2222)(11)', '박수진(0000)(12)',
+                            '조민준(4444)(13)', '윤서영(0000)(14)', '장현우(3434)(15)', '최지훈(2222)(16)',
+                            '박주원(4444)(17)', '김서린(6666)(18)', '이준서(8888)(19)', '정하은(0000)(20)',
+                            '강시우(7777)(21)', '조예은(3333)(22)', '홍길동(5678)(23)'
+                        ];
+
+                        // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
+                        document.querySelectorAll(".userCode").forEach(function(element) {
+                            var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
+
+                            // userCode가 3인 경우 "김진용"으로 변경
+                            if (userCode === "1") {
+                                element.textContent = "남효정(0000)";
+                            } else {
+                                // userCode와 일치하는 사용자 이름을 가져와서 표시
+                                var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
+                                if (userName) {
+                                    element.textContent = userName;
+                                }
+                            }
+                        });
+                    });
+                </script>
 
                 <script>
                     function sendRequest() {
@@ -273,33 +356,33 @@
 
                 </script>
 
+
                 <script>
                     function submitForm2() {
 
-                        // 폼 데이터 가져오기
+// 폼 데이터 가져오기
                         const formData = new FormData(document.getElementById("updateForm"));
 
-                        // POST 요청 보내기
+// POST 요청 보내기
                         fetch("/fac/update", {
                             method: "POST",
                             body: formData
                         })
                             .then(response => {
                                 if (response.ok) {
-                                    // 성공적으로 처리된 경우 모달 닫기
-                                    $('#updateModal').modal('hide');
+// 성공적으로 처리된 경우 모달 닫기
                                     $('#facActionModal').modal('hide');
                                     window.location.href = "/fac/select";
 
                                 } else {
-                                    // 실패한 경우 오류 메시지 표시
+// 실패한 경우 오류 메시지 표시
                                     console.error('등록 실패');
                                 }
                             })
                             .catch(error => console.error('에러 발생:', error));
                     }
-                </script>
 
+                </script>
 
                 <script>
                     function submitForm3() {
@@ -327,6 +410,21 @@
                     }
                 </script>
 
+                <script>
+                    fetch("/fac/user")
+                        .then(res=>res.json())
+                        .then(data=> {
+                            const $userCode=document.getElementById("userCode3");
+
+                            for(let index in data) {
+                                const $option=document.createElement('option');
+                                $option.text=data[index].userCode;
+                                $userCode.appendChild($option);
+                            }
+                        })
+                </script>
+
+
 
                 <script>
                     // 사물함 데이터 가져오기
@@ -336,19 +434,19 @@
                             const facCodeSelect = document.getElementById("facCode");//사물함 개인 조회 id
 
 
+
                             data.forEach(item => {
                                 // 새로운 옵션 요소 생성
                                 const option1 = document.createElement('option');
+
 
 
                                 // 옵션 설정
                                 option1.text = item.facCode;
                                 option1.value = item.facCode;
 
-
                                 // 각각의 select 요소에 옵션 추가
                                 facCodeSelect.appendChild(option1);
-
                             });
                         });
 
@@ -357,80 +455,32 @@
                         .then(res => res.json())
                         .then(data => {
                             const userCodeSelect = document.getElementById("userCode");//회원 등록 코드
-                            const userCodeModal3 = document.getElementById("clickedUserCodeInput");//회원 수정 코드
+
 
 
                             data.forEach(item => {
                                 // 새로운 옵션 요소 생성
                                 const option1 = document.createElement('option');
-                                const option2 = document.createElement('option');
+
 
 
                                 // 옵션 설정
                                 option1.text = item.userCode;
                                 option1.value = item.userCode;
-                                option2.text = item.userCode;
-                                option2.value = item.userCode;
+
 
 
                                 // 각각의 select 요소에 옵션 추가
                                 userCodeSelect.appendChild(option1);
-                                userCodeModal3.appendChild(option2);
+
 
                             });
                         });
                 </script>
 
 
-                <script th:inline="javascript">
-                    function setFacStatusColor() {
-                        document.querySelectorAll(".facStatus").forEach(function (element) {
-                            var selectedValue = element.textContent.trim();
-                            var color = "";
-                            if (selectedValue === "사용중") {
-                                color = "#4041C5";
-                            } else if (selectedValue === "만료") {
-                                color = "#F82626";
-                                element.style.right = "-80px";
-                            } else if (selectedValue === "") {
-                                selectedValue = "사용가능"; // Change text to "사용가능" if it's empty
-                                color = "rgba(64, 65, 197, 0.5)";
-                                element.style.right = "-50px"; // Set color to "#4041C5" with 50% opacity
-                            } else {
-                                // If selectedValue is anything else, set the color to match "사용가능"
-                                color = "rgba(64, 65, 197, 0.5)";
-                            }
-
-                            element.textContent = selectedValue; // Update the text content
-                            element.style.color = color; // Apply the color
-                        });
-                    }
-
-                    // 페이지 로드 시 호출하여 초기 색상 설정
-                    setFacStatusColor();
-
-                    // 클릭한 번호를 input 상자에 보여주는 함수
-                    $('.fac-item').click(function() {
-                        // 클릭한 사물함 번호 가져오기
-                        var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
-                        var userCode = $(this).find('.userCode').text(); // 사물함 번호를 가져옴
-
-                        // data-faccode 속성에 번호 설정
-                        $('#facActionModal').attr('data-facCode', facCode);
-                        // input 상자에 번호 표시
-                        $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
-                        $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
-                        $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
-                        $('#clickedUserCodeInput').val(userCode); // 회원 수정 번호 id 초기화 (원하지 않는 경우)
 
 
-
-
-
-                        // 변경된 데이터에 따라 스타일 다시 설정
-                        setFacStatusColor();
-                    });
-                </script>
 
 
 
@@ -451,35 +501,8 @@
                     });
                 </script>
 
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        // 사용자 정보 배열
-                        var users = [
-                            '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
-                            '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
-                            '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
-                            '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
-                            '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
-                            '강시우(7777)', '조예은(3333)', '홍길동(5678)'
-                        ];
 
-                        // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
-                        document.querySelectorAll(".userCode").forEach(function(element) {
-                            var userCode = element.textContent.trim(); // 요소의 텍스트 내용을 가져옴
 
-                            // userCode가 3인 경우 "김진용"으로 변경
-                            if (userCode === "1") {
-                                element.textContent = "남효정(0000)";
-                            } else {
-                                // userCode와 일치하는 사용자 이름을 가져와서 표시
-                                var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
-                                if (userName) {
-                                    element.textContent = userName;
-                                }
-                            }
-                        });
-                    });
-                </script>
 
 
             </div>
