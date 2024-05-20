@@ -11,7 +11,7 @@ body {
     color: black;
 }
 
-.mainBox {
+.empBox {
     float: left;
 }
 
@@ -101,7 +101,7 @@ body {
 
 .empBlockRight {
     /*width: 330px;*/
-    width: 250px;
+    width: 240px;
     /*height: 60px;*/
     height: 50px;
     float: left;
@@ -218,6 +218,10 @@ table {
     float: left;
 }
 
+.scheBox span {
+    font-size: 14px;
+}
+
 .timeLine {
     /*width: 20px;*/
     width: 20px;
@@ -268,6 +272,10 @@ table {
     /*height: 64px;*/
     height: 45px;
     overflow-y: auto;
+}
+
+.scheListTime {
+    color: black;
 }
 
 .scheList::-webkit-scrollbar {
