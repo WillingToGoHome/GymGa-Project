@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>직원 조회</title>
@@ -32,14 +32,16 @@
                             <div class="main">
                                 <span class="titleText">직원 조회</span>
                             </div>
-                            <div class="searchBox">
-                                <form action="/emp/result" method="get">
-                                    <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
-                                    <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
-                                        <option value="name">강사명</option>
-                                    </select>
-                                    <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
-                                </form>
+                            <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                <div class="searchBox">
+                                    <form action="/emp/result" method="get">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                            <option value="name">강사명</option>
+                                        </select>
+                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
+                                    </form>
+                                </div>
                             </div>
                             <hr class="line" style="width: 700px">
                         </div>
@@ -130,10 +132,12 @@
                                     </div>
                                     <div style="clear: left; margin-left: 50px; padding-top: 30px">
                                         <div style="float: right; margin-right: 300px">
-                                            <div style="float: left; margin-right: 10px">
-                                                <form action="/emp/remove" method="post">
-                                                    <button class="submitButton" type="submit" style="background-color: white; border: 1px solid rgba(75, 130, 216, 1); color: rgba(75, 130, 216, 1)">삭제</button>
-                                                </form>
+                                            <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                                <div style="float: left; margin-right: 10px">
+                                                    <form action="/emp/remove" method="post">
+                                                        <button class="submitButton" type="submit" style="background-color: white; border: 1px solid rgba(75, 130, 216, 1); color: rgba(75, 130, 216, 1)">삭제</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                             <div style="float: left">
                                                 <button class="submitButton" onClick="location.href='/emp/update'">수정</button>

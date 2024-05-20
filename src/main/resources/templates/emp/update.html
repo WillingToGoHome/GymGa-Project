@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>직원 정보 수정</title>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/navbarStyle.css">
     <link rel="stylesheet" href="/styles/myStyle.css">
     <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/emp/styles/empMainStyle.css">
     <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -34,14 +35,16 @@
                                 <div class="main">
                                     <span class="titleText">직원 정보 수정</span>
                                 </div>
-                                <div class="searchBox">
-                                    <form action="/emp/result" method="get">
-                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
-                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
-                                            <option value="name">강사명</option>
-                                        </select>
-                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
-                                    </form>
+                                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                    <div class="searchBox">
+                                        <form action="/emp/result" method="get">
+                                            <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                            <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                                <option value="name">강사명</option>
+                                            </select>
+                                            <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <hr class="line" style="width: 700px">
                             </div>
@@ -152,7 +155,15 @@
                                                 <input type="text" name="location" th:placeholder="*{ employeeDTO.location }"><br>
                                                 <input type="text" name="year" style="width: 30px" th:placeholder="*{ employeeDTO.year }">년 <input type="text" name="month" style="width: 30px" th:placeholder="*{ employeeDTO.month }">개월 <br>
                                                 <input type="text" name="totalYear" style="width: 30px" th:placeholder="*{ employeeDTO.totalYear }">년 <input type="text" name="totalMonth" style="width: 30px" th:placeholder="*{ employeeDTO.totalMonth }">개월 <br>
-                                                <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
+                                                <div sec:authorize="hasAnyAuthority('USER')">
+                                                    <div class="spanTagBoxWOSup">
+                                                        <span th:text="*{ employeeDTO.salary }"></span>
+                                                        <input class="hiddenInputBox" name="salary" th:value="*{ employeeDTO.salary }">
+                                                    </div>
+                                                </div>
+                                                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                                    <input type="text" name="salary" id="salary" th:placeholder="*{ employeeDTO.salary }" autofocus> <br>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style="clear: left; margin-left: 50px; padding-top: 30px">
@@ -163,21 +174,104 @@
                             </div>
                         </div>
                         <div class="sideBox">
-                            <div>
-                                <div class="main" style="margin-bottom: 25px">
-                                    <span class="titleText" style="margin-left: 30px">직원 리스트</span>
-                                </div>
-                                <hr class="line" style="width: 300px">
-                            </div>
-                            <div class="sideEmpList">
-                                <div class="sideList">
-                                    <div class="sideEmpBlock" th:each="emp : ${ empList }">
-                                        <div class="empBlockLeft">
-                                            <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                            <div sec:authorize="hasAnyAuthority('USER')">
+                                <div class="scheduleBox">
+                                    <span class="topic" id="today1"></span>
+                                    <span class="date" id="today2"></span>
+                                    <span class="moreSche" onclick="location.href='/schedule/schedulemain'">더보기</span><br>
+                                    <table class="cal">
+                                        <tr>
+                                            <th class="none">일</th>
+                                            <th class="none">월</th>
+                                            <th class="none">화</th>
+                                            <th class="none">수</th>
+                                            <th class="none">목</th>
+                                            <th class="none">금</th>
+                                            <th class="none">토</th>
+                                        </tr>
+                                        <tr>
+                                            <td id="sun" class="none"></td>
+                                            <td id="mon" class="none"></td>
+                                            <td id="tue" class="none"></td>
+                                            <td id="wed" class="none"></td>
+                                            <td id="thu" class="none"></td>
+                                            <td id="fri" class="none"></td>
+                                            <td id="sat" class="none"></td>
+                                        </tr>
+                                    </table>
+                                    <hr class="line2">
+                                    <div class="scheBox" style="font-size: 14px">
+                                        <div class="timeLine">
+                                            <div class="pointer" id="pointer1"></div>
+                                            <hr class="verticalLine">
+                                            <div class="pointer" id="pointer2"></div>
+                                            <hr class="verticalLine">
+                                            <div class="pointer" id="pointer3"></div>
+                                            <hr class="verticalLine">
+                                            <div class="pointer" id="pointer4"></div>
+                                            <hr class="verticalLine">
+                                            <div class="pointer" id="pointer5"></div>
+                                            <hr class="verticalLine">
+                                            <div class="pointer" id="pointer6"></div>
                                         </div>
-                                        <div class="empBlockRight">
-                                            <p class="empName" th:text="${ emp.name }"></p>
-                                            <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
+                                        <span id="time1">8:00 am</span><br>
+                                        <div class="scheList" id="scheList1">
+                                            <div th:each="sche : ${ scheList1 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                            </div>
+                                        </div>
+                                        <span id="time2">10:00 am</span><br>
+                                        <div class="scheList" id="scheList2">
+                                            <div th:each="sche : ${ scheList2 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                            </div>
+                                        </div>
+                                        <span id="time3">12:00 pm</span><br>
+                                        <div class="scheList" id="scheList3">
+                                            <div th:each="sche : ${ scheList3 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                            </div>
+                                        </div>
+                                        <span id="time4">14:00 pm</span><br>
+                                        <div class="scheList" id="scheList4">
+                                            <div th:each="sche : ${ scheList4 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+
+                                            </div>
+                                        </div>
+                                        <span id="time5">16:00 pm</span><br>
+                                        <div class="scheList" id="scheList5">
+                                            <div th:each="sche : ${ scheList5 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                            </div>
+                                        </div>
+                                        <span id="time6">18:00 pm</span><br>
+                                        <!--                <div class="scheList" style="height: 164px; margin-left: 20px">-->
+                                        <div class="scheList" id="scheList6" style="height: 120px; margin-left: 20px">
+                                            <div th:each="sche : ${ scheList6 }">
+                                                <span th:text="|${ sche.empDTO.name }님 ${ sche.classDTO.name } 일정 (${ sche.start })|"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div sec:authorize="hasAnyAuthority('ADMIN')">
+                                <div>
+                                    <div class="main" style="margin-bottom: 25px">
+                                        <span class="titleText" style="margin-left: 30px">직원 리스트</span>
+                                    </div>
+                                    <hr class="line" style="width: 300px">
+                                </div>
+                                <div class="sideEmpList">
+                                    <div class="sideList">
+                                        <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                            <div class="empBlockLeft">
+                                                <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                                            </div>
+                                            <div class="empBlockRight">
+                                                <p class="empName" th:text="${ emp.name }"></p>
+                                                <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,6 +288,167 @@
             <!--Footer End-->
         </div>
     </div>
+
+    <script>
+        var d = new Date();
+        var a = new Date();
+
+        let day = document.getElementById("today1");
+        let date = document.getElementById("today2");
+        let sun = document.getElementById("sun");
+        let mon = document.getElementById("mon");
+        let tue = document.getElementById("tue");
+        let wed = document.getElementById("wed");
+        let thu = document.getElementById("thu");
+        let fri = document.getElementById("fri");
+        let sat = document.getElementById("sat");
+
+        switch (d.getDay()) {
+            case 0: day.innerHTML = '오늘, 일요일';
+                sun.className = "today";
+                a.setDate(d.getDate());
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 5)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 6)
+                sat.innerHTML = a.getDate();
+                break;
+            case 1: day.innerHTML = '오늘, 월요일';
+                mon.className = "today";
+                a.setDate(d.getDate() - 1);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 5)
+                sat.innerHTML = a.getDate();
+                break;
+            case 2: day.innerHTML = '오늘, 화요일';
+                tue.className = "today";
+                a.setDate(d.getDate() - 2);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 4)
+                sat.innerHTML = a.getDate();
+                break;
+            case 3: day.innerHTML = '오늘, 수요일';
+                wed.className = "today";
+                a.setDate(d.getDate() - 3);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 3)
+                sat.innerHTML = a.getDate();
+                break;
+            case 4: day.innerHTML = '오늘, 목요일';
+                thu.className = "today";
+                a.setDate(d.getDate() - 4);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate());
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 2)
+                sat.innerHTML = a.getDate();
+                break;
+            case 5: day.innerHTML = '오늘, 금요일';
+                fri.className = "today";
+                a.setDate(d.getDate() - 5);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 4);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate())
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate() + 1)
+                sat.innerHTML = a.getDate();
+                break;
+            case 6: day.innerHTML = '오늘, 토요일';
+                sat.className = "today";
+                a.setDate(d.getDate() - 6);
+                sun.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 5);
+                mon.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 4);
+                tue.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 3);
+                wed.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 2);
+                thu.innerHTML = a.getDate();
+                a.setDate(d.getDate() - 1)
+                fri.innerHTML = a.getDate();
+                a.setDate(d.getDate())
+                sat.innerHTML = a.getDate();
+                break;
+        }
+
+        date.innerHTML = d.getFullYear() + '.' + ((d.getMonth() + 1) < 10? '0' + (d.getMonth() + 1) : (d.getMonth() + 1)) + '.' + (d.getDate() < 10? '0' + d.getDate() : d.getDate());
+
+
+        switch (d.getHours()) {
+            case 8 : case 9: document.getElementById("pointer1").className = "pointerTime";
+                document.getElementById("time1").className = "scheTime";
+                document.getElementById("scheList1").className = "scheList scheListTime"; break;
+            case 10 : case 11: document.getElementById("pointer2").className = "pointerTime";
+                document.getElementById("time2").className = "scheTime";
+                document.getElementById("scheList2").className = "scheList scheListTime"; break;
+            case 12 : case 13: document.getElementById("pointer3").className = "pointerTime";
+                document.getElementById("time3").className = "scheTime";
+                document.getElementById("scheList3").className = "scheList scheListTime"; break;
+            case 14 : case 15: document.getElementById("pointer4").className = "pointerTime";
+                document.getElementById("time4").className = "scheTime";
+                document.getElementById("scheList4").className = "scheList scheListTime"; break;
+            case 16 : case 17: document.getElementById("pointer5").className = "pointerTime";
+                document.getElementById("time5").className = "scheTime";
+                document.getElementById("scheList5").className = "scheList scheListTime"; break;
+            default: document.getElementById("pointer6").className = "pointerTime";
+                document.getElementById("time6").className = "scheTime";
+                document.getElementById("scheList6").className = "scheList scheListTime"; break;
+        }
+    </script>
 
     <script>
         const pwd = document.getElementById("pwd");
