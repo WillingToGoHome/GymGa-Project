@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>직원 조회</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="stylesheet" href="/emp/styles/empPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="app-area">
+            <!--Heade Start-->
+            <div th:include="common/header"></div>
+            <!--Header End-->
+
+            <!--Main Start-->
+            <div class="main-container">
+                <!--Navbar Start-->
+                <div th:include="common/navbar"></div>
+                <!--Navbar End-->
+                <!--개인 작업 시작-->
+                <div class="my-style">
+                    <div class="outerDiv">
+                        <div class="mainBox">
+                            <div>
+                                <img class="back" src="/emp/images/icon-back.png" onClick="location.href='/emp/'"/>
+                                <div class="main">
+                                    <span class="titleText">직원 조회</span>
+                                </div>
+                                <div class="searchBox">
+                                    <form action="/emp/result" method="get">
+                                        <input type="search" name="search" placeholder="검색 내용" style="width: 150px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                        <select name="category" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold; margin-right: 5px">
+                                            <option value="name">강사명</option>
+                                        </select>
+                                        <button type="submit" style="width: 80px; height: 30px; border-radius: 7.5px; font-weight: bold">검색</button>
+                                    </form>
+                                </div>
+                                <hr class="line" style="width: 700px">
+                            </div>
+                            <div style="text-align: center">
+                                <div style="text-align: center; padding-top: 40px">
+                                    <span style="font-weight: bold">2명 이상의 검색 결과가 존재합니다</span>
+                                </div>
+                                <div class="searchList">
+                                    <table>
+                                        <tr style="height: 60px">
+                                            <th>사진</th>
+                                            <th>이름</th>
+                                            <th>직급</th>
+                                            <th>성별</th>
+                                            <th>전화번호</th>
+                                            <th>기타</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <hr class="line" style="width: 640px; background-color: black;">
+                                            </td>
+                                        </tr>
+                                        <div>
+                                            <tr class="searchedEmp" th:each="emp : ${ searchedEmps }" style="height: 60px; cursor: pointer" th:onClick="|location.href='/emp/detail/' + ${ emp.code }|">
+                                                <td>
+                                                    <img th:src="|/imageFile/${ emp.pic }|">
+                                                </td>
+                                                <td th:text="${ emp.name }"></td>
+                                                <td th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></td>
+                                                <td th:text="${ emp.gender }"></td>
+                                                <td th:text="${ emp.phone }"></td>
+                                                <td th:text="${ emp.etc }"></td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sideBox">
+                            <div>
+                                <div class="main" style="margin-bottom: 25px">
+                                    <span class="titleText" style="margin-left: 40px">직원 리스트</span>
+                                </div>
+                                <hr class="line" style="width: 300px">
+                            </div>
+                            <div class="sideEmpList">
+                                <div class="sideList">
+                                    <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                        <div class="empBlockLeft">
+                                            <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
+                                        </div>
+                                        <div class="empBlockRight">
+                                            <p class="empName" th:text="${ emp.name }"></p>
+                                            <p class="empRole" th:text="${ emp.role == 'ADMIN'? '대표' : '직원' }"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--개인 작업 종료-->
+            </div>
+            <!--Main End-->
+
+            <!--Footer Start-->
+            <div th:include="common/footer"></div>
+            <!--Footer End-->
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var listSize = $(".searchedEmp").length;
+            console.log('listSize =' + listSize);
+            for (var i = 0; i < listSize - 1; i++) {
+                var searchedList = $(".searchedEmp:eq(" + i + ")");
+                searchedList.after("<tr class='hr-container'></tr>");
+                var hrContainer = searchedList.next();
+                hrContainer.append("<td colspan='6'><hr class='line' style='width: 640px'></td>");
+            }
+        });
+    </script>
+</body>
+</html>
