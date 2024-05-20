@@ -24,8 +24,8 @@ public class MainService {
         this.mainMapper = mainMapper;
     }
 
-    public UserDTO selectEmpBy(String name) {
-        return mainMapper.selectEmpBy(name);
+    public UserDTO selectEmpBy(int userCode) {
+        return mainMapper.selectEmpBy(userCode);
     }
 
     public Map<String, Integer> getPieData(int userCode) {
@@ -34,8 +34,6 @@ public class MainService {
         pieData.put("pt", mainMapper.ptCount(userCode));
         pieData.put("gx", mainMapper.gxCount(userCode));
         pieData.put("gp", mainMapper.gpCount(userCode));
-
-        System.out.println("pieData = " + pieData);
 
         return pieData;
     }

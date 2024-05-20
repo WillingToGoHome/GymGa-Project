@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/styles/mainPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="shortcut icon" href="#">
 </head>
 
 <body>
@@ -43,11 +45,11 @@
                                 <span class="topic">매출 현황</span>
                                 <div class="graph" id="bar"></div>
                             </div>
-                            <div class="salesInfoBox" style="width: 760px; height: 250px">
+                            <div class="salesInfoBox" style="width: 760px; height: 290px">
                                 <span class="topic">회원 현황</span>
                                 <div class="memberList" style="overflow-y: auto">
-                                    <table style="width: 680px; margin: 0; margin-left: 0; text-align: center">
-                                        <tr>
+                                    <table style="width: 670px; margin: 0; margin-left: 10px; text-align: center">
+                                        <tr style="height: 40px">
                                             <th>이름</th>
                                             <th>성별</th>
                                             <th>연락처</th>
@@ -61,7 +63,7 @@
                                             </td>
                                         </tr>
                                         <div>
-                                            <tr th:each="member: ${ memberList }">
+                                            <tr class="searchedEmp" th:each="member: ${ memberList }" style="height: 40px; color: rgba(101, 101, 101, 1)">
                                                 <td th:text="${ member.userName }"></td>
                                                 <td th:text="${ member.userGender }"></td>
                                                 <td th:text="${ member.userPhone }"></td>
@@ -366,15 +368,16 @@
                             trigger: 'item'
                         },
                         legend: {
-                            top: '85%',
+                            bottom: '15%',
                             left: 'center',
-                            fontSize: 16,
+                            fontSize: '16',
                         },
                         series: [
                             {
                                 name: '이용권 종류',
                                 type: 'pie',
                                 radius: ['30%', '60%'],
+                                center: ['50%', '40%'],
                                 avoidLabelOverlap: false,
                                 seriesLayoutBy: 'row',
                                 itemStyle: {
@@ -385,27 +388,12 @@
                                 label: {
                                     show: true,
                                     position: 'middle',
-                                    formatter: function(params) {
-                                        var dataName = params.data.name;
-                                        var dataValue = params.data.value;
-                                        var percent = params.percent.toFixed(1);
-                                        var PT = data.pt;
-                                        var GX = data.gx;
-                                        var GP = data.gp;
+                                    formatter: params => {
+                                        const percent = params.percent.toFixed(1);
 
-                                        if (percent === '0.00') {
-                                            return '';
+                                        return percent === '0.0' ? '' : `${percent}`;
                                         }
-
-                                        if (dataName === 'PT') {
-                                            return percent + '%';
-                                        } else if (dataName === 'GX') {
-                                            return  percent + '%';
-                                        } else if (dataName === '일반') {
-                                            return percent + '%';
-                                        }
-                                    }
-                                },
+                                    },
                                 emphasis: {
                                     label: {
                                         show: true,
@@ -424,7 +412,7 @@
                             }
                         ]
                     };
-                    console.log(data)
+                    // console.log(data)
                     myChart.setOption(option);
                 })
                 .catch(error => {
@@ -445,7 +433,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    var monthData = data.map(item => item.month);
+                    var monthData = data.map(item => item.month + '월');
                     var totalData = data.map(item => item.total);
 
                     var option = {
@@ -459,9 +447,10 @@
                             //     fontFamily: 'Noto Sans KR, sans-serif'}
                         },
                         grid: {
-                            left: '10px',
-                            right: '10px',
-                            bottom: '10px',
+                            left: '3%',
+                            right: '3%',
+                            bottom: '15%',
+                            top: '15%',
                             containLabel: true
                         },
                         tooltip: {
@@ -475,7 +464,9 @@
                             data: monthData,
                             axisLabel: {
                                 interval: 0,
-                                rotate: 30
+                                rotate: 0,
+                                fontSize: 16,
+                                fontWeight: 'bold'
                             }
                         },
                         yAxis: {
@@ -494,9 +485,18 @@
                             data: totalData,
                             type: 'bar',
                             label: {
-                                show: false,
+                                show: true,
                                 position: 'top',
                                 color: '#000'
+                            },
+                            itemStyle: {
+                                color: '#4B82D8',
+                                barBorderRadius: [5, 5, 0, 0]
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    color: '#FF6F61'
+                                }
                             }
                         }]
                     };
@@ -510,6 +510,19 @@
         fetchDataForBarChart();
         window.addEventListener('resize', () => {
             myChart2.resize();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var listSize = $(".searchedEmp").length;
+            // console.log('listSize =' + listSize);
+            for (var i = 0; i < listSize - 1; i++) {
+                var searchedList = $(".searchedEmp:eq(" + i + ")");
+                searchedList.after("<tr class='hr-container'></tr>");
+                var hrContainer = searchedList.next();
+                hrContainer.append("<td colspan='6'><hr class='line' style='width: 640px'></td>");
+            }
         });
     </script>
 </body>

@@ -1,13 +1,12 @@
 package com.willingtogohome.gymga.login.auth.controller;
 
+import com.willingtogohome.gymga.emp.model.dao.EmpMapper;
 import com.willingtogohome.gymga.emp.model.dto.ScheDTO;
 import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
 import com.willingtogohome.gymga.login.auth.model.dto.MemberAndPassDTO;
 import com.willingtogohome.gymga.login.auth.model.service.MainService;
-import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import com.willingtogohome.gymga.pass.model.dto.PassMonthDTO;
-import com.willingtogohome.gymga.user.model.dto.EmpDTO;
 import com.willingtogohome.gymga.user.model.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,34 +48,45 @@ public class MainController {
     }
 
     @GetMapping(value = "/main")
-    public String main(SecurityContextHolder securityContextHolder, Model model) {
+    public String main(SecurityContextHolder securityContextHolder, HttpSession session, Model model) {
 
-//        String name = securityContextHolder.getContext().getAuthentication().getName();
-//        UserDTO emp = mainService.selectEmpBy(name);
+        int userCode = Integer.parseInt(securityContextHolder.getContext().getAuthentication().getName());
+        UserDTO emp = mainService.selectEmpBy(userCode);
+
+        String role = emp.getUserRole();
 
         List<MemberAndPassDTO> memberList = mainService.selectMemberList();
 
-//        if (emp.getUserRole().equals("ADMIN")) {
-//            memberList = mainService.selectMemberList(0);
-//        } else {
-//            memberList = mainService.selectMemberList(emp.getUserCode());
-//        }
+        model.addAttribute("memberList", memberList);
 
-//        model.addAttribute("memberList", memberList);
-//
-//        List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("time", "8:00am"));
-//        List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("time", "10:00am"));
-//        List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("time", "12:00pm"));
-//        List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria("time", "14:00pm"));
-//        List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("time", "16:00pm"));
-//        List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("time", "18:00pm"));
-//
-//        model.addAttribute("scheList1", scheList1);
-//        model.addAttribute("scheList2", scheList2);
-//        model.addAttribute("scheList3", scheList3);
-//        model.addAttribute("scheList4", scheList4);
-//        model.addAttribute("scheList5", scheList5);
-//        model.addAttribute("scheList6", scheList6);
+        if (role.equals("ADMIN")) {
+            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria("0", "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria("0", "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria("0", "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria("0", "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria("0", "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria("0", "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        } else {
+            session.setAttribute("searched", userCode);
+            List<ScheDTO> scheList1 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "8:00am"));
+            List<ScheDTO> scheList2 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "10:00am"));
+            List<ScheDTO> scheList3 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "12:00pm"));
+            List<ScheDTO> scheList4 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "14:00pm"));
+            List<ScheDTO> scheList5 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "16:00pm"));
+            List<ScheDTO> scheList6 = empService.selectAllSche(new SearchCriteria(Integer.toString(userCode), "18:00pm"));
+            model.addAttribute("scheList1", scheList1);
+            model.addAttribute("scheList2", scheList2);
+            model.addAttribute("scheList3", scheList3);
+            model.addAttribute("scheList4", scheList4);
+            model.addAttribute("scheList5", scheList5);
+            model.addAttribute("scheList6", scheList6);
+        }
 
         return "main";
     }
@@ -84,17 +94,15 @@ public class MainController {
     @GetMapping("/main/piedata")
     public ResponseEntity<Map<String, Integer>> getPieData(SecurityContextHolder securityContextHolder) {
 
-        String name = securityContextHolder.getContext(). getAuthentication().getName();
-        UserDTO emp = mainService.selectEmpBy(name);
+        int userCode = Integer.parseInt(securityContextHolder.getContext().getAuthentication().getName());
+        UserDTO emp = mainService.selectEmpBy(userCode);
 
         Map<String, Integer> graphData = new HashMap<>();
 
         if (emp.getUserRole().equals("ADMIN")) {
             graphData = mainService.getPieData(0);
-            System.out.println("graphData = " + graphData);
         } else {
             graphData = mainService.getPieData(emp.getUserCode());
-            System.out.println("graphData = " + graphData);
         }
 
         return new ResponseEntity<>(graphData, HttpStatus.OK);
@@ -103,19 +111,26 @@ public class MainController {
     @GetMapping("/main/bardata")
     public ResponseEntity<List<PassMonthDTO>> getBarData(SecurityContextHolder securityContextHolder) {
 
-        String name = securityContextHolder.getContext(). getAuthentication().getName();
-        UserDTO emp = mainService.selectEmpBy(name);
+        int userCode = Integer.parseInt(securityContextHolder.getContext().getAuthentication().getName());
+        UserDTO emp = mainService.selectEmpBy(userCode);
 
         List<PassMonthDTO> graphData = new ArrayList<>();
 
         if (emp.getUserRole().equals("ADMIN")) {
             graphData = mainService.getBarData(0);
-            System.out.println("graphData = " + graphData);
         } else {
             graphData = mainService.getBarData(emp.getUserCode());
-            System.out.println("graphData = " + graphData);
         }
 
         return new ResponseEntity<>(graphData, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/main/info", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public UserDTO findLoginInfo(SecurityContextHolder securityContextHolder) {
+
+        int userCode = Integer.parseInt(securityContextHolder.getContext().getAuthentication().getName());
+
+        return mainService.selectEmpBy(userCode);
     }
 }

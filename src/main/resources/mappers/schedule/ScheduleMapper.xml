@@ -490,5 +490,10 @@
         ORDER BY A.SCHE_CODE
     </select>
 
-
+    <select id="findUserName" resultType="String">
+        SELECT
+            USER_NAME
+        FROM USERDB
+        WHERE USER_CODE = #{ userCode }
+    </select>
 </mapper>
