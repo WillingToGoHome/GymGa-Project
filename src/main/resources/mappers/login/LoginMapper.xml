@@ -52,8 +52,14 @@
     </insert>
 
     <!-- 아이디 중복체크 -->
-    <select id="idCheck" resultType="String">
-        SELECT USER_ID
+    <!--수빈님꺼 주석-->
+<!--    <select id="idCheck" resultType="String">-->
+<!--        SELECT USER_ID-->
+<!--        FROM USERDB-->
+<!--        WHERE USER_ID = #{userId}-->
+<!--    </select>-->
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(USER_ID)
         FROM USERDB
         WHERE USER_ID = #{userId}
     </select>
