@@ -40,8 +40,8 @@
 
             <h3 class="login">Log In</h3>
             <form th:action="@{/login}" method="post">
-                <input type="text" id="userId" value name="user" placeholder="아이디를 입력해주세요"><br>
-                <input type="password" id="userPwd" value name="pass" placeholder="비밀번호를 입력해주세요"><br>
+                <input type="text" id="userId" value name="user" placeholder="아이디를 입력해주세요" autocomplete="username"><br>
+                <input type="password" id="userPwd" value name="pass" placeholder="비밀번호를 입력해주세요" autocomplete="current-password"><br>
                 <button type="submit" id="loginbtn">Sign in</button>
             </form>
 
@@ -232,7 +232,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="text" name="userId" id="id" required class="userId" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자." style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
+                                                <input type="text" name="userId" id="id" required class="userId" autocomplete="username" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자." style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
                                                 <input type="button" class="btn_frmline" name="userId" id="reg_userId_chk" value="중복체크" onclick="idCheck()">
                                                 <div><span id="result_checkId" style="font-size: 12px"></span></div>
                                             </td>
@@ -244,7 +244,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="userPwd" minlength="4" maxlength="20" style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
+                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="userPwd" autocomplete="new-password" minlength="4" maxlength="20" style="font-size:14px; padding: 0; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
                                             </td>
                                         </tr>
                                         <tr>
@@ -254,7 +254,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="password" name="userPwdCh" value id="reg_userPwd_re" required class="reg_input" minlength="3" maxlength="20">
+                                                <input type="password" name="userPwdCh" value id="reg_userPwd_re" required class="reg_input" autocomplete="new-password" minlength="3" maxlength="20">
                                                 <div><span class="pwchk"></span></div>
                                             </td>
                                         </tr>

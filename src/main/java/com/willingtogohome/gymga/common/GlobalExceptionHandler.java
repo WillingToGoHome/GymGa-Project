@@ -1,6 +1,8 @@
 package com.willingtogohome.gymga.common;
 
+import com.willingtogohome.gymga.schedule.exception.ScheduleNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +32,13 @@ public class GlobalExceptionHandler {
     public String handleGlobalException(Exception ex, Model model) {
         model.addAttribute("errorCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("errorMessage", "서버에 오류가 발생했습니다.");
+        return "/error/error";
+    }
+
+    @ExceptionHandler(ScheduleNotFoundException.class)
+    public String handleScheduleNotFoundException(ScheduleNotFoundException ex, Model model) {
+        model.addAttribute("errorCode", HttpStatus.NOT_FOUND.value());
+        model.addAttribute("errorMessage", ex.getMessage());
         return "/error/error";
     }
 }
