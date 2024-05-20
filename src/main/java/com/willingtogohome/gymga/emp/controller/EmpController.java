@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.HashMap;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -37,7 +39,11 @@ public class EmpController {
 
         System.out.println("get : /emp/ or /emp/main");
 
-        String name = securityContextHolder.getContext().getAuthentication().getName();
+        Map<String, String> loginInfo = (Map<String, String>) session.getAttribute("info");
+        System.out.println("loginInfo = " + loginInfo);
+        System.out.println(loginInfo.get("name"));
+        System.out.println(loginInfo.get("role"));
+        System.out.println(loginInfo.get("pic"));
 
         EmpTotDTO emp = empService.searchBy(new SearchCriteria("name", name));
         List<EmpDTO> empList = empService.selectAllEmp();

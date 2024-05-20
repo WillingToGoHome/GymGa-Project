@@ -1,5 +1,8 @@
 package com.willingtogohome.gymga.login.auth.controller;
 
+import com.willingtogohome.gymga.login.auth.model.service.MainService;
+import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
+import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import com.willingtogohome.gymga.emp.model.dto.ScheDTO;
 import com.willingtogohome.gymga.emp.model.dto.SearchCriteria;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
@@ -49,7 +52,22 @@ public class MainController {
     }
 
     @GetMapping(value = "/main")
-    public String main(SecurityContextHolder securityContextHolder, Model model) {
+    public String main(SecurityContextHolder securityContextHolder, HttpSession session) {
+
+        String logonCode = securityContextHolder.getContext().getAuthentication().getName();
+        int code = Integer.parseInt(logonCode);
+
+        UserDTO login = mainService.selectLoginInfo(code);
+
+        Map<String, String> loginInfo = new HashMap<>();
+
+        if (session.getAttribute("info") == null) {
+            loginInfo.put("name", login.getUserName());
+            loginInfo.put("role", login.getUserRole());
+            loginInfo.put("pic", login.getUserPic());
+
+            session.setAttribute("info", loginInfo);
+        }
 
 //        String name = securityContextHolder.getContext().getAuthentication().getName();
 //        UserDTO emp = mainService.selectEmpBy(name);
@@ -80,6 +98,15 @@ public class MainController {
 
         return "main";
     }
+
+    @GetMapping(value = "/main/info", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public UserDTO selectLoginInfo(SecurityContextHolder securityContextHolder) {
+
+        String logonCode = securityContextHolder.getContext().getAuthentication().getName();
+        int code = Integer.parseInt(logonCode);
+
+        return mainService.selectLoginInfo(code);
 
     @GetMapping("/main/piedata")
     public ResponseEntity<Map<String, Integer>> getPieData(SecurityContextHolder securityContextHolder) {

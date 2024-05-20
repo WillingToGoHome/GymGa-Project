@@ -41,7 +41,8 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return loginDTO.getUserName();
+
+        return Integer.toString(loginDTO.getUserCode());
     }
 
     @Override
