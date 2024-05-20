@@ -2,11 +2,13 @@ package com.willingtogohome.gymga.pass.controller;
 
 import com.willingtogohome.gymga.pass.model.dto.*;
 import com.willingtogohome.gymga.pass.model.service.PassService;
+import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.Parameter;
 import java.util.List;
@@ -88,9 +90,50 @@ public class PassController {
         return "redirect:/pass/main";
     }
 
-    @GetMapping("/search")
-    public String passSearch() {
+    @GetMapping("/updatesearch")
+    public void searchPage(){}
 
-        return "/pass/search";
+    @PostMapping("/updatesearch")
+    public String userSearch(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> passList = passService.searchUser(criteria);
+
+        session.setAttribute("passList", passList);
+
+        model.addAttribute("passList", passList);
+
+        for (PassAndPassQualDTO pass : passList) {
+            System.out.println("pass = " + pass);
+        }
+
+        return "/pass/updatesearch";
     }
+
+
+    @GetMapping("/update")
+    public String passUpdate(Model model){
+
+        List<PassAndPassQualDTO> passList = passService.selectAllPassAndUser();
+
+        for (PassAndPassQualDTO pass : passList) {
+            System.out.println("pass = " + pass);
+        }
+
+        model.addAttribute("passList", passList);
+
+        return "/pass/update";
+    }
+
+    @GetMapping(value = "/class", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<PassQualDTO> findPqNameList() {
+        passService.findPqNameList().forEach(System.out::println);
+        return passService.findPqNameList();
+    }
+
+
+
 }

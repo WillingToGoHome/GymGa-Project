@@ -1,0 +1,403 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 auto;
+}
+
+#main {
+    color: white;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#app_area {
+    width: 1506px;
+    max-width: 90%;
+    aspect-ratio: 100 / 56.25;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.contents {
+    width: 1147px;
+    height: 637px;
+    border-radius: 10px;
+    margin: auto;
+    margin-right: 22px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.on {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+}
+
+.back {
+    padding-left: 1%;
+    cursor: pointer;
+}
+
+.text {
+    font-size: 24px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    color: black;
+    line-height: 47px;
+}
+
+.top {
+    display: flex;
+    padding-left: 35%;
+}
+
+.search {
+    width: 200px;
+    height: 46px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: 1px solid #ABABAB;
+    font-weight: bold;
+    color: #ABABAB;
+    font-size: 16px;
+}
+
+.hr1 {
+    width: 95%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    border: 1px solid #D9D9D9;
+    margin: 0 auto;
+}
+
+.option {
+    width: 100px;
+    height: 50px;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    color: #ABABAB;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.searchButton {
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    margin-left: 10px;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.titleText {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.hr2 {
+    width: 95%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #000000;
+}
+
+.passUpdate {
+    overflow-y: scroll;
+    height: 450px;
+}
+
+.userList {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.userName {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userId {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.pqName {
+    width: 130px;
+    height: 30px;
+    font-size: 13px;
+    color: #4B82D8;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 8px;
+}
+
+.passStatus {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: #D25656;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 7px;
+}
+
+.passPrice {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+.userStaff {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+    margin-right: -4px;
+}
+
+.buttonBox {
+    align-content: center;
+    width: 130px;
+    display: flex;
+    margin-right:-11px;
+}
+
+.changeButton {
+    width: 60px;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    border-radius: 5px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.refundButton {
+    width: 60px;
+    height: 30px;
+    color: #656565;
+    border: 1px solid #656565;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.hr3 {
+    width: 96.5%;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    margin-left: 31px;
+    margin-top: 20px;
+    border: 1px solid #D9D9D9;
+}
+
+/* 변경 모달 */
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 810px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+    background-color: #FFFFFF;
+    width: 80%;
+    height: 75%;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalButtonBox {
+    margin: auto;
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+}
+
+.text2 {
+
+    color: black;
+    text-align: left;
+    font-weight: 800;
+    padding-top: 55px;
+    line-height: 50px;
+    padding-left: 400px;
+}
+
+.text2 input,select  {
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    padding-left: 5px;
+}
+
+.modalUserName {
+    margin-left: 105px;
+}
+
+.modalUserId {
+    margin-left: 103px;
+}
+
+.modalPqName {
+    margin-left: 71px;
+}
+
+.modalNewPass {
+    margin-left: 71px;
+}
+
+.modalPqPrice {
+    margin-left: 16px;
+}
+
+#method {
+    margin-left: 10px;
+}
+
+.modalToday {
+    margin-left: 85px;
+}
+
+.cancelButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.changeButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}
+
+/* 환불 모달 */
+.modalContainer2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 810px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent2 {
+    background-color: #FFFFFF;
+    width: 80%;
+    height: 75%;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalButtonBox2 {
+    margin: auto;
+    width: 290px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+}
+
+.text2 {
+    color: black;
+    text-align: left;
+    font-weight: 800;
+    padding-top: 55px;
+    line-height: 50px;
+    padding-left: 400px;
+}
+
+.reason {
+    margin-left: 85px;
+}
+
+.cancelButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+}
+
+.refundButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: #4B82D8;
+}

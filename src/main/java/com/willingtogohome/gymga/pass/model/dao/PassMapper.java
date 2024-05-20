@@ -19,4 +19,10 @@ public interface PassMapper {
     void registNewSaleDTO(SaleDTO saleDTO);
 
     void registNewValidateDTO(ValidateDTO validateDTO);
+
+    List<PassAndPassQualDTO> selectAllPassAndUser();
+
+    List<PassQualDTO> findPqNameList();
+
+    List<PassAndPassQualDTO> searchUser(SearchCriteria criteria);
 }

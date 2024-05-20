@@ -52,13 +52,13 @@
                     <hr class="hr2">
                     <div class="passUpdate">
                         <div class="userList" th:each="pass:${passList}"
-                            th:data-user-code="${pass.userDTO.userCode}"
-                            th:data-user-name="${pass.userDTO.userName}"
-                            th:data-user-id="${pass.userDTO.userId}"
-                            th:data-pq-name="${pass.passQualDTO.pqName}"
-                            th:data-pass-status="${pass.passStatus}"
-                            th:data-pq-code="${pass.passQualDTO.pqCode}"
-                            th:data-pq-price="${pass.passQualDTO.pqPrice}">
+                             th:data-user-code="${pass.userDTO.userCode}"
+                             th:data-user-name="${pass.userDTO.userName}"
+                             th:data-user-id="${pass.userDTO.userId}"
+                             th:data-pq-name="${pass.passQualDTO.pqName}"
+                             th:data-pass-status="${pass.passStatus}"
+                             th:data-pq-code="${pass.passQualDTO.pqCode}"
+                             th:data-pq-price="${pass.passQualDTO.pqPrice}">
                             <p class="userName" th:text="${pass.userDTO.userName}"></p>
                             <p class="userId" th:text="${pass.userDTO.userId}"></p>
                             <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
@@ -69,47 +69,47 @@
                                 <span th:text="${pass.userDTO.staffName}"></span>
                             </p>
                             <div class="buttonBox">
-                                    <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                    <input class="changeButton" type="submit" value="변경">
+                                <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                <input class="changeButton" type="submit" value="변경">
                                 <button class="refundButton">환불</button>
                                 <div class="modalContainer">
                                     <div class="modalContent">
                                         <div class="textBox" th:object="${pass}">
                                             <form action="/pass/change" method="post">
                                                 <h2 style="color: black; text-align: center; padding-top: 60px;">이용권 변경</h2>
-                                                    <div class="text2">
-                                                        <label class="modalText">
-                                                            회원명
-                                                            <input type="text" id="userName" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            회원ID
-                                                            <input type="text" id="userId" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            기존 이용권
-                                                            <input type="text" id="pqName" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            변경 이용권
-                                                            <select name="pqCode" id="pqCode" class="modalNewPass">
-                                                                <option selected disabled>선택</option>
-                                                            </select>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            추가금액 / 결제방식
-                                                            <input type="text" id="pqPrice" name="pqPrice" class="modalPqPrice" readonly>
-                                                            <select id="method" name="salesMethod">
-                                                                <option selected disabled>선택</option>
-                                                                <option value="신용카드">신용카드</option>
-                                                                <option value="현금">현금</option>
-                                                            </select>
-                                                        </label><br>
-                                                        <label class="modalText">
-                                                            변경 날짜
-                                                            <input type="text" id="today" name="today" class="modalToday" readonly>
-                                                        </label>
-                                                    </div>
+                                                <div class="text2">
+                                                    <label class="modalText">
+                                                        회원명
+                                                        <input type="text" id="userName" name="userName" class="modalUserName" th:placeholeder="${pass.userDTO.userName}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        회원ID
+                                                        <input type="text" id="userId" name="userId" class="modalUserId" th:placeholeder="${pass.userDTO.userId}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        기존 이용권
+                                                        <input type="text" id="pqName" name="pqName" class="modalPqName" th:placeholeder="${pass.passQualDTO.pqName}" readonly>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        변경 이용권
+                                                        <select name="pqCode" id="pqCode" class="modalNewPass">
+                                                            <option selected disabled>선택</option>
+                                                        </select>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        추가금액 / 결제방식
+                                                        <input type="text" id="pqPrice" name="pqPrice" class="modalPqPrice" readonly>
+                                                        <select id="method" name="salesMethod">
+                                                            <option selected disabled>선택</option>
+                                                            <option value="신용카드">신용카드</option>
+                                                            <option value="현금">현금</option>
+                                                        </select>
+                                                    </label><br>
+                                                    <label class="modalText">
+                                                        변경 날짜
+                                                        <input type="text" id="today" name="today" class="modalToday" readonly>
+                                                    </label>
+                                                </div>
                                             </form>
                                         </div>
                                         <div class="modalButtonBox">
@@ -146,7 +146,7 @@
                                                 </label><br>
                                                 <label class="modalText">
                                                     총 환불금액 / 위약금
-                                                    <input type="text" id="pqPrice2" name="pqPrice" class="modalPqPrice" style="margin-left: 12px" th:value="${pass.passQualDTO.pqPrice * 0.9 }" readonly>
+                                                    <input type="text" id="pqPrice2" name="pqPrice" class="modalPqPrice" style="margin-left: 12px" th:value="${pass.passQualDTO.pqPrice}" readonly>
                                                     <input type="text" id="pqPrice3" name="pqPrice" class="modalPqPrice" th:value="${pass.passQualDTO.pqPrice * 0.1}" readonly>
                                                 </label><br>
                                                 <label class="modalText">
@@ -280,7 +280,7 @@
                 $pqCode.appendChild($option);
                 document.getElementById("pqSelectCode").value = data[index].pqCode;
             }
-        });
+        })
 </script>
 </body>
 </html>
