@@ -1,0 +1,202 @@
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.outerDiv {
+    width: 1140px;
+    height: 637px;
+    color: black;
+}
+
+.salesInfoDiv {
+    width: 760px;
+    height: 637px;
+    margin-right: 20px;
+    float: left;
+}
+
+.salesInfoBox {
+    width: 370px;
+    height: 370px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+    float: left;
+    padding-top: 10px;
+}
+
+.topic {
+    color: rgba(101, 101, 101, 1);
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.graph {
+    width: 350px;
+    height: 320px;
+    text-align: center;
+    color: black;
+}
+
+.memberList {
+    width: 700px;
+    height: 200px;
+    border: 1px solid rgba(171, 171, 171, 1);
+    border-radius: 10px;
+    margin-left: 30px;
+}
+
+.memberList::-webkit-scrollbar {
+    width: 10px;
+}
+
+.memberList::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.memberList::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}
+
+.scheduleInfoDiv {
+    width: 360px;
+    height: 637px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+    float: left;
+    padding-top: 20px;
+}
+
+.date {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(205, 205, 205, 1);
+    margin-left: 10px;
+}
+
+.moreSche {
+    font-size: 16px;
+    font-weight: bold;
+    collapse: rgba(101, 101, 101, 1);
+    text-decoration: underline;
+    cursor: pointer;
+    /*margin-left: 110px;*/
+    margin-left: 35px;
+}
+
+table {
+    /*margin-top: 20px;*/
+    /*margin-left: 70px;*/
+    /*margin-right: 70px;*/
+    margin: 15px 60px;
+    /*width: 340px;*/
+    width: 240px;
+    /*height: 100px;*/
+    height: 70px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.none {
+    /*width: 45px;*/
+    width: 32px;
+}
+
+.today {
+    background-color: rgba(75, 130, 216, 1);
+    color: white;
+    /*width: 45px;*/
+    width: 32px;
+    border-radius: 100%;
+}
+
+.line2 {
+    /*width: 410px;*/
+    width: 300px;
+    margin-left: 30px;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.scheBox {
+    /*width: 410px;*/
+    width: 300px;
+    /*margin-left: 35px;*/
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(171, 171, 171, 1);
+    float: left;
+}
+
+.timeLine {
+    /*width: 20px;*/
+    width: 20px;
+    float: left;
+    /*padding-top: 3px;*/
+    padding-top: 6px;
+}
+
+.pointer {
+    background-color: rgba(217, 217, 217, 1);
+    /*width: 15px;*/
+    width: 10px;
+    /*height: 15px;*/
+    height: 10px;
+    /*border-radius: 15px;*/
+    border-radius: 10px;
+    margin: auto;
+}
+
+.pointerTime {
+    background-color: rgba(75, 130, 216, 1);
+    /*width: 15px;*/
+    width: 10px;
+    /*height: 15px;*/
+    height: 10px;
+    /*border-radius: 15px;*/
+    border-radius: 10px;
+    margin: auto;
+}
+
+.verticalLine {
+    background-color: rgba(217, 217, 217, 1);
+    width: 1px;
+    /*height: 74px;*/
+    height: 55px;
+    /*margin-right: 10.5px;*/
+    /*margin-bottom: -5px;*/
+    margin: auto;
+}
+
+.scheTime {
+    color: black;
+}
+
+.scheList {
+    /*width: 390px;*/
+    width: 280px;
+    /*height: 64px;*/
+    height: 45px;
+    overflow-y: auto;
+}
+
+.scheList::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scheList::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.scheList::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}
