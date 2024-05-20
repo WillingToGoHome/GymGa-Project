@@ -65,6 +65,7 @@
                             <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
                                 <form id=detailForm action="/pass/selectDetail" method="post" style="display: flex">
                                     <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                    <input type="hidden" name="passCode" th:value="${pass.passCode}">
                                     <input class="detailButton" type="submit" value="상세">
                                 </form>
                             </div>
