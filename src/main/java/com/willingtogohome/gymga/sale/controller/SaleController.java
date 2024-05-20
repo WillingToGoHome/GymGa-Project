@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/sale")
+//@RequestMapping("/sale")
 public class SaleController {
     private final SaleService saleService;
 
@@ -68,17 +68,17 @@ public class SaleController {
         return "sale/main";
     }
 
-    @GetMapping(value = "/main")
-    public String main(SecurityContextHolder securityContextHolder,Model model) {
-        List<EmployeeAndUserDTO> employeeAndUserDTO = saleService.empAndUser();
-        model.addAttribute("employeeAndUserDTO",employeeAndUserDTO);
-
-        String logonName = securityContextHolder.getContext().getAuthentication().getName();
-
-        System.out.println("logonName = " + logonName);
-
-        return "main";
-    }
+//    @GetMapping(value = "/main")
+//    public String main(SecurityContextHolder securityContextHolder,Model model) {
+//        List<EmployeeAndUserDTO> employeeAndUserDTO = saleService.empAndUser();
+//        model.addAttribute("employeeAndUserDTO",employeeAndUserDTO);
+//
+//        String logonName = securityContextHolder.getContext().getAuthentication().getName();
+//
+//        System.out.println("logonName = " + logonName);
+//
+//        return "main";
+//    }
 
     @PostMapping("/sale/main")
     public String saleMainP(){
