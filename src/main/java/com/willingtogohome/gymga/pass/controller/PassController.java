@@ -2,7 +2,9 @@ package com.willingtogohome.gymga.pass.controller;
 
 import com.willingtogohome.gymga.pass.model.dto.*;
 import com.willingtogohome.gymga.pass.model.service.PassService;
+import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
+import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -135,5 +137,71 @@ public class PassController {
     }
 
 
+
+    // 이용권 조회 - 김만호
+    @GetMapping("/passlist")
+    public void allPassListPage(){}
+
+    @GetMapping("/listsearch")
+    public void searchListPage(){}
+
+    @PostMapping("/listsearch")
+    public String allPassList(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> passAllList = passService.searchPass(criteria);
+
+        for (PassAndPassQualDTO pass : passAllList) {
+            System.out.println("pass = " + pass);
+        }
+
+        session.setAttribute("passAllList", passAllList);
+        model.addAttribute("passAllList", passAllList);
+
+        return "/pass/listsearch";
+
+    }
+
+    @GetMapping("/selectAllPass")
+    public String allPassList(Model model){
+
+        List<PassAndPassQualDTO> passAllList = passService.searchPassList();
+
+        for (PassAndPassQualDTO pass : passAllList) {
+            System.out.println("passAllList = " + pass);
+        }
+
+        model.addAttribute("passAllList", passAllList);
+
+        return "/pass/passlist";
+    }
+
+
+    @GetMapping("/detail")
+    public String passDetailForm() {
+        return "/pass/detailForm";
+    }
+
+    @PostMapping("/detail")
+    public String selectDetail(HttpSession session,
+                               @RequestParam("code") String userCode, Model model,
+                               PassAndPassQualDTO passAndPassQualDTO) {
+
+        int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
+
+        passAndPassQualDTO.setUserCode(code);
+
+        PassAndPassQualDTO user = passService.getInfoDetailByCode(code);
+
+        model.addAttribute("user", user);
+
+        System.out.println("user = " + user);
+
+        return "/pass/detail";
+    }
 
 }

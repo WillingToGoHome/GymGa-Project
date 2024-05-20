@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/styles/myStyle.css">
     <link rel="stylesheet" href="/styles/passUpdateStyle.css">
     <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
@@ -271,6 +272,7 @@
         .then(res => res.json())
         .then(data => {
             const $pqCode = document.getElementById("pqCode");
+            console.log(data);
 
             for (let index in data) {
                 const $option = document.createElement('option');

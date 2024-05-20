@@ -25,4 +25,10 @@ public interface PassMapper {
     List<PassQualDTO> findPqNameList();
 
     List<PassAndPassQualDTO> searchUser(SearchCriteria criteria);
+
+    List<PassAndPassQualDTO> searchPass(SearchCriteria criteria);
+
+    List<PassAndPassQualDTO> searchPassList();
+
+    PassAndPassQualDTO getInfoDetailByCode(int code);
 }

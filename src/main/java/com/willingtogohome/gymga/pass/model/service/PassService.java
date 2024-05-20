@@ -54,4 +54,17 @@ public class PassService {
     public List<PassAndPassQualDTO> searchUser(SearchCriteria criteria) {
         return passMapper.searchUser(criteria);
     }
+
+    // 이용권 조회
+    public List<PassAndPassQualDTO> searchPass(SearchCriteria criteria) {
+        return passMapper.searchPass(criteria);
+    }
+
+    public List<PassAndPassQualDTO> searchPassList() {
+        return passMapper.searchPassList();
+    }
+
+    public PassAndPassQualDTO getInfoDetailByCode(int code) {
+        return passMapper.getInfoDetailByCode(code);
+    }
 }
