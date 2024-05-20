@@ -41,7 +41,7 @@ public class PainController {
         PainDTO pain = painService.selectPain(code, userName, painDTO);
 
         model.addAttribute("pain", pain);
-        model.addAttribute("userName", userName);
+        model.addAttribute("name", userName);
         model.addAttribute("userCode", userCode);
 
         return "/user/pain/detail";
@@ -55,15 +55,16 @@ public class PainController {
     public String regist(HttpSession session,
                          @RequestParam("pos") String painPos,
                          @RequestParam("code") String userCode,
+                         @RequestParam("name") String name,
                          Model model) {
 
         int pos = Integer.parseInt(painPos);
-
         int code = Integer.parseInt(userCode);
 
         painService.registPainCodeAndPos(code, pos);
 
         model.addAttribute("pos", pos);
+        model.addAttribute("name", name);
 
         return "/user/pain/regist";
     }
@@ -74,20 +75,26 @@ public class PainController {
 
     @PostMapping("/registPain")
     public String registPain(HttpSession session,
-                             @RequestParam("pos") String painPos,
+                             @RequestParam("pos") String painPos, @RequestParam("name") String name,
+                             @RequestParam("str") String painStr,
                              Model model, PainDTO painDTO) {
 
         int pos = Integer.parseInt(painPos);
 
         int code = (int) session.getAttribute("userCode");
 
+        int str = Integer.parseInt(painStr);
+
+        painDTO.setStr(str);
         painDTO.setPos(pos);
         painDTO.setUserCode(code);
 
         painService.registPain(painDTO);
 
-        System.out.println(pos);
-        System.out.println(code);
+        PainDTO pain = painService.resultPain(code, painDTO);
+
+        model.addAttribute("pain", pain);
+        model.addAttribute("name", name);
 
         return "/user/pain/detail";
     }
@@ -104,19 +111,24 @@ public class PainController {
     public void update() {}
 
     @PostMapping("/update")
-    public String update(@RequestParam("updatePos") String painPos,
+    public String update(HttpSession session,
+                         @RequestParam("updatePos") String painPos,
                          @RequestParam("updateCode") String userCode,
+                         @RequestParam("updateName") String name,
                          Model model) {
 
         int pos = Integer.parseInt(painPos);
-
         int code = Integer.parseInt(userCode);
+
+        session.setAttribute("userCode", code);
 
         PainDTO pain = painService.updatePain(code);
 
-        model.addAttribute("pos", pos);
+        pain.setUserName(name);
 
+        model.addAttribute("pos", pos);
         model.addAttribute("pain", pain);
+        model.addAttribute("name", name);
 
         System.out.println(pos);
 
@@ -128,7 +140,7 @@ public class PainController {
 
     @PostMapping("/updatePain")
     public String updatePain(HttpSession session,
-                             @RequestParam("pos") String painPos,
+                             @RequestParam("pos") String painPos, @RequestParam("updateName") String name,
                              Model model, PainDTO painDTO) {
 
         int pos = Integer.parseInt(painPos);
@@ -139,6 +151,11 @@ public class PainController {
         painDTO.setUserCode(code);
 
         painService.update(painDTO);
+
+        PainUpdateDTO pain = painService.getPainByCode(code, painDTO);
+
+        model.addAttribute("pain", pain);
+        model.addAttribute("name", name);
 
         System.out.println(pos);
         System.out.println(code);

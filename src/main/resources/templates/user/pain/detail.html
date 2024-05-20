@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" th:href="@{/css/pain.css}">
     <link rel="stylesheet" th:href="@{/styles/mainStyle.css}">
     <link rel="stylesheet" th:href="@{/styles/headerStyle.css}">
@@ -27,7 +28,10 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic">통증 관리</p>
+                    <p class="topic" th:if="${pain != null}" th:text="${name} + ' 회원님'"></p>
+                    <p class="topic" th:if="${pain == null}">
+                        <span class="topic">통증 등록</span>
+                    </p>
                 </div>
                 <hr class="line1">
                 <div class="allBox">
@@ -63,20 +67,23 @@
                             <button class="painPosRegistBox">+</button>
                             <div class="modalContainer">
                                 <div class="modalContent">
+                                    <img src="/images/기본.png" id="main_img" usemap="#image-map" style="width: 300px; margin-top: 10px; margin-left: 38%;">
+                                    <map name="image-map">
+                                        <area onmouseover="on_mouse_num(1)" onmouseout="off_mouse()" onclick="areaClicked(1)" alt="오른다리" title="오른다리" coords="211,317,231,532,254,540,261,550,252,559,194,558,162,352"  shape="poly">
+                                        <area onmouseover="on_mouse_num(2)" onmouseout="off_mouse()" onclick="areaClicked(2)" alt="왼다리" title="왼다리" coords="100,322,81,530,57,541,51,552,61,560,117,555,150,351" shape="poly">
+                                        <area onmouseover="on_mouse_num(3)" onmouseout="off_mouse()" onclick="areaClicked(3)" alt="오른팔" title="오른팔" coords="190,144,225,157,265,320,256,333,238,327" shape="poly">
+                                        <area onmouseover="on_mouse_num(4)" onmouseout="off_mouse()" onclick="areaClicked(4)" alt="왼팔" title="왼팔" coords="124,144,86,155,47,319,58,332,73,330" shape="poly">
+                                        <area onmouseover="on_mouse_num(5)" onmouseout="off_mouse()" onclick="areaClicked(5)" alt="상체" title="상체" coords="140,131,133,141,106,233,101,312,156,343,210,306,206,232,177,130,156,136" shape="poly">
+                                        <area onmouseover="on_mouse_num(6)" onmouseout="off_mouse()" onclick="areaClicked(6)" alt="머리" title="머리" coords="156,126,140,121,127,109,118,95,115,78,118,62,126,49,136,40,148,34,161,33,174,37,183,45,190,55,193,66,194,82,192,96,188,108,176,118" shape="poly">
+                                    </map>
                                     <form id="registForm" action="/pain/regist" method="post">
-                                        <div class="textBox">
-                                            <input type="hidden" name="code" th:value="${userCode}">
-                                            <input type="hidden" name="pos" id="posInput">
-                                            <button class="checkButton" data-value="1">오른쪽-다리</button>
-                                            <button class="checkButton" data-value="2">왼쪽-다리</button>
-                                            <button class="checkButton" data-value="3">오른쪽-팔</button>
-                                            <button class="checkButton" data-value="4">왼쪽-팔</button>
-                                            <button class="checkButton" data-value="5">가슴</button>
-                                            <button class="checkButton" data-value="6">얼굴</button>
-                                        </div>
+                                        <input type="hidden" name="name" th:value="${name}">
+                                        <input type="hidden" name="code" th:value="${userCode}">
+                                        <input type="hidden" name="pos" id="posInput">
                                     </form>
                                 </div>
                             </div>
+                            <div id="overlay" class="overlay"></div>
                         </div>
                         <div class="painDetail">
                             <p class="painExplainText">통증 유형</p>
@@ -98,6 +105,7 @@
                                 <form id="updateForm" action="/pain/update" method="post">
                                     <input type="hidden" name="updatePos" th:value="${pain?.pos}">
                                     <input type="hidden" name="updateCode" th:value="${userCode}">
+                                    <input type="hidden" name="updateName" th:value="${name}">
                                     <span><input type="submit" value="수정" class="registButton"></span>
                                 </form>
                                 <div class="painStrBox">
@@ -152,6 +160,21 @@
             $("#myForm").submit();
         });
     });
+</script>
+
+<script>
+    function areaClicked(pos) {
+        document.getElementById('posInput').value = pos;
+        document.getElementById('registForm').submit();
+
+    }
+    function on_mouse_num(num) {
+        document.querySelector('#main_img').src=`/images/사진${num}.png`;
+    }
+    function off_mouse() {
+        document.querySelector('#main_img').src="/images/기본.png";
+    }
+
 </script>
 
 <script>
