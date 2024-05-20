@@ -52,7 +52,7 @@
                     </div>
                     <hr class="hr2">
                     <div class="passUpdate">
-                        <div class="passList" th:each="pass:${passAllList}">
+                        <div class="passList" th:each="pass:${passSearchList}">
                             <p class="userName" th:text="${pass.userDTO.userName}"></p>
                             <p class="userId" th:text="${pass.userDTO.userId}"></p>
                             <p class="userGender" th:text="${pass.userDTO.userGender}"></p>
@@ -63,9 +63,9 @@
                             <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
                             </p>
                             <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
-                                <form id=detailForm action="/pass/detail" method="post" style="display: flex">
+                                <form id=detailForm action="/pass/selectDetail" method="post" style="display: flex">
                                     <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                    <input class="detailButton" type="submit" value="상세" onclick="location.href='/pass/detail'">
+                                    <input class="detailButton" type="submit" value="상세">
                                 </form>
                             </div>
                         </div>

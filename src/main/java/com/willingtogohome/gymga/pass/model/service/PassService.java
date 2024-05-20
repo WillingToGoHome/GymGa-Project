@@ -67,4 +67,9 @@ public class PassService {
     public PassAndPassQualDTO getInfoDetailByCode(int code) {
         return passMapper.getInfoDetailByCode(code);
     }
+
+    public List<PassCountDTO> getCountByCode(int code) {
+
+        return passMapper.getCountByCode(code);
+    }
 }

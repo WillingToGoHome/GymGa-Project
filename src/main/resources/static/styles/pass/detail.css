@@ -5,8 +5,7 @@
     height: 637px;
     border-radius: 10px;
     margin-right: 22px;
-    /* background-color: #FFFFFF; */
-    background-color: pink;
+     background-color: #FFFFFF;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     color: #000000;
 }
@@ -47,7 +46,6 @@
 }
 
 .contents-left .profile-box {
-    background-color: aqua;
     width: 100%;
     height: 255px;
     display: flex;
@@ -57,10 +55,10 @@
 .contents-left .profile-pic {
     width: 242px;
     height: 255px;
-    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: pink;
 }
 
 .contents-left .profile-info {
@@ -68,7 +66,6 @@
 }
 
 .contents-left  .left-info {
-    background-color: blueviolet;
     width: 78px;
     height: 100%;
     font-weight: bold;
@@ -81,7 +78,6 @@
 }
 
 .contents-left .left-info-text {
-    background-color: chartreuse;
     width: 184px;
     height: 100%;
     display: flex;
@@ -95,7 +91,6 @@
 }
 
 .contents-left .right-info {
-    background-color: tomato;
     width: 56px;
     height: 100%;
     font-weight: bold;
@@ -108,7 +103,6 @@
 }
 
 .contents-left .right-info-text {
-    background-color: yellow;
     width: 207px;
     height: 100%;
     box-sizing: border-box;
@@ -122,7 +116,6 @@
 }
 
 .contents-left .recent-regist {
-    background-color: wheat;
     width: 100%;
     height: 315px;
     font-size: 12px;
@@ -131,7 +124,6 @@
 .contents-left .recent-header {
     width: 100%;
     height: 53px;
-    background-color: aqua;
     font-weight: bold;
     box-sizing: border-box;
     padding-left: 65px;
@@ -145,7 +137,6 @@
 .contents-left .recent-content {
     width: 100%;
     height: 262px;
-    background-color: goldenrod;
 }
 
 .contents-left .recent-content-header {
@@ -168,7 +159,6 @@
 }
 
 .contents-left .recent-content-info {
-    background-color: red;
     width: 100%;
     height: 255px;
     font-weight: bold;
@@ -201,22 +191,20 @@
 .contents-right {
     width: 360px;
     height: 637px;
-    background-color: blue;
     border-radius: 10px;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     font-size: 12px;
     color: #000000;
+    background-color: #ffffff;
 }
 
 .contents-right .summary {
-    background-color: aliceblue;
     width: 100%;
     height: 293px;
     display: flex;
 }
 
 .contents-right .summary .title {
-    background-color: pink;
     width: 180px;
     height: 100%;
     box-sizing: border-box;
@@ -233,7 +221,6 @@
 .contents-right .summary .info {
     width: 180px;
     height: 100%;
-    background-color: brown;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -249,14 +236,12 @@
 .contents-right .full-reg {
     width: 100%;
     height: 278px;
-    background-color: teal;
     font-size: 12px;
 }
 
 .contents-right .full-reg .header {
     width: 100%;
     height: 53px;
-    background-color: red;
     box-sizing: border-box;
     padding-left: 68px;
 }
@@ -268,14 +253,12 @@
 .contents-right .full-reg-content {
     width: 100%;
     height: 225px;
-    background-color: violet;
     display: flex;
 }
 
 .contents-right .full-reg-content .title {
     width: 180px;
     height: 100%;
-    background-color: gray;
     box-sizing: border-box;
     padding-left: 105px;
     line-height: 30px;
@@ -284,6 +267,5 @@
 .contents-right .full-reg-content .info {
     width: 180px;
     height: 100%;
-    background-color: pink;
     line-height: 30px;
 }

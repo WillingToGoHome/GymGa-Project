@@ -138,32 +138,11 @@ public class PassController {
 
 
 
-    // 이용권 조회 - 김만호
+    /* 이용권 조회 - 김만호 */
+    /* 등록 이용권 조회 메인페이지 생성*/
     @GetMapping("/passlist")
     public void allPassListPage(){}
-
-    @GetMapping("/listsearch")
-    public void searchListPage(){}
-
-    @PostMapping("/listsearch")
-    public String allPassList(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
-        SearchCriteria criteria = new SearchCriteria();
-        criteria.setText(search);
-        criteria.setCondition(category);
-
-        List<PassAndPassQualDTO> passAllList = passService.searchPass(criteria);
-
-        for (PassAndPassQualDTO pass : passAllList) {
-            System.out.println("pass = " + pass);
-        }
-
-        session.setAttribute("passAllList", passAllList);
-        model.addAttribute("passAllList", passAllList);
-
-        return "/pass/listsearch";
-
-    }
-
+    /* 등록 이용권 조회 모델에 담기*/
     @GetMapping("/selectAllPass")
     public String allPassList(Model model){
 
@@ -177,31 +156,54 @@ public class PassController {
 
         return "/pass/passlist";
     }
+    /* 검색 결과 페이지 */
+    @GetMapping("/listsearch")
+    public void searchListPage(){}
 
+    /* 검색 결과 페이지 검색 조건*/
+    @PostMapping("/listsearch")
+    public String allPassList(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
 
-    @GetMapping("/detail")
-    public String passDetailForm() {
-        return "/pass/detailForm";
+        List<PassAndPassQualDTO> passSearchList = passService.searchPass(criteria);
+
+        for (PassAndPassQualDTO passSearch : passSearchList) {
+            System.out.println("pass = " + passSearch);
+        }
+
+        session.setAttribute("passSearchList", passSearchList);
+        model.addAttribute("passSearchList", passSearchList);
+
+        return "/pass/listsearch";
+
     }
 
-    @PostMapping("/detail")
-    public String selectDetail(HttpSession session,
-                               @RequestParam("code") String userCode, Model model,
-                               PassAndPassQualDTO passAndPassQualDTO) {
+    /* 이용권 상세 페이지 */
+
+    @GetMapping("/selectDetail")
+    public void passDetailPage(){
+    }
+
+    @PostMapping("/selectDetail")
+    public String selectDetail(@RequestParam("code") String userCode, Model model) {
 
         int code = Integer.parseInt(userCode);
 
-        session.setAttribute("userCode", code);
-
-        passAndPassQualDTO.setUserCode(code);
-
         PassAndPassQualDTO user = passService.getInfoDetailByCode(code);
-
         model.addAttribute("user", user);
-
         System.out.println("user = " + user);
 
-        return "/pass/detail";
+        /* PT, GX 카운터 */
+        List<PassCountDTO> userPassCount = passService.getCountByCode(code);
+        model.addAttribute("userPassCount", userPassCount);
+        System.out.println("userPassCount = " + userPassCount);
+
+        return "/pass/selectDetail";
     }
+
+
+
 
 }

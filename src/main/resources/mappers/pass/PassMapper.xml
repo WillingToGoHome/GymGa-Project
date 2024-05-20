@@ -63,6 +63,56 @@
         </association>
     </resultMap>
 
+    <resultMap id="passCountResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassCountDTO">
+        <id property="passCode" column="pass_code"/>
+        <result property="pqCode" column="pq_code"/>
+        <result property="passStatus" column="pass_status"/>
+        <result property="passStart" column="pass_start"/>
+        <result property="passEnd" column="pass_end"/>
+        <result property="passTotal" column="pass_total"/>
+        <result property="passUse" column="pass_use"/>
+        <result property="userCode" column="user_code"/>
+        <result property="ptCount" column="pt_count"/>
+        <result property="gxCount" column="gx_count"/>
+        <result property="gpCount" column="gp_count"/>
+        <association property="passQualDTO" javaType="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
+            <id property="pqCode" column="pq_code"/>
+            <result property="pqName" column="pq_name"/>
+            <result property="pqPrice" column="pq_price"/>
+        </association>
+        <association property="userDTO" javaType="com.willingtogohome.gymga.user.model.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="userPwd" column="user_pwd"/>
+            <result property="userName" column="user_name"/>
+            <result property="userPhone" column="user_phone"/>
+            <result property="userRole" column="user_role"/>
+            <result property="userPic" column="user_pic"/>
+            <result property="userGender" column="user_gender"/>
+            <result property="userBirth" column="user_birth"/>
+            <result property="userAddress" column="user_address"/>
+            <result property="userEtc" column="user_etc"/>
+            <result property="userStaff" column="user_staff"/>
+            <result property="staffName" column="staff_name"/>
+        </association>
+        <association property="validateDTO" javaType="com.willingtogohome.gymga.sale.model.dto.ValidateDTO">
+            <id property="valStatus" column="val_status"/>
+            <result property="passCode" column="pass_code"/>
+            <result property="userCode" column="user_code"/>
+        </association>
+        <association property="saleDTO" javaType="com.willingtogohome.gymga.sale.model.dto.SaleDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="salesMethod" column="sales_method"/>
+            <result property="salesDate" column="sales_date"/>
+        </association>
+        <association property="empDTO" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
+            <id property="empCode" column="emp_code"/>
+            <result property="empName" column="emp_name"/>
+        </association>
+    </resultMap>
+
+
+
     <resultMap id="passQualMap" type="com.willingtogohome.gymga.pass.model.dto.PassQualDTO">
         <id property="pqCode" column="pq_code"/>
         <result property="pqName" column="pq_name"/>
@@ -327,6 +377,23 @@
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.USER_CODE = #{userCode}
+        LIMIT 1
+    </select>
+
+    <select id="getCountByCode" resultMap="passCountResultMap" parameterType="int">
+        SELECT
+        A.USER_CODE,
+        COUNT(CASE WHEN C.PQ_CODE LIKE 'PT-%' THEN 1 END) AS PT_Count,
+        COUNT(CASE WHEN C.PQ_CODE LIKE 'GX-%' THEN 1 END) AS GX_Count,
+        COUNT(CASE WHEN C.PQ_CODE LIKE 'GP-%' THEN 1 END) AS GP_Count
+        FROM USERDB AS A
+        LEFT JOIN validatedb E ON E.user_code = A.user_code
+        LEFT JOIN passdb C ON C.pass_code = E.pass_code
+        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        LEFT JOIN userdb F ON A.user_staff = F.user_code
+        WHERE A.USER_CODE = #{userCode}
+        GROUP BY A.USER_CODE;
     </select>
 
 </mapper>
