@@ -150,9 +150,6 @@ public class UserController {
     }
 
     @GetMapping("/selectDetail")
-    public void selectDetail() {}
-
-    @PostMapping("/selectDetail")
     public String selectDetail(HttpSession session,
                                @RequestParam("code") String userCode, Model model,
                                UserDTO userDTO, PhysicalDTO physicalDTO) {
@@ -172,9 +169,6 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public void updateUser() {}
-
-    @PostMapping("/update")
     public String updateUser(HttpSession session,
                              @RequestParam("code") String userCode, Model model,
                              UserDTO userDTO, PhysicalDTO physicalDTO) {
@@ -192,9 +186,6 @@ public class UserController {
 
         return "/user/update";
     }
-
-    @GetMapping("/updateUser")
-    public void update() {}
 
     @PostMapping("/updateUser")
     public String update(HttpSession session,

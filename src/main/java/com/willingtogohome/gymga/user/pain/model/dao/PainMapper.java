@@ -9,7 +9,7 @@ public interface PainMapper {
 
     PainDTO selectPain(int code);
 
-    void registPain(PainDTO painDTO, int code, int pos);
+    void registPain(PainDTO painDTO);
 
     void registPainCodeAndPos(int code, int pos);
 
@@ -17,7 +17,7 @@ public interface PainMapper {
 
     PainDTO updatePain(int code, PainDTO painDTO);
 
-    void update(int code, int pos);
+    void update(PainDTO painDTO);
 
     PainUpdateDTO getPainByCode(int code, PainDTO painDTO);
 

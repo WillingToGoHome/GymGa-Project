@@ -27,14 +27,14 @@
 
     <select id="selectPain" resultMap="painResultMap">
         SELECT
-            A.USER_CODE
-            , B.USER_NAME
-            , A.PAIN_POS
-            , A.PAIN_TYPE
-            , A.PAIN_DUR
-            , A.PAIN_CAUSE
-            , A.PAIN_STR
-            , A.PAIN_ETC
+            A.USER_CODE as user_code
+            , B.USER_NAME as user_name
+            , A.PAIN_POS as pain_pos
+            , A.PAIN_TYPE as pain_type
+            , A.PAIN_DUR as pain_dur
+            , A.PAIN_CAUSE as pain_cause
+            , A.PAIN_STR as pain_str
+            , A.PAIN_ETC as pain_etc
         FROM
            PAINDB A
         JOIN
@@ -69,7 +69,7 @@
         )
     </insert>
 
-    <update id="registPain" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainUpdateDTO">
+    <update id="registPain" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
         UPDATE PAINDB
         <set>
             <if test="type != null and type != ''">
@@ -115,7 +115,7 @@
             USER_CODE = #{code};
     </select>
 
-    <update id="update" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainUpdateDTO">
+    <update id="update" parameterType="com.willingtogohome.gymga.user.pain.model.dto.PainDTO">
         UPDATE PAINDB
         <set>
             <if test="type != null and type != ''">
@@ -134,7 +134,7 @@
                 , PAIN_ETC = #{ etc }
             </if>
         </set>
-        WHERE USER_CODE = #{ code }
+        WHERE USER_CODE = #{ userCode }
         AND PAIN_POS = #{ pos }
     </update>
 
