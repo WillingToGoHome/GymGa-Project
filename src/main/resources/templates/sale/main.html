@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr th:each="empAndUser:${employeeAndUserDTO}">
                                     <td>
-                                        <img th:src="|/uploadFiles/${empAndUser.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;padding-left: 10px"/>
+                                        <img th:src="|/imageFile/${empAndUser.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;padding-left: 10px"/>
                                     </td>
                                     <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
                                     <td class="price" th:text="${empAndUser.total1}"></td>
@@ -62,7 +62,7 @@
                                 </tr>
                                 <tr th:each="sale, iterStat : ${PAPQList}" th:if="${iterStat.index lt 4}"  >
                                     <td >
-                                        <img th:src="|/uploadFiles/${sale.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
+                                        <img th:src="|/imageFile/${sale.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/>
                                     </td>
                                     <td class="time" th:text="${sale.userDTO.userName}" ></td>
                                     <td class="td" th:text="${sale.passQualDTO.pqName}"></td>

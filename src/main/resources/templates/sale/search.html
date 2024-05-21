@@ -58,7 +58,7 @@
                         <hr class="hr2">
                         <div class="zxc">
                             <div id="userListcss" class="userList" th:each="user:${userList}">
-                                <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|"
+                                <p class="img"><img th:src="|/imageFile/${user.userDTO.userPic}|"
                                                     style="max-width: 30px; max-height: 30px;"/></p>
                                 <p class="userName" th:text="${user.userDTO.userName}"></p>
                                 <p class="userId" th:text="${user.userDTO.userId}"></p>

@@ -34,7 +34,7 @@
                             <div class="zxc2" th:each="selectOneUserId:${selectOneUser}">
 
                                 <p class="img2"><img class="img2"
-                                                     th:src="|/uploadFiles/${selectOneUserId.userDTO.userPic}|"/></p>
+                                                     th:src="|/imageFile/${selectOneUserId.userDTO.userPic}|"/></p>
                                 <p class="userId2" th:text="'아이디 : '+${selectOneUserId.userDTO.userId}"></p>
                                 <p class="userName2" th:text="'이름 : '+${selectOneUserId.userDTO.userName}"></p>
                                 <p class="userId2" th:text="'판매 번호 : '+${selectOneUserId.passQualDTO.pqCode}"></p>
@@ -69,7 +69,7 @@
                         <div class="zxc">
                             <div class="top2" th:each="user:${userList}">
                                 <a class="userList" th:href="@{|/sale/detail/${user.userDTO.userId}|}">
-                                    <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|"
+                                    <p class="img"><img th:src="|/imageFile/${user.userDTO.userPic}|"
                                                         style="max-width: 30px; max-height: 30px;"/></p>
                                     <p class="userId" th:text="${user.userDTO.userName}"></p>
                                     <p class="userName" th:text="${user.userDTO.userEtc}"></p>

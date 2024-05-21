@@ -1,7 +1,11 @@
-<div class="navbar-container">
+<div class="navbar-container" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="category-container">
-        <div class="category-icon">
+        <div class="category-icon" sec:authorize="hasAnyAuthority('ADMIN')">
             <img src="/images/매출조회.png" onclick="location.href='/sale/main'">
+            <p>매출 조회</p>
+        </div>
+        <div class="category-icon" sec:authorize="hasAnyAuthority('USER')">
+            <img src="/images/매출조회.png">
             <p>매출 조회</p>
         </div>
         <div class="category-icon" onclick="location.href='/user/selectAll'">
