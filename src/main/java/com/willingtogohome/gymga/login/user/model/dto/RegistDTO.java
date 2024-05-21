@@ -36,6 +36,7 @@ public class RegistDTO {
 
     public void setUserCode(int userCode) {
         this.userCode = userCode;
+
     }
 
     public String getUserId() {
@@ -68,6 +69,14 @@ public class RegistDTO {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
     }
 
     public String getUserBirth() {

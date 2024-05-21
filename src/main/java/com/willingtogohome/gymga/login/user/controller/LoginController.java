@@ -26,8 +26,8 @@ public class LoginController {
     }
 
     @GetMapping("/login/admin/regist")
-    public String regist(){
-        return "/login/admin/regist";
+    public void regist(){
+
     }
 
     @PostMapping("/login/admin/regist")
@@ -57,6 +57,8 @@ public class LoginController {
         }
         mv.addObject("message", message);
         mv.setViewName("/login");
+        System.out.println(message);
+        System.out.println(mv);
         return mv;
     }
 

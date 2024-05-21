@@ -15,16 +15,18 @@ public class LoginDTO {
     private String userName;
     private String userPhone;
     private UserRole userRole;
+    private String userPic;
 
     public LoginDTO(){}
 
-    public LoginDTO(int userCode, String userId, String userPwd, String userName, String userPhone, UserRole userRole) {
+    public LoginDTO(int userCode, String userId, String userPwd, String userName, String userPhone,  UserRole userRole,String userPic) {
         this.userCode = userCode;
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;
         this.userPhone = userPhone;
         this.userRole = userRole;
+        this.userPic = userPic;
     }
 
     public List<String> getRole(){
@@ -75,6 +77,14 @@ public class LoginDTO {
         this.userPhone = userPhone;
     }
 
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }
@@ -92,6 +102,7 @@ public class LoginDTO {
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
                 ", userRole=" + userRole +
+                ", userPic='" + userPic + '\'' +
                 '}';
     }
 }

@@ -28,7 +28,7 @@
                 <div class="contents">
                     <div class="on">
                         <img src="/img/Back.png" onClick="location.href='/pass/main'" class="back">
-                        <p class="text">이용권 변경 및 환불</p>
+                        <p class="text">이용권 환불</p>
                         <form action="/pass/updatesearch" method="post" class="top">
                             <input type="text" class="search" name="search" placeholder="검색 내용">
                             <select name="category" class="option">
@@ -47,7 +47,7 @@
                         <p class="titleText">이용권 상태</p>
                         <p class="titleText">결제 금액</p>
                         <p class="titleText">담당 강사</p>
-                        <p class="titleText" style="padding-right: 29px">변경/환불</p>
+                        <p class="titleText" style="padding-right: 29px">환불</p>
                     </div>
                     <hr class="hr2">
                     <div class="passUpdate">
@@ -61,6 +61,10 @@
                             <p class="userStaff" th:if="${pass.userDTO.userStaff}">
                                 <span th:text="${pass.userDTO.staffName}"></span>
                             </p>
+                            <div class="buttonBox">
+                                <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                <button class="refundButton">환불</button>
+                            </div>
                             <div class="modalContainer2">
                                 <div class="modalContent2">
                                     <div class="textBox" th:object="${pass}">

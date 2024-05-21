@@ -217,7 +217,7 @@ body {
 .modalContent {
     background-color: #FFFFFF;
     width: 50%;
-    height: 600px;
+    height: 650px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -359,7 +359,7 @@ div[id*="textBox"] {
     height: 40px;
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-left: 200px;
 }
 
@@ -408,7 +408,7 @@ button:focus {
 .modalContent2 {
     background-color: #FFFFFF;
     width: 50%;
-    height: 600px;
+    height: 650px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -591,7 +591,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
 .modalContent3 {
     background-color: #FFFFFF;
     width: 50%;
-    height: 600px;
+    height: 300px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -628,6 +628,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
 
 .des8 {
     text-align: center;
+    padding-top: 10px;
 }
 
 .modalHeader3 {
@@ -646,6 +647,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
     border: 1px solid #FFFFFF;
     background-color: #4B82D8;
     cursor: pointer;
-    margin-left:44%;
+    margin-left:296px;
     margin-top: 2%;
+    text-align: center;
 }
