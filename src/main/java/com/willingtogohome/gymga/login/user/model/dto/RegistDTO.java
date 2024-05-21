@@ -2,6 +2,7 @@ package com.willingtogohome.gymga.login.user.model.dto;
 
 public class RegistDTO {
 
+    private int userCode;
     private String userId;
     private String userPwd;
     private String userName;
@@ -11,10 +12,12 @@ public class RegistDTO {
     private String userEtc;
     private String role;
     private String userPic;
+    private String userGender;
 
     public RegistDTO(){}
 
-    public RegistDTO(String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String role, String userPic) {
+    public RegistDTO(int userCode, String userId, String userPwd, String userName, String userPhone, String userBirth, String userAddress, String userEtc, String role, String userPic, String userGender) {
+        this.userCode = userCode;
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;
@@ -24,6 +27,16 @@ public class RegistDTO {
         this.userEtc = userEtc;
         this.role = role;
         this.userPic = userPic;
+        this.userGender = userGender;
+    }
+
+    public int getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(int userCode) {
+        this.userCode = userCode;
+
     }
 
     public String getUserId() {
@@ -98,10 +111,27 @@ public class RegistDTO {
         this.role = role;
     }
 
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
     @Override
     public String toString() {
         return "RegistDTO{" +
-                "userId='" + userId + '\'' +
+                "userCode=" + userCode +
+                ", userId='" + userId + '\'' +
                 ", userPwd='" + userPwd + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
@@ -110,7 +140,7 @@ public class RegistDTO {
                 ", userEtc='" + userEtc + '\'' +
                 ", role='" + role + '\'' +
                 ", userPic='" + userPic + '\'' +
+                ", userGender='" + userGender + '\'' +
                 '}';
     }
-
 }

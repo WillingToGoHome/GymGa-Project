@@ -144,7 +144,7 @@ body{
     margin: 0 auto;
     margin-block-start: auto;
     margin-block-end: auto;
-    border: 1px solid black;
+    border: 1px solid #D9D9D9;
 }
 
 .option {
@@ -208,7 +208,7 @@ body{
     margin-block-start: auto;
     margin-block-end: auto;
     margin-top: 10px;
-    border: 1px solid black;
+    border: 1px solid #D9D9D9;
 }
 
 .userList {
@@ -460,9 +460,54 @@ body{
     color: black;
     justify-content: space-around
 }
+.zxc3 {
+    overflow-y: scroll;
+    height: 575px;
+    /*width: 725px;*/
+}
+
+.zxc3 span {
+    font-size: 14px;
+}
+
+.zxc3::-webkit-scrollbar {
+    width: 10px;
+}
+
+.zxc3::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.zxc3::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}
+
+.zxc span {
+    font-size: 14px;
+}
+
+.zxc::-webkit-scrollbar {
+    width: 10px;
+}
+
+.zxc::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: rgba(75, 130, 216, 1);
+    border-radius: 10px;
+}
+
+.zxc::-webkit-scrollbar-track {
+    background: rgba(205, 205, 205, 0.25);
+    border-radius: 10px;
+}
+
 .backGround2 {
     background-color: white;
     width: 840px;
+    max-height: 660px;
     border-radius: 10px;
     /*margin: 0 auto;*/
     margin-right: 20px;

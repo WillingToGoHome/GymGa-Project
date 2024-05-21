@@ -65,7 +65,7 @@ public interface SaleMapper {
 
     List<PassAndPassQualDTO> searchedUserTest(SearchCriteria criteria);
 
-    PassAndPassQualDTO findByUserId(String userId);
+    List<PassAndPassQualDTO> findByUserId(String userId);
 
     List<PassAndPassQualDTO> searchByUserId(String userId);
 

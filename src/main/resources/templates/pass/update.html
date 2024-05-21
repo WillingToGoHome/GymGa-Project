@@ -51,14 +51,7 @@
                     </div>
                     <hr class="hr2">
                     <div class="passUpdate">
-                        <div class="userList" th:each="pass:${passList}"
-                            th:data-user-code="${pass.userDTO.userCode}"
-                            th:data-user-name="${pass.userDTO.userName}"
-                            th:data-user-id="${pass.userDTO.userId}"
-                            th:data-pq-name="${pass.passQualDTO.pqName}"
-                            th:data-pass-status="${pass.passStatus}"
-                            th:data-pq-code="${pass.passQualDTO.pqCode}"
-                            th:data-pq-price="${pass.passQualDTO.pqPrice}">
+                        <div class="userList" th:each="pass:${passList}">
                             <p class="userName" th:text="${pass.userDTO.userName}"></p>
                             <p class="userId" th:text="${pass.userDTO.userId}"></p>
                             <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>

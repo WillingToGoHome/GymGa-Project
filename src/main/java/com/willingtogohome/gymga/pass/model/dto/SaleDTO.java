@@ -15,4 +15,5 @@ public class SaleDTO {
     private int memberCode;
     private String salesMethod;
     private Time salesDate;
+    private int passNo;
 }

@@ -1,11 +1,14 @@
 package com.willingtogohome.gymga.login.user.model.service;
 
+import com.willingtogohome.gymga.emp.model.dto.EmployeeDTO;
+import com.willingtogohome.gymga.emp.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.login.user.model.dao.LoginMapper;
 import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
 import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,13 +22,16 @@ public class LoginService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public int regist(RegistDTO registDTO) {
+    @Transactional
+    public int regist(RegistDTO registDTO, PhysicalDTO physicalDTO, EmployeeDTO employeeDTO) {
         registDTO.setUserPwd(passwordEncoder.encode(registDTO.getUserPwd()));
 
         int result = 0;
 
         try {
-            result = loginMapper.regist(registDTO);
+            result += loginMapper.regist(registDTO);
+            result += loginMapper.registPhysicalDTO(physicalDTO);
+            result += loginMapper.registEmployeeDTO(employeeDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
