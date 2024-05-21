@@ -45,6 +45,9 @@
 /*    text-decoration: none;*/
 /*    display: block;*/
 /*}*/
+
+
+
  .btn-custom {
      background-color: white;
      color: black;
@@ -78,13 +81,19 @@
  .modal-body input {
      width: 120px;
      height: 25px;
-     border: 1px solid #4B82D8;
+     border: 1px solid white;
      stroke: #4B82D8;
  }
+
+ /*#facStart,*/
+ /*#facEnd {*/
+ /*    border: 1px solid black;*/
+ /*    stroke: #4B82D8;*/
+ /*}*/
  .modal-body select {
      width: 120px;
      height: 25px;
-     border: 1px solid #4B82D8;
+     border: 1px solid white;
      stroke: #4B82D8;
  }
 .modal-dialog {
@@ -176,3 +185,18 @@
 label{
     color: black;
 }
+
+ body {
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: #e2e1dc;
+ }
+
+ * {
+     margin:0;
+     padding:0;
+     box-sizing: border-box;
+     font-family: 'Noto Sans KR', sans-serif;
+ }
