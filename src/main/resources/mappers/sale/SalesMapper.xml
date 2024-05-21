@@ -351,7 +351,7 @@
         left join userdb F on F.user_code = D.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         where F.user_id = #{userId}
-        order by F.user_code
+        order by C.pass_start desc;
     </select>
 
     <select id="searchByUserId" resultMap="passResultMap">
