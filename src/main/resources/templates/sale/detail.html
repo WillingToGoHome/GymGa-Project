@@ -70,8 +70,8 @@
                         <div class="zxc">
                             <div class="top2" th:each="user:${detailList}">
                                 <a class="userList" th:href="@{|/sale/detail/${user.userDTO.userId}|}">
-                                    <p class="img"><img th:src="|/imageFile/${user.userDTO.userPic}|"
-                                                        style="max-width: 30px; max-height: 30px;"/></p>
+                                    <p><img th:src="|/imageFile/${user.userDTO.userPic}|"
+                                                        style="width: 30px; height: 30px;"/></p>
                                     <p class="userId" th:text="${user.userDTO.userName}"></p>
                                     <p class="userName" th:text="${user.userDTO.userEtc}"></p>
                                 </a>

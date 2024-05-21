@@ -429,6 +429,9 @@ body{
     display: flex;
     justify-content: center;
 }
+img{
+    border-radius: 100%;
+}
 
 .registButton {
     width: 200px;

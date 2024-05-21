@@ -44,11 +44,11 @@ public class SaleController {
     public String saleMain(Model model){
 
         List<PassAndPassQualDTO> PAPQList = saleService.findPassAndPassQualList();
+        model.addAttribute("PAPQList",PAPQList);
 
         for (PassAndPassQualDTO papq : PAPQList){
 //            System.out.println("papq = " + papq);
         }
-        model.addAttribute("PAPQList",PAPQList);
 
 //        List<PassData> passData = saleService.sumPassData();
 ////        System.out.println("passData = " + passData);
@@ -196,6 +196,7 @@ public class SaleController {
     public String detail(Model model){
         List<PassAndPassQualDTO> detailList = saleService.findAllList();
         model.addAttribute("detailList", detailList);
+
 
         return "sale/detail";
     }

@@ -276,7 +276,7 @@
         E.USER_CODE as emp_code,
         F.USER_NAME,
         F.USER_ID,
-        E.user_pic,
+        F.user_pic,
         B.pq_code,
         B.pq_name,
         C.pass_start,
@@ -298,7 +298,7 @@
                 AND F.USER_NAME Like CONCAT('%', #{ text }, '%')
             </if>
         </where>
-        order by C.pass_start desc , D.sales_date desc;
+        order by F.user_code
     </select>
 
     <select id="getUserDetails" resultMap="passResultMap">
@@ -333,7 +333,7 @@
         E.USER_CODE as emp_code,
         F.USER_NAME,
         F.USER_ID,
-        E.user_pic,
+        F.user_pic,
         B.pq_code,
         B.pq_name,
         C.pass_start,
@@ -351,7 +351,7 @@
         left join userdb F on F.user_code = D.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         where F.user_id = #{userId}
-        order by C.pass_start desc , D.sales_date desc;
+        order by F.user_code
     </select>
 
     <select id="searchByUserId" resultMap="passResultMap">
