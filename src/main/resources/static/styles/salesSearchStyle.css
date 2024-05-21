@@ -456,3 +456,6 @@ body{
     background: rgba(205, 205, 205, 0.25);
     border-radius: 10px;
 }
+img{
+    border-radius: 100%;
+}

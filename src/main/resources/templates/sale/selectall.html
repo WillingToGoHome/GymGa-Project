@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>selectall</title>
     <link rel="stylesheet" href="../styles/mainStyle.css">
     <link rel="stylesheet" href="../styles/headerStyle.css">
     <link rel="stylesheet" href="../styles/navbarStyle.css">
@@ -55,7 +55,7 @@
                         <hr class="hr2">
                         <div class="zxc">
                             <div id="userListcss" class="userList" th:each="user:${userList}" >
-                                <p class="img"><img th:src="|/uploadFiles/${user.userDTO.userPic}|" style="max-width: 30px; max-height: 30px;"/></p>
+                                <p class="img"><img th:src="|/imageFile/${user.userDTO.userPic}|" style="width: 30px; height: 30px;"/></p>
                                 <p class="userName" th:text="${user.userDTO.userName}"></p>
                                 <p class="userId" th:text="${user.userDTO.userId}"></p>
                                 <p class="price2" th:text="${user.passQualDTO.pqName}"></p>
