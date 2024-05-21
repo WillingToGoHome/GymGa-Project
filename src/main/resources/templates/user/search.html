@@ -46,7 +46,7 @@
                     <p class="titleText">성별</p>
                     <p class="titleText">전화번호</p>
                     <p class="titleText">담당강사</p>
-                    <p class="titleText">관리</p>
+                    <p class="titleText" style="padding-right: 29px">관리</p>
                 </div>
                 <hr class="hr2">
                 <div class="zxc">
@@ -61,7 +61,7 @@
                             <span th:text="${user.staffName}"></span>
                         </p>
                         <div class="buttonBox">
-                            <form id="detailForm" action="/user/selectDetail" method="post" style="display: flex" onsubmit="submitForm(); return false;">
+                            <form id="detailForm" action="/user/selectDetail" method="get" style="display: flex">
                                 <input type="hidden" name="code" th:value="${user.userCode}">
                                 <input class="detailButton" type="submit" value="상세">
                             </form>
