@@ -37,6 +37,7 @@
         ,   USER_ADDRESS
         ,   USER_ETC
         ,   USER_ROLE
+        ,   USER_PIC
         )
         VALUES
         (
@@ -48,6 +49,45 @@
         ,   #{ userAddress }
         ,   #{ userEtc }
         ,   #{ role }
+        ,   #{ userPic }
+        )
+    </insert>
+
+    <insert id="registPhysicalDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.PhysicalDTO">
+        INSERT INTO PHYSICALDB(
+        USER_CODE
+        , PHY_HEIGHT
+        , PHY_WEIGHT
+        , PHY_BMI
+        )
+        VALUES(
+        #{ code }
+        , #{ height }
+        , #{ weight }
+        , #{ bmi }
+        )
+    </insert>
+
+    <insert id="registEmployeeDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.EmployeeDTO">
+        INSERT INTO EMPLOYEEDB(
+        USER_CODE
+        , EMP_LOCATION
+        , EMP_QUAL
+        , EMP_SALARY
+        , EMP_YEAR
+        , EMP_TOT_YEAR
+        , EMP_MONTH
+        , EMP_TOT_MONTH
+        )
+        VALUES(
+        #{ code }
+        , #{ location }
+        , #{ qual }
+        , #{ salary }
+        , #{ year }
+        , #{ totalYear }
+        , #{ month }
+        , #{ totalMonth }
         )
     </insert>
 
