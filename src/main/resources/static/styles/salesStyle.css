@@ -179,7 +179,9 @@ img{
     height: 50px;
     font-size: 14px;
 }
-
+.icon2{
+    border-radius: 0;
+}
 
 
 
