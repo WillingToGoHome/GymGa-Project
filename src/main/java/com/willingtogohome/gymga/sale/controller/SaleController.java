@@ -228,8 +228,8 @@ public class SaleController {
         model.addAttribute("userList", userList);
         System.out.println("userList = " + userList);
 
-        PassAndPassQualDTO passAndPassQualDTO = saleService.findByUserId(userId);
-        model.addAttribute("selectOneUserId", passAndPassQualDTO);
+        List<PassAndPassQualDTO> passAndPassQualDTO = saleService.findByUserId(userId);
+        model.addAttribute("selectOneUser", passAndPassQualDTO);
 
 
 

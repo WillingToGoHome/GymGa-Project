@@ -9,6 +9,7 @@
         <id property="userCode" column="user_code"/>
         <result property="salesMethod" column="sales_method"/>
         <result property="salesDate" column="sales_date"/>
+        <result property="passNo" column="pass_no"/>
     </resultMap>
 
     <resultMap id="passMonthResultMap" type="com.willingtogohome.gymga.pass.model.dto.PassMonthDTO">
@@ -54,6 +55,7 @@
         <id property="userCode" column="user_code"/>
         <result property="salesMethod" column="sales_method"/>
         <result property="salesDate" column="sales_date"/>
+        <result property="passNo" column="pass_no"/>
     </association>
         <association property="empDTO" javaType="com.willingtogohome.gymga.user.model.dto.EmpDTO">
             <id property="empCode" column="emp_code"/>
@@ -117,12 +119,13 @@
         C.pass_start,
         C.pass_end,
         B.pq_price,
+        D.pass_no,
         D.sales_date,
         D.sales_method
         FROM USERDB A
         LEFT JOIN validatedb E ON E.user_code = A.user_code
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
-        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN salesdb D ON D.pass_no = E.pass_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         WHERE A.user_role = 'MEMBER'
         order by C.pass_start desc , D.sales_date desc;
@@ -130,26 +133,26 @@
 
     <select id="findPassAndPassQualList" resultMap="passResultMap">
         SELECT
-                A.pass_code,
-                A.pq_code,
-                B.pq_name,
-                A.pass_status,
-                A.pass_start,
-                A.pass_end,
-                A.pass_total,
-                A.pass_use,
-                A.user_code,
-                D.user_pic,
-                B.pq_price,
-                D.user_name,
-                E.sales_method,
-                E.sales_date
-        FROM passdb A
-            left JOIN passqualdb B ON A.pq_code = B.pq_code
-            left join validatedb C on A.pass_code = C.pass_code
-            left join userdb D on C.user_code = D.user_code
-            left join salesdb E on D.user_code = E.user_code
-            order by A.pass_start desc , E.sales_date desc;
+        A.USER_CODE,
+        A.USER_NAME,
+        A.USER_ID,
+        A.user_pic,
+        B.pq_code,
+        B.pq_name,
+        C.pass_start,
+        C.pass_end,
+        B.pq_price,
+        D.pass_no,
+        D.sales_date,
+        D.sales_method,
+        A.user_etc
+        FROM USERDB A
+        LEFT JOIN validatedb E ON E.user_code = A.user_code
+        LEFT JOIN passdb C ON C.pass_code = E.pass_code
+        LEFT JOIN salesdb D ON D.pass_no = E.pass_code
+        LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
+        where A.user_role = 'MEMBER'
+        order by C.pass_start desc , D.sales_date desc;
     </select>
 
     <select id="getData" resultMap="passResultMap">
@@ -228,13 +231,14 @@
         C.pass_start,
         C.pass_end,
         B.pq_price,
+        D.pass_no,
         D.sales_date,
         D.sales_method,
         A.user_etc
         FROM USERDB A
         LEFT JOIN validatedb E ON E.user_code = A.user_code
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
-        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN salesdb D ON D.pass_no = E.pass_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         <where>
             <if test="condition == 'name'">
@@ -278,6 +282,7 @@
         C.pass_start,
         C.pass_end,
         B.pq_price,
+        D.pass_no,
         D.sales_date,
         D.sales_method,
         E.user_etc,
@@ -285,7 +290,7 @@
         FROM validatedb A
         LEFT JOIN passdb C ON C.pass_code = A.pass_code
         LEFT JOIN userdb E ON E.user_code = C.user_code
-        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN salesdb D ON D.pass_no = A.pass_code
         left join userdb F on F.user_code = D.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         <where>
@@ -308,6 +313,7 @@
         C.pass_start,
         C.pass_end,
         B.pq_price,
+        D.pass_no,
         D.sales_date,
         D.sales_method,
         E.user_etc,
@@ -315,7 +321,7 @@
         FROM validatedb A
         LEFT JOIN passdb C ON C.pass_code = A.pass_code
         LEFT JOIN userdb E ON E.user_code = C.user_code
-        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN salesdb D ON D.pass_no = A.pass_code
         left join userdb F on F.user_code = D.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         order by C.pass_start desc , D.sales_date desc;
@@ -333,6 +339,7 @@
         C.pass_start,
         C.pass_end,
         B.pq_price,
+        D.pass_no,
         D.sales_date,
         D.sales_method,
         E.user_etc,
@@ -340,19 +347,19 @@
         FROM validatedb A
         LEFT JOIN passdb C ON C.pass_code = A.pass_code
         LEFT JOIN userdb E ON E.user_code = C.user_code
-        LEFT JOIN salesdb D ON D.user_code = A.user_code
+        LEFT JOIN salesdb D ON D.pass_no = A.pass_code
         left join userdb F on F.user_code = D.user_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         where F.user_id = #{userId}
-        order by C.pass_start desc , D.sales_date desc
+        order by C.pass_start desc , D.sales_date desc;
     </select>
 
     <select id="searchByUserId" resultMap="passResultMap">
         select
-            user_pic,
-            user_id,
-            user_name,
-            user_etc
+        user_pic,
+        user_id,
+        user_name,
+        user_etc
         from userdb
         where user_id = #{userId}
     </select>
