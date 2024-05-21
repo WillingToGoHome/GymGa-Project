@@ -26,6 +26,9 @@ public class PassCountDTO {
     private int ptCount;
     private int gxCount;
     private int gpCount;
+    private Integer ptTotal;
+    private Integer gxTotal;
+    private Integer gpTotal;
 
     private PassQualDTO passQualDTO;
     private UserDTO userDTO;

@@ -403,11 +403,12 @@
     </select>
 
     <select id="getCountByCode" resultMap="passCountResultMap" parameterType="int">
+        WITH IndividualCounts AS (
         SELECT
         A.USER_CODE,
-        COUNT(CASE WHEN C.PQ_CODE LIKE 'PT-%' THEN 1 END) AS PT_Count,
-        COUNT(CASE WHEN C.PQ_CODE LIKE 'GX-%' THEN 1 END) AS GX_Count,
-        COUNT(CASE WHEN C.PQ_CODE LIKE 'GP-%' THEN 1 END) AS GP_Count
+        COUNT(DISTINCT CASE WHEN C.PQ_CODE LIKE 'PT-%' THEN C.PQ_CODE END) AS PT_Count,
+        COUNT(DISTINCT CASE WHEN C.PQ_CODE LIKE 'GX-%' THEN C.PQ_CODE END) AS GX_Count,
+        COUNT(DISTINCT CASE WHEN C.PQ_CODE LIKE 'GP-%' THEN C.PQ_CODE END) AS GP_Count
         FROM USERDB AS A
         LEFT JOIN validatedb E ON E.user_code = A.user_code
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
@@ -415,7 +416,23 @@
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.USER_CODE = #{userCode}
-        GROUP BY A.USER_CODE;
+        GROUP BY A.USER_CODE, C.PASS_CODE
+        ),
+        TotalCounts AS (
+        SELECT
+        USER_CODE,
+        SUM(PT_Count) AS PT_Count,
+        SUM(GX_Count) AS GX_Count,
+        SUM(GP_Count) AS GP_Count
+        FROM IndividualCounts
+        GROUP BY USER_CODE
+        )
+        SELECT
+        USER_CODE,
+        PT_Count,
+        GX_Count,
+        GP_Count
+        FROM TotalCounts;
     </select>
 
     <select id="oneMemberAllPassList" resultMap="passResultMap">

@@ -68,7 +68,7 @@ public class PassService {
         return passMapper.getInfoDetailByCode(userCode, passCode);
     }
 
-    public List<PassCountDTO> getCountByCode(Integer userCode) {
+    public PassCountDTO getCountByCode(Integer userCode) {
 
         return passMapper.getCountByCode(userCode);
     }

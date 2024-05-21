@@ -128,10 +128,11 @@
                                 <p>GX</p>
                                 <p>일반</p>
                             </div>
-                            <div class="info" th:each="passCount : ${userPassCount}">
-                                <p th:text="${passCount.ptCount}"></p>
-                                <p th:text="${passCount.gxCount}"></p>
-                                <p th:text="${passCount.gpCount}"></p>
+                            <div class="info">
+                                    <p th:text="${userPassCount.ptCount}"></p>
+                                    <p th:text="${userPassCount.gxCount}"></p>
+                                    <p th:text="${userPassCount.gpCount}"></p>
+
                             </div>
                         </div>
                     </div>
