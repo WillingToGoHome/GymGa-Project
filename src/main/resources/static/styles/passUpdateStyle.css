@@ -143,6 +143,15 @@ body {
     padding-top: 20px;
 }
 
+.passList {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    padding-top: 20px;
+}
+
 .userName {
     width: 130px;
     height: 30px;
@@ -154,6 +163,24 @@ body {
 }
 
 .userId {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+.userGender {
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+.userPhone {
     width: 130px;
     height: 30px;
     font-size: 16px;
@@ -209,6 +236,18 @@ body {
 .buttonBox {
     display: flex;
     margin-right: 27px;
+}
+
+.detailButton {
+    width: 60px;
+    height: 30px;
+    color: #FFFFFF;
+    background-color: #4B82D8;
+    border-radius: 5px;
+    border: 1px;
+    font-weight: bold;
+    font-size: 10px;
+    cursor: pointer;
 }
 
 .refundButton {

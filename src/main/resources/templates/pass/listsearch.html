@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이용권 변경 및 환불</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/passUpdateStyle.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+</head>
+<body>
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style">
+                <div class="contents">
+                    <div class="on">
+                        <img src="/img/Back.png" onClick="location.href='/pass/main'" class="back">
+                        <p class="text">등록 이용권 조회</p>
+                        <form action="/pass/listsearch" method="post" class="top">
+                            <input type="text" class="search" name="search" placeholder="검색 내용">
+                            <select name="category" class="option">
+                                <option value="basic">카테고리</option>
+                                <option value="name">이름</option>
+                                <option value="id">아이디</option>
+                            </select>
+                            <button type="submit" class="searchButton">검색</button>
+                        </form>
+                    </div>
+                    <hr class="hr1">
+                    <div class="title">
+                        <p class="titleText">이름</p>
+                        <p class="titleText">아이디</p>
+                        <p class="titleText">성별</p>
+                        <p class="titleText">전화번호</p>
+                        <p class="titleText">담당강사</p>
+                        <p class="titleText">이용권 종류</p>
+                        <p class="titleText" style="padding-right: 29px">관리</p>
+                    </div>
+                    <hr class="hr2">
+                    <div class="passUpdate">
+                        <div class="passList" th:each="pass:${passSearchList}">
+                            <p class="userName" th:text="${pass.userDTO.userName}"></p>
+                            <p class="userId" th:text="${pass.userDTO.userId}"></p>
+                            <p class="userGender" th:text="${pass.userDTO.userGender}"></p>
+                            <p class="userPhone" th:text="${pass.userDTO.userPhone}"></p>
+                            <p class="userStaff" th:if="${pass.userDTO.userStaff == 0 || pass.userDTO.userStaff == null}" th:text="없음"></p>
+                            <p class="userStaff" th:if="${pass.userDTO.userStaff}">
+                                <span th:text="${pass.userDTO.staffName}"></span>
+                            <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
+                            </p>
+                            <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
+                                <form id=detailForm action="/pass/selectDetail" method="post" style="display: flex">
+                                    <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                    <input type="hidden" name="passCode" th:value="${pass.passCode}">
+                                    <input class="detailButton" type="submit" value="상세">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var passListSize = $(".passList").length;
+        for (var i = 0; i < passListSize - 1; i++) {
+            var passList = $(".passList:eq(" + i + ")");
+            passList.after("<div>");
+            var hrDiv = passList.next();
+            hrDiv.append("<div><hr class='hr3'></div>");
+        }
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -2,7 +2,9 @@ package com.willingtogohome.gymga.pass.controller;
 
 import com.willingtogohome.gymga.pass.model.dto.*;
 import com.willingtogohome.gymga.pass.model.service.PassService;
+import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
 import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
+import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -150,6 +152,78 @@ public class PassController {
 //
 //        return "/pass/update";
 //    }
+
+
+
+
+    /* 이용권 조회 - 김만호 */
+    /* 등록 이용권 조회 메인페이지 생성*/
+    @GetMapping("/passlist")
+    public void allPassListPage(){}
+    /* 등록 이용권 조회 모델에 담기*/
+    @GetMapping("/selectAllPass")
+    public String allPassList(Model model){
+
+        List<PassAndPassQualDTO> passAllList = passService.searchPassList();
+
+        for (PassAndPassQualDTO pass : passAllList) {
+            System.out.println("passAllList = " + pass);
+        }
+
+        model.addAttribute("passAllList", passAllList);
+
+        return "/pass/passlist";
+    }
+    /* 검색 결과 페이지 */
+    @GetMapping("/listsearch")
+    public void searchListPage(){}
+
+    /* 검색 결과 페이지 검색 조건*/
+    @PostMapping("/listsearch")
+    public String allPassList(Model model, @RequestParam String search, @RequestParam String category, HttpSession session) {
+        SearchCriteria criteria = new SearchCriteria();
+        criteria.setText(search);
+        criteria.setCondition(category);
+
+        List<PassAndPassQualDTO> passSearchList = passService.searchPass(criteria);
+
+        for (PassAndPassQualDTO passSearch : passSearchList) {
+            System.out.println("pass = " + passSearch);
+        }
+
+        session.setAttribute("passSearchList", passSearchList);
+        model.addAttribute("passSearchList", passSearchList);
+
+        return "/pass/listsearch";
+
+    }
+
+    /* 이용권 상세 페이지 */
+
+    @GetMapping("/selectDetail")
+    public void passDetailPage(){
+    }
+
+    @PostMapping("/selectDetail")
+    public String selectDetail(@RequestParam("code") Integer userCode,
+                               @RequestParam("passCode")Integer passCode, Model model) {
+
+        PassAndPassQualDTO user = passService.getInfoDetailByCode(userCode, passCode);
+        model.addAttribute("user", user);
+        System.out.println("user = " + user);
+
+        /* 이용권 목록 */
+
+        List<PassAndPassQualDTO> oneMemberAllPassList = passService.oneMemberAllPassListByCode(userCode);
+        model.addAttribute("oneMemberAllPassList", oneMemberAllPassList);
+
+        /* PT, GX 카운터 */
+        List<PassCountDTO> userPassCount = passService.getCountByCode(userCode);
+        model.addAttribute("userPassCount", userPassCount);
+        System.out.println("userPassCount = " + userPassCount);
+
+        return "/pass/selectDetail";
+    }
 
 
 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이용권 변경 및 환불</title>
+    <link rel="stylesheet" href="/styles/mainStyle.css">
+    <link rel="stylesheet" href="/styles/headerStyle.css">
+    <link rel="stylesheet" href="/styles/navbarStyle.css">
+    <link rel="stylesheet" href="/styles/myStyle.css">
+    <link rel="stylesheet" href="/styles/pass/detail.css">
+    <link rel="stylesheet" href="/styles/footerStyle.css">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+</head>
+<body>
+<div class="container">
+    <div class="app-area">
+        <!--Heade Start-->
+        <div th:include="common/header"></div>
+        <!--Header End-->
+
+        <!--Main Start-->
+        <div class="main-container">
+            <!--Navbar Start-->
+            <div th:include="common/navbar"></div>
+            <!--Navbar End-->
+            <!--개인 작업 시작-->
+            <div class="my-style" style="display: flex">
+                <!-- 왼쪽 -->
+                <div class="contents-left">
+                    <div class="on">
+                        <img src="/images/back.png" onclick="location.href='/pass/selectAllPass'">
+                        <p class="text">등록 이용권 상세 조회</p>
+                    </div>
+                    <hr>
+                    <div class="profile-box">
+                        <div class="profile-pic">
+                            프로필 사진 구간
+                        </div>
+                        <div class="profile-info">
+                            <div class="left-info">
+                                <p>이름</p>
+                                <p>생년월일</p>
+                                <p>성별</p>
+                                <p>연락처</p>
+                                <p>주소</p>
+                            </div>
+                            <div class="left-info-text">
+                                <p th:text="${user.userDTO.userName}"></p>
+                                <p th:text="${user.userDTO.userBirth}"></p>
+                                <p th:text="${user.userDTO.userGender}"></p>
+                                <p th:text="${user.userDTO.userPhone}"></p>
+                                <p th:text="${user.userDTO.userAddress}"></p>
+                            </div>
+                            <div class="right-info">
+                                <p>담당 강사</p>
+                                <p>최초 등록</p>
+                                <p>만료(예정)</p>
+                                <p>상태</p>
+                            </div>
+                            <div class="right-info-text">
+                                <p th:text="${user.empDTO != null ? user.empDTO.empName : '없음'}"></p>
+                                <p th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')}"></p>
+                                <p th:text="${#dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                                <p th:text="${user.passStatus}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-regist">
+                        <div class="recent-header">
+                            <p>최근 등록 내역</p>
+                        </div>
+                        <div class="recent-content">
+                            <div class="recent-content-header">
+                                <p>등록일</p>
+                                <p>만료일</p>
+                                <p>등록 이용권</p>
+                                <p>결제 상태</p>
+                                <p>사용 횟수</p>
+                                <p>상태</p>
+                            </div>
+                            <hr>
+                            <div class="recent-content-info">
+                                <div class="th"th:each="oneMemberPass : ${oneMemberAllPassList}">
+                                    <p th:text="${#dates.format(oneMemberPass.passStart, 'yyyy-MM-dd')}"></p>
+                                    <p th:text="${#dates.format(oneMemberPass.passEnd, 'yyyy-MM-dd')}"></p>
+                                    <p th:text="${oneMemberPass.passQualDTO.pqName}"></p>
+                                    <p>결제 완료</p>
+                                    <p th:text="${oneMemberPass.passUse} + '/' + ${oneMemberPass.passTotal}"></p>
+                                    <p th:text="${user.passStatus}"></p>
+
+                                </div>
+                                <hr>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <!-- 오른쪽 -->
+                <div class="contents-right">
+                    <div class="on">
+                        <p class="text">요약</p>
+                    </div>
+                    <hr>
+                    <div class="summary">
+                        <div class="title">
+                            <p>이름</p>
+                            <p>담당 강사</p>
+                            <p>최초 등록</p>
+                            <p>만료 (예정)</p>
+                            <p>상태</p>
+                        </div>
+                        <div class="info">
+                            <p th:text="${user.userDTO.userName}"></p>
+                            <p th:text="${user.empDTO != null ? user.empDTO.empName : '없음'}"></p>
+                            <p th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')}"></p>
+                            <p th:text="${#dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                            <p th:text="${user.passStatus}"></p>
+                        </div>
+                    </div>
+                    <div class="full-reg">
+                        <div class="header">
+                            <p>전체 등록 내역</p>
+                        </div>
+                        <div class="full-reg-content">
+                            <div class="title">
+                                <p>PT</p>
+                                <p>GX</p>
+                                <p>일반</p>
+                            </div>
+                            <div class="info" th:each="passCount : ${userPassCount}">
+                                <p th:text="${passCount.ptCount}"></p>
+                                <p th:text="${passCount.gxCount}"></p>
+                                <p th:text="${passCount.gpCount}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--개인 작업 종료-->
+        </div>
+        <!--Main End-->
+
+        <!--Footer Start-->
+        <div th:include="common/footer"></div>
+        <!--Footer End-->
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -55,6 +55,25 @@ public class PassService {
         return passMapper.searchUser(criteria);
     }
 
-//    public List<PassAndPassQualDTO> refundList() {
-//    }
+    // 이용권 조회
+    public List<PassAndPassQualDTO> searchPass(SearchCriteria criteria) {
+        return passMapper.searchPass(criteria);
+    }
+
+    public List<PassAndPassQualDTO> searchPassList() {
+        return passMapper.searchPassList();
+    }
+
+    public PassAndPassQualDTO getInfoDetailByCode(Integer userCode, Integer passCode) {
+        return passMapper.getInfoDetailByCode(userCode, passCode);
+    }
+
+    public List<PassCountDTO> getCountByCode(Integer userCode) {
+
+        return passMapper.getCountByCode(userCode);
+    }
+
+    public List<PassAndPassQualDTO> oneMemberAllPassListByCode(Integer userCode) {
+        return passMapper.oneMemberAllPassList(userCode);
+    }
 }
