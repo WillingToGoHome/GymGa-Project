@@ -163,7 +163,7 @@
     padding-top: 5px;
 }
 
-span {
+span.inputText {
     width: 100px;
     height: 30px;
 }

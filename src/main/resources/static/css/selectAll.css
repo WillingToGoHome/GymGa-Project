@@ -56,6 +56,7 @@ body {
 
 .back {
     padding-left: 1%;
+    cursor: pointer;
 }
 
 .text {
@@ -113,6 +114,7 @@ body {
     border: 1px;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .title {
@@ -212,9 +214,9 @@ body {
 }
 
 .buttonBox {
-    align-content: center;
     width: 130px;
     display: flex;
+    justify-content: space-around;
 }
 
 .detailButton {
@@ -226,17 +228,19 @@ body {
     border: 1px;
     font-weight: bold;
     font-size: 10px;
+    cursor: pointer;
 }
 
 .deleteButton {
     width: 60px;
     height: 30px;
-    color: #656565;
-    border: 1px solid #656565;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
     background-color: #FFFFFF;
     border-radius: 5px;
     font-weight: bold;
     font-size: 10px;
+    cursor: pointer;
 }
 
 .hr3 {
@@ -332,7 +336,8 @@ body {
     border: 1px;
     font-weight: bold;
     font-size: 16px;
-    margin-top: 30px;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
 .zxc {

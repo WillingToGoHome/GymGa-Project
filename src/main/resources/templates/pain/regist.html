@@ -28,15 +28,15 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic" th:text="${pain.userName} + ' 회원님 통증 수정'"></p>
+                    <p class="topic" th:text="${pain?.userName} + ' 회원님 통증 등록'"></p>
                 </div>
                 <hr class="line1">
-                <form action="/pain/updatePain" method="post">
-                    <input type="hidden" name="updateCode" th:value="${pain.userCode}">
-                    <input type="hidden" name="pos" th:value="${pain.pos}">
+                <form action="/pain/registPain" method="post">
+                    <input type="hidden" name="code" th:value="${pain?.userCode}">
+                    <input type="hidden" name="pos" th:value="${pain?.pos}">
                     <div class="allBox">
                         <div class="imgBox">
-                            <div th:switch="${pain.pos}">
+                            <div th:switch="${pain?.pos}">
                                 <img th:case="1" src="/images/오른다리.png" class="painImg">
                                 <img th:case="2" src="/images/왼다리.png" class="painImg">
                                 <img th:case="3" src="/images/오른팔.png" class="painImg">
@@ -44,42 +44,41 @@
                                 <img th:case="5" src="/images/상체.png" class="painImg">
                                 <img th:case="6" src="/images/머리.png" class="painImg">
                             </div>
-                            <div th:if="${pain == null}">
-                                <img src="/images/기본.png" class="painImg">
-                            </div>
                         </div>
                         <div class="middleBox">
                             <div class="painCategoryBox">
-                                <div class="painPosBox" th:switch="${pain.pos}">
-                                    <div th:switch="${pain.pos}">
+                                <div class="painPosBox" th:switch="${pain?.pos}">
+                                    <div th:switch="${pain?.pos}">
                                         <p th:case="1" class="posText">오른쪽-다리</p>
                                         <p th:case="2" class="posText">왼쪽-다리</p>
                                         <p th:case="3" class="posText">오른쪽-팔</p>
                                         <p th:case="4" class="posText">왼쪽-팔</p>
-                                        <p th:case="5" class="posText">상체</p>
-                                        <p th:case="6" class="posText">머리</p>
+                                        <p th:case="5" class="posText">가슴</p>
+                                        <p th:case="6" class="posText">등</p>
+                                        <p th:case="7" class="posText">머리</p>
                                     </div>
                                 </div>
+                                <button class="painPosRegistBox">+</button>
                             </div>
                             <div class="painDetail">
                                 <p class="painExplainText">통증 유형</p>
-                                <input type="text" class="inputBox" name="type" id="type" th:placeholder="${pain?.type}">
+                                <input type="text" class="inputBox" name="type" id="type" placeholder="통증 유형 입력 ex) 회전근개 파열, 오십견, 관절염 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 기간</p>
-                                <input type="text" class="inputBox" name="dur" id="dur" th:placeholder="${pain?.dur}">
+                                <input type="text" class="inputBox" name="dur" id="dur" placeholder="통증 기간 입력 ex)  2주 전 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 원인</p>
-                                <input type="text" class="inputBox" name="cause" id="cause" th:placeholder="${pain?.cause}">
+                                <input type="text" class="inputBox" name="cause" id="cause" placeholder="통증 원인 입력 ex) 농구하다가 넘어진 이후로 아픔, 손목이 꺾임 등" >
                                 <hr class="line2">
                                 <p class="painExplainText">통증 강도</p>
-                                <input type="number" class="inputBox" name="str" id="str" th:placeholder="${pain?.str}">
+                                <input type="number" class="inputBox" name="str" id="str" placeholder="통증 강도 입력 ex) 1~5사이" >
                             </div>
                         </div>
                         <div class="rightBox">
-                            <button type="submit" class="registButton">완료</button>
+                            <button type="submit" class="registButton">등록</button>
                             <div class="painStrBox" style="margin-top: 30px">
                                 <p class="painExplainText">메모</p>
-                                <input type="text" class="inputBox" name="etc" id="etc" th:placeholder="${pain?.etc}" style="width: 260px; height: 330px; word-wrap: break-word">
+                                <input type="text" class="inputBox" name="etc" id="etc" placeholder="부가사항 자유롭게 작성" style="width: 260px; height: 330px; word-wrap: break-word">
                             </div>
                         </div>
                     </div>
@@ -94,6 +93,10 @@
         <!--Footer End-->
     </div>
 </div>
+
+<script>
+    document.getElementById("str").defaultValue = 1;
+</script>
 
 </body>
 </html>

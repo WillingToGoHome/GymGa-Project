@@ -27,9 +27,9 @@ public class PainService {
     }
 
     @Transactional
-    public void registPain(int code, int pos, PainDTO painDTO) {
+    public void registPain(PainDTO painDTO) {
 
-        painMapper.registPain(painDTO, pos, code);
+        painMapper.registPain(painDTO);
     }
 
     public void deletePain(int code, int pos) {
@@ -43,9 +43,9 @@ public class PainService {
     }
 
     @Transactional
-    public void update(int code, int pos) {
+    public void update(PainDTO painDTO) {
 
-        painMapper.update(code, pos);
+        painMapper.update(painDTO);
     }
 
     public PainUpdateDTO getPainByCode(int code, PainDTO painDTO) {
