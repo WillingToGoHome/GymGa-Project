@@ -127,7 +127,7 @@
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
         LEFT JOIN salesdb D ON D.pass_no = E.pass_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
-        WHERE A.user_role = 'MEMBER'
+        WHERE A.user_role = 'MEMBER' and C.pass_start is not null
         order by C.pass_start desc , D.sales_date desc;
     </select>
 
@@ -151,7 +151,7 @@
         LEFT JOIN passdb C ON C.pass_code = E.pass_code
         LEFT JOIN salesdb D ON D.pass_no = E.pass_code
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
-        where A.user_role = 'MEMBER'
+        where A.user_role = 'MEMBER' and C.pass_start is not null
         order by C.pass_start desc , D.sales_date desc;
     </select>
 
@@ -265,7 +265,7 @@
             <if test="condition == 'quarter4'">
                 AND QUARTER(C.pass_start) = 4
             </if>
-            AND A.USER_ROLE = 'MEMBER'
+            AND A.USER_ROLE = 'MEMBER' and C.pass_start is not null
         </where>
         order by C.pass_start desc , D.sales_date desc;
     </select>
@@ -295,7 +295,7 @@
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         <where>
             <if test="condition == 'name'">
-                AND F.USER_NAME Like CONCAT('%', #{ text }, '%')
+                AND F.USER_NAME Like CONCAT('%', #{ text }, '%') and C.pass_start is not null
             </if>
         </where>
         order by F.user_code
