@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="/styles/footerStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link rel="stylesheet" href="/fac/facSelect.css">
-
-
 </head>
 <body>
 <div class="containers" style="position: relative;
@@ -37,9 +35,9 @@
                 <div class="gym" style=" margin-top:12px; color: #4B82D8;" >Gym</div>
                 <p class="home" style="margin-top:12px; margin-left: 5px; width: 43.5px; height: 43.5px; border-radius: 50%; background-color: #4B82D8; text-align: center;">家</p>
             </div>
-            <img class="profiles" style="width: 37.5px;
+            <img id="pic" class="profiles" style="width: 37.5px;
     height: 37.5px;
-    margin-left: 398px;" src="/images/윤수빈.png">
+    margin-left: 398px; border-radius: 100%" src="/uploadFiles/default-user.png"/>
             <div class="welcomes" style="margin-left: 18px;
     width: 208px;
     display: flex;
@@ -47,7 +45,7 @@
     font-weight: bold;">
                 <a style="color: #656565; font-size: 18px;">환영합니다, </a>
 
-                <p th:text="${#authentication.name}" style="color: #000000;
+                <p id="name" style="color: #000000;
     font-size: 19.5px;
     margin: 0 4px 0 4px;
     "></p>
@@ -68,6 +66,21 @@
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style">
+                <script>
+                    const pic = document.getElementById("pic");
+                    const name = document.getElementById("name");
+
+                    fetch("/main/info")
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data != null) {
+                                pic.src = '/imageFile/' + data.userPic;
+                                name.innerHTML = data.userName;
+                            }
+                        })
+                </script>
+
+
                 <!-- 개인 조회 모달 -->
                 <div class="modal fade" id="personalModal" tabindex="-1" role="dialog" aria-labelledby="personalModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -138,7 +151,7 @@
                         <div class="modal-content" style="width: 500px; height: 200px;">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="warningModalLabel">경고</h5>
-                                    <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </div>
                             <div class="modal-body" style="color: black;">
                                 <h5 style=" text-align: center; width: 100%">모두 작성 하십시오</h5>
@@ -163,25 +176,24 @@
                             <div class="modal-body">
                                 <form id="registForm" onsubmit="submitForm()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput" style="padding-left: 5px; border-radius: 5px" readonly><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput" style="border-radius: 5px" readonly><br>
                                     <!--                    <label>회원 코드: </label>-->
                                     <!--                    <input type="text" name="userCode" id="userCode"><br>-->
                                     <label>회원 코드: </label>
-                                    <select name="userCode" id="userCode" style="border-radius: 5px; padding-left: 5px"></select><br>
+                                    <select type="text" name="userCode" id="userCode" style="border-radius: 5px;"></select><br>
                                     <label>사용 가능 상태: </label>
-                                    <select name="facStatus" id="facStatus" style="border-radius: 5px; padding-left: 5px">
-                                        <option value=""></option>
-                                        <option value="사용중">사용 중</option>
-                                    </select><br>
+                                    <input name="facStatus" id="facStatus" style="border-radius: 5px;" value="사용중"><br>
                                     <label>사용 시작 기간: </label>
-                                    <input type="date" name="facStart" id="facStart" style="border-radius: 5px; padding-left: 5px"><br>
+                                    <input type="date" name="facStart" id="facStart" style="border-radius: 5px; border: 1px solid black;
+     stroke: #4B82D8;"><br>
                                     <label>사용 만료 기간: </label>
-                                    <input type="date" name="facEnd" id="facEnd" style="border-radius: 5px; padding-left: 5px"><br>
+                                    <input type="date" name="facEnd" id="facEnd" style="border-radius: 5px; border: 1px solid black;
+     stroke: #4B82D8;"><br>
                                 </form>
                             </div>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn btn-custom" data-dismiss="modal">닫기</button>
-                                <button onclick="submitForm()" class="btn btn-primary" data-dismiss="modal">확인</button>
+                                <button id="submitBtn" onclick="submitForm()" class="btn btn-primary" data-dismiss="modal">확인</button>
                             </div>
                         </div>
                     </div>
@@ -202,19 +214,21 @@
                             <div class="modal-body">
                                 <form id="updateForm" onsubmit="submitForm2()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="padding-left: 5px; border-radius: 5px"><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="border-radius: 5px"><br>
                                     <label>회원 코드: </label>
-                                    <input type="text" name="userCode" id="clickedUserCodeInput2" style="padding-left: 5px; border-radius: 5px" ><br>
+                                    <input type="text" name="userCode" id="clickedUserCodeInput2" style="border-radius: 5px" ><br>
                                     <!--                    <label>회원 코드: </label>-->
                                     <!--                    <select name="userCode" id="userCode3"></select><br>-->
                                     <label>사용 가능 상태: </label>
-                                    <select name="facStatus" id="facStatus3" style="border-radius: 5px; padding-left: 5px">
+                                    <select name="facStatus" id="facStatus3" style="border-radius: 5px;">
                                         <option value=""></option>
                                         <option value="사용중">사용 중</option>
                                         <option value="만료">만료</option>
                                     </select><br>
-                                    <label>사용 시작 기간: </label><input type="date" name="facStart" id="facStart1" style="border-radius: 5px; padding-left: 5px"><br>
-                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" id="facEnd1" style="border-radius: 5px; padding-left: 5px"><br>
+                                    <label>사용 시작 기간: </label><input type="date" name="facStart" id="facStart1" style="border-radius: 5px; border: 1px solid black;
+     stroke: #4B82D8;"><br>
+                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" id="facEnd1" style="border-radius: 5px; border: 1px solid black;
+     stroke: #4B82D8;"><br>
                                 </form>
                             </div>
 
@@ -283,11 +297,11 @@
                             <div class="modal-body">
                                 <form id="deleteForm" onsubmit="submitForm3()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput3" style="padding-left: 5px; border-radius: 5px"><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput3" style="border-radius: 5px"><br>
                                     <!--                                    <label>회원 코드: </label>-->
                                     <!--                                    <input type="text" name="userCode" style="padding-left: 5px; border-radius: 10px" value="0" ><br>-->
                                     <label>사용 가능 상태: </label>
-                                    <input type="text" name="facStatus" id="facStatus4" style="border-radius: 5px; padding-left: 5px;" readonly>
+                                    <input type="text" name="facStatus" id="facStatus4" style="border-radius: 5px;" readonly>
                                     <br>
                                 </form>
                             </div>
@@ -313,6 +327,8 @@
                             $('#facActionModal4').modal('show'); // 삭제 모달을 닫음
                             return;
                         }
+
+
 
                         // 삭제 확인 모달을 표시
                         $('#deleteWarningModal').modal('show');
@@ -340,6 +356,7 @@
                             .catch(error => console.error('에러 발생:', error));
                     }
                 </script>
+
 
                 <script th:inline="javascript">
                     function setFacStatusColor() {
@@ -374,6 +391,7 @@
                         var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
                         var userCode = $(this).find('.userCode').text(); // 사물함 번호를 가져옴
 
+
                         var secondBracketIndex = userCode.indexOf('(', userCode.indexOf('(') + 1);
                         var secondBracketContent = userCode.substring(secondBracketIndex + 1, userCode.indexOf(')', secondBracketIndex));
 
@@ -386,8 +404,8 @@
                         $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
                         $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
                         $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
-                        $('#clickedUserCodeInput').val(secondBracketContent); // 사용자 코드의 두 번째 괄호 내용 표시
-                        $('#clickedUserCodeInput2').val(secondBracketContent); // 사용자 코드의 두 번째 괄호 내용 표시
+                        $('#clickedUserCodeInput2').val(userCode); // 사물함 삭제 번호 id
+
 
                         // $('#clickedUserCodeInput').val(userCodeCodePart); // 클릭한 사용자 코드의 코드 부분을 할당
 
@@ -397,6 +415,9 @@
                         setFacStatusColor();
                     });
                 </script>
+
+
+
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
@@ -425,12 +446,12 @@
                     document.addEventListener("DOMContentLoaded", function() {
                         // 사용자 정보 배열
                         var users = [
-                            '남효정(0000)(1)', '북효정(1111)(2)', '서효정(2222)(3)', '동효정(3333)(4)',
-                            '김민지(1111)(5)', '이지은(1111)(6)', '박지우(4444)(7)', '김다솜(5555)(8)',
-                            '정재훈(9999)(9)', '송지원(3333)(10)', '이동민(2222)(11)', '박수진(0000)(12)',
-                            '조민준(4444)(13)', '윤서영(0000)(14)', '장현우(3434)(15)', '최지훈(2222)(16)',
-                            '박주원(4444)(17)', '김서린(6666)(18)', '이준서(8888)(19)', '정하은(0000)(20)',
-                            '강시우(7777)(21)', '조예은(3333)(22)', '홍길동(5678)(23)'
+                            '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
+                            '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
+                            '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
+                            '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
+                            '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
+                            '강시우(7777)', '조예은(3333)', '홍길동(5678)'
                         ];
 
                         // 모든 요소에 대해 반복하여 userCode를 확인하고 화면에 사용자 이름을 표시
@@ -439,7 +460,7 @@
 
                             // userCode가 3인 경우 "김진용"으로 변경
                             if (userCode === "1") {
-                                element.textContent = "남효정(0000)(1)";
+                                element.textContent = "남효정(0000)";
                             } else {
                                 // userCode와 일치하는 사용자 이름을 가져와서 표시
                                 var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
@@ -448,7 +469,8 @@
                                 }
                             }
                         });
-                    });
+                        });
+
                 </script>
 
 
@@ -505,6 +527,14 @@
 
 
 
+
+
+
+
+
+
+
+
                 <!--                <script>-->
                 <!--                    fetch("/fac/user")-->
                 <!--                        .then(res=>res.json())-->
@@ -518,7 +548,28 @@
                 <!--                            }-->
                 <!--                        })-->
                 <!--                </script>-->
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var users = [
+                            '남효정(0000)', '북효정(1111)', '서효정(2222)', '동효정(3333)',
+                            '김민지(1111)', '이지은(1111)', '박지우(4444)', '김다솜(5555)',
+                            '정재훈(9999)', '송지원(3333)', '이동민(2222)', '박수진(0000)',
+                            '조민준(4444)', '윤서영(0000)', '장현우(3434)', '최지훈(2222)',
+                            '박주원(4444)', '김서린(6666)', '이준서(8888)', '정하은(0000)',
+                            '강시우(7777)', '조예은(3333)', '홍길동(5678)'
+                        ];
 
+                        var selectElement = document.getElementById("userCode");
+
+                        // Dynamically add options to the select element
+                        users.forEach(function(user, index) {
+                            var option = document.createElement("option");
+                            option.value = index + 1; // userCode는 배열 인덱스 + 1로 설정
+                            option.textContent = user;
+                            selectElement.appendChild(option);
+                        });
+                    });
+                </script>
 
 
                 <script>
@@ -529,15 +580,9 @@
                             const facCodeSelect = document.getElementById("facCode");//사물함 개인 조회 id
 
 
-
-
-
                             data.forEach(item => {
                                 // 새로운 옵션 요소 생성
                                 const option1 = document.createElement('option');
-
-
-
 
 
                                 // 옵션 설정
@@ -554,33 +599,29 @@
 
 
 
-
-                    // 사용자 데이터 가져오기
-                    fetch("/fac/user")
-                        .then(res => res.json())
-                        .then(data => {
-                            const userCodeSelect = document.getElementById("userCode");//회원 등록 코드
-
-
-
-                            data.forEach(item => {
-                                // 새로운 옵션 요소 생성
-                                const option1 = document.createElement('option');
-
-
-
-                                // 옵션 설정
-                                option1.text = item.userCode;
-                                option1.value = item.userCode;
-
-
-
-                                // 각각의 select 요소에 옵션 추가
-                                userCodeSelect.appendChild(option1);
-
-
-                            });
-                        });
+                // 사용자 데이터 가져오기
+                // fetch("/fac/user")
+                // .then(res => res.json())
+                // .then(data => {
+                // const userCodeSelect = document.getElementById("userCode");//회원 등록 코드
+                //
+                //
+                // data.forEach(item => {
+                // // 새로운 옵션 요소 생성
+                // const option1 = document.createElement('option');
+                //
+                //
+                // // 옵션 설정
+                // option1.text = item.userCode;
+                // option1.value = item.userCode;
+                //
+                //
+                // // 각각의 select 요소에 옵션 추가
+                // userCodeSelect.appendChild(option1);
+                //
+                //
+                // });
+                // });
                 </script>
 
 
@@ -639,16 +680,26 @@
                 </script>
 
 
-
-
-
             </div>
             <!--개인 작업 종료-->
         </div>
         <!--Main End-->
 
         <!--Footer Start-->
-        <div th:include="common/footer"></div>
+        <div class="footer-container">
+            <div class="big-font">About</div>
+            <div class="big-font">Email</div>
+            <div class="big-font">Tel.</div>
+            <div class="small-fonts" style="font-size: 12px;font-weight: lighter; margin: 0 208px 0 208px; display: flex; padding-top: 15px" >
+                <p>Website Terms</p>
+                <div class="cuts" style="margin:0 28px 0 20px;">|</div>
+                <p>Privacy Policy</p>
+                <div class="cuts" style="margin:0 28px 0 20px;">|</div>
+                <p>Accessbility Statement</p>
+            </div>
+            <div class="c">©</div>
+            <div class="copy">copyright. all rights reserved</div>
+        </div>
         <!--Footer End-->
     </div>
 </div>
