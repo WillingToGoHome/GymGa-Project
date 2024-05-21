@@ -111,14 +111,6 @@ public class RegistDTO {
         this.role = role;
     }
 
-    public String getUserPic() {
-        return userPic;
-    }
-
-    public void setUserPic(String userPic) {
-        this.userPic = userPic;
-    }
-
     public String getUserGender() {
         return userGender;
     }
