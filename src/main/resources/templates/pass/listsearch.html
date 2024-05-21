@@ -59,7 +59,7 @@
                             <p class="userPhone" th:text="${pass.userDTO.userPhone}"></p>
                             <p class="userStaff" th:if="${pass.userDTO.userStaff == 0 || pass.userDTO.userStaff == null}" th:text="없음"></p>
                             <p class="userStaff" th:if="${pass.userDTO.userStaff}">
-                                <span th:text="${pass.userDTO.staffName}"></span>
+                                <span th:text="${pass.empDTO.empName}"></span>
                             <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
                             </p>
                             <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
