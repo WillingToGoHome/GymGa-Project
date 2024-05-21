@@ -218,7 +218,7 @@ public class PassController {
         model.addAttribute("oneMemberAllPassList", oneMemberAllPassList);
 
         /* PT, GX 카운터 */
-        List<PassCountDTO> userPassCount = passService.getCountByCode(userCode);
+        PassCountDTO userPassCount = passService.getCountByCode(userCode);
         model.addAttribute("userPassCount", userPassCount);
         System.out.println("userPassCount = " + userPassCount);
 

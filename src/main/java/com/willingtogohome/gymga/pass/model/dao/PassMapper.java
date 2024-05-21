@@ -32,7 +32,7 @@ public interface PassMapper {
 
     PassAndPassQualDTO getInfoDetailByCode(Integer userCode, Integer passCode);
 
-    List<PassCountDTO> getCountByCode(Integer userCode);
+    PassCountDTO getCountByCode(Integer userCode);
 
     List<PassAndPassQualDTO> oneMemberAllPassList(Integer userCode);
 }

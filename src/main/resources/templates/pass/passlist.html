@@ -51,26 +51,26 @@
                         <p class="titleText" style="padding-right: 29px">관리</p>
                     </div>
                     <hr class="hr2">
-                    <div class="passUpdate">
-                        <div class="passList" th:each="pass : ${passAllList}">
-                            <p class="userName" th:text="${pass.userDTO.userName}"></p>
-                            <p class="userId" th:text="${pass.userDTO.userId}"></p>
-                            <p class="userGender" th:text="${pass.userDTO.userGender}"></p>
-                            <p class="userPhone" th:text="${pass.userDTO.userPhone}"></p>
-                            <p class="userStaff" th:if="${pass.userDTO.userStaff == 0 || pass.userDTO.userStaff == null}" th:text="없음"></p>
-                            <p class="userStaff" th:if="${pass.userDTO.userStaff}">
-                                <span th:text="${pass.userDTO.staffName}"></span>
-                            <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
+                        <div class="passUpdate">
+                            <div class="passList" th:each="pass : ${passAllList}">
+                                <p class="userName" th:text="${pass.userDTO.userName}"></p>
+                                <p class="userId" th:text="${pass.userDTO.userId}"></p>
+                                <p class="userGender" th:text="${pass.userDTO.userGender}"></p>
+                                <p class="userPhone" th:text="${pass.userDTO.userPhone}"></p>
+                                <p class="userStaff" th:if="${pass.userDTO.userStaff == 0 || pass.userDTO.userStaff == null}" th:text="없음"></p>
+                                <p class="userStaff" th:if="${pass.userDTO.userStaff}">
+                                    <span th:text="${pass.userDTO.staffName}"></span>
+                                <p class="pqName" th:text="${pass.passQualDTO.pqName}"></p>
 
-                            <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
-                                <form id=detailForm action="/pass/selectDetail" method="post" style="display: flex">
-                                    <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
-                                    <input type="hidden" name="passCode" th:value="${pass.passCode}">
-                                    <input class="detailButton" type="submit" value="상세">
-                                </form>
+                                <div class="buttonBox" style="width: 80px; justify-content: start; margin-right: 5px;">
+                                    <form id=detailForm action="/pass/selectDetail" method="post" style="display: flex">
+                                        <input type="hidden" name="code" th:value="${pass.userDTO.userCode}">
+                                        <input type="hidden" name="passCode" th:value="${pass.passCode}">
+                                        <input class="detailButton" type="submit" value="상세">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <!--개인 작업 종료-->
