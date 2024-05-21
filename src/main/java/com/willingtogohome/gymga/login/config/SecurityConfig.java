@@ -63,7 +63,7 @@ public class SecurityConfig {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/login","/login/admin/regist","/login/auth/*","/error/**","/error").permitAll();
-            auth.requestMatchers("/", "/main", "/main/**","/emp/**","/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/imageFile/**","/api/loggedInUser").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
+            auth.requestMatchers("/", "/main", "/main/**","/emp/**","/fac/**","/pass/**","/sale/**","/schedule/**","/user/**","/pain/**","/imageFile/**","/api/loggedInUser").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.USER.getRole());
 //            auth.requestMatchers("/main").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.anyRequest().authenticated();
 

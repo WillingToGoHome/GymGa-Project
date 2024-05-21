@@ -36,10 +36,6 @@ public class UserController {
 
         List<UserAndEmpDTO> userList = userService.allUser();
 
-        for (UserAndEmpDTO user : userList) {
-            System.out.println("user = " + user);
-        }
-
         model.addAttribute("userList", userList);
 
         return "user/selectAll";

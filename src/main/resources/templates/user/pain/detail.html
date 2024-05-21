@@ -28,7 +28,7 @@
             <div class="contents">
                 <div class="on">
                     <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
-                    <p class="topic" th:if="${pain != null}" th:text="${name} + ' 회원님'"></p>
+                    <p class="topic" th:if="${pain != null}" th:text="${pain?.userName} + ' 회원님'"></p>
                     <p class="topic" th:if="${pain == null}">
                         <span class="topic">통증 등록</span>
                     </p>
@@ -77,13 +77,11 @@
                                         <area onmouseover="on_mouse_num(6)" onmouseout="off_mouse()" onclick="areaClicked(6)" alt="머리" title="머리" coords="156,126,140,121,127,109,118,95,115,78,118,62,126,49,136,40,148,34,161,33,174,37,183,45,190,55,193,66,194,82,192,96,188,108,176,118" shape="poly">
                                     </map>
                                     <form id="registForm" action="/pain/regist" method="post">
-                                        <input type="hidden" name="name" th:value="${name}">
-                                        <input type="hidden" name="code" th:value="${userCode}">
+                                        <input type="hidden" name="code" th:if="${code}">
                                         <input type="hidden" name="pos" id="posInput">
                                     </form>
                                 </div>
                             </div>
-                            <div id="overlay" class="overlay"></div>
                         </div>
                         <div class="painDetail">
                             <p class="painExplainText">통증 유형</p>
@@ -103,9 +101,7 @@
                         <div th:if="${pain.pos != null}">
                             <div class="rightBox">
                                 <form id="updateForm" action="/pain/update" method="post">
-                                    <input type="hidden" name="updatePos" th:value="${pain?.pos}">
-                                    <input type="hidden" name="updateCode" th:value="${userCode}">
-                                    <input type="hidden" name="updateName" th:value="${name}">
+                                    <input type="hidden" name="updateCode" th:value="${pain?.userCode}">
                                     <span><input type="submit" value="수정" class="registButton"></span>
                                 </form>
                                 <div class="painStrBox">

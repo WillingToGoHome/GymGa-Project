@@ -134,7 +134,7 @@
                 , PAIN_ETC = #{ etc }
             </if>
         </set>
-        WHERE USER_CODE = #{ userCode }
+        WHERE USER_CODE = #{ code }
         AND PAIN_POS = #{ pos }
     </update>
 

@@ -15,11 +15,9 @@ public class PainService {
     @Autowired
     public PainService(PainMapper painMapper) { this.painMapper = painMapper; }
 
-    public PainDTO selectPain(int code, String userName, PainDTO painDTO) {
+    public PainDTO selectPain(int code) {
 
-        System.out.println(code);
-
-        return painMapper.selectPain(code, userName, painDTO);
+        return painMapper.selectPain(code);
     }
 
     @Transactional
@@ -29,9 +27,9 @@ public class PainService {
     }
 
     @Transactional
-    public void registPain(PainDTO painDTO) {
+    public void registPain(int code, int pos, PainDTO painDTO) {
 
-        painMapper.registPain(painDTO);
+        painMapper.registPain(painDTO, pos, code);
     }
 
     public void deletePain(int code, int pos) {
@@ -39,15 +37,15 @@ public class PainService {
         painMapper.deletePain(code, pos);
     }
 
-    public PainDTO updatePain(int code) {
+    public PainDTO updatePain(int code, PainDTO painDTO) {
 
-        return painMapper.updatePain(code);
+        return painMapper.updatePain(code, painDTO);
     }
 
     @Transactional
-    public void update(PainDTO painDTO) {
+    public void update(int code, int pos) {
 
-        painMapper.update(painDTO);
+        painMapper.update(code, pos);
     }
 
     public PainUpdateDTO getPainByCode(int code, PainDTO painDTO) {
