@@ -108,7 +108,7 @@ public class PassController {
         model.addAttribute("passList", passList);
 
         for (PassAndPassQualDTO pass : passList) {
-            System.out.println("pass = " + pass);
+//            System.out.println("pass = " + pass);
         }
 
         return "/pass/updatesearch";
@@ -121,21 +121,21 @@ public class PassController {
         List<PassAndPassQualDTO> passList = passService.selectAllPassAndUser();
 
         for (PassAndPassQualDTO pass : passList) {
-            System.out.println("pass = " + pass);
-            System.out.println("pqPrice" + pass.getPassQualDTO().getPqPrice().intValue());
+//            System.out.println("pass = " + pass);
+//            System.out.println("pqPrice" + pass.getPassQualDTO().getPqPrice().intValue());
         }
 
         model.addAttribute("passList", passList);
 
-        return "/pass/update";
+        return "pass/update";
     }
-
-    @GetMapping(value = "/class", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public List<PassQualDTO> findPqNameList() {
-        passService.findPqNameList().forEach(System.out::println);
-        return passService.findPqNameList();
-    }
+//
+//    @GetMapping(value = "/class", produces = "application/json; charset=UTF-8")
+//    @ResponseBody
+//    public List<PassQualDTO> findPqNameList() {
+//        passService.findPqNameList().forEach(System.out::println);
+//        return passService.findPqNameList();
+//    }
 
 
 //    @RequestMapping(value = "/refund", method = RequestMethod.GET)

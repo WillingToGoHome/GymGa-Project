@@ -9,8 +9,9 @@
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
-        <result property="userPhone" column="USER_PHONE"/>
+        <result property="userPic" column="USER_PIC"/>
         <result property="userRole" column="USER_ROLE"/>
+        <result property="userPhone" column="USER_PHONE"/>
     </resultMap>
 
 
@@ -20,8 +21,9 @@
         ,   USER_ID
         ,   USER_PWD
         ,   USER_NAME
-        ,   USER_PHONE
+        ,   USER_PIC
         ,   USER_ROLE
+        ,   USER_PHONE
         FROM    USERDB
         WHERE USER_ID = #{ username }
     </select>
@@ -37,6 +39,7 @@
         ,   USER_ADDRESS
         ,   USER_ETC
         ,   USER_ROLE
+        ,   USER_PIC
         )
         VALUES
         (
@@ -48,6 +51,45 @@
         ,   #{ userAddress }
         ,   #{ userEtc }
         ,   #{ role }
+        ,   'default-user.png'
+        )
+    </insert>
+
+    <insert id="registPhysicalDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.PhysicalDTO">
+        INSERT INTO PHYSICALDB(
+        USER_CODE
+        , PHY_HEIGHT
+        , PHY_WEIGHT
+        , PHY_BMI
+        )
+        VALUES(
+        #{ code }
+        , #{ height }
+        , #{ weight }
+        , #{ bmi }
+        )
+    </insert>
+
+    <insert id="registEmployeeDTO" parameterType="com.willingtogohome.gymga.emp.model.dto.EmployeeDTO">
+        INSERT INTO EMPLOYEEDB(
+        USER_CODE
+        , EMP_LOCATION
+        , EMP_QUAL
+        , EMP_SALARY
+        , EMP_YEAR
+        , EMP_TOT_YEAR
+        , EMP_MONTH
+        , EMP_TOT_MONTH
+        )
+        VALUES(
+        #{ code }
+        , #{ location }
+        , #{ qual }
+        , #{ salary }
+        , #{ year }
+        , #{ totalYear }
+        , #{ month }
+        , #{ totalMonth }
         )
     </insert>
 

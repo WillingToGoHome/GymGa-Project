@@ -15,6 +15,7 @@ public class SaleDTO {
     private Integer userCode;
     private String salesMethod;
     private Time salesDate;
+    private int passNo;
 
 
 }

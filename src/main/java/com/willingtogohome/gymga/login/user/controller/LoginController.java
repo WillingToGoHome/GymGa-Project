@@ -1,13 +1,13 @@
 package com.willingtogohome.gymga.login.user.controller;
 
-import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
+import com.willingtogohome.gymga.emp.model.dto.EmployeeDTO;
+import com.willingtogohome.gymga.emp.model.dto.PhysicalDTO;
+import com.willingtogohome.gymga.emp.model.service.EmpService;
 import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,21 +17,36 @@ import java.util.List;
 public class LoginController {
 
     private final LoginService loginService;
+    private final EmpService empService;
 
-    public LoginController(LoginService loginService) {
+    @Autowired
+    public LoginController(LoginService loginService, EmpService empService) {
         this.loginService = loginService;
+        this.empService = empService;
     }
 
     @GetMapping("/login/admin/regist")
-    public String regist(){
-        return "/login/admin/regist";
+    public void regist(){
+
     }
 
     @PostMapping("/login/admin/regist")
     public ModelAndView regist(@ModelAttribute RegistDTO registDTO) {
         ModelAndView mv = new ModelAndView();
 
-        int result = loginService.regist(registDTO);
+        int code = empService.findLastCode() + 1;
+
+        registDTO.setUserCode(code);
+        registDTO.setUserPic("default-user.png");
+
+        PhysicalDTO physicalDTO = new PhysicalDTO(code, "", "", "");
+        EmployeeDTO employeeDTO = new EmployeeDTO(code, "", "0", "0", "0", "0", "", "2000000");
+
+        System.out.println("registDTO = " + registDTO);
+        System.out.println("physicalDTO = " + physicalDTO);
+        System.out.println("employeeDTO = " + employeeDTO);
+
+        int result = loginService.regist(registDTO, physicalDTO, employeeDTO);
 
         String message = "";
 
@@ -42,6 +57,8 @@ public class LoginController {
         }
         mv.addObject("message", message);
         mv.setViewName("/login");
+        System.out.println(message);
+        System.out.println(mv);
         return mv;
     }
 
