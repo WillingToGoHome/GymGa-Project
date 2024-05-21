@@ -111,7 +111,7 @@
     width: 120px; /* Adjust as needed */
     height: 111px; /* Adjust as needed */
     background-color: #8DD0F6;
-    border-radius: 10px;
+    border-radius: 20px;
     stroke: #4B82D8;
     list-style: none;
     display: flex;
@@ -137,6 +137,7 @@
     color: black;
     font-weight: bold;
 
+
 }
 
 
@@ -152,6 +153,7 @@
     top: 20px;
 
 
+
 }
 
 .facStart,
@@ -162,6 +164,7 @@
     margin-bottom: 15px;
     margin-top: -15px;
     color: black;
+
 
 
 }

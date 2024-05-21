@@ -2,14 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <title>Title</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!--    <link rel="stylesheet" href="/fac/mainStyle2.css">-->
+    <!--    <link rel="stylesheet" href="/fac/mainStyle2.css">-->
     <link rel="stylesheet" href="/styles/mainStyle.css">
     <link rel="stylesheet" href="/styles/headerStyle.css">
     <link rel="stylesheet" href="/styles/navbarStyle.css">
@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;">
     <div class="app-area">
-<!--        Header Start-->
+        <!--        Header Start-->
         <div class="header-container">
             <div onclick="location.href='/'" class="logo">
                 <div class="gym" style=" margin-top:12px; color: #4B82D8;" >Gym</div>
@@ -60,7 +60,7 @@
                 <img class="icon2" src="/images/Logout.png" onclick="document.getElementById('form-logout').submit();" style="cursor: pointer">
             </form>
         </div>
-<!--        Header End-->
+        <!--        Header End-->
         <!--Main Start-->
         <div class="main-container">
             <!--Navbar Start-->
@@ -113,7 +113,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="facActionModalLabel">사물함 등록, 수정 및 삭제</h5>
-                                    <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </div>
                             <div class="modal-body">
                                 <!-- 등록, 수정, 삭제 버튼 -->
@@ -131,34 +131,52 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 경고 모달 -->
+                <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="width: 500px; height: 200px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="warningModalLabel">경고</h5>
+                                    <span aria-hidden="true">&times;</span>
+                            </div>
+                            <div class="modal-body" style="color: black;">
+                                <h5 style=" text-align: center; width: 100%">모두 작성 하십시오</h5>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-custom" data-dismiss="modal" onclick="submitForm()">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 사물함 등록 -->
                 <div class="modal fade" id="facActionModal2" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel2" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="facActionModalLabel2" >사물함 등록</h5>
-                                    <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </div>
 
 
                             <div class="modal-body">
                                 <form id="registForm" onsubmit="submitForm()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput" style="padding-left: 5px; border-radius: 10px" readonly><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput" style="padding-left: 5px; border-radius: 5px" readonly><br>
                                     <!--                    <label>회원 코드: </label>-->
                                     <!--                    <input type="text" name="userCode" id="userCode"><br>-->
                                     <label>회원 코드: </label>
-                                    <select name="userCode" id="userCode" style="border-radius: 10px"></select><br>
+                                    <select name="userCode" id="userCode" style="border-radius: 5px; padding-left: 5px"></select><br>
                                     <label>사용 가능 상태: </label>
-                                    <select name="facStatus" id="facStatus" style="border-radius: 10px">
+                                    <select name="facStatus" id="facStatus" style="border-radius: 5px; padding-left: 5px">
                                         <option value=""></option>
                                         <option value="사용중">사용 중</option>
-                                        <option value="만료">만료</option>
                                     </select><br>
                                     <label>사용 시작 기간: </label>
-                                    <input type="date" name="facStart" id="facStart" style="border-radius: 10px"><br>
+                                    <input type="date" name="facStart" id="facStart" style="border-radius: 5px; padding-left: 5px"><br>
                                     <label>사용 만료 기간: </label>
-                                    <input type="date" name="facEnd" id="facEnd" style="border-radius: 10px"><br>
+                                    <input type="date" name="facEnd" id="facEnd" style="border-radius: 5px; padding-left: 5px"><br>
                                 </form>
                             </div>
                             <div class="modal-footer justify-content-center">
@@ -170,6 +188,8 @@
                 </div>
 
 
+
+
                 <!-- 사물함 수정 -->
                 <div class="modal fade" id="facActionModal3" tabindex="-1" role="dialog"
                      aria-labelledby="facActionModalLabel3" aria-hidden="true">
@@ -177,24 +197,24 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="facActionModalLabel3">사물함 수정</h5>
-                                    <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </div>
                             <div class="modal-body">
                                 <form id="updateForm" onsubmit="submitForm2()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="padding-left: 5px; border-radius: 10px"><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput2" style="padding-left: 5px; border-radius: 5px"><br>
                                     <label>회원 코드: </label>
-                                    <input type="text" name="userCode" id="clickedUserCodeInput" style="padding-left: 5px; border-radius: 10px" ><br>
+                                    <input type="text" name="userCode" id="clickedUserCodeInput2" style="padding-left: 5px; border-radius: 5px" ><br>
                                     <!--                    <label>회원 코드: </label>-->
                                     <!--                    <select name="userCode" id="userCode3"></select><br>-->
                                     <label>사용 가능 상태: </label>
-                                    <select name="facStatus" id="facStatus3" style="border-radius: 10px">
+                                    <select name="facStatus" id="facStatus3" style="border-radius: 5px; padding-left: 5px">
                                         <option value=""></option>
                                         <option value="사용중">사용 중</option>
                                         <option value="만료">만료</option>
                                     </select><br>
-                                    <label>사용 시작 기간: </label><input type="date" name="facStart" id="facStart1" style="border-radius: 10px"><br>
-                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" id="facEnd1" style="border-radius: 10px"><br>
+                                    <label>사용 시작 기간: </label><input type="date" name="facStart" id="facStart1" style="border-radius: 5px; padding-left: 5px"><br>
+                                    <label>사용 만료 기간: </label><input type="date" name="facEnd" id="facEnd1" style="border-radius: 5px; padding-left: 5px"><br>
                                 </form>
                             </div>
 
@@ -205,23 +225,70 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    function submitForm2() {
 
+// 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("updateForm"));
+
+// POST 요청 보내기
+                        fetch("/fac/update", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+// 성공적으로 처리된 경우 모달 닫기
+                                    $('#facActionModal').modal('hide');
+                                    window.location.href = "/fac/select";
+
+                                } else {
+// 실패한 경우 오류 메시지 표시
+                                    console.error('등록 실패');
+                                }
+                            })
+                            .catch(error => console.error('에러 발생:', error));
+                    }
+
+                </script>
+
+
+
+                <!-- 경고 모달 -->
+                <div class="modal fade" id="deleteWarningModal" tabindex="-1" role="dialog" aria-labelledby="deleteWarningModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="width: 500px; height: 200px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteWarningModalLabel">경고</h5>
+                                <span aria-hidden="true">&times;</span>
+                            </div>
+                            <div class="modal-body" style="color: black">
+                                <h5 style=" text-align: center; width: 100%">정말 삭제 하시겠습니까?</h5>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-custom" data-dismiss="modal" onclick="submitForm3()">닫기</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="confirmDelete()">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- 사물함 삭제 -->
                 <div class="modal fade" id="facActionModal4" tabindex="-1" role="dialog" aria-labelledby="facActionModalLabel4" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="facActionModalLabel4">사물함 삭제</h5>
-                                    <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </div>
                             <div class="modal-body">
                                 <form id="deleteForm" onsubmit="submitForm3()">
                                     <label>사물함 번호: </label>
-                                    <input type="text" name="facCode" id="clickedFacCodeInput3" style="padding-left: 5px; border-radius: 10px" readonly><br>
+                                    <input type="text" name="facCode" id="clickedFacCodeInput3" style="padding-left: 5px; border-radius: 5px"><br>
+                                    <!--                                    <label>회원 코드: </label>-->
+                                    <!--                                    <input type="text" name="userCode" style="padding-left: 5px; border-radius: 10px" value="0" ><br>-->
                                     <label>사용 가능 상태: </label>
-                                    <select name="facStatus" id="facStatus4" style="border-radius: 10px">
-                                        <option value=""></option>
-                                    </select><br>
+                                    <input type="text" name="facStatus" id="facStatus4" style="border-radius: 5px; padding-left: 5px;" readonly>
+                                    <br>
                                 </form>
                             </div>
                             <div class="modal-footer justify-content-center">
@@ -231,6 +298,48 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    function submitForm3() {
+
+// 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("deleteForm"));
+                        const facStatus = formData.get("facStatus").trim();
+
+
+                        if(facStatus === "") {
+                            // 모든 필드가 작성되지 않은 경우 경고 모달 표시
+                            $('#deleteWarningModal').modal('show');
+                            $('#facActionModal4').modal('show'); // 삭제 모달을 닫음
+                            return;
+                        }
+
+                        // 삭제 확인 모달을 표시
+                        $('#deleteWarningModal').modal('show');
+                    }
+
+                    function confirmDelete() {
+                        // 폼 데이터 가져오기
+                        const formData = new FormData(document.getElementById("deleteForm"));
+
+                        // POST 요청 보내기
+                        fetch("/fac/delete", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // 성공적으로 처리된 경우 모달 닫기
+                                    $('#facActionModal4').modal('hide');
+                                    window.location.href = "/fac/select";
+                                } else {
+                                    // 실패한 경우 오류 메시지 표시
+                                    console.error('삭제 실패');
+                                }
+                            })
+                            .catch(error => console.error('에러 발생:', error));
+                    }
+                </script>
 
                 <script th:inline="javascript">
                     function setFacStatusColor() {
@@ -264,8 +373,9 @@
                         // 클릭한 사물함 번호 가져오기
                         var facCode = $(this).find('.facCodeLink').text(); // 사물함 번호를 가져옴
                         var userCode = $(this).find('.userCode').text(); // 사물함 번호를 가져옴
-                        // var facStart = this.find('.facStart').text.replace(' ~', '');
-                        // var facEnd = $(this).find('.facEnd').text(); // 사물함 번호를 가져옴
+
+                        var secondBracketIndex = userCode.indexOf('(', userCode.indexOf('(') + 1);
+                        var secondBracketContent = userCode.substring(secondBracketIndex + 1, userCode.indexOf(')', secondBracketIndex));
 
 
 
@@ -276,17 +386,40 @@
                         $('#clickedFacCodeInput').val(facCode); // 사물함 등록 번호 id
                         $('#clickedFacCodeInput2').val(facCode); // 사물함 수정 번호 id
                         $('#clickedFacCodeInput3').val(facCode); // 사물함 삭제 번호 id
-                        $('#clickedUserCodeInput').val(userCode); // 사물함 삭제 번호 id
+                        $('#clickedUserCodeInput').val(secondBracketContent); // 사용자 코드의 두 번째 괄호 내용 표시
+                        $('#clickedUserCodeInput2').val(secondBracketContent); // 사용자 코드의 두 번째 괄호 내용 표시
 
                         // $('#clickedUserCodeInput').val(userCodeCodePart); // 클릭한 사용자 코드의 코드 부분을 할당
-                        // $('#facStart1').val(facStart); // 클릭한 사용자 코드의 코드 부분을 할당
-                        // $('#facEnd1').val(facEnd); // 클릭한 사용자 코드의 코드 부분을 할당
+
 
 
                         // 변경된 데이터에 따라 스타일 다시 설정
                         setFacStatusColor();
                     });
                 </script>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Set the facStatus color
+                        setFacStatusColor();
+
+                        // Event listener for locker item clicks
+                        document.querySelectorAll('.fac-item').forEach(function(item) {
+                            item.addEventListener('click', function() {
+                                // Get the locker data from the clicked item
+                                var facStart = this.querySelector('.facStart').textContent.trim().replace(' ~', ''); // Remove the '~'
+                                var facEnd = this.querySelector('.facEnd').textContent.trim();
+                                var facStatus = this.querySelector('.facStatus').textContent.trim();
+
+                                // Set the values in the modal input fields
+                                document.getElementById('facStart1').value = facStart;
+                                document.getElementById('facEnd1').value = facEnd;
+                                document.getElementById('facStatus3').value = facStatus;
+                            });
+                        });
+                    });
+                </script>
+
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
@@ -306,7 +439,7 @@
 
                             // userCode가 3인 경우 "김진용"으로 변경
                             if (userCode === "1") {
-                                element.textContent = "남효정(0000)";
+                                element.textContent = "남효정(0000)(1)";
                             } else {
                                 // userCode와 일치하는 사용자 이름을 가져와서 표시
                                 var userName = users[parseInt(userCode) - 1]; // 정수로 변환 후 인덱스에 맞는 이름 가져오기
@@ -317,6 +450,7 @@
                         });
                     });
                 </script>
+
 
                 <script>
                     function sendRequest() {
@@ -332,6 +466,18 @@
 
                         // 폼 데이터 가져오기
                         const formData = new FormData(document.getElementById("registForm"))
+                        const facCode = formData.get("facCode").trim();
+                        const userCode = formData.get("userCode").trim();
+                        const facStatus = formData.get("facStatus").trim();
+                        const facStart = formData.get("facStart").trim();
+                        const facEnd = formData.get("facEnd").trim();
+
+                        if (facCode === "" || userCode === "" || facStatus === "" || facStart === "" || facEnd === "") {
+                            // 모든 필드가 작성되지 않은 경우 경고 모달 표시
+                            $('#warningModal').modal('show');
+                            $('#facActionModal2').modal('show');
+                            return;
+                        }
 
 
                         // POST 요청 보내기
@@ -357,72 +503,21 @@
                 </script>
 
 
-                <script>
-                    function submitForm2() {
 
-// 폼 데이터 가져오기
-                        const formData = new FormData(document.getElementById("updateForm"));
 
-// POST 요청 보내기
-                        fetch("/fac/update", {
-                            method: "POST",
-                            body: formData
-                        })
-                            .then(response => {
-                                if (response.ok) {
-// 성공적으로 처리된 경우 모달 닫기
-                                    $('#facActionModal').modal('hide');
-                                    window.location.href = "/fac/select";
+                <!--                <script>-->
+                <!--                    fetch("/fac/user")-->
+                <!--                        .then(res=>res.json())-->
+                <!--                        .then(data=> {-->
+                <!--                            const $userCode=document.getElementById("userCode3");-->
 
-                                } else {
-// 실패한 경우 오류 메시지 표시
-                                    console.error('등록 실패');
-                                }
-                            })
-                            .catch(error => console.error('에러 발생:', error));
-                    }
-
-                </script>
-
-                <script>
-                    function submitForm3() {
-
-// 폼 데이터 가져오기
-                        const formData = new FormData(document.getElementById("deleteForm"));
-
-// POST 요청 보내기
-                        fetch("/fac/delete", {
-                            method: "POST",
-                            body: formData
-                        })
-                            .then(response => {
-                                if (response.ok) {
-// 성공적으로 처리된 경우 모달 닫기
-                                    $('#facActionModal').modal('hide');
-                                    window.location.href = "/fac/select";
-
-                                } else {
-// 실패한 경우 오류 메시지 표시
-                                    console.error('등록 실패');
-                                }
-                            })
-                            .catch(error => console.error('에러 발생:', error));
-                    }
-                </script>
-
-                <script>
-                    fetch("/fac/user")
-                        .then(res=>res.json())
-                        .then(data=> {
-                            const $userCode=document.getElementById("userCode3");
-
-                            for(let index in data) {
-                                const $option=document.createElement('option');
-                                $option.text=data[index].userCode;
-                                $userCode.appendChild($option);
-                            }
-                        })
-                </script>
+                <!--                            for(let index in data) {-->
+                <!--                                const $option=document.createElement('option');-->
+                <!--                                $option.text=data[index].userCode;-->
+                <!--                                $userCode.appendChild($option);-->
+                <!--                            }-->
+                <!--                        })-->
+                <!--                </script>-->
 
 
 
@@ -435,9 +530,13 @@
 
 
 
+
+
                             data.forEach(item => {
                                 // 새로운 옵션 요소 생성
                                 const option1 = document.createElement('option');
+
+
 
 
 
@@ -445,10 +544,16 @@
                                 option1.text = item.facCode;
                                 option1.value = item.facCode;
 
+
                                 // 각각의 select 요소에 옵션 추가
                                 facCodeSelect.appendChild(option1);
+
                             });
                         });
+
+
+
+
 
                     // 사용자 데이터 가져오기
                     fetch("/fac/user")
@@ -479,7 +584,39 @@
                 </script>
 
 
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Set the facStatus color
+                        setFacStatusColor();
 
+                        // Event listener for locker item clicks
+                        document.querySelectorAll('.fac-item').forEach(function(item) {
+                            item.addEventListener('click', function() {
+                                // Get the locker data from the clicked item
+                                var facStart = this.querySelector('.facStart').textContent.trim().replace(' ~', ''); // Remove the '~'
+                                var facEnd = this.querySelector('.facEnd').textContent.trim();
+                                var facStatus = this.querySelector('.facStatus').textContent.trim();
+
+                                // Set the values in the modal input fields
+                                document.getElementById('facStart1').value = facStart;
+                                document.getElementById('facEnd1').value = facEnd;
+
+                                // Set the facStatus select to show only the first 3 options
+                                var facStatusSelect = document.getElementById('facStatus3');
+                                facStatusSelect.innerHTML = ''; // Clear existing options
+                                var optionsToShow = ['사용중', '만료']; // Options to show
+                                optionsToShow.forEach(function(optionText) {
+                                    var option = document.createElement('option');
+                                    option.value = optionText;
+                                    option.textContent = optionText;
+                                    facStatusSelect.appendChild(option);
+                                });
+                                // Set the selected option to the current facStatus value
+                                facStatusSelect.value = facStatus;
+                            });
+                        });
+                    });
+                </script>
 
 
 
@@ -513,7 +650,7 @@
         <!--Footer Start-->
         <div th:include="common/footer"></div>
         <!--Footer End-->
-        </div>
     </div>
+</div>
 </body>
 </html>
