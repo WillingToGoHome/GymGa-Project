@@ -327,6 +327,7 @@
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.user_role = 'MEMBER'
+        AND C.pass_start is not null
         ORDER BY
         A.USER_CODE;
     </select>
@@ -369,6 +370,7 @@
                 AND A.USER_ID Like CONCAT('%', #{ text }, '%')
             </if>
             AND A.USER_ROLE = 'MEMBER'
+            AND C.PASS_START IS NOT NULL
         </where>
         ORDER BY
         A.USER_CODE;
@@ -403,7 +405,8 @@
         LEFT JOIN passqualdb B ON C.pq_code = B.pq_code
         LEFT JOIN userdb F ON A.user_staff = F.user_code
         WHERE A.USER_CODE = ${userCode}
-        AND C.PASS_CODE = ${passCode};
+        AND C.PASS_CODE = ${passCode}
+        AND C.PASS_START IS NOT NULL
     </select>
 
     <select id="getCountByCode" resultMap="passCountResultMap" parameterType="int">
