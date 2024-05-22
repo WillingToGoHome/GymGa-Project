@@ -53,12 +53,11 @@
                                         <p th:case="2" class="posText">왼쪽-다리</p>
                                         <p th:case="3" class="posText">오른쪽-팔</p>
                                         <p th:case="4" class="posText">왼쪽-팔</p>
-                                        <p th:case="5" class="posText">가슴</p>
-                                        <p th:case="6" class="posText">등</p>
-                                        <p th:case="7" class="posText">머리</p>
+                                        <p th:case="5" class="posText">상체</p>
+                                        <p th:case="6" class="posText">머리</p>
                                     </div>
                                 </div>
-                                <button class="painPosRegistBox">+</button>
+                                <button class="painPosRegistBox" th:if="${pain?.pos == null}">+</button>
                             </div>
                             <div class="painDetail">
                                 <p class="painExplainText">통증 유형</p>

@@ -61,7 +61,7 @@
                             <span th:text="${user.staffName}"></span>
                         </p>
                         <div class="buttonBox">
-                            <form id="detailForm" action="/user/selectDetail" method="get" style="display: flex">
+                            <form id="detailForm" action="/user/selectdetail" method="get" style="display: flex">
                                 <input type="hidden" name="code" th:value="${user.userCode}">
                                 <input class="detailButton" type="submit" value="상세">
                             </form>
