@@ -2,17 +2,12 @@ package com.willingtogohome.gymga.pass.controller;
 
 import com.willingtogohome.gymga.pass.model.dto.*;
 import com.willingtogohome.gymga.pass.model.service.PassService;
-import com.willingtogohome.gymga.user.model.dto.PhysicalDTO;
-import com.willingtogohome.gymga.user.model.dto.UserAndEmpDTO;
-import com.willingtogohome.gymga.user.model.dto.UserTotDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.lang.reflect.Parameter;
 import java.util.List;
 
 @Controller
@@ -161,7 +156,7 @@ public class PassController {
     @GetMapping("/passlist")
     public void allPassListPage(){}
     /* 등록 이용권 조회 모델에 담기*/
-    @GetMapping("/selectAllPass")
+    @GetMapping("/selectallpass")
     public String allPassList(Model model){
 
         List<PassAndPassQualDTO> passAllList = passService.searchPassList();
@@ -200,11 +195,11 @@ public class PassController {
 
     /* 이용권 상세 페이지 */
 
-    @GetMapping("/selectDetail")
+    @GetMapping("/selectdetail")
     public void passDetailPage(){
     }
 
-    @PostMapping("/selectDetail")
+    @PostMapping("/selectdetail")
     public String selectDetail(@RequestParam("code") Integer userCode,
                                @RequestParam("passCode")Integer passCode, Model model) {
 
@@ -222,7 +217,7 @@ public class PassController {
         model.addAttribute("userPassCount", userPassCount);
         System.out.println("userPassCount = " + userPassCount);
 
-        return "/pass/selectDetail";
+        return "pass/selectdetail";
     }
 
 
