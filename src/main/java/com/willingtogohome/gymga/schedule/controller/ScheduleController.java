@@ -112,7 +112,7 @@ public class ScheduleController {
 
         return "schedule/schedulemain";
     }
-    @PostMapping("/schedule/scheduleregistGx")
+    @PostMapping("/schedule/scheduleregistgx")
     public String registNewGxSchedule(ScheduleDTO newSchedule, RedirectAttributes redirectAttributes) {
 
         scheduleService.registNewGxSchedule(newSchedule);
@@ -148,7 +148,7 @@ public class ScheduleController {
     }
 
     // GX 특정페이지로 보내기(regDate 참조?)
-    @GetMapping("/schedule/scheduleGx/{scheCode}/{scheRegDate}")
+    @GetMapping("/schedule/schedulegx/{scheCode}/{scheRegDate}")
     public String findGxByRegDate(@PathVariable("scheCode") int scheCode,
                                   @PathVariable("scheRegDate") LocalDateTime scheRegDate,
                                   Model model) {
@@ -200,7 +200,7 @@ public class ScheduleController {
     public String updateSchedule(ScheduleDTO scheduleDTO) {
         scheduleService.updateGxSchedule(scheduleDTO);
 
-        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+        return "redirect:/schedule/schedulegx/{scheCode}/{scheRegDate}";
     }
     // 출결변경(출석버튼)-P.T
     @GetMapping("/schedule/attenupdate/{scheCode}")
@@ -213,7 +213,7 @@ public class ScheduleController {
     @GetMapping("/schedule/gxattenupdate/{scheCode}/{scheRegDate}")
     public String updateAttenGx(@PathVariable("scheCode") int scheCode) {
         scheduleService.updateAtten(scheCode);
-        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+        return "redirect:/schedule/schedulegx/{scheCode}/{scheRegDate}";
     }
 
     // 출결변경(결석버튼)
@@ -226,7 +226,7 @@ public class ScheduleController {
     @GetMapping("/schedule/gxabsentupdate/{scheCode}/{scheRegDate}")
     public String updateAbsentGx(@PathVariable("scheCode") int scheCode) {
         scheduleService.updateAbsent(scheCode);
-        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+        return "redirect:/schedule/schedulegx/{scheCode}/{scheRegDate}";
     }
 
     // 취소버튼(롤백개념)
@@ -239,7 +239,7 @@ public class ScheduleController {
     @GetMapping("/schedule/gxcancelupdate/{scheCode}/{scheRegDate}")
     public String updateCancelGx(@PathVariable("scheCode") int scheCode) {
         scheduleService.updateCancel(scheCode);
-        return "redirect:/schedule/scheduleGx/{scheCode}/{scheRegDate}";
+        return "redirect:/schedule/schedulegx/{scheCode}/{scheRegDate}";
     }
 
 
