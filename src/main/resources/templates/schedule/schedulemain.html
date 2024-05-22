@@ -139,7 +139,7 @@
                                 </div>
                                 <hr>
                                 <p class="pt-or-gx">그룹 수업</p>
-                                <form action="/schedule/scheduleregistGx" method="post">
+                                <form action="/schedule/scheduleregistgx" method="post">
                                     <label>담당 강사 선택</label><br>
                                     <select name="empCode" id="empSelectCode2"></select><br>
                                     <div class="class-choice">
@@ -259,7 +259,7 @@
                                         </span>
                                         <span th:case="*">
                                             <a th:text="${scheduleByRunDate.classCategory.className}"
-                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               th:href="@{|/schedule/schedulegx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
                                                style="text-decoration-line: none; color: #000000;">Link Text</a>
                                         </span>
                                     </a>
@@ -273,7 +273,7 @@
                                         </span>
                                         <span th:case="*">
                                             <a th:text="${scheduleByRunDate.empCategory.empName}"
-                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               th:href="@{|/schedule/schedulegx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
                                                style="text-decoration-line: none; color: #000000;">Link Text</a>
                                         </span>
                                     </a>
@@ -287,7 +287,7 @@
                                         </span>
                                         <span th:case="*">
                                             <a th:text="${scheduleByRunDate.scheStartTime}"
-                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               th:href="@{|/schedule/schedulegx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
                                                style="text-decoration-line: none; color: #000000;">Link Text</a>
                                         </span>
                                     </a>
@@ -303,7 +303,7 @@
                                             </span>
                                         <span th:case="*">
                                                 <a th:text="${scheduleByRunDate.userCategory.memberName}"
-                                                   th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                                   th:href="@{|/schedule/schedulegx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
                                                    style="text-decoration-line: none; color: #000000;">Link Text</a>
                                             </span>
                                     </a>
@@ -322,7 +322,7 @@
                                         </span>
                                         <span th:case="*">
                                             <a th:switch="${scheduleByRunDate.scheAtten}"
-                                               th:href="@{|/schedule/scheduleGx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
+                                               th:href="@{|/schedule/schedulegx/${scheduleByRunDate.scheCode}/${scheduleByRunDate.scheRegDate}|}"
                                                style="text-decoration: none;">
                                                 <span th:case="'출석'" style="color: #4041c5;">■ 출석</span>
                                                 <span th:case="'결석'" style="color: #ff0000;">■ 결석</span>

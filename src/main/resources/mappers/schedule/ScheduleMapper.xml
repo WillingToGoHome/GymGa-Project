@@ -417,7 +417,8 @@
                A.PASS_CODE,
                F.PQ_NAME,
                E.PASS_TOTAL,
-               E.PASS_USE;
+               E.PASS_USE
+        ORDER BY A.SCHE_START_TIME
     </select>
 
 

@@ -178,9 +178,9 @@
                         <input type="date" name="scheRunDate" th:value="${selectOneSchedule.scheRunDate}"><br>
                         <label>시간 선택</label><br>
                         <div class="time-choice">
-                        <input type="time" name="scheStartTime" th:value="${selectOneSchedule.scheStartTime}">
+                        <input type="time" name="scheStartTime" id="scheStartTime" th:value="${selectOneSchedule.scheStartTime}">
                         <p>~</p>
-                        <input class="endtime" type="time" name="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
+                        <input class="endtime" type="time" name="scheEndTime" id="scheEndTime" th:value="${selectOneSchedule.scheEndTime}"><br>
                         </div>
                         <button class="check" type="submit">확인</button>
                     </form>
@@ -380,9 +380,97 @@
         absentModal.style.display = "none";
         cancelModal.style.display = "none";
     }
-
-
 </script>
+<script>
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function () {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if (startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = start.getMinutes();
+            if (minutes < 30) {
+                start.setMinutes(0);
+            } else {
+                start.setMinutes(30);
+            }
+
+            // 시작 시간 입력 필드에 값 설정
+            this.value = start.toTimeString().substring(0, 5);
+        }
+    });
+
+    // 종료 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheEndTime").addEventListener("change", function () {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if (endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+    // 시작 시간 입력 필드의 값이 변경될 때 호출되는 함수
+    document.getElementById("scheStartTime").addEventListener("change", function () {
+        // 시작 시간 값을 가져옴
+        var startTime = this.value;
+
+        // 만약 시작 시간 값이 유효하다면
+        if (startTime) {
+            // 시작 시간을 Date 객체로 변환
+            var start = new Date("2024-01-01 " + startTime);
+
+            // 종료 시간을 계산하여 1시간을 더함
+            var end = new Date(start.getTime() + (60 * 60 * 1000));
+
+            // 종료 시간의 시간과 분을 추출하여 문자열로 변환
+            var hours = ("0" + end.getHours()).slice(-2);
+            var minutes = ("0" + end.getMinutes()).slice(-2);
+
+            // 종료 시간 입력 필드에 값 설정
+            document.getElementById("scheEndTime").value = hours + ":" + minutes;
+        }
+    });
+    document.getElementById("scheEndTime").addEventListener("change", function () {
+        // 종료 시간 값을 가져옴
+        var endTime = this.value;
+
+        // 만약 종료 시간 값이 유효하다면
+        if (endTime) {
+            // 종료 시간을 Date 객체로 변환
+            var end = new Date("2024-01-01 " + endTime);
+
+            // 분을 00분 또는 30분으로 설정
+            var minutes = end.getMinutes();
+            if (minutes < 30) {
+                end.setMinutes(0);
+            } else {
+                end.setMinutes(30);
+            }
+
+            // 종료 시간 입력 필드에 값 설정
+            this.value = end.toTimeString().substring(0, 5);
+        }
+    });
+</script>
+
 
 </body>
 </html>
