@@ -1,11 +1,9 @@
 package com.willingtogohome.gymga.user.controller;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import com.willingtogohome.gymga.user.model.dto.*;
 
 import com.willingtogohome.gymga.user.model.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,14 +26,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/selectAll")
+    @GetMapping("/selectall")
     public String UserAllList(Model model) {
 
         List<UserAndEmpDTO> userList = userService.allUser();
 
         model.addAttribute("userList", userList);
 
-        return "user/selectAll";
+        return "user/selectall";
     }
 
     @PostMapping("/delete")
@@ -146,10 +141,10 @@ public class UserController {
 
         userService.registUser(newUser, physical);
 
-        return "redirect:/user/selectAll";
+        return "redirect:/user/selectall";
     }
 
-    @GetMapping("/selectDetail")
+    @GetMapping("/selectdetail")
     public String selectDetail(HttpSession session,
                                @RequestParam("code") String userCode, Model model,
                                UserDTO userDTO, PhysicalDTO physicalDTO) {
@@ -165,7 +160,7 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        return "user/selectDetail";
+        return "user/selectdetail";
     }
 
     @GetMapping("/update")
@@ -187,7 +182,7 @@ public class UserController {
         return "/user/update";
     }
 
-    @PostMapping("/updateUser")
+    @PostMapping("/updateuser")
     public String update(HttpSession session,
                          @RequestParam("code") String userCode, Model model,
                          @RequestParam String userAddress1, @RequestParam String userAddress2,
@@ -241,6 +236,6 @@ public class UserController {
 
         model.addAttribute("user", user);
 
-        return "/user/selectDetail";
+        return "user/selectdetail";
     }
 }

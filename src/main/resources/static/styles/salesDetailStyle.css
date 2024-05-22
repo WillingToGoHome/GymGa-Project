@@ -127,6 +127,9 @@ body{
     /*padding-left: 39%;*/
 
 }
+.icon2{
+    border-radius: 0;
+}
 
 .search {
     width: 130px;
