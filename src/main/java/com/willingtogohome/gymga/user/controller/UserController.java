@@ -43,7 +43,7 @@ public class UserController {
         int code = Integer.parseInt(userCode);
         userService.deleteUser(code);
 
-        return "redirect:/user/selectAll";
+        return "redirect:/user/selectall";
     }
 
     @GetMapping("/search")
