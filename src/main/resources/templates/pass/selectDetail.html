@@ -33,36 +33,46 @@
                         <p class="text">등록 이용권 상세 조회</p>
                     </div>
                     <hr>
-                    <div class="profile-box">
+                    <div class="profile-box" style="margin-left: 30px">
                         <div class="profile-pic">
-                            프로필 사진 구간
+                            <img th:src="|/imageFile/${user.userDTO.userPic}|">
                         </div>
-                        <div class="profile-info">
-                            <div class="left-info">
-                                <p>이름</p>
-                                <p>생년월일</p>
-                                <p>성별</p>
-                                <p>연락처</p>
-                                <p>주소</p>
-                            </div>
-                            <div class="left-info-text">
-                                <p th:text="${user.userDTO.userName}"></p>
-                                <p th:text="${user.userDTO.userBirth}"></p>
-                                <p th:text="${user.userDTO.userGender}"></p>
-                                <p th:text="${user.userDTO.userPhone}"></p>
-                                <p th:text="${user.userDTO.userAddress}"></p>
-                            </div>
-                            <div class="right-info">
-                                <p>담당 강사</p>
-                                <p>최초 등록</p>
-                                <p>만료(예정)</p>
-                                <p>상태</p>
-                            </div>
-                            <div class="right-info-text">
-                                <p th:text="${user.empDTO != null ? user.empDTO.empName : '없음'}"></p>
-                                <p th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')}"></p>
-                                <p th:text="${#dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
-                                <p th:text="${user.passStatus}"></p>
+                        <div style="font-size: 14px">
+                            <div class="profile-contents" style="height: 255px; float: left">
+                                <div>
+                                    <div style="float: left; width: 80px; font-weight: bold">
+                                        <p>이름</p>
+                                        <p>생년월일</p>
+                                        <p>성별</p>
+                                        <p>연락처</p>
+                                    </div>
+                                    <div style="float: left; width: 160px">
+                                        <p th:text="${user.userDTO.userName}"></p>
+                                        <p th:text="${user.userDTO.userBirth}"></p>
+                                        <p th:text="${user.userDTO.userGender}"></p>
+                                        <p th:text="${user.userDTO.userPhone}"></p>
+                                    </div>
+                                    <div style="float: left; width: 80px; font-weight: bold">
+                                        <p>담당 강사</p>
+                                        <p>최초 등록</p>
+                                        <p>만료(예정)</p>
+                                        <p>상태</p>
+                                    </div>
+                                    <div style="float: left; width: 160px">
+                                        <p th:text="${user.empDTO != null ? user.empDTO.empName : '없음'}"></p>
+                                        <p th:text="${#dates.format(user.passStart, 'yyyy-MM-dd')}"></p>
+                                        <p th:text="${#dates.format(user.passEnd, 'yyyy-MM-dd')}"></p>
+                                        <p th:text="${user.passStatus}"></p>
+                                    </div>
+                                </div>
+                                <div style="clear: left">
+                                    <div style="float: left; width: 80px; font-weight: bold">
+                                        <p>주소</p>
+                                    </div>
+                                    <div style="float: left;">
+                                        <p th:text="${user.userDTO.userAddress}"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
