@@ -4,6 +4,7 @@ import com.willingtogohome.gymga.emp.model.dto.*;
 import com.willingtogohome.gymga.emp.model.service.EmpService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -437,6 +438,21 @@ public class EmpController {
 
         if (exception.toString().contains("salary")) {
             message = "기본급 입력에 문제가 발생했습니다";
+        }
+
+        model.addAttribute("message", message);
+        model.addAttribute("exception", exception);
+
+        return "/emp/error";
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public String dataIntegrityViolationException(DataIntegrityViolationException exception, Model model) {
+
+        String message = "자료 변경에 문제가 발생했습니다";
+
+        if (exception.toString().contains("FOREIGN KEY")) {
+            message = "이미 등록된 일정등으로 인해 삭제에 실패했습니다";
         }
 
         model.addAttribute("message", message);
