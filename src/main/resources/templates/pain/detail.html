@@ -27,7 +27,7 @@
             <!--개인 작업 시작-->
             <div class="contents">
                 <div class="on">
-                    <img src="/img/Back.png" onClick="location.href='/user/selectAll'" class="back">
+                    <img src="/img/Back.png" onClick="location.href='/user/selectall'" class="back">
                     <p class="topic" th:if="${pain != null}" th:text="${pain?.userName} + ' 회원님'"></p>
                     <p class="topic" th:if="${pain == null}">
                         <span class="topic">통증 등록</span>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <button class="painPosRegistBox">+</button>
+                            <button class="painPosRegistBox" th:if="${pain?.pos == null}">+</button>
                             <div class="modalContainer">
                                 <div class="modalContent">
                                     <img src="/images/기본.png" id="main_img" usemap="#image-map" style="width: 300px; margin-top: 10px; margin-left: 38%;">

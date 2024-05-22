@@ -294,7 +294,7 @@
             <if test="userPhone != ''">
                 , USER_PHONE = #{ userPhone }
             </if>
-            <if test="userPic != ''">
+            <if test="userPic != null">
                 , USER_PIC = #{ userPic }
             </if>
             <if test="userGender != ''">

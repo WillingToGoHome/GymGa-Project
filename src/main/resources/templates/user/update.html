@@ -32,12 +32,12 @@
             <div class="outerDiv">
                 <div class="mainBox">
                     <div class="on">
-                        <img class="back" src="/img/Back.png" onClick="location.href='/user/selectAll'">
+                        <img class="back" src="/img/Back.png" onClick="location.href='/user/selectall'">
                         <p class="topic" th:text="${user.userName} + ' 회원님 정보수정'"></p>
                     </div>
                     <hr class="line1">
                     <div>
-                        <form action="/user/updateUser" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
+                        <form action="/user/updateuser" method="post" enctype="multipart/form-data" onsubmit="return isValidCode()">
                             <div class="signupBox">
                                 <div class="previewBox">
                                     <img id="preview" th:src="|/imageFile/${user.userPic}|"><br>
