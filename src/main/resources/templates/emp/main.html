@@ -145,7 +145,7 @@
                                     </div>
                                     <hr class="line1">
                                     <div class="list">
-                                        <div class="empBlock" th:each="emp : ${ empList }">
+                                        <div class="empBlock" th:each="emp : ${ empList }" th:onClick="|location.href='/emp/detail/' + ${ emp.code }|">
                                             <div class="empBlockLeft">
                                                 <img class="empImg" th:src="|/imageFile/${ emp.pic }|"/>
                                             </div>

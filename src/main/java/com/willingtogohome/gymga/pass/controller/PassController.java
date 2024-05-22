@@ -83,9 +83,9 @@ public class PassController {
         ValidateDTO validateDTO = new ValidateDTO("유효", code + 1, Integer.parseInt(memberCode));
 
 //        System.out.println("memberCode = " + memberCode);
-//        System.out.println("passDTO = " + passDTO);
-//        System.out.println("saleDTO = " + saleDTO);
-//        System.out.println("validateDTO = " + validateDTO);
+        System.out.println("passDTO = " + passDTO);
+        System.out.println("saleDTO = " + saleDTO);
+        System.out.println("validateDTO = " + validateDTO);
 
         passService.registNewPass(passDTO, saleDTO, validateDTO);
 

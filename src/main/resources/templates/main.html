@@ -388,12 +388,27 @@
                                 label: {
                                     show: true,
                                     position: 'middle',
-                                    formatter: params => {
-                                        const percent = params.percent.toFixed(1);
+                                    formatter: function(params) {
+                                        var dataName = params.data.name;
+                                        var dataValue = params.data.value;
+                                        var percent = params.percent.toFixed(1);
+                                        var PT = data.ptCount;
+                                        var GX = data.gxCount;
+                                        var GP = data.gpCount;
 
-                                        return percent === '0.0' ? '' : `${percent}`;
+                                        if (percent === '0.00') {
+                                            return '';
                                         }
-                                    },
+
+                                        if (dataName === 'PT') {
+                                            return percent + '%';
+                                        } else if (dataName === 'GX') {
+                                            return  percent + '%';
+                                        } else if (dataName === '일반') {
+                                            return percent + '%';
+                                        }
+                                    }
+                                },
                                 emphasis: {
                                     label: {
                                         show: true,

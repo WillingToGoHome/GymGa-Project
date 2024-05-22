@@ -61,7 +61,7 @@
                         </div>
                         <div class="sideEmpList">
                             <div class="sideList">
-                                <div class="sideEmpBlock" th:each="emp : ${ empList }">
+                                <div class="sideEmpBlock" th:each="emp : ${ empList }" th:onClick="|location.href='/emp/detail/' + ${ emp.code }|">
                                     <div class="empBlockLeft">
                                         <img class="empImg" th:src="|/imageFile/${ emp.pic }|">
                                     </div>

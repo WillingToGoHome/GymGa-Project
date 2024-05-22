@@ -234,6 +234,9 @@
             <if test="etc != ''">
                 , USER_ETC = #{ etc }
             </if>
+            <if test="'gender != '">
+                , USER_GENDER = #{ gender }
+            </if>
         </set>
         WHERE USER_CODE = #{ code }
     </update>
