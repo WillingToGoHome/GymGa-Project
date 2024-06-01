@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -61,4 +62,8 @@ public class FacService {
     public List<FacDTO> findAllAvailable() {
         return facMapper.findAllAvailable();
     }
+//@Transactional
+//    public void updateFac(int facCode, FacDTO updateFac) {
+//        facMapper.updateFac(facCode, updateFac);
+//    }
 }

@@ -5,6 +5,7 @@ import com.willingtogohome.gymga.fac.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 @Mapper
@@ -28,5 +29,9 @@ public interface FacMapper {
     List<FacDTO> findAllInUse();
 
     List<FacDTO> findAllAvailable();
+
+//    void updateFac(@Param("facCode") int facCode, @Param("updateFac") FacDTO updateFac);
+
 }
+
 

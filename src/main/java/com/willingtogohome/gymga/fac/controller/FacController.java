@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/fac")
@@ -112,6 +114,27 @@ public class FacController {
         return "redirect:/fac/select";
     }
 
+//    @PostMapping("/update")
+//    public String updateFac(@RequestParam("facCode") int facCode,
+//                            @RequestParam("userCode") int userCode,
+//                            @RequestParam("facStart") Date facStart,
+//                            @RequestParam("facEnd") Date facEnd,
+//                            @RequestParam("facStatus") String facStatus,
+//                            RedirectAttributes rttr) {
+//
+//        FacDTO updateFac = new FacDTO();
+//        updateFac.setFacCode(facCode);
+//        updateFac.setUserCode(userCode);
+//        updateFac.setFacStart(facStart);
+//        updateFac.setFacEnd(facEnd);
+//        updateFac.setFacStatus(facStatus);
+//
+//        facService.updateFac(facCode, updateFac);
+//
+//        rttr.addFlashAttribute("successMessage", "사물함 수정에 성공했습니다!");
+//
+//        return "redirect:/fac/select";
+//    }
 
     @PostMapping("/update")
     public String updateFac(FacDTO renewFac, RedirectAttributes rttr) {
